@@ -1,0 +1,70 @@
+name: Daily Maharashtra 5-Dam Data Collector
+
+on:
+  schedule:
+    # Runs daily at 09:00 AM IST (03:30 AM UTC)
+    - cron: '30 3 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub UI anytime
+
+jobs:
+  run-scraper-and-sync-db:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install System Dependencies & Python Libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+          pip install pandas openpyxl mysql-connector-python pypdf pdfplumber
+
+      - name: Fetch Dam Data & Sync to Cloud MySQL
+        env:
+          MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
+          MYSQL_PORT: ${{ secrets.MYSQL_PORT }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+        run: |
+          python3 -c "
+          import fetch_maharashtra_dams_data
+          import os
+
+          # 1. Fetch recent 3 days data to ensure no missing reports
+          df = fetch_maharashtra_dams_data.fetch_multi_dam_data(days=3)
+          
+          # 2. Update Excel and CSV files in repo
+          fetch_maharashtra_dams_data.save_to_files(
+              df,
+              output_excel='Maharashtra_5_Dams_Data.xlsx',
+              output_csv='Maharashtra_5_Dams_Data.csv'
+          )
+
+          # 3. Sync to Cloud MySQL tables if credentials are set
+          mysql_host = os.environ.get('MYSQL_HOST')
+          if mysql_host:
+              fetch_maharashtra_dams_data.push_to_mysql(
+                  df,
+                  host=mysql_host,
+                  user=os.environ.get('MYSQL_USER', 'avnadmin'),
+                  password=os.environ.get('MYSQL_PASSWORD', ''),
+                  database='defaultdb',
+                  port=int(os.environ.get('MYSQL_PORT', 3306))
+              )
+          else:
+              print('[!] MYSQL_HOST secret not set. Skipping DB sync.')
+          "
+
+      - name: Commit and Push Updated Excel & CSV Files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Maharashtra_5_Dams_Data.xlsx Maharashtra_5_Dams_Data.csv
+          git commit -m "Auto-update dam storage records [$(date +'%Y-%m-%d')]" || exit 0
+          git push

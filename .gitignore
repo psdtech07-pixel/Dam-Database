@@ -1,0 +1,5 @@
+# Ignore cached downloaded PDFs and virtualenvs
+dam_pdfs/
+__pycache__/
+*.pyc
+.env
