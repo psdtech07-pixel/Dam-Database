@@ -263,12 +263,14 @@ def push_to_mysql(df, host='localhost', user='root', password='', database='maha
 
     print(f"[*] Connecting to MySQL database '{database}' on {host}:{port}...")
     try:
-        conn = mysql.connector.connect(
-            host=host,
-            user=user,
-            password=password,
-            port=port
-        )
+        conn_kwargs = {
+            'host': host,
+            'user': user,
+            'password': password,
+            'port': port,
+            'ssl_disabled': False
+        }
+        conn = mysql.connector.connect(**conn_kwargs)
         cursor = conn.cursor()
         cursor.execute(f"CREATE DATABASE IF NOT EXISTS {database}")
         cursor.execute(f"USE {database}")
