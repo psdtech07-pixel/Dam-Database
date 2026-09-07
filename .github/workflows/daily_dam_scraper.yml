@@ -52,15 +52,18 @@ jobs:
 
           # 3. Sync to Cloud MySQL tables if credentials are set
           mysql_host = os.environ.get('MYSQL_HOST')
-          if mysql_host:
-              fetch_maharashtra_dams_data.push_to_mysql(
-                  df,
-                  host=mysql_host,
-                  user=os.environ.get('MYSQL_USER', 'avnadmin'),
-                  password=os.environ.get('MYSQL_PASSWORD', ''),
-                  database='defaultdb',
-                  port=int(os.environ.get('MYSQL_PORT', 3306))
-              )
+          if mysql_host and mysql_host.strip():
+              try:
+                  fetch_maharashtra_dams_data.push_to_mysql(
+                      df,
+                      host=mysql_host.strip(),
+                      user=os.environ.get('MYSQL_USER', 'avnadmin').strip(),
+                      password=os.environ.get('MYSQL_PASSWORD', '').strip(),
+                      database='defaultdb',
+                      port=int(os.environ.get('MYSQL_PORT', 19180))
+                  )
+              except Exception as e:
+                  print('[!] Note: MySQL Sync warning:', e)
           else:
               print('[!] MYSQL_HOST secret not set. Skipping DB sync.')
           "
