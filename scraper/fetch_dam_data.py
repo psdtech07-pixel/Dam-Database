@@ -223,75 +223,25 @@ def fetch_multi_dam_data(days=365, pdf_dir='dam_pdfs', max_download_workers=15, 
     
     return df
 
-def save_to_files(df, output_excel='Maharashtra_5_Dams_Data.xlsx', output_csv='Maharashtra_5_Dams_Data.csv'):
+def save_to_files(df):
     """
     Ingests scraped records into SQLite relational DBMS ('pune_dams.db') via UPSERT,
-    and exports the complete database back to CSV, Excel, and JSON.
+    and exports the complete database back to JSON for the web dashboard.
     Guarantees zero data loss and persistent historical storage.
     """
+    db_dir = os.path.join(os.path.dirname(__file__), '..', 'database')
+    if db_dir not in sys.path:
+        sys.path.append(db_dir)
     import db_manager
+
     db_manager.init_db()
 
     # 1. UPSERT newly scraped records into SQLite DB
     if not df.empty and 'Dam Name' in df.columns:
-        # Temporary save to merge into clean dataset
-        temp_csv = 'temp_scraped_latest.csv'
-        df.to_csv(temp_csv, index=False)
-        db_manager.seed_reports_from_csv(temp_csv)
-        if os.path.exists(temp_csv):
-            os.remove(temp_csv)
+        db_manager.ingest_records_from_dataframe(df)
 
     # 2. Export clean updated database to JSON for dashboard
-    db_manager.export_db_to_json('dam_data.json')
-
-    # 3. Export full combined dataset from DB to CSV & Excel
-    try:
-        conn = db_manager.get_db_connection()
-        query = """
-        SELECT 
-            d.dam_name AS "Dam Name",
-            strftime('%d/%m/%Y', r.report_date) AS "Report Date",
-            r.report_time AS "Report Time",
-            d.dead_storage_mcm AS "Dead Storage (MCM)",
-            d.design_live_mcm AS "Design Live Storage (MCM)",
-            d.design_gross_mcm AS "Design Gross Storage (MCM)",
-            r.current_live_mcm AS "Current Live Storage (MCM)",
-            r.current_gross_mcm AS "Current Gross Storage (MCM)",
-            r.current_pct AS "Current Live Storage (%)",
-            r.last_year_pct AS "Last Year Storage (%)",
-            r.status AS "Status"
-        FROM daily_reports r
-        JOIN dams d ON r.dam_id = d.dam_id
-        ORDER BY r.report_date DESC, d.dam_name ASC;
-        """
-        full_df = pd.read_sql_query(query, conn)
-        conn.close()
-
-        full_df.to_csv(output_csv, index=False, encoding='utf-8-sig')
-        full_df.to_csv('Maharashtra_5_Dams_Cleaned_Data.csv', index=False, encoding='utf-8-sig')
-        print(f"[+] Saved Complete Database ({len(full_df)} records) to CSV: {output_csv}")
-
-        with pd.ExcelWriter(output_excel, engine='openpyxl') as writer:
-            full_df.to_excel(writer, index=False, sheet_name='All 5 Dams')
-            ws_all = writer.sheets['All 5 Dams']
-            for col in ws_all.columns:
-                max_len = max(len(str(cell.value or '')) for cell in col)
-                col_letter = col[0].column_letter
-                ws_all.column_dimensions[col_letter].width = max(max_len + 3, 12)
-
-            for dam_name in ['Khadakwasla', 'Panshet', 'Mulshi', 'Gunjawani', 'Temghar']:
-                dam_sub = full_df[full_df['Dam Name'] == dam_name]
-                sheet_title = dam_name[:31]
-                dam_sub.to_excel(writer, index=False, sheet_name=sheet_title)
-                ws = writer.sheets[sheet_title]
-                for col in ws.columns:
-                    max_len = max(len(str(cell.value or '')) for cell in col)
-                    col_letter = col[0].column_letter
-                    ws.column_dimensions[col_letter].width = max(max_len + 3, 12)
-
-        print(f"[+] Saved Complete Database Multi-Tab Excel to: {output_excel}")
-    except Exception as e:
-        print(f"[!] Note: Could not export full database to Excel ({e}).")
+    db_manager.export_db_to_json()
 
 
 def push_to_mysql(df, host='localhost', user='root', password='', database='maharashtra_water_db', port=3306):
@@ -404,4 +354,5 @@ if __name__ == '__main__':
             pass
 
     df = fetch_multi_dam_data(days=days)
-    save_to_files(df, output_excel='Maharashtra_5_Dams_10Year_Data.xlsx', output_csv='Maharashtra_5_Dams_10Year_Data.csv')
+    save_to_files(df)
+

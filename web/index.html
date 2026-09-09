@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pune Dam Water Storage Analytics Dashboard</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Chart.js for High Performance Charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="index.css?v=3.0">
+</head>
+<body>
+  <div class="container">
+    
+    <!-- Navbar Header -->
+    <header class="app-header">
+      <div class="brand-title">
+        <div class="brand-icon">💧</div>
+        <div class="brand-text">
+          <h1>Pune Water Resources Dashboard</h1>
+          <p>Real-Time & Historical Monitoring of 5 Major Dams</p>
+        </div>
+      </div>
+      <div class="header-status">
+        <div class="status-dot"></div>
+        <div class="status-text" id="lastUpdatedText">Live Sync Active</div>
+      </div>
+    </header>
+
+    <!-- Top KPI Cards -->
+    <section class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Total Live Water Stored</span>
+          <span class="kpi-icon">🌊</span>
+        </div>
+        <div class="kpi-value" id="kpiTotalLive">0 <span style="font-size: 16px;">MCM</span></div>
+        <div class="kpi-subtext">Across 5 monitored reservoir dams</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Total Design Capacity</span>
+          <span class="kpi-icon">🏗️</span>
+        </div>
+        <div class="kpi-value" id="kpiTotalDesign">0 <span style="font-size: 16px;">MCM</span></div>
+        <div class="kpi-subtext">Combined Live Storage Capacity</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Average Capacity Filled</span>
+          <span class="kpi-icon">📈</span>
+        </div>
+        <div class="kpi-value" id="kpiAvgPct">0%</div>
+        <div class="kpi-subtext" id="kpiYoYDiff"><span class="badge-positive">+0%</span> vs Same Date Last Year</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Monitored Dams</span>
+          <span class="kpi-icon">🏞️</span>
+        </div>
+        <div class="kpi-value">5 <span style="font-size: 16px;">Active</span></div>
+        <div class="kpi-subtext">Khadakwasla, Panshet, Mulshi, Gunjawani, Temghar</div>
+      </div>
+    </section>
+
+    <!-- 5 Dam Cards Section -->
+    <div class="section-header">
+      <div class="section-title">
+        <span>🏞️</span>
+        <h2>Current Storage Levels by Dam</h2>
+      </div>
+    </div>
+
+    <section class="dam-grid" id="damCardsGrid">
+      <!-- Generated dynamically by app.js -->
+    </section>
+
+    <!-- Charts Section -->
+    <section class="charts-grid">
+      <!-- Line Chart: Historical Trends -->
+      <div class="chart-card">
+        <div class="section-header">
+          <div class="section-title">
+            <span>📈</span>
+            <h3>Water Storage Trend Over Time (%)</h3>
+          </div>
+          <div class="filter-tabs" style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <select id="chartDamFilter" class="select-input" onchange="renderTrendChart(currentChartDays)" style="padding: 4px 12px; font-size: 13px;">
+              <option value="ALL">All 5 Dams</option>
+              <option value="Khadakwasla">Khadakwasla</option>
+              <option value="Panshet">Panshet</option>
+              <option value="Mulshi">Mulshi</option>
+              <option value="Gunjawani">Gunjawani</option>
+              <option value="Temghar">Temghar</option>
+            </select>
+            <button class="filter-btn active" onclick="setChartDays(30, this)">30D</button>
+            <button class="filter-btn" onclick="setChartDays(90, this)">90D</button>
+            <button class="filter-btn" onclick="setChartDays(365, this)">1 Year</button>
+            <button class="filter-btn" onclick="setChartDays('all', this)">All History</button>
+          </div>
+        </div>
+        <div class="chart-container">
+          <canvas id="trendChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Bar Chart: Current vs Max Capacity -->
+      <div class="chart-card">
+        <div class="section-header">
+          <div class="section-title">
+            <span>📊</span>
+            <h3>Volume Comparison (MCM)</h3>
+          </div>
+        </div>
+        <div class="chart-container">
+          <canvas id="volumeChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Historical Data Table Section -->
+    <section class="table-card">
+      <div class="table-controls">
+        <div class="section-title">
+          <span>📋</span>
+          <h3>All Database Log Records (<span id="totalRecordsBadge">0</span>)</h3>
+        </div>
+        <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+          <select id="damSelectFilter" class="select-input" onchange="filterTable()">
+            <option value="ALL">All 5 Dams</option>
+            <option value="Khadakwasla">Khadakwasla</option>
+            <option value="Panshet">Panshet</option>
+            <option value="Mulshi">Mulshi</option>
+            <option value="Gunjawani">Gunjawani</option>
+            <option value="Temghar">Temghar</option>
+          </select>
+          <input type="text" id="tableSearchInput" class="search-input" placeholder="🔍 Search date or status..." oninput="filterTable()">
+          <button class="filter-btn active" onclick="exportTableToCSV()">⬇️ Export CSV</button>
+        </div>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="data-table" id="recordsTable">
+          <thead>
+            <tr>
+              <th>Report Date</th>
+              <th>Dam Name</th>
+              <th>Report Time</th>
+              <th>Live Storage (MCM)</th>
+              <th>Design Live (MCM)</th>
+              <th>Storage Level (%)</th>
+              <th>Last Year (%)</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <!-- Populated dynamically -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Table Pagination Controls -->
+      <div class="pagination-container">
+        <div class="records-count" id="recordsCountText">Showing 0-0 of 0 records</div>
+        <div class="pagination-controls">
+          <button class="page-btn" id="prevPageBtn" onclick="changePage(-1)">← Previous</button>
+          <span class="page-indicator" id="pageIndicator">Page 1 of 1</span>
+          <button class="page-btn" id="nextPageBtn" onclick="changePage(1)">Next →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>Official Maharashtra Water Resources Department (WRD) Data • Auto-Synced Daily via Cloud Script</p>
+    </footer>
+
+  </div>
+
+  <!-- Application Logic -->
+  <script src="app.js?v=3.0"></script>
+</body>
+</html>

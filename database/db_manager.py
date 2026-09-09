@@ -4,64 +4,67 @@ import json
 import os
 from pathlib import Path
 
-DATABASE_FILE = "pune_dams.db"
-SCHEMA_FILE = "schema.sql"
+# Paths relative to repository root
+BASE_DIR = Path(__file__).resolve().parent.parent
+DB_FILE = BASE_DIR / "database" / "pune_dams.db"
+SCHEMA_FILE = BASE_DIR / "database" / "schema.sql"
+JSON_OUTPUT = BASE_DIR / "web" / "dam_data.json"
+
+# Canonical Dam Master Reference Data
+DAM_MASTER_DATA = [
+    {"dam_code": "KHD", "dam_name": "Khadakwasla", "river_name": "Mutha River", "dead_storage_mcm": 30.0,  "design_live_mcm": 55.91,  "design_gross_mcm": 85.91},
+    {"dam_code": "PNS", "dam_name": "Panshet",     "river_name": "Ambi River",  "dead_storage_mcm": 9.0,   "design_live_mcm": 301.61, "design_gross_mcm": 310.61},
+    {"dam_code": "MUL", "dam_name": "Mulshi",      "river_name": "Mula River",  "dead_storage_mcm": 230.0, "design_live_mcm": 522.76, "design_gross_mcm": 752.76},
+    {"dam_code": "GNJ", "dam_name": "Gunjawani",   "river_name": "Kanandi River","dead_storage_mcm": 0.21,  "design_live_mcm": 104.48, "design_gross_mcm": 104.69},
+    {"dam_code": "TMG", "dam_name": "Temghar",     "river_name": "Mutha River", "dead_storage_mcm": 2.95,  "design_live_mcm": 105.01, "design_gross_mcm": 107.96}
+]
 
 def get_db_connection():
     """Returns a connection to the SQLite database with Foreign Keys enabled."""
-    conn = sqlite3.connect(DATABASE_FILE)
+    conn = sqlite3.connect(DB_FILE)
     conn.execute("PRAGMA foreign_keys = ON;")
     conn.row_factory = sqlite3.Row
     return conn
 
 def init_db():
-    """
-    Executes schema.sql DDL script to create a production-grade 3NF Relational Database Schema.
-    """
+    """Initializes the relational database schema in 3rd Normal Form (3NF)."""
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    if os.path.exists(SCHEMA_FILE):
+    if SCHEMA_FILE.exists():
         with open(SCHEMA_FILE, 'r', encoding='utf-8') as f:
-            sql_script = f.read()
-        cursor.executescript(sql_script)
-    else:
-        print(f"[!] Warning: {SCHEMA_FILE} not found. Initializing built-in schema...")
+            cursor.executescript(f.read())
 
     conn.commit()
     conn.close()
-    print(f"✅ Relational DBMS Engine ('{DATABASE_FILE}') initialized with 3NF Schema & Views.")
+    print(f"✅ Relational DBMS Engine ('{DB_FILE}') initialized with 3NF Schema & Views.")
 
-def seed_reports_from_csv(csv_path="Maharashtra_5_Dams_Cleaned_Data.csv"):
+def ingest_records_from_dataframe(df):
     """
-    Seeds/upserts historical cleaned CSV records into the daily_dam_storage_logs table.
-    Guarantees transactional integrity and zero data loss.
+    Ingests/upserts DataFrame records into daily_dam_storage_logs table.
+    Guarantees zero data loss and persistent historical storage in SQLite 3NF schema.
     """
     init_db()
     
-    if not os.path.exists(csv_path):
-        print(f"[!] Seed dataset '{csv_path}' not found.")
-        return
+    if df.empty or 'Dam Name' not in df.columns:
+        print("[!] DataFrame is empty or missing 'Dam Name' column.")
+        return 0
 
-    df = pd.read_csv(csv_path)
-    df.columns = df.columns.str.strip().str.replace('\ufeff', '')
-    
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    # Get dam_name to dam_id mapping
     cursor.execute("SELECT dam_id, dam_name FROM dams;")
     dam_map = {row['dam_name']: row['dam_id'] for row in cursor.fetchall()}
 
     inserted_count = 0
 
     for _, row in df.iterrows():
-        dam_name = row['Dam Name']
+        dam_name = row.get('Dam Name')
         dam_id = dam_map.get(dam_name)
         if not dam_id:
             continue
 
-        dt_str = pd.to_datetime(row['Report Date'], format='%d/%m/%Y', errors='coerce')
+        dt_str = pd.to_datetime(row.get('Report Date'), format='%d/%m/%Y', errors='coerce')
         if pd.isnull(dt_str) and 'iso_date' in row:
             dt_str = pd.to_datetime(row.get('iso_date'), errors='coerce')
         if pd.isnull(dt_str):
@@ -69,10 +72,15 @@ def seed_reports_from_csv(csv_path="Maharashtra_5_Dams_Cleaned_Data.csv"):
             
         iso_date = dt_str.strftime('%Y-%m-%d')
         report_time = str(row.get('Report Time', '08:00 स.'))
-        live_mcm = float(row['Current Live Storage (MCM)'])
-        gross_mcm = float(row['Current Gross Storage (MCM)'])
-        current_pct = float(row['Current Live Storage (%)'])
-        last_year_pct = float(row.get('Last Year Storage (%)', 0))
+        
+        try:
+            live_mcm = float(row.get('Current Live Storage (MCM)', 0))
+            gross_mcm = float(row.get('Current Gross Storage (MCM)', 0))
+            current_pct = float(row.get('Current Live Storage (%)', 0))
+            last_year_pct = float(row.get('Last Year Storage (%)', 0))
+        except (ValueError, TypeError):
+            continue
+
         status = str(row.get('Status', 'SUCCESS'))
 
         cursor.execute("""
@@ -92,34 +100,32 @@ def seed_reports_from_csv(csv_path="Maharashtra_5_Dams_Cleaned_Data.csv"):
         
         inserted_count += 1
 
-    # Log into audit table
     cursor.execute("""
     INSERT INTO system_audit_logs (action_name, records_affected, execution_status, log_message)
-    VALUES ('DATA_SEEDING', ?, 'SUCCESS', 'Seeded daily storage log records into SQLite database');
+    VALUES ('DATA_INGESTION', ?, 'SUCCESS', 'Ingested daily storage log records into SQLite database');
     """, (inserted_count,))
 
     conn.commit()
     conn.close()
-    print(f"✅ DBMS Seed Complete: {inserted_count} records active in 'daily_dam_storage_logs' table.")
+    print(f"✅ DBMS Ingestion Complete: {inserted_count} records active in 'daily_dam_storage_logs' table.")
+    return inserted_count
 
-def export_db_to_json(json_output_path="dam_data.json"):
-    """
-    Queries the Relational SQL View 'vw_dam_daily_analytics' to export the dashboard dataset.
-    """
+def export_db_to_json(json_output_path=JSON_OUTPUT):
+    """Queries the Relational SQL View 'vw_dam_daily_analytics' to export the dashboard dataset."""
+    json_output_path = Path(json_output_path)
+    json_output_path.parent.mkdir(parents=True, exist_ok=True)
+
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    # Query latest storage using SQL View
+    # Query latest storage
     sql_latest = """
-    SELECT 
-        dam_name, report_date, report_time, dead_storage_mcm, design_live_mcm,
-        design_gross_mcm, current_live_mcm, current_gross_mcm, current_live_pct,
-        same_date_last_year_pct, status_code
+    SELECT dam_name, report_date, report_time, dead_storage_mcm, design_live_mcm,
+           design_gross_mcm, current_live_mcm, current_gross_mcm, current_live_pct,
+           same_date_last_year_pct, status_code
     FROM vw_dam_daily_analytics
     WHERE (dam_id, report_date) IN (
-        SELECT dam_id, MAX(report_date) 
-        FROM daily_dam_storage_logs 
-        GROUP BY dam_id
+        SELECT dam_id, MAX(report_date) FROM daily_dam_storage_logs GROUP BY dam_id
     );
     """
     cursor.execute(sql_latest)
@@ -141,12 +147,8 @@ def export_db_to_json(json_output_path="dam_data.json"):
             'status': r['status_code']
         }
 
-    # Query Time Series via SQL
-    sql_time_series = """
-    SELECT report_date, dam_name, current_live_pct, current_live_mcm
-    FROM vw_dam_daily_analytics
-    ORDER BY report_date ASC;
-    """
+    # Query Time Series
+    sql_time_series = "SELECT report_date, dam_name, current_live_pct, current_live_mcm FROM vw_dam_daily_analytics ORDER BY report_date ASC;"
     cursor.execute(sql_time_series)
     ts_rows = cursor.fetchall()
 
@@ -163,12 +165,8 @@ def export_db_to_json(json_output_path="dam_data.json"):
 
     time_series_list = list(ts_by_date.values())
 
-    # Query All Records for Table
-    sql_all_records = """
-    SELECT report_date, report_time, dam_name, current_live_mcm, design_live_mcm, current_live_pct, same_date_last_year_pct, status_code
-    FROM vw_dam_daily_analytics
-    ORDER BY report_date ASC;
-    """
+    # Query All Records
+    sql_all_records = "SELECT report_date, report_time, dam_name, current_live_mcm, design_live_mcm, current_live_pct, same_date_last_year_pct, status_code FROM vw_dam_daily_analytics ORDER BY report_date ASC;"
     cursor.execute(sql_all_records)
     all_rows = cursor.fetchall()
 
@@ -198,41 +196,18 @@ def export_db_to_json(json_output_path="dam_data.json"):
     with open(json_output_path, 'w', encoding='utf-8') as f:
         json.dump(out_json, f, indent=2, ensure_ascii=False)
 
-    # Export full CSV
-    sql_csv = """
-    SELECT 
-        dam_name AS "Dam Name",
-        strftime('%d/%m/%Y', report_date) AS "Report Date",
-        report_time AS "Report Time",
-        dead_storage_mcm AS "Dead Storage (MCM)",
-        design_live_mcm AS "Design Live Storage (MCM)",
-        design_gross_mcm AS "Design Gross Storage (MCM)",
-        current_live_mcm AS "Current Live Storage (MCM)",
-        current_gross_mcm AS "Current Gross Storage (MCM)",
-        current_live_pct AS "Current Live Storage (%)",
-        same_date_last_year_pct AS "Last Year Storage (%)",
-        status_code AS "Status"
-    FROM vw_dam_daily_analytics
-    ORDER BY report_date DESC, dam_name ASC;
-    """
-    csv_df = pd.read_sql_query(sql_csv, conn)
-    csv_df.to_csv("Maharashtra_5_Dams_Data.csv", index=False, encoding='utf-8-sig')
-    csv_df.to_csv("Maharashtra_5_Dams_Cleaned_Data.csv", index=False, encoding='utf-8-sig')
-
     conn.close()
-    print(f"✨ Exported {len(all_records_list)} SQL records to '{json_output_path}' and CSV.")
+    print(f"✨ Exported {len(all_records_list)} SQL records to '{json_output_path}'.")
 
 def inspect_db_for_faculty():
-    """
-    Prints a rich terminal report of the Relational Database for Faculty presentation.
-    """
+    """Prints a rich terminal report of the Relational Database for Faculty presentation."""
     conn = get_db_connection()
     cursor = conn.cursor()
 
     print("\n==========================================================================")
     print(" 🏛️  DATABASE MANAGEMENT SYSTEM (DBMS) FACULTY INSPECTION REPORT")
     print("==========================================================================")
-    print(f" Database Engine : SQLite3 ({DATABASE_FILE})")
+    print(f" Database Engine : SQLite3 ({DB_FILE})")
     print(f" Schema Standard : 3rd Normal Form (3NF)")
     print("==========================================================================\n")
 
@@ -275,5 +250,5 @@ if __name__ == '__main__':
         inspect_db_for_faculty()
     else:
         init_db()
-        seed_reports_from_csv("Maharashtra_5_Dams_Cleaned_Data.csv")
-        export_db_to_json("dam_data.json")
+        export_db_to_json()
+

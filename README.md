@@ -1,68 +1,72 @@
-# Maharashtra 5 Dams Storage Scraper & Database Sync
+# Pune 5 Dams Water Storage DBMS & Analytics System 💧
 
-Automated daily data collection & analytics pipeline for 5 major dams in Maharashtra:
-1. **Khadakwasla** (`dam_khadakwasla`)
-2. **Panshet** (`dam_panshet`)
-3. **Mulshi** (`dam_mulshi`)
-4. **Gunjawani** (`dam_gunjawani`)
-5. **Temghar** (`dam_temghar`)
-
----
-
-## 📌 Features
-
-- **Multi-Dam PDF Scraper**: Downloads daily PDF storage reports from Water Resources Department (WRD), Maharashtra.
-- **Parallel Text Processing**: Fast extraction using multi-threaded `pdftotext` & layout parsers.
-- **Automated MySQL Database Sync**: Creates separate tables for each dam (`dam_<name>`) and upserts new daily records using `ON DUPLICATE KEY UPDATE`.
-- **Excel & CSV Exports**: Formatted Excel (`Maharashtra_5_Dams_Data.xlsx`) with master sheet + individual tabs per dam.
-- **GitHub Actions Integration**: Daily automated Cloud execution at 09:00 AM IST.
+An enterprise-grade **Database Management System (DBMS)** and real-time Web Analytics Dashboard for 5 major dam reservoirs in Pune, Maharashtra:
+1. **Khadakwasla** (`KHD`)
+2. **Panshet** (`PNS`)
+3. **Mulshi** (`MUL`)
+4. **Gunjawani** (`GNJ`)
+5. **Temghar** (`TMG`)
 
 ---
 
-## 🛠️ Setup & Installation
+## 🏛️ Project Architecture & Directory Structure
 
-### 1. Install Dependencies
+The repository is organized following clean DBMS modular software engineering principles:
 
+```
+├── database/                   # Relational DBMS Core (3NF Schema)
+│   ├── pune_dams.db            # SQLite 3NF Database (4,915 storage logs across 983 days)
+│   ├── schema.sql              # SQL DDL & DML Schema (3NF Tables, Indexes, Views)
+│   └── db_manager.py           # Relational Database Engine, Upsert & Faculty Inspector
+│
+├── scraper/                    # Ingestion Engine & Automated Workers
+│   ├── fetch_dam_data.py       # Multi-threaded PDF parser with 7-day median filter
+│   └── daily_dam_worker.py    # Daily cron worker for continuous background scraping
+│
+├── web/                        # Web Dashboard UI Assets
+│   ├── index.html              # Modern glassmorphism dashboard UI
+│   ├── index.css               # Modern CSS styling system & dark mode tokens
+│   ├── app.js                  # Dynamic Chart.js rendering, KPIs, & filter engine
+│   └── dam_data.json           # High-speed JSON export generated from SQL Views
+│
+├── dam_pdfs/                   # Cached daily official WRD PDF reports (891 PDFs)
+├── run.sh                      # One-click launcher for web server & faculty inspect tool
+├── index.html                  # Root redirect to web/index.html for GitHub Pages
+└── README.md                   # Documentation
+```
+
+---
+
+## 📌 Key DBMS Features
+
+- **3rd Normal Form (3NF) Relational Schema**: Clean separation of master metadata (`dams`), daily time-series logs (`daily_dam_storage_logs`), and audit logs (`system_audit_logs`).
+- **Relational View (`vw_dam_daily_analytics`)**: Pre-joined view computing remaining storage volume (MCM) and year-over-year percentage change.
+- **0 Data Loss Ingestion**: Direct UPSERT via `ON CONFLICT(dam_id, report_date)` in SQLite.
+- **Zero Flat File Dependency**: All historical CSV/XLSX flat files deleted; SQLite `.db` acts as sole single source of truth.
+- **Faculty Inspection Tool**: Run `./run.sh --inspect` or `python3 database/db_manager.py --inspect` for real-time schema audit reports.
+
+---
+
+## 🚀 Quick Start
+
+### 1. View Faculty DBMS Inspection Report
 ```bash
-sudo apt-get install poppler-utils
-pip install pandas openpyxl mysql-connector-python pypdf pdfplumber schedule
+./run.sh --inspect
 ```
 
-### 2. Run 10-Year Historical Data Scraper
-
+### 2. Launch Local Web Dashboard
 ```bash
-python3 fetch_maharashtra_dams_data.py 3650
+./run.sh 8000
 ```
+Open `http://localhost:8000` in your browser.
 
-### 3. Run Daily Background Worker
-
+### 3. Run Ingestion Scraper & Update Database
 ```bash
-python3 daily_dam_worker.py
+python3 scraper/fetch_dam_data.py
 ```
 
 ---
 
-## 📊 Database Schema (Example: `dam_khadakwasla`)
+## ☁️ GitHub Actions Daily Sync
 
-```sql
-CREATE TABLE IF NOT EXISTS dam_khadakwasla (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    report_date DATE NOT NULL UNIQUE,
-    report_time VARCHAR(20),
-    dead_storage_mcm FLOAT,
-    design_live_storage_mcm FLOAT,
-    design_gross_storage_mcm FLOAT,
-    current_live_storage_mcm FLOAT,
-    current_gross_storage_mcm FLOAT,
-    current_live_storage_pct FLOAT,
-    last_year_storage_pct FLOAT,
-    status VARCHAR(50),
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-```
-
----
-
-## ☁️ GitHub Actions Daily Cloud Sync
-
-The workflow file `.github/workflows/daily_dam_scraper.yml` automatically executes every day at **09:00 AM IST** to scrape new reports, update GitHub files, and sync to Cloud MySQL.
+The GitHub Actions workflow (`.github/workflows/daily_dam_scraper.yml`) automatically executes daily at 09:00 AM IST to fetch new PDF reports, update `database/pune_dams.db`, and regenerate `web/dam_data.json` for live GitHub Pages deployment.

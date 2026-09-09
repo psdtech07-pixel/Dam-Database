@@ -10,12 +10,7 @@ PRAGMA foreign_keys = ON;
 -- 1. MASTER TABLE: dams
 -- Stores static metadata for each monitored dam reservoir.
 -- ----------------------------------------------------------------------------
-DROP TABLE IF EXISTS daily_dam_storage_logs;
-DROP TABLE IF EXISTS dams;
-DROP TABLE IF EXISTS system_audit_logs;
-DROP VIEW IF EXISTS vw_dam_daily_analytics;
-
-CREATE TABLE dams (
+CREATE TABLE IF NOT EXISTS dams (
     dam_id                  INTEGER PRIMARY KEY AUTOINCREMENT,
     dam_code                VARCHAR(20) UNIQUE NOT NULL,
     dam_name                VARCHAR(100) UNIQUE NOT NULL,
@@ -33,7 +28,7 @@ CREATE TABLE dams (
 -- 2. TRANSACTION LOG TABLE: daily_dam_storage_logs
 -- Stores daily time-series water storage metrics for each dam.
 -- ----------------------------------------------------------------------------
-CREATE TABLE daily_dam_storage_logs (
+CREATE TABLE IF NOT EXISTS daily_dam_storage_logs (
     log_id                  INTEGER PRIMARY KEY AUTOINCREMENT,
     dam_id                  INTEGER NOT NULL,
     report_date             DATE NOT NULL,
@@ -55,7 +50,7 @@ CREATE TABLE daily_dam_storage_logs (
 -- 3. AUDIT TRAIL TABLE: system_audit_logs
 -- Tracks data ingestion, scraping jobs, and maintenance tasks.
 -- ----------------------------------------------------------------------------
-CREATE TABLE system_audit_logs (
+CREATE TABLE IF NOT EXISTS system_audit_logs (
     audit_id                INTEGER PRIMARY KEY AUTOINCREMENT,
     action_name             VARCHAR(100) NOT NULL,
     records_affected        INTEGER DEFAULT 0,
@@ -67,15 +62,15 @@ CREATE TABLE system_audit_logs (
 -- ----------------------------------------------------------------------------
 -- INDEXES FOR HIGH-PERFORMANCE QUERY OPTIMIZATION
 -- ----------------------------------------------------------------------------
-CREATE INDEX idx_logs_dam_date ON daily_dam_storage_logs(dam_id, report_date);
-CREATE INDEX idx_logs_date ON daily_dam_storage_logs(report_date);
-CREATE INDEX idx_logs_status ON daily_dam_storage_logs(status_code);
+CREATE INDEX IF NOT EXISTS idx_logs_dam_date ON daily_dam_storage_logs(dam_id, report_date);
+CREATE INDEX IF NOT EXISTS idx_logs_date ON daily_dam_storage_logs(report_date);
+CREATE INDEX IF NOT EXISTS idx_logs_status ON daily_dam_storage_logs(status_code);
 
 -- ----------------------------------------------------------------------------
 -- 4. RELATIONAL VIEW: vw_dam_daily_analytics
 -- Joins dams and daily_dam_storage_logs with calculated metrics.
 -- ----------------------------------------------------------------------------
-CREATE VIEW vw_dam_daily_analytics AS
+CREATE VIEW IF NOT EXISTS vw_dam_daily_analytics AS
 SELECT 
     d.dam_id,
     d.dam_code,
@@ -101,9 +96,10 @@ JOIN daily_dam_storage_logs l ON d.dam_id = l.dam_id;
 -- ----------------------------------------------------------------------------
 -- MASTER SEED DATA: dams
 -- ----------------------------------------------------------------------------
-INSERT INTO dams (dam_code, dam_name, river_name, dead_storage_mcm, design_live_mcm, design_gross_mcm) VALUES
+INSERT OR IGNORE INTO dams (dam_code, dam_name, river_name, dead_storage_mcm, design_live_mcm, design_gross_mcm) VALUES
 ('KHD', 'Khadakwasla', 'Mutha River',  30.00,  55.91,  85.91),
 ('PNS', 'Panshet',     'Ambi River',   9.00, 301.61, 310.61),
 ('MUL', 'Mulshi',      'Mula River', 230.00, 522.76, 752.76),
 ('GNJ', 'Gunjawani',   'Kanandi River', 0.21, 104.48, 104.69),
 ('TMG', 'Temghar',     'Mutha River',   2.95, 105.01, 107.96);
+
