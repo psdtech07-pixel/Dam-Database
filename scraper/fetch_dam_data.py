@@ -107,7 +107,6 @@ def parse_dam_line(line):
             'Design Gross Storage (MCM)': float(design_gross) if re.match(r'^\d+(\.\d+)?$', design_gross) else design_gross,
             'Current Live Storage (MCM)': float(current_live) if re.match(r'^\d+(\.\d+)?$', current_live) else current_live,
             'Current Gross Storage (MCM)': float(current_gross) if re.match(r'^\d+(\.\d+)?$', current_gross) else current_gross,
-            'Current Live Storage (%)': float(current_pct) if re.match(r'^\d+(\.\d+)?$', current_pct) else current_pct,
             'Last Year Storage (%)': float(prev_year_pct) if re.match(r'^\d+(\.\d+)?$', prev_year_pct) else prev_year_pct,
             'Status': 'Success'
         }
@@ -117,8 +116,6 @@ def extract_5_dams_from_pdf(pdf_path, dt_str):
     """Extracts storage metrics for all 5 target dams from a single PDF."""
     results = {}
     if not pdf_path or not os.path.exists(pdf_path):
-        for dam_name in TARGET_DAMS:
-            results[dam_name] = {'Dam Name': dam_name, 'Report Date': dt_str, 'Status': 'PDF Not Available'}
         return results
 
     text = get_pdf_text(pdf_path)
@@ -176,6 +173,10 @@ def download_pdf_for_date(date_obj, pdf_dir):
     year_str = date_obj.strftime('%Y')
     month_str = date_obj.strftime('%m')
     
+    # WRD online portal only hosts digital PDF reports starting from 2024 onwards
+    if date_obj.year < 2024:
+        return dt_str, None, False
+
     sub_dir = os.path.join(pdf_dir, year_str, month_str)
     os.makedirs(sub_dir, exist_ok=True)
     
@@ -207,16 +208,21 @@ def download_pdf_for_date(date_obj, pdf_dir):
         url = base_url + urllib.parse.quote(filename)
         req = urllib.request.Request(url, headers=HEADERS)
         try:
-            with urllib.request.urlopen(req, context=SSL_CONTEXT, timeout=10) as resp:
+            with urllib.request.urlopen(req, context=SSL_CONTEXT, timeout=3) as resp:
                 data = resp.read()
                 if len(data) > 1000:
                     with open(dest_path, 'wb') as f:
                         f.write(data)
                     return dt_str, dest_path, True
+        except urllib.error.HTTPError as e:
+            if e.code == 404:
+                # If 404 Not Found on primary pattern, file does not exist on server
+                break
         except Exception:
             continue
 
     return dt_str, None, False
+
 
 def fetch_multi_dam_data(days=365, pdf_dir='dam_pdfs', max_download_workers=15, max_extract_workers=16):
     """Downloads PDFs for date range and extracts data for all 5 dams."""
@@ -236,31 +242,27 @@ def fetch_multi_dam_data(days=365, pdf_dir='dam_pdfs', max_download_workers=15, 
                 pdf_files[dt_str] = pdf_path
 
     print(f"[*] Downloaded/Cached {len(pdf_files)} PDF reports out of {days} requested dates.")
-    print(f"[*] Parsing 5 dams from {len(dates)} dates in parallel...")
+    
+    valid_dates = [d for d in dates if pdf_files.get(d.strftime('%d-%m-%Y'))]
+    print(f"[*] Parsing 5 dams from {len(valid_dates)} available PDF reports in parallel...")
 
     all_records = []
     completed = 0
     with ThreadPoolExecutor(max_workers=max_extract_workers) as executor:
-        futures = {executor.submit(extract_5_dams_from_pdf, pdf_files.get(d.strftime('%d-%m-%Y')), d.strftime('%d/%m/%Y')): d for d in dates}
+        futures = {executor.submit(extract_5_dams_from_pdf, pdf_files[d.strftime('%d-%m-%Y')], d.strftime('%d/%m/%Y')): d for d in valid_dates}
         for future in as_completed(futures):
             dam_results = future.result()
             for dam_name, rec in dam_results.items():
                 all_records.append(rec)
             completed += 1
-            if completed % 100 == 0 or completed == len(dates):
-                print(f"    -> Progress: [{completed}/{len(dates)}] dates processed.")
+            if completed % 100 == 0 or completed == len(valid_dates):
+                print(f"    -> Progress: [{completed}/{len(valid_dates)}] PDF reports processed.")
 
     df = pd.DataFrame(all_records)
     
-    # Sort by Date descending and Dam Name
-    def sort_key(rec):
-        try:
-            return datetime.strptime(str(rec.get('Report Date', '')), '%d/%m/%Y')
-        except Exception:
-            return datetime.min
-
-    df['SortDate'] = df['Report Date'].apply(lambda x: datetime.strptime(str(x), '%d/%m/%Y') if re.match(r'\d{2}/\d{2}/\d{4}', str(x)) else datetime.min)
-    df = df.sort_values(by=['SortDate', 'Dam Name'], ascending=[False, True]).drop(columns=['SortDate'])
+    if not df.empty and 'Report Date' in df.columns:
+        df['SortDate'] = df['Report Date'].apply(lambda x: datetime.strptime(str(x), '%d/%m/%Y') if re.match(r'\d{2}/\d{2}/\d{4}', str(x)) else datetime.min)
+        df = df.sort_values(by=['SortDate', 'Dam Name'], ascending=[False, True]).drop(columns=['SortDate'])
     
     return df
 
