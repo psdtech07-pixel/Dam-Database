@@ -94,7 +94,15 @@
             <span>📈</span>
             <h3>Water Storage Trend Over Time (%)</h3>
           </div>
-          <div class="filter-tabs">
+          <div class="filter-tabs" style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <select id="chartDamFilter" class="select-input" onchange="renderTrendChart(currentChartDays)" style="padding: 4px 12px; font-size: 13px;">
+              <option value="ALL">All 5 Dams</option>
+              <option value="Khadakwasla">Khadakwasla</option>
+              <option value="Panshet">Panshet</option>
+              <option value="Mulshi">Mulshi</option>
+              <option value="Gunjawani">Gunjawani</option>
+              <option value="Temghar">Temghar</option>
+            </select>
             <button class="filter-btn active" onclick="setChartDays(30, this)">30D</button>
             <button class="filter-btn" onclick="setChartDays(90, this)">90D</button>
             <button class="filter-btn" onclick="setChartDays(365, this)">1 Year</button>

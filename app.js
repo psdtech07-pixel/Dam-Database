@@ -148,9 +148,12 @@ function setChartDays(days, btnEl) {
   renderTrendChart(days);
 }
 
-function renderTrendChart(days = 30) {
+function renderTrendChart(days = currentChartDays) {
   const ctx = document.getElementById('trendChart').getContext('2d');
   if (!globalData || !globalData.time_series) return;
+
+  const damFilterEl = document.getElementById('chartDamFilter');
+  const selectedDam = damFilterEl ? damFilterEl.value : 'ALL';
 
   let slice = globalData.time_series;
   if (days !== 'all' && typeof days === 'number') {
@@ -167,18 +170,42 @@ function renderTrendChart(days = 30) {
     'Temghar': '#f43f5e'
   };
 
-  const datasets = ['Khadakwasla', 'Panshet', 'Mulshi', 'Gunjawani', 'Temghar'].map(dam => {
-    return {
-      label: dam,
-      data: slice.map(s => s[`${dam}_pct`]),
-      borderColor: colors[dam],
-      backgroundColor: colors[dam] + '15',
-      borderWidth: 2,
-      tension: 0.3,
-      pointRadius: slice.length > 100 ? 0 : 2,
-      pointHoverRadius: 6
-    };
-  });
+  let datasets = [];
+
+  if (selectedDam === 'ALL') {
+    datasets = ['Khadakwasla', 'Panshet', 'Mulshi', 'Gunjawani', 'Temghar'].map(dam => {
+      return {
+        label: dam,
+        data: slice.map(s => s[`${dam}_pct`]),
+        borderColor: colors[dam],
+        backgroundColor: colors[dam] + '15',
+        borderWidth: 2.5,
+        tension: 0.3,
+        pointRadius: slice.length > 150 ? 0 : 2,
+        pointHoverRadius: 6
+      };
+    });
+  } else {
+    // Single Dam View
+    const damColor = colors[selectedDam] || '#38bdf8';
+    
+    // Create gradient fill below line
+    const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+    gradient.addColorStop(0, damColor + '40');
+    gradient.addColorStop(1, damColor + '00');
+
+    datasets = [{
+      label: `${selectedDam} Dam Storage Level (%)`,
+      data: slice.map(s => s[`${selectedDam}_pct`]),
+      borderColor: damColor,
+      backgroundColor: gradient,
+      fill: true,
+      borderWidth: 3,
+      tension: 0.35,
+      pointRadius: slice.length > 150 ? 0 : 3,
+      pointHoverRadius: 7
+    }];
+  }
 
   if (trendChartInstance) {
     trendChartInstance.destroy();
