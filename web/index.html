@@ -2,192 +2,205 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pune Dam Water Storage Analytics Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Pune Reservoir Water Analytics | 5 Major Dams</title>
+  <meta name="description" content="Real-time and 10-year historical water storage analytics dashboard for Khadakwasla, Panshet, Mulshi, Gunjawani, and Temghar dams in Pune, Maharashtra.">
   
-  <!-- Google Fonts -->
+  <!-- Google Fonts: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Chart.js for High Performance Charts -->
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- Custom Styles -->
-  <link rel="stylesheet" href="index.css?v=3.0">
+  <!-- Clean Minimalist Mobile-First Stylesheet -->
+  <link rel="stylesheet" href="index.css?v=4.0">
 </head>
 <body>
-  <div class="container">
+  <div class="app-container">
     
-    <!-- Navbar Header -->
-    <header class="app-header">
-      <div class="brand-title">
-        <div class="brand-icon">💧</div>
-        <div class="brand-text">
-          <h1>Pune Water Resources Dashboard</h1>
-          <p>Real-Time & Historical Monitoring of 5 Major Dams</p>
+    <!-- Top Navigation Header -->
+    <header class="navbar">
+      <div class="brand">
+        <div class="brand-logo">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+          </svg>
+        </div>
+        <div class="brand-info">
+          <h1>Pune Reservoir Analytics</h1>
+          <p>Official Maharashtra WRD Live Storage Monitoring</p>
         </div>
       </div>
-      <div class="header-status">
-        <div class="status-dot"></div>
-        <div class="status-text" id="lastUpdatedText">Live Sync Active</div>
+
+      <div class="status-badge" id="headerStatusBadge">
+        <span class="pulse-indicator"></span>
+        <span id="lastUpdatedText">Live Sync Active</span>
       </div>
     </header>
 
-    <!-- Top KPI Cards -->
+    <!-- Top Key Metrics Cards -->
     <section class="kpi-grid">
       <div class="kpi-card">
-        <div class="kpi-header">
-          <span class="kpi-title">Total Live Water Stored</span>
-          <span class="kpi-icon">🌊</span>
-        </div>
-        <div class="kpi-value" id="kpiTotalLive">0 <span style="font-size: 16px;">MCM</span></div>
-        <div class="kpi-subtext">Across 5 monitored reservoir dams</div>
+        <div class="kpi-label">Total Water Stored</div>
+        <div class="kpi-number" id="kpiTotalLive">0 <span class="unit">MCM</span></div>
+        <div class="kpi-subtext">Across 5 monitored reservoirs</div>
       </div>
 
       <div class="kpi-card">
-        <div class="kpi-header">
-          <span class="kpi-title">Total Design Capacity</span>
-          <span class="kpi-icon">🏗️</span>
-        </div>
-        <div class="kpi-value" id="kpiTotalDesign">0 <span style="font-size: 16px;">MCM</span></div>
-        <div class="kpi-subtext">Combined Live Storage Capacity</div>
+        <div class="kpi-label">Total Live Capacity</div>
+        <div class="kpi-number" id="kpiTotalDesign">0 <span class="unit">MCM</span></div>
+        <div class="kpi-subtext">Combined design storage</div>
       </div>
 
       <div class="kpi-card">
-        <div class="kpi-header">
-          <span class="kpi-title">Average Capacity Filled</span>
-          <span class="kpi-icon">📈</span>
-        </div>
-        <div class="kpi-value" id="kpiAvgPct">0%</div>
-        <div class="kpi-subtext" id="kpiYoYDiff"><span class="badge-positive">+0%</span> vs Same Date Last Year</div>
+        <div class="kpi-label">Average Storage Level</div>
+        <div class="kpi-number" id="kpiAvgPct">0%</div>
+        <div class="kpi-subtext" id="kpiYoYDiff">vs Same Date Last Year</div>
       </div>
 
       <div class="kpi-card">
-        <div class="kpi-header">
-          <span class="kpi-title">Monitored Dams</span>
-          <span class="kpi-icon">🏞️</span>
-        </div>
-        <div class="kpi-value">5 <span style="font-size: 16px;">Active</span></div>
-        <div class="kpi-subtext">Khadakwasla, Panshet, Mulshi, Gunjawani, Temghar</div>
+        <div class="kpi-label">Monitored Reservoirs</div>
+        <div class="kpi-number">5 <span class="unit">Dams</span></div>
+        <div class="kpi-subtext">Khadakwasla • Panshet • Mulshi • Gunjawani • Temghar</div>
       </div>
     </section>
 
-    <!-- 5 Dam Cards Section -->
-    <div class="section-header">
-      <div class="section-title">
-        <span>🏞️</span>
-        <h2>Current Storage Levels by Dam</h2>
+    <!-- Individual Dam Storage Cards Grid -->
+    <section class="content-section">
+      <div class="section-heading">
+        <h2>Current Storage Levels</h2>
+        <span class="subheading">Live storage breakdown by dam</span>
       </div>
-    </div>
 
-    <section class="dam-grid" id="damCardsGrid">
-      <!-- Generated dynamically by app.js -->
+      <div class="dam-grid" id="damCardsGrid">
+        <!-- Rendered dynamically by app.js -->
+      </div>
     </section>
 
-    <!-- Charts Section -->
-    <section class="charts-grid">
-      <!-- Line Chart: Historical Trends -->
-      <div class="chart-card">
-        <div class="section-header">
-          <div class="section-title">
-            <span>📈</span>
-            <h3>Water Storage Trend Over Time (%)</h3>
+    <!-- Interactive Charts Grid -->
+    <section class="content-section">
+      <div class="charts-layout">
+        <!-- Historical Line Trend Chart -->
+        <div class="card chart-card">
+          <div class="card-header flex-header">
+            <div>
+              <h3>Water Storage Trends</h3>
+              <p class="card-subtext">Historical percentage comparison</p>
+            </div>
+            
+            <div class="chart-controls-wrapper">
+              <select id="chartDamFilter" class="select-pill" onchange="renderTrendChart(currentChartDays)">
+                <option value="ALL">All 5 Dams</option>
+                <option value="Khadakwasla">Khadakwasla</option>
+                <option value="Panshet">Panshet</option>
+                <option value="Mulshi">Mulshi</option>
+                <option value="Gunjawani">Gunjawani</option>
+                <option value="Temghar">Temghar</option>
+              </select>
+
+              <div class="pill-nav">
+                <button class="pill-btn active" onclick="setChartDays(30, this)">30D</button>
+                <button class="pill-btn" onclick="setChartDays(90, this)">90D</button>
+                <button class="pill-btn" onclick="setChartDays(365, this)">1Y</button>
+                <button class="pill-btn" onclick="setChartDays('all', this)">All</button>
+              </div>
+            </div>
           </div>
-          <div class="filter-tabs" style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-            <select id="chartDamFilter" class="select-input" onchange="renderTrendChart(currentChartDays)" style="padding: 4px 12px; font-size: 13px;">
-              <option value="ALL">All 5 Dams</option>
+
+          <div class="chart-wrapper">
+            <canvas id="trendChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Storage Volume Bar Chart -->
+        <div class="card chart-card">
+          <div class="card-header">
+            <h3>Volume Comparison</h3>
+            <p class="card-subtext">Stored MCM vs Remaining MCM</p>
+          </div>
+
+          <div class="chart-wrapper">
+            <canvas id="volumeChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Historical Data Log Table -->
+    <section class="content-section">
+      <div class="card table-card">
+        <div class="card-header flex-header">
+          <div>
+            <h3>Database Storage Logs</h3>
+            <p class="card-subtext"><span id="totalRecordsBadge">0</span> records in SQLite DBMS</p>
+          </div>
+
+          <div class="table-actions">
+            <select id="damSelectFilter" class="select-pill" onchange="filterTable()">
+              <option value="ALL">All Dams</option>
               <option value="Khadakwasla">Khadakwasla</option>
               <option value="Panshet">Panshet</option>
               <option value="Mulshi">Mulshi</option>
               <option value="Gunjawani">Gunjawani</option>
               <option value="Temghar">Temghar</option>
             </select>
-            <button class="filter-btn active" onclick="setChartDays(30, this)">30D</button>
-            <button class="filter-btn" onclick="setChartDays(90, this)">90D</button>
-            <button class="filter-btn" onclick="setChartDays(365, this)">1 Year</button>
-            <button class="filter-btn" onclick="setChartDays('all', this)">All History</button>
+
+            <input type="search" id="tableSearchInput" class="search-input" placeholder="Search date or status..." oninput="filterTable()">
+            
+            <button class="btn-action" onclick="exportTableToCSV()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Export
+            </button>
           </div>
         </div>
-        <div class="chart-container">
-          <canvas id="trendChart"></canvas>
-        </div>
-      </div>
 
-      <!-- Bar Chart: Current vs Max Capacity -->
-      <div class="chart-card">
-        <div class="section-header">
-          <div class="section-title">
-            <span>📊</span>
-            <h3>Volume Comparison (MCM)</h3>
+        <!-- Table View for Desktop & Mobile Horizontal Scroll -->
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Dam Name</th>
+                <th>Time</th>
+                <th>Live Storage</th>
+                <th>Design Live</th>
+                <th>Storage Level</th>
+                <th>Last Year</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <!-- Populated dynamically by app.js -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Mobile-Optimized Pagination Footer -->
+        <div class="table-pagination">
+          <div class="pagination-info" id="recordsCountText">Showing 0-0 of 0 records</div>
+          <div class="pagination-buttons">
+            <button class="btn-page" id="prevPageBtn" onclick="changePage(-1)">← Previous</button>
+            <span class="page-num" id="pageIndicator">Page 1 of 1</span>
+            <button class="btn-page" id="nextPageBtn" onclick="changePage(1)">Next →</button>
           </div>
-        </div>
-        <div class="chart-container">
-          <canvas id="volumeChart"></canvas>
-        </div>
-      </div>
-    </section>
-
-    <!-- Historical Data Table Section -->
-    <section class="table-card">
-      <div class="table-controls">
-        <div class="section-title">
-          <span>📋</span>
-          <h3>All Database Log Records (<span id="totalRecordsBadge">0</span>)</h3>
-        </div>
-        <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
-          <select id="damSelectFilter" class="select-input" onchange="filterTable()">
-            <option value="ALL">All 5 Dams</option>
-            <option value="Khadakwasla">Khadakwasla</option>
-            <option value="Panshet">Panshet</option>
-            <option value="Mulshi">Mulshi</option>
-            <option value="Gunjawani">Gunjawani</option>
-            <option value="Temghar">Temghar</option>
-          </select>
-          <input type="text" id="tableSearchInput" class="search-input" placeholder="🔍 Search date or status..." oninput="filterTable()">
-          <button class="filter-btn active" onclick="exportTableToCSV()">⬇️ Export CSV</button>
-        </div>
-      </div>
-
-      <div class="table-wrapper">
-        <table class="data-table" id="recordsTable">
-          <thead>
-            <tr>
-              <th>Report Date</th>
-              <th>Dam Name</th>
-              <th>Report Time</th>
-              <th>Live Storage (MCM)</th>
-              <th>Design Live (MCM)</th>
-              <th>Storage Level (%)</th>
-              <th>Last Year (%)</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody id="tableBody">
-            <!-- Populated dynamically -->
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Table Pagination Controls -->
-      <div class="pagination-container">
-        <div class="records-count" id="recordsCountText">Showing 0-0 of 0 records</div>
-        <div class="pagination-controls">
-          <button class="page-btn" id="prevPageBtn" onclick="changePage(-1)">← Previous</button>
-          <span class="page-indicator" id="pageIndicator">Page 1 of 1</span>
-          <button class="page-btn" id="nextPageBtn" onclick="changePage(1)">Next →</button>
         </div>
       </div>
     </section>
 
     <!-- Footer -->
-    <footer>
-      <p>Official Maharashtra Water Resources Department (WRD) Data • Auto-Synced Daily via Cloud Script</p>
+    <footer class="app-footer">
+      <p>Data Source: Maharashtra Water Resources Department (WRD) • Relational 3NF SQLite DBMS</p>
     </footer>
 
   </div>
 
-  <!-- Application Logic -->
-  <script src="app.js?v=3.0"></script>
+  <!-- Dashboard JavaScript Logic -->
+  <script src="app.js?v=4.0"></script>
 </body>
 </html>

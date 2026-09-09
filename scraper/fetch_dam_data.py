@@ -145,11 +145,51 @@ def extract_5_dams_from_pdf(pdf_path, dt_str):
             
     return results
 
+def organize_existing_pdfs(pdf_dir='dam_pdfs'):
+    """Organizes any unorganized flat PDF files into pdf_dir/YYYY/MM/ subfolders."""
+    if not os.path.exists(pdf_dir):
+        return
+    moved_count = 0
+    for item in os.listdir(pdf_dir):
+        item_path = os.path.join(pdf_dir, item)
+        if os.path.isfile(item_path) and item.startswith("report_") and item.endswith(".pdf"):
+            match = re.search(r'report_(\d{2})-(\d{2})-(\d{4})\.pdf', item)
+            if match:
+                day, month, year = match.groups()
+                target_dir = os.path.join(pdf_dir, year, month)
+                os.makedirs(target_dir, exist_ok=True)
+                target_path = os.path.join(target_dir, item)
+                if not os.path.exists(target_path):
+                    os.rename(item_path, target_path)
+                else:
+                    os.remove(item_path)
+                moved_count += 1
+    if moved_count > 0:
+        print(f"📁 Organized {moved_count} existing flat PDFs into YYYY/MM subfolders.")
+
 def download_pdf_for_date(date_obj, pdf_dir):
-    """Downloads daily PDF for given date trying common filename variations."""
+    """
+    Downloads daily PDF for given date into structured subfolder: pdf_dir/YYYY/MM/report_DD-MM-YYYY.pdf
+    Also migrates any existing flat files in pdf_dir to the new subfolder layout.
+    """
     dt_str = date_obj.strftime('%d-%m-%Y')
-    dest_path = os.path.join(pdf_dir, f"report_{dt_str}.pdf")
+    year_str = date_obj.strftime('%Y')
+    month_str = date_obj.strftime('%m')
     
+    sub_dir = os.path.join(pdf_dir, year_str, month_str)
+    os.makedirs(sub_dir, exist_ok=True)
+    
+    dest_path = os.path.join(sub_dir, f"report_{dt_str}.pdf")
+    flat_path = os.path.join(pdf_dir, f"report_{dt_str}.pdf")
+
+    # If flat path exists, move it into year/month subfolder
+    if os.path.exists(flat_path) and os.path.getsize(flat_path) > 1000:
+        if not os.path.exists(dest_path):
+            os.rename(flat_path, dest_path)
+        else:
+            os.remove(flat_path)
+        return dt_str, dest_path, True
+
     if os.path.exists(dest_path) and os.path.getsize(dest_path) > 1000:
         return dt_str, dest_path, True
 
@@ -181,6 +221,7 @@ def download_pdf_for_date(date_obj, pdf_dir):
 def fetch_multi_dam_data(days=365, pdf_dir='dam_pdfs', max_download_workers=15, max_extract_workers=16):
     """Downloads PDFs for date range and extracts data for all 5 dams."""
     os.makedirs(pdf_dir, exist_ok=True)
+    organize_existing_pdfs(pdf_dir)
     today = datetime.now()
     dates = [today - timedelta(days=i) for i in range(days)]
     
@@ -222,6 +263,7 @@ def fetch_multi_dam_data(days=365, pdf_dir='dam_pdfs', max_download_workers=15, 
     df = df.sort_values(by=['SortDate', 'Dam Name'], ascending=[False, True]).drop(columns=['SortDate'])
     
     return df
+
 
 def save_to_files(df):
     """

@@ -57,7 +57,7 @@ function renderKPIs() {
 
     // Update Header Date
     if (d.date) {
-      document.getElementById('lastUpdatedText').innerText = `Last Report: ${d.date} (${d.time})`;
+      document.getElementById('lastUpdatedText').innerText = `Report Date: ${d.date}`;
     }
   });
 
@@ -65,8 +65,8 @@ function renderKPIs() {
   const avgLastYear = count > 0 ? (totalLastYearSum / count).toFixed(1) : 0;
   const diff = (avgPct - avgLastYear).toFixed(1);
 
-  document.getElementById('kpiTotalLive').innerHTML = `${totalLive.toFixed(1)} <span style="font-size: 16px;">MCM</span>`;
-  document.getElementById('kpiTotalDesign').innerHTML = `${totalDesign.toFixed(1)} <span style="font-size: 16px;">MCM</span>`;
+  document.getElementById('kpiTotalLive').innerHTML = `${totalLive.toFixed(1)} <span class="unit">MCM</span>`;
+  document.getElementById('kpiTotalDesign').innerHTML = `${totalDesign.toFixed(1)} <span class="unit">MCM</span>`;
   document.getElementById('kpiAvgPct').innerText = `${avgPct}%`;
 
   const diffEl = document.getElementById('kpiYoYDiff');
@@ -78,17 +78,17 @@ function renderKPIs() {
 }
 
 function getTagDetails(pct) {
-  if (pct >= 95) return { text: 'Full Capacity', class: 'tag-full' };
-  if (pct >= 70) return { text: 'High Level', class: 'tag-good' };
+  if (pct >= 95) return { text: 'Full', class: 'tag-full' };
+  if (pct >= 70) return { text: 'High', class: 'tag-good' };
   if (pct >= 40) return { text: 'Moderate', class: 'tag-moderate' };
-  return { text: 'Low Level', class: 'tag-low' };
+  return { text: 'Low', class: 'tag-low' };
 }
 
 function getProgressColor(pct) {
-  if (pct >= 95) return 'linear-gradient(90deg, #10b981, #34d399)';
-  if (pct >= 70) return 'linear-gradient(90deg, #0284c7, #38bdf8)';
-  if (pct >= 40) return 'linear-gradient(90deg, #d97706, #f59e0b)';
-  return 'linear-gradient(90deg, #e11d48, #f43f5e)';
+  if (pct >= 95) return '#10b981';
+  if (pct >= 70) return '#0284c7';
+  if (pct >= 40) return '#f59e0b';
+  return '#f43f5e';
 }
 
 function renderDamCards() {
@@ -104,33 +104,32 @@ function renderDamCards() {
     if (!d) return;
 
     const tag = getTagDetails(d.current_pct);
-    const bgGradient = getProgressColor(d.current_pct);
+    const barColor = getProgressColor(d.current_pct);
 
     html += `
       <div class="dam-card">
-        <div class="dam-card-header">
+        <div class="dam-header">
           <div>
             <div class="dam-name">${dam} Dam</div>
-            <div style="font-size:12px; color:var(--text-subtle); margin-top:2px;">Live Capacity: ${d.design_live_mcm} MCM</div>
+            <div class="dam-capacity-sub">Capacity: ${d.design_live_mcm} MCM</div>
           </div>
           <span class="dam-tag ${tag.class}">${tag.text}</span>
         </div>
 
-        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:12px;">
-          <div style="font-size:32px; font-weight:800; color:var(--text-main); font-family:'Outfit';">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:4px;">
+          <div style="font-size:28px; font-weight:700; color:var(--text-primary); letter-spacing:-0.02em;">
             ${d.current_pct}%
           </div>
-          <div style="font-size:13px; color:var(--text-muted);">
-            <strong>${d.current_live_mcm}</strong> / ${d.design_live_mcm} MCM
+          <div style="font-size:13px; color:var(--text-secondary);">
+            <strong style="color:var(--text-primary);">${d.current_live_mcm}</strong> / ${d.design_live_mcm} MCM
           </div>
         </div>
 
-        <!-- Gauge Bar -->
         <div class="progress-bar-bg">
-          <div class="progress-bar-fill" style="width: ${Math.min(100, d.current_pct)}%; background: ${bgGradient}"></div>
+          <div class="progress-bar-fill" style="width: ${Math.min(100, d.current_pct)}%; background: ${barColor}"></div>
         </div>
 
-        <div style="display:flex; justify-content:space-between; margin-top:12px; font-size:12px; color:var(--text-subtle);">
+        <div class="dam-footer-metrics">
           <span>Gross: ${d.current_gross_mcm} MCM</span>
           <span>Last Year: ${d.last_year_pct}%</span>
         </div>
@@ -143,7 +142,7 @@ function renderDamCards() {
 
 function setChartDays(days, btnEl) {
   currentChartDays = days;
-  document.querySelectorAll('.filter-tabs .filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.pill-nav .pill-btn').forEach(b => b.classList.remove('active'));
   if (btnEl) btnEl.classList.add('active');
   renderTrendChart(days);
 }
@@ -165,7 +164,7 @@ function renderTrendChart(days = currentChartDays) {
   const colors = {
     'Khadakwasla': '#38bdf8',
     'Panshet': '#10b981',
-    'Mulshi': '#8b5cf6',
+    'Mulshi': '#a855f7',
     'Gunjawani': '#f59e0b',
     'Temghar': '#f43f5e'
   };
@@ -178,32 +177,30 @@ function renderTrendChart(days = currentChartDays) {
         label: dam,
         data: slice.map(s => s[`${dam}_pct`]),
         borderColor: colors[dam],
-        backgroundColor: colors[dam] + '15',
-        borderWidth: 2.5,
-        tension: 0.3,
+        backgroundColor: 'transparent',
+        borderWidth: 2,
+        tension: 0.25,
         pointRadius: slice.length > 150 ? 0 : 2,
-        pointHoverRadius: 6
+        pointHoverRadius: 5
       };
     });
   } else {
-    // Single Dam View
     const damColor = colors[selectedDam] || '#38bdf8';
     
-    // Create gradient fill below line
-    const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-    gradient.addColorStop(0, damColor + '40');
+    const gradient = ctx.createLinearGradient(0, 0, 0, 260);
+    gradient.addColorStop(0, damColor + '30');
     gradient.addColorStop(1, damColor + '00');
 
     datasets = [{
-      label: `${selectedDam} Dam Storage Level (%)`,
+      label: `${selectedDam} Storage Level (%)`,
       data: slice.map(s => s[`${selectedDam}_pct`]),
       borderColor: damColor,
       backgroundColor: gradient,
       fill: true,
-      borderWidth: 3,
-      tension: 0.35,
+      borderWidth: 2.5,
+      tension: 0.25,
       pointRadius: slice.length > 150 ? 0 : 3,
-      pointHoverRadius: 7
+      pointHoverRadius: 6
     }];
   }
 
@@ -221,15 +218,15 @@ function renderTrendChart(days = currentChartDays) {
       plugins: {
         legend: {
           position: 'top',
-          labels: { color: '#94a3b8', font: { family: 'Outfit', size: 13 }, usePointStyle: true, boxWidth: 8 }
+          labels: { color: '#9ca3af', font: { family: 'Inter', size: 12 }, usePointStyle: true, boxWidth: 6 }
         },
         tooltip: {
-          backgroundColor: 'rgba(15, 23, 42, 0.95)',
-          titleColor: '#f8fafc',
-          bodyColor: '#cbd5e1',
+          backgroundColor: '#111827',
+          titleColor: '#f9fafb',
+          bodyColor: '#d1d5db',
           borderColor: 'rgba(255, 255, 255, 0.1)',
           borderWidth: 1,
-          padding: 12,
+          padding: 10,
           callbacks: {
             label: (ctx) => `${ctx.dataset.label}: ${ctx.parsed.y !== null && ctx.parsed.y !== undefined ? ctx.parsed.y.toFixed(1) : 'N/A'}%`
           }
@@ -238,13 +235,13 @@ function renderTrendChart(days = currentChartDays) {
       scales: {
         x: {
           grid: { color: 'rgba(255, 255, 255, 0.04)' },
-          ticks: { color: '#64748b', font: { size: 11 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 10 }
+          ticks: { color: '#6b7280', font: { size: 11 }, maxRotation: 0, autoSkip: true, maxTicksLimit: 8 }
         },
         y: {
           min: 0,
           max: 100,
-          grid: { color: 'rgba(255, 255, 255, 0.06)' },
-          ticks: { color: '#64748b', font: { size: 11 }, callback: (v) => v + '%' }
+          grid: { color: 'rgba(255, 255, 255, 0.05)' },
+          ticks: { color: '#6b7280', font: { size: 11 }, callback: (v) => v + '%' }
         }
       }
     }
@@ -271,16 +268,16 @@ function renderVolumeChart() {
       labels: dams,
       datasets: [
         {
-          label: 'Current Stored (MCM)',
+          label: 'Stored (MCM)',
           data: currentLive,
-          backgroundColor: '#38bdf8',
-          borderRadius: 6
+          backgroundColor: '#0284c7',
+          borderRadius: 4
         },
         {
-          label: 'Remaining Capacity (MCM)',
+          label: 'Remaining (MCM)',
           data: remaining,
           backgroundColor: 'rgba(255, 255, 255, 0.08)',
-          borderRadius: 6
+          borderRadius: 4
         }
       ]
     },
@@ -291,18 +288,18 @@ function renderVolumeChart() {
         x: {
           stacked: true,
           grid: { display: false },
-          ticks: { color: '#94a3b8', font: { family: 'Outfit', size: 12 } }
+          ticks: { color: '#9ca3af', font: { family: 'Inter', size: 11 } }
         },
         y: {
           stacked: true,
-          grid: { color: 'rgba(255, 255, 255, 0.06)' },
-          ticks: { color: '#64748b', font: { size: 11 } }
+          grid: { color: 'rgba(255, 255, 255, 0.05)' },
+          ticks: { color: '#6b7280', font: { size: 11 } }
         }
       },
       plugins: {
         legend: {
           position: 'top',
-          labels: { color: '#94a3b8', font: { family: 'Outfit', size: 12 }, usePointStyle: true }
+          labels: { color: '#9ca3af', font: { family: 'Inter', size: 12 }, usePointStyle: true }
         }
       }
     }
@@ -315,7 +312,6 @@ function filterTable() {
 
   if (!globalData || !globalData.all_records) return;
 
-  // Search through all historical records (sorted newest first)
   const all = [...globalData.all_records].reverse();
 
   filteredRecords = all.filter(item => {
@@ -349,19 +345,19 @@ function renderTable() {
 
   let html = '';
   if (currentSlice.length === 0) {
-    html = `<tr><td colspan="8" style="text-align:center; padding:30px; color:var(--text-muted);">No records found matching your filters.</td></tr>`;
+    html = `<tr><td colspan="8" style="text-align:center; padding:24px; color:var(--text-muted);">No records found matching filters.</td></tr>`;
   } else {
     currentSlice.forEach(row => {
       const tag = getTagDetails(row.current_pct);
       html += `
         <tr>
           <td><strong>${row.date}</strong></td>
-          <td><span style="color:var(--accent-cyan); font-weight:600;">${row.dam_name}</span></td>
-          <td>${row.time || '08:00 स.'}</td>
+          <td><span style="color:var(--text-primary); font-weight:500;">${row.dam_name}</span></td>
+          <td style="color:var(--text-secondary);">${row.time || '08:00 AM'}</td>
           <td><strong>${row.current_live_mcm.toFixed(2)}</strong> MCM</td>
-          <td>${row.design_live_mcm.toFixed(2)} MCM</td>
+          <td style="color:var(--text-secondary);">${row.design_live_mcm.toFixed(2)} MCM</td>
           <td><span class="dam-tag ${tag.class}">${row.current_pct}%</span></td>
-          <td>${row.last_year_pct}%</td>
+          <td style="color:var(--text-secondary);">${row.last_year_pct}%</td>
           <td><span style="color:${row.status === 'Success' ? 'var(--accent-emerald)' : 'var(--accent-amber)'}; font-weight:500;">${row.status}</span></td>
         </tr>
       `;
@@ -370,7 +366,6 @@ function renderTable() {
 
   tbody.innerHTML = html;
 
-  // Update Pagination Controls UI
   const countText = document.getElementById('recordsCountText');
   if (countText) {
     if (totalRecords === 0) {

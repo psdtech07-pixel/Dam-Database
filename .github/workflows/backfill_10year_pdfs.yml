@@ -1,0 +1,59 @@
+name: 10-Year Historical Dam PDF Backfill & Database Sync
+
+on:
+  workflow_dispatch:
+    inputs:
+      days:
+        description: 'Number of historical days to check and download PDFs (default: 3650 for 10 years)'
+        required: false
+        default: '3650'
+
+permissions:
+  contents: write
+
+jobs:
+  backfill-pdfs-and-sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install System Dependencies & Python Libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+          pip install pandas mysql-connector-python pypdf pdfplumber
+
+      - name: Run 10-Year Historical PDF Downloader & Ingestion
+        run: |
+          python3 -c "
+          import sys
+          sys.path.append('scraper')
+          sys.path.append('database')
+          import fetch_dam_data
+          import db_manager
+
+          days = int('${{ github.event.inputs.days || 3650 }}')
+          print(f'🚀 Starting 10-Year Backfill job for {days} days...')
+          df = fetch_dam_data.fetch_multi_dam_data(days=days)
+          fetch_dam_data.save_to_files(df)
+          print('✅ Backfill & Ingestion complete.')
+          "
+
+      - name: Commit and Push Updated Organized PDFs & Database
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dam_pdfs/ database/pune_dams.db web/dam_data.json || true
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Auto-backfill 10-year WRD PDFs, SQLite DB & web JSON [$(date +'%Y-%m-%d')]"
+            git push
+          fi
