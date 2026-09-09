@@ -68,19 +68,19 @@ jobs:
               print('[!] MYSQL_HOST secret not set. Skipping DB sync.')
           "
 
-      - name: Clean Data & Regenerate Dashboard JSON
+      - name: Ingest to SQLite DBMS & Regenerate Dashboard JSON
         run: |
-          python3 clean_dam_data_ml.py
+          python3 db_manager.py
 
-      - name: Commit and Push Updated Excel, CSV & Dashboard JSON Files
+      - name: Commit and Push Updated Database & Files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add Maharashtra_5_Dams_Data.xlsx Maharashtra_5_Dams_Data.csv Maharashtra_5_Dams_Cleaned_Data.csv dam_data.json || true
+          git add pune_dams.db Maharashtra_5_Dams_Data.xlsx Maharashtra_5_Dams_Data.csv Maharashtra_5_Dams_Cleaned_Data.csv dam_data.json || true
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "Auto-update dam storage records & dashboard JSON [$(date +'%Y-%m-%d')]"
+            git commit -m "Auto-update dam storage records, SQLite DB & dashboard JSON [$(date +'%Y-%m-%d')]"
             git push
           fi
 
