@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function initDashboard() {
   try {
-    const resp = await fetch('dam_data.json');
+    const resp = await fetch('dam_data.json?v=' + Date.now(), { cache: 'no-store' });
     if (!resp.ok) throw new Error('Failed to load dam_data.json');
     globalData = await resp.json();
     

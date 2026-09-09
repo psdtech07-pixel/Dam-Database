@@ -3,54 +3,49 @@ import numpy as np
 from datetime import date, timedelta
 import db_manager
 
-def remove_single_day_spikes(df):
+def clean_multi_day_spikes(df):
     """
-    Detects and cleans single-day PDF parsing artifacts (e.g. spikes to 100% in dry season).
-    An anomaly occurs when current_pct jumps > 25% above both previous and next day,
-    or current_pct > 90% while surrounding days are < 75%.
+    Applies a 7-day centered rolling median filter to detect and smooth multi-day PDF parsing artifacts.
+    If a storage value deviates significantly from the surrounding 7-day trend during non-overflow periods,
+    it is replaced with the physical 7-day median baseline.
     """
-    df = df.sort_values(['Dam Name', 'dt']).reset_index(drop=True)
     cleaned_rows = []
 
     for dam_name, group in df.groupby('Dam Name'):
-        group = group.copy()
-        
-        # Calculate surrounding values
-        prev_live = group['Current Live Storage (MCM)'].shift(1)
-        next_live = group['Current Live Storage (MCM)'].shift(-1)
-        
-        prev_pct = group['Current Live Storage (%)'].shift(1)
-        next_pct = group['Current Live Storage (%)'].shift(-1)
-
-        # Condition for single-day spike artifact
-        spike_mask = (
-            ((group['Current Live Storage (%)'] - prev_pct > 25) & (group['Current Live Storage (%)'] - next_pct > 25)) |
-            ((group['Current Live Storage (%)'] > 90) & (prev_pct < 75) & (next_pct < 75))
-        )
-
-        # Replace anomalous MCM with average of prev and next day
-        interp_mcm = (prev_live + next_live) / 2.0
-        group.loc[spike_mask, 'Current Live Storage (MCM)'] = interp_mcm[spike_mask]
-
-        # Recalculate percentage
+        group = group.sort_values('dt').copy()
         meta = db_manager.DAM_MASTER_DATA[[d['dam_name'] for d in db_manager.DAM_MASTER_DATA].index(dam_name)]
-        group['Current Live Storage (MCM)'] = group['Current Live Storage (MCM)'].clip(lower=0, upper=meta['design_live_mcm'])
+        meta_live = meta['design_live_mcm']
+        
+        # 1. 7-day centered rolling median
+        group['rolling_med'] = group['Current Live Storage (MCM)'].rolling(window=7, center=True, min_periods=1).median()
+        group['diff_from_med'] = (group['Current Live Storage (MCM)'] - group['rolling_med']).abs()
+        
+        pct_trend = (group['rolling_med'] / meta_live) * 100
+        
+        # Anomaly mask: deviation > 12% of live capacity while trend is < 80%
+        anomaly_mask = (group['diff_from_med'] > (meta_live * 0.12)) & (pct_trend < 80)
+        
+        # Replace anomaly with rolling median
+        group.loc[anomaly_mask, 'Current Live Storage (MCM)'] = group.loc[anomaly_mask, 'rolling_med']
+        
+        # Recalculate metrics
+        group['Current Live Storage (MCM)'] = group['Current Live Storage (MCM)'].clip(lower=0, upper=meta_live).round(2)
         group['Current Gross Storage (MCM)'] = (group['Current Live Storage (MCM)'] + meta['dead_storage_mcm']).round(2)
-        group['Current Live Storage (%)'] = ((group['Current Live Storage (MCM)'] / meta['design_live_mcm']) * 100).round(2)
+        group['Current Live Storage (%)'] = ((group['Current Live Storage (MCM)'] / meta_live) * 100).round(2)
 
+        group = group.drop(columns=['rolling_med', 'diff_from_med'], errors='ignore')
         cleaned_rows.append(group)
 
     return pd.concat(cleaned_rows, ignore_index=True).sort_values(['dt', 'Dam Name'])
 
 def build_full_continuous_dataset():
-    print("🚀 Cleaning spikes & building 100% clean dataset for 2024, 2025, 2026...")
+    print("🚀 Running 7-day Rolling Median Multi-Day Spike Cleaning Pipeline...")
     
-    # 1. Load existing dataset
     df = pd.read_csv("Maharashtra_5_Dams_Cleaned_Data.csv")
     df.columns = df.columns.str.strip().str.replace('\ufeff', '')
     
     df['dt'] = pd.to_datetime(df['Report Date'], format='%d/%m/%Y', errors='coerce')
-    if df['dt'].isnull().any():
+    if 'iso_date' in df.columns:
         df['dt'] = df['dt'].fillna(pd.to_datetime(df['iso_date'], errors='coerce'))
 
     df = df.dropna(subset=['dt']).sort_values(['dt', 'Dam Name'])
@@ -74,7 +69,6 @@ def build_full_continuous_dataset():
             
     grid_df = pd.DataFrame(grid)
 
-    # Merge with scraped data
     merged = pd.merge(grid_df, df[['dt', 'Dam Name', 'Report Time', 'Current Live Storage (MCM)', 'Current Gross Storage (MCM)', 'Current Live Storage (%)', 'Last Year Storage (%)', 'Status']], on=['dt', 'Dam Name'], how='left')
 
     cleaned_rows = []
@@ -105,9 +99,9 @@ def build_full_continuous_dataset():
 
     final_df = pd.concat(cleaned_rows, ignore_index=True)
     
-    # Apply Spike Cleaning Algorithm (2 Passes for edge cases)
-    final_df = remove_single_day_spikes(final_df)
-    final_df = remove_single_day_spikes(final_df)
+    # 2 passes of 7-day rolling median filter
+    final_df = clean_multi_day_spikes(final_df)
+    final_df = clean_multi_day_spikes(final_df)
 
     final_df['Report Date'] = final_df['dt'].dt.strftime('%d/%m/%Y')
     final_df['iso_date'] = final_df['dt'].dt.strftime('%Y-%m-%d')
@@ -115,7 +109,7 @@ def build_full_continuous_dataset():
     # Save to CSV
     final_df.to_csv("Maharashtra_5_Dams_Cleaned_Data.csv", index=False, encoding='utf-8-sig')
     final_df.to_csv("Maharashtra_5_Dams_Data.csv", index=False, encoding='utf-8-sig')
-    print(f"✅ Full Spike-Free Dataset Generated: {len(final_df)} records across {len(full_dates)} days!")
+    print(f"✨ 100% Smooth Spike-Free Dataset Generated: {len(final_df)} records across {len(full_dates)} calendar days!")
 
     # Ingest into SQLite RDBMS
     db_manager.init_db()
