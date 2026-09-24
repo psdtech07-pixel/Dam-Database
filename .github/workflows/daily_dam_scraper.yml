@@ -2,8 +2,9 @@ name: Daily Maharashtra 5-Dam Data Collector
 
 on:
   schedule:
-    # Runs daily at 09:00 AM IST (03:30 AM UTC)
-    - cron: '30 3 * * *'
+    # Runs daily at 02:00 PM IST (08:30 AM UTC) & 08:00 PM IST (14:30 UTC)
+    - cron: '30 8 * * *'
+    - cron: '30 14 * * *'
   workflow_dispatch: # Allows manual trigger from GitHub UI anytime
 
 permissions:
@@ -42,8 +43,8 @@ jobs:
           import fetch_dam_data
           import db_manager
 
-          # 1. Fetch recent 3 days data to ensure no missing reports
-          df = fetch_dam_data.fetch_multi_dam_data(days=3)
+          # 1. Fetch recent 14 days data to ensure no missing reports
+          df = fetch_dam_data.fetch_multi_dam_data(days=14)
           
           # 2. Ingest into SQLite DBMS & export web JSON
           fetch_dam_data.save_to_files(df)

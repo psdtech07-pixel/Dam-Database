@@ -208,7 +208,7 @@ def download_pdf_for_date(date_obj, pdf_dir):
         url = base_url + urllib.parse.quote(filename)
         req = urllib.request.Request(url, headers=HEADERS)
         try:
-            with urllib.request.urlopen(req, context=SSL_CONTEXT, timeout=3) as resp:
+            with urllib.request.urlopen(req, context=SSL_CONTEXT, timeout=8) as resp:
                 data = resp.read()
                 if len(data) > 1000:
                     with open(dest_path, 'wb') as f:
