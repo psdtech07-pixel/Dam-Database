@@ -76,7 +76,21 @@ def ingest_records_from_dataframe(df):
         try:
             live_mcm = float(row.get('Current Live Storage (MCM)', 0))
             gross_mcm = float(row.get('Current Gross Storage (MCM)', 0))
-            current_pct = float(row.get('Current Live Storage (%)', 0))
+            design_live = float(dam_map.get(dam_name, 0)) # We can fetch design live from master
+            
+            # Fetch design live from dams master table
+            cursor.execute("SELECT design_live_mcm FROM dams WHERE dam_id = ?;", (dam_id,))
+            dam_res = cursor.fetchone()
+            design_live_mcm = dam_res['design_live_mcm'] if dam_res else 0.0
+
+            raw_pct = row.get('Current Live Storage (%)')
+            if raw_pct is not None and str(raw_pct).strip() != '' and float(raw_pct) > 0:
+                current_pct = float(raw_pct)
+            elif design_live_mcm > 0 and live_mcm >= 0:
+                current_pct = round((live_mcm / design_live_mcm) * 100, 2)
+            else:
+                current_pct = 0.0
+                
             last_year_pct = float(row.get('Last Year Storage (%)', 0))
         except (ValueError, TypeError):
             continue

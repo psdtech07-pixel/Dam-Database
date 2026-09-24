@@ -90,7 +90,7 @@ def parse_dam_line(line):
         design_gross = tokens[date_idx + 5]
         current_live = tokens[date_idx + 6]
         current_gross = tokens[date_idx + 7]
-        current_pct = tokens[date_idx + 8].replace('%', '')
+        current_pct_raw = tokens[date_idx + 8].replace('%', '')
         
         prev_year_pct = ""
         for token in tokens[date_idx + 9:]:
@@ -99,15 +99,29 @@ def parse_dam_line(line):
                 prev_year_pct = cleaned
                 break
 
+        dead_val = float(dead_storage) if re.match(r'^\d+(\.\d+)?$', dead_storage) else 0.0
+        design_live_val = float(design_live) if re.match(r'^\d+(\.\d+)?$', design_live) else 0.0
+        design_gross_val = float(design_gross) if re.match(r'^\d+(\.\d+)?$', design_gross) else 0.0
+        current_live_val = float(current_live) if re.match(r'^\d+(\.\d+)?$', current_live) else 0.0
+        current_gross_val = float(current_gross) if re.match(r'^\d+(\.\d+)?$', current_gross) else 0.0
+        
+        if re.match(r'^\d+(\.\d+)?$', current_pct_raw) and float(current_pct_raw) > 0:
+            current_pct_val = float(current_pct_raw)
+        elif design_live_val > 0 and current_live_val >= 0:
+            current_pct_val = round((current_live_val / design_live_val) * 100, 2)
+        else:
+            current_pct_val = 0.0
+
         return {
             'Report Date': report_date,
             'Report Time': report_time,
-            'Dead Storage (MCM)': float(dead_storage) if re.match(r'^\d+(\.\d+)?$', dead_storage) else dead_storage,
-            'Design Live Storage (MCM)': float(design_live) if re.match(r'^\d+(\.\d+)?$', design_live) else design_live,
-            'Design Gross Storage (MCM)': float(design_gross) if re.match(r'^\d+(\.\d+)?$', design_gross) else design_gross,
-            'Current Live Storage (MCM)': float(current_live) if re.match(r'^\d+(\.\d+)?$', current_live) else current_live,
-            'Current Gross Storage (MCM)': float(current_gross) if re.match(r'^\d+(\.\d+)?$', current_gross) else current_gross,
-            'Last Year Storage (%)': float(prev_year_pct) if re.match(r'^\d+(\.\d+)?$', prev_year_pct) else prev_year_pct,
+            'Dead Storage (MCM)': dead_val,
+            'Design Live Storage (MCM)': design_live_val,
+            'Design Gross Storage (MCM)': design_gross_val,
+            'Current Live Storage (MCM)': current_live_val,
+            'Current Gross Storage (MCM)': current_gross_val,
+            'Current Live Storage (%)': current_pct_val,
+            'Last Year Storage (%)': float(prev_year_pct) if re.match(r'^\d+(\.\d+)?$', prev_year_pct) else 0.0,
             'Status': 'Success'
         }
     return None
