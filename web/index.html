@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>Pune Reservoir Water Analytics | 5 Major Dams</title>
-  <meta name="description" content="Real-time and 10-year historical water storage analytics dashboard for Khadakwasla, Panshet, Mulshi, Gunjawani, and Temghar dams in Pune, Maharashtra.">
+  <title>Maharashtra Dam Water Storage Analytics | State-Wide Reservoir Portal</title>
+  <meta name="description" content="Real-time and historical water storage analytics dashboard for all major and medium dams across 36 districts in Maharashtra.">
   
   <!-- Google Fonts: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,7 +15,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <!-- Clean Minimalist Mobile-First Stylesheet -->
-  <link rel="stylesheet" href="index.css?v=4.0">
+  <link rel="stylesheet" href="index.css?v=5.0">
 </head>
 <body>
   <div class="app-container">
@@ -29,29 +29,29 @@
           </svg>
         </div>
         <div class="brand-info">
-          <h1>Pune Reservoir Analytics</h1>
-          <p>Official Maharashtra WRD Live Storage Monitoring</p>
+          <h1>Maharashtra Dam Reservoir Analytics</h1>
+          <p>State-Wide Water Resources Department (WRD) Monitoring System</p>
         </div>
       </div>
 
       <div class="status-badge" id="headerStatusBadge">
         <span class="pulse-indicator"></span>
-        <span id="lastUpdatedText">Live Sync Active</span>
+        <span id="lastUpdatedText">State-Wide Live Sync Active</span>
       </div>
     </header>
 
     <!-- Top Key Metrics Cards -->
     <section class="kpi-grid">
       <div class="kpi-card">
-        <div class="kpi-label">Total Water Stored</div>
+        <div class="kpi-label">Total State Water Stored</div>
         <div class="kpi-number" id="kpiTotalLive">0 <span class="unit">MCM</span></div>
-        <div class="kpi-subtext">Across 5 monitored reservoirs</div>
+        <div class="kpi-subtext">Across monitored state reservoirs</div>
       </div>
 
       <div class="kpi-card">
         <div class="kpi-label">Total Live Capacity</div>
         <div class="kpi-number" id="kpiTotalDesign">0 <span class="unit">MCM</span></div>
-        <div class="kpi-subtext">Combined design storage</div>
+        <div class="kpi-subtext">Combined design live capacity</div>
       </div>
 
       <div class="kpi-card">
@@ -62,16 +62,55 @@
 
       <div class="kpi-card">
         <div class="kpi-label">Monitored Reservoirs</div>
-        <div class="kpi-number">5 <span class="unit">Dams</span></div>
-        <div class="kpi-subtext">Khadakwasla • Panshet • Mulshi • Gunjawani • Temghar</div>
+        <div class="kpi-number" id="kpiTotalDams">0 <span class="unit">Dams</span></div>
+        <div class="kpi-subtext">6 Revenue Divisions • 36 Districts</div>
+      </div>
+    </section>
+
+    <!-- State Division & District Filter Bar -->
+    <section class="content-section">
+      <div class="card filter-card">
+        <div class="filter-controls-grid">
+          <div class="filter-group">
+            <label for="divisionSelectFilter">Revenue Division:</label>
+            <select id="divisionSelectFilter" class="select-pill" onchange="onDivisionChange()">
+              <option value="ALL">All Divisions (6 Regions)</option>
+              <option value="Pune">Pune Division</option>
+              <option value="Kokan">Konkan Division</option>
+              <option value="Nashik">Nashik Division</option>
+              <option value="Chhatrapati Sambhajinagar">Chhatrapati Sambhajinagar</option>
+              <option value="Amravati">Amravati Division</option>
+              <option value="Nagpur">Nagpur Division</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="districtSelectFilter">District:</label>
+            <select id="districtSelectFilter" class="select-pill" onchange="onDistrictChange()">
+              <option value="ALL">All Districts (36 Districts)</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="damSelectFilter">Select Dam:</label>
+            <select id="damSelectFilter" class="select-pill" onchange="filterTable()">
+              <option value="ALL">All Monitored Dams</option>
+            </select>
+          </div>
+
+          <div class="filter-group search-group">
+            <label for="tableSearchInput">Search Dam / Location:</label>
+            <input type="search" id="tableSearchInput" class="search-input" placeholder="Type dam name or district..." oninput="filterTable()">
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Individual Dam Storage Cards Grid -->
     <section class="content-section">
       <div class="section-heading">
-        <h2>Current Storage Levels</h2>
-        <span class="subheading">Live storage breakdown by dam</span>
+        <h2>Live Storage Levels</h2>
+        <span class="subheading" id="damGridSubheading">State-wide dam storage breakdown</span>
       </div>
 
       <div class="dam-grid" id="damCardsGrid">
@@ -92,12 +131,7 @@
             
             <div class="chart-controls-wrapper">
               <select id="chartDamFilter" class="select-pill" onchange="renderTrendChart(currentChartDays)">
-                <option value="ALL">All 5 Dams</option>
-                <option value="Khadakwasla">Khadakwasla</option>
-                <option value="Panshet">Panshet</option>
-                <option value="Mulshi">Mulshi</option>
-                <option value="Gunjawani">Gunjawani</option>
-                <option value="Temghar">Temghar</option>
+                <option value="ALL">Top Major Dams</option>
               </select>
 
               <div class="pill-nav">
@@ -134,28 +168,17 @@
         <div class="card-header flex-header">
           <div>
             <h3>Database Storage Logs</h3>
-            <p class="card-subtext"><span id="totalRecordsBadge">0</span> records in SQLite DBMS</p>
+            <p class="card-subtext"><span id="totalRecordsBadge">0</span> records in 3NF SQLite DBMS</p>
           </div>
 
           <div class="table-actions">
-            <select id="damSelectFilter" class="select-pill" onchange="filterTable()">
-              <option value="ALL">All Dams</option>
-              <option value="Khadakwasla">Khadakwasla</option>
-              <option value="Panshet">Panshet</option>
-              <option value="Mulshi">Mulshi</option>
-              <option value="Gunjawani">Gunjawani</option>
-              <option value="Temghar">Temghar</option>
-            </select>
-
-            <input type="search" id="tableSearchInput" class="search-input" placeholder="Search date or status..." oninput="filterTable()">
-            
             <button class="btn-action" onclick="exportTableToCSV()">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                 <polyline points="7 10 12 15 17 10"/>
                 <line x1="12" y1="15" x2="12" y2="3"/>
               </svg>
-              Export
+              Export CSV
             </button>
           </div>
         </div>
@@ -167,6 +190,8 @@
               <tr>
                 <th>Date</th>
                 <th>Dam Name</th>
+                <th>Division</th>
+                <th>District</th>
                 <th>Time</th>
                 <th>Live Storage</th>
                 <th>Design Live</th>
@@ -201,6 +226,6 @@
   </div>
 
   <!-- Dashboard JavaScript Logic -->
-  <script src="app.js?v=4.0"></script>
+  <script src="app.js?v=5.0"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-name: Daily Maharashtra 5-Dam Data Collector
+name: Daily Maharashtra State-Wide Dam Data Collector
 
 on:
   schedule:

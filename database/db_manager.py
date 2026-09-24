@@ -10,15 +10,6 @@ DB_FILE = BASE_DIR / "database" / "pune_dams.db"
 SCHEMA_FILE = BASE_DIR / "database" / "schema.sql"
 JSON_OUTPUT = BASE_DIR / "web" / "dam_data.json"
 
-# Canonical Dam Master Reference Data
-DAM_MASTER_DATA = [
-    {"dam_code": "KHD", "dam_name": "Khadakwasla", "river_name": "Mutha River", "dead_storage_mcm": 30.0,  "design_live_mcm": 55.91,  "design_gross_mcm": 85.91},
-    {"dam_code": "PNS", "dam_name": "Panshet",     "river_name": "Ambi River",  "dead_storage_mcm": 9.0,   "design_live_mcm": 301.61, "design_gross_mcm": 310.61},
-    {"dam_code": "MUL", "dam_name": "Mulshi",      "river_name": "Mula River",  "dead_storage_mcm": 230.0, "design_live_mcm": 522.76, "design_gross_mcm": 752.76},
-    {"dam_code": "GNJ", "dam_name": "Gunjawani",   "river_name": "Kanandi River","dead_storage_mcm": 0.21,  "design_live_mcm": 104.48, "design_gross_mcm": 104.69},
-    {"dam_code": "TMG", "dam_name": "Temghar",     "river_name": "Mutha River", "dead_storage_mcm": 2.95,  "design_live_mcm": 105.01, "design_gross_mcm": 107.96}
-]
-
 def get_db_connection():
     """Returns a connection to the SQLite database with Foreign Keys enabled."""
     conn = sqlite3.connect(DB_FILE)
@@ -42,7 +33,7 @@ def init_db():
 def ingest_records_from_dataframe(df):
     """
     Ingests/upserts DataFrame records into daily_dam_storage_logs table.
-    Guarantees zero data loss and persistent historical storage in SQLite 3NF schema.
+    Dynamically auto-registers new state dams into 3NF master tables.
     """
     init_db()
     
@@ -59,8 +50,45 @@ def ingest_records_from_dataframe(df):
     inserted_count = 0
 
     for _, row in df.iterrows():
-        dam_name = row.get('Dam Name')
+        dam_name = str(row.get('Dam Name', '')).strip()
+        if not dam_name:
+            continue
+            
         dam_id = dam_map.get(dam_name)
+        if not dam_id:
+            # Auto-register new state dam into dams master table
+            division_name = str(row.get('Division', 'Pune')).strip()
+            district_name = str(row.get('District', division_name)).strip()
+            
+            cursor.execute("SELECT district_id FROM districts WHERE district_name LIKE ? OR district_name_mr LIKE ?;", (f"%{district_name}%", f"%{district_name}%"))
+            dist_row = cursor.fetchone()
+            dist_id = dist_row['district_id'] if dist_row else 1 # Default Pune district (id=1)
+            
+            dam_code = f"MH_{abs(hash(dam_name)) % 1000000:06d}"
+            try:
+                dead_val = float(row.get('Dead Storage (MCM)', 0.0))
+            except Exception: dead_val = 0.0
+            
+            try:
+                design_live_val = float(row.get('Design Live Storage (MCM)', 100.0))
+            except Exception: design_live_val = 100.0
+            if design_live_val <= 0: design_live_val = 100.0
+
+            try:
+                design_gross_val = float(row.get('Design Gross Storage (MCM)', dead_val + design_live_val))
+            except Exception: design_gross_val = dead_val + design_live_val
+            
+            cursor.execute("""
+            INSERT OR IGNORE INTO dams (dam_code, dam_name, dam_name_mr, district_id, basin_id, river_name, dead_storage_mcm, design_live_mcm, design_gross_mcm)
+            VALUES (?, ?, ?, ?, 1, 'State River', ?, ?, ?);
+            """, (dam_code, dam_name, dam_name, dist_id, dead_val, design_live_val, design_gross_val))
+            
+            cursor.execute("SELECT dam_id FROM dams WHERE dam_name = ?;", (dam_name,))
+            new_dam_row = cursor.fetchone()
+            if new_dam_row:
+                dam_id = new_dam_row['dam_id']
+                dam_map[dam_name] = dam_id
+
         if not dam_id:
             continue
 
@@ -71,17 +99,15 @@ def ingest_records_from_dataframe(df):
             continue
             
         iso_date = dt_str.strftime('%Y-%m-%d')
-        report_time = str(row.get('Report Time', '08:00 स.'))
+        report_time = str(row.get('Report Time', '08:00 AM'))
         
         try:
             live_mcm = float(row.get('Current Live Storage (MCM)', 0))
             gross_mcm = float(row.get('Current Gross Storage (MCM)', 0))
-            design_live = float(dam_map.get(dam_name, 0)) # We can fetch design live from master
             
-            # Fetch design live from dams master table
             cursor.execute("SELECT design_live_mcm FROM dams WHERE dam_id = ?;", (dam_id,))
             dam_res = cursor.fetchone()
-            design_live_mcm = dam_res['design_live_mcm'] if dam_res else 0.0
+            design_live_mcm = dam_res['design_live_mcm'] if dam_res else 100.0
 
             raw_pct = row.get('Current Live Storage (%)')
             if raw_pct is not None and str(raw_pct).strip() != '' and float(raw_pct) > 0:
@@ -91,7 +117,8 @@ def ingest_records_from_dataframe(df):
             else:
                 current_pct = 0.0
                 
-            last_year_pct = float(row.get('Last Year Storage (%)', 0))
+            current_pct = min(150.0, max(0.0, current_pct))
+            last_year_pct = min(150.0, max(0.0, float(row.get('Last Year Storage (%)', 0))))
         except (ValueError, TypeError):
             continue
 
@@ -116,12 +143,12 @@ def ingest_records_from_dataframe(df):
 
     cursor.execute("""
     INSERT INTO system_audit_logs (action_name, records_affected, execution_status, log_message)
-    VALUES ('DATA_INGESTION', ?, 'SUCCESS', 'Ingested daily storage log records into SQLite database');
+    VALUES ('STATE_DATA_INGESTION', ?, 'SUCCESS', 'Ingested Maharashtra dam storage records into 3NF DBMS');
     """, (inserted_count,))
 
     conn.commit()
     conn.close()
-    print(f"✅ DBMS Ingestion Complete: {inserted_count} records active in 'daily_dam_storage_logs' table.")
+    print(f"✅ DBMS State Ingestion Complete: {inserted_count} records active in 'daily_dam_storage_logs' table.")
     return inserted_count
 
 def export_db_to_json(json_output_path=JSON_OUTPUT):
@@ -132,9 +159,17 @@ def export_db_to_json(json_output_path=JSON_OUTPUT):
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    # Query latest storage
+    # Query Divisions & Districts list
+    cursor.execute("SELECT division_name FROM divisions ORDER BY division_id ASC;")
+    divisions = [r['division_name'] for r in cursor.fetchall()]
+
+    cursor.execute("SELECT district_name FROM districts ORDER BY district_name ASC;")
+    districts = [r['district_name'] for r in cursor.fetchall()]
+
+    # Query latest storage for all dams in state
     sql_latest = """
-    SELECT dam_name, report_date, report_time, dead_storage_mcm, design_live_mcm,
+    SELECT dam_name, dam_name_mr, district_name, division_name, basin_name, project_type,
+           report_date, report_time, dead_storage_mcm, design_live_mcm,
            design_gross_mcm, current_live_mcm, current_gross_mcm, current_live_pct,
            same_date_last_year_pct, status_code
     FROM vw_dam_daily_analytics
@@ -151,14 +186,18 @@ def export_db_to_json(json_output_path=JSON_OUTPUT):
         latest_dict[r['dam_name']] = {
             'date': dt_fmt,
             'time': r['report_time'],
+            'district': r['district_name'],
+            'division': r['division_name'],
+            'basin': r['basin_name'],
+            'type': r['project_type'],
             'dead_mcm': r['dead_storage_mcm'],
             'design_live_mcm': r['design_live_mcm'],
             'design_gross_mcm': r['design_gross_mcm'],
             'current_live_mcm': r['current_live_mcm'],
             'current_gross_mcm': r['current_gross_mcm'],
             'current_pct': r['current_live_pct'],
-            'last_year_pct': r['same_date_last_year_pct'],
-            'status': r['status_code']
+            'last_year_pct': r['same_date_last_year_pct'] or 0,
+            'status': r['status_code'] or 'SUCCESS'
         }
 
     # Query Time Series
@@ -180,7 +219,12 @@ def export_db_to_json(json_output_path=JSON_OUTPUT):
     time_series_list = list(ts_by_date.values())
 
     # Query All Records
-    sql_all_records = "SELECT report_date, report_time, dam_name, current_live_mcm, design_live_mcm, current_live_pct, same_date_last_year_pct, status_code FROM vw_dam_daily_analytics ORDER BY report_date ASC;"
+    sql_all_records = """
+    SELECT report_date, report_time, dam_name, district_name, division_name, 
+           current_live_mcm, design_live_mcm, current_live_pct, same_date_last_year_pct, status_code 
+    FROM vw_dam_daily_analytics 
+    ORDER BY report_date DESC, dam_name ASC;
+    """
     cursor.execute(sql_all_records)
     all_rows = cursor.fetchall()
 
@@ -190,8 +234,10 @@ def export_db_to_json(json_output_path=JSON_OUTPUT):
         all_records_list.append({
             'date': dt_fmt,
             'iso_date': r['report_date'],
-            'time': r['report_time'] or '08:00 स.',
+            'time': r['report_time'] or '08:00 AM',
             'dam_name': r['dam_name'],
+            'district': r['district_name'],
+            'division': r['division_name'],
             'current_live_mcm': r['current_live_mcm'],
             'design_live_mcm': r['design_live_mcm'],
             'current_pct': r['current_live_pct'],
@@ -200,8 +246,11 @@ def export_db_to_json(json_output_path=JSON_OUTPUT):
         })
 
     out_json = {
+        'total_dams': len(latest_dict),
         'total_dates': len(time_series_list),
         'total_records': len(all_records_list),
+        'divisions': divisions,
+        'districts': districts,
         'latest': latest_dict,
         'time_series': time_series_list,
         'all_records': all_records_list
@@ -211,58 +260,8 @@ def export_db_to_json(json_output_path=JSON_OUTPUT):
         json.dump(out_json, f, indent=2, ensure_ascii=False)
 
     conn.close()
-    print(f"✨ Exported {len(all_records_list)} SQL records to '{json_output_path}'.")
-
-def inspect_db_for_faculty():
-    """Prints a rich terminal report of the Relational Database for Faculty presentation."""
-    conn = get_db_connection()
-    cursor = conn.cursor()
-
-    print("\n==========================================================================")
-    print(" 🏛️  DATABASE MANAGEMENT SYSTEM (DBMS) FACULTY INSPECTION REPORT")
-    print("==========================================================================")
-    print(f" Database Engine : SQLite3 ({DB_FILE})")
-    print(f" Schema Standard : 3rd Normal Form (3NF)")
-    print("==========================================================================\n")
-
-    print("📊 1. TABLES CREATED:")
-    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%';")
-    tables = [r[0] for r in cursor.fetchall()]
-    for t in tables:
-        cursor.execute(f"SELECT COUNT(*) FROM {t};")
-        cnt = cursor.fetchone()[0]
-        print(f"   • Table '{t}' -> {cnt:,} rows")
-
-    print("\n👁️ 2. RELATIONAL VIEWS:")
-    cursor.execute("SELECT name FROM sqlite_master WHERE type='view';")
-    views = [r[0] for r in cursor.fetchall()]
-    for v in views:
-        print(f"   • View '{v}'")
-
-    print("\n⚡ 3. INDEXES & CONSTRAINTS:")
-    cursor.execute("SELECT name, sql FROM sqlite_master WHERE type='index' AND sql IS NOT NULL;")
-    indexes = cursor.fetchall()
-    for idx in indexes:
-        print(f"   • Index '{idx['name']}': {idx['sql']}")
-
-    print("\n🏞️ 4. MASTER DAM ENTITIES ('dams' table):")
-    cursor.execute("SELECT dam_id, dam_code, dam_name, river_name, design_live_mcm FROM dams;")
-    for r in cursor.fetchall():
-        print(f"   [ID {r['dam_id']}] {r['dam_code']} - {r['dam_name']} ({r['river_name']}) | Design Live: {r['design_live_mcm']} MCM")
-
-    print("\n🔍 5. SAMPLE SQL RELATIONAL JOIN QUERY (vw_dam_daily_analytics):")
-    cursor.execute("SELECT dam_name, report_date, current_live_mcm, current_live_pct, remaining_capacity_mcm FROM vw_dam_daily_analytics ORDER BY report_date DESC LIMIT 5;")
-    for r in cursor.fetchall():
-        print(f"   Date: {r['report_date']} | Dam: {r['dam_name']} | Stored: {r['current_live_mcm']} MCM ({r['current_live_pct']}%) | Remaining: {r['remaining_capacity_mcm']} MCM")
-
-    print("\n==========================================================================\n")
-    conn.close()
+    print(f"✨ Exported {len(all_records_list)} SQL records across {len(latest_dict)} Maharashtra dams to '{json_output_path}'.")
 
 if __name__ == '__main__':
-    import sys
-    if '--inspect' in sys.argv:
-        inspect_db_for_faculty()
-    else:
-        init_db()
-        export_db_to_json()
-
+    init_db()
+    export_db_to_json()
