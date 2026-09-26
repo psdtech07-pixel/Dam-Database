@@ -31,32 +31,61 @@ HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
 }
 
-# Dam Name Translation Map for English UI Standard
-DAM_NAME_EN_MAP = {
-    'खडकवासला': 'Khadakwasla',
-    'पानशेत': 'Panshet',
-    'मुळशी': 'Mulshi',
-    'गुंजवणी': 'Gunjawani',
-    'टेमघर': 'Temghar',
-    'कोयना': 'Koyna',
-    'उजनी': 'Ujani',
-    'भातासा': 'Bhatsa',
-    'भातसा': 'Bhatsa',
-    'जयकवाडी': 'Paithan (Jayakwadi)',
-    'पैठण': 'Paithan (Jayakwadi)',
-    'तोतलाडोह': 'Totladoh',
-    'गोसीखद': 'Gosikhurd',
-    'बावनथडी': 'Bawanthadi',
-    'भांडारदरा': 'Bhandardara',
-    'निळवंडे': 'Nilwande',
-    'मुळा': 'Mula',
-    'वरसगाव': 'Varasgaon',
-    'चासकमान': 'Chaskaman',
-    'डिंभे': 'Dimbhe',
-    'वीर': 'Veer',
-    'दूधगंगा': 'Dudhganga',
-    'राधानगरी': 'Radhanagari'
+# Comprehensive Clean Dam Master Dictionary with English, Marathi, District, and Division
+DAM_DICTIONARY = {
+    'खडकवासला': {'en': 'Khadakwasla', 'mr': 'खडकवासला', 'district': 'Pune', 'division': 'Pune'},
+    'पानशेत': {'en': 'Panshet', 'mr': 'पानशेत', 'district': 'Pune', 'division': 'Pune'},
+    'वरसगाव': {'en': 'Varasgaon', 'mr': 'वरसगाव', 'district': 'Pune', 'division': 'Pune'},
+    'टेमघर': {'en': 'Temghar', 'mr': 'टेमघर', 'district': 'Pune', 'division': 'Pune'},
+    'मुळशी': {'en': 'Mulshi', 'mr': 'मुळशी', 'district': 'Pune', 'division': 'Pune'},
+    'गुंजवणी': {'en': 'Gunjawani', 'mr': 'गुंजवणी', 'district': 'Pune', 'division': 'Pune'},
+    'पवना': {'en': 'Pavana', 'mr': 'पवना', 'district': 'Pune', 'division': 'Pune'},
+    'चासकमान': {'en': 'Chaskaman', 'mr': 'चासकमान', 'district': 'Pune', 'division': 'Pune'},
+    'डिंभे': {'en': 'Dimbhe', 'mr': 'डिंभे', 'district': 'Pune', 'division': 'Pune'},
+    'उजनी': {'en': 'Ujani', 'mr': 'उजनी', 'district': 'Solapur', 'division': 'Pune'},
+    'कोयना': {'en': 'Koyna', 'mr': 'कोयना', 'district': 'Satara', 'division': 'Pune'},
+    'वीर': {'en': 'Veer', 'mr': 'वीर', 'district': 'Satara', 'division': 'Pune'},
+    'राधानगरी': {'en': 'Radhanagari', 'mr': 'राधानगरी', 'district': 'Kolhapur', 'division': 'Pune'},
+    'दूधगंगा': {'en': 'Dudhganga', 'mr': 'दूधगंगा', 'district': 'Kolhapur', 'division': 'Pune'},
+    'भातसा': {'en': 'Bhatsa', 'mr': 'भातसा', 'district': 'Thane', 'division': 'Kokan'},
+    'भातासा': {'en': 'Bhatsa', 'mr': 'भातसा', 'district': 'Thane', 'division': 'Kokan'},
+    'तानसा': {'en': 'Tansa', 'mr': 'तानसा', 'district': 'Thane', 'division': 'Kokan'},
+    'वैतरणा': {'en': 'Upper Vaitarna', 'mr': 'वैतरणा', 'district': 'Nashik', 'division': 'Nashik'},
+    'मोडक सागर': {'en': 'Modak Sagar', 'mr': 'मोडक सागर', 'district': 'Thane', 'division': 'Kokan'},
+    'बारवी': {'en': 'Barvi', 'mr': 'बारवी', 'district': 'Thane', 'division': 'Kokan'},
+    'सूर्या': {'en': 'Surya', 'mr': 'सूर्या', 'district': 'Palghar', 'division': 'Kokan'},
+    'तिल्लारी': {'en': 'Tillari', 'mr': 'तिल्लारी', 'district': 'Sindhudurg', 'division': 'Kokan'},
+    'जयकवाडी': {'en': 'Jayakwadi (Paithan)', 'mr': 'जयकवाडी (पैठण)', 'district': 'Chhatrapati Sambhajinagar', 'division': 'Chhatrapati Sambhajinagar'},
+    'पैठण': {'en': 'Jayakwadi (Paithan)', 'mr': 'जयकवाडी (पैठण)', 'district': 'Chhatrapati Sambhajinagar', 'division': 'Chhatrapati Sambhajinagar'},
+    'मांजरा': {'en': 'Manjara', 'mr': 'मांजरा', 'district': 'Beed', 'division': 'Chhatrapati Sambhajinagar'},
+    'माजलगाव': {'en': 'Majalgaon', 'mr': 'माजलगाव', 'district': 'Beed', 'division': 'Chhatrapati Sambhajinagar'},
+    'येळदारी': {'en': 'Yeldari', 'mr': 'येळदारी', 'district': 'Hingoli', 'division': 'Chhatrapati Sambhajinagar'},
+    'सिद्धेश्वर': {'en': 'Siddheshwar', 'mr': 'सिद्धेश्वर', 'district': 'Hingoli', 'division': 'Chhatrapati Sambhajinagar'},
+    'भांडारदरा': {'en': 'Bhandardara', 'mr': 'भांडारदरा', 'district': 'Ahmednagar', 'division': 'Nashik'},
+    'निळवंडे': {'en': 'Nilwande', 'mr': 'निळवंडे', 'district': 'Ahmednagar', 'division': 'Nashik'},
+    'मुळा': {'en': 'Mula', 'mr': 'मुळा', 'district': 'Ahmednagar', 'division': 'Nashik'},
+    'गंगापूर': {'en': 'Gangapur', 'mr': 'गंगापूर', 'district': 'Nashik', 'division': 'Nashik'},
+    'गिरणा': {'en': 'Girna', 'mr': 'गिरणा', 'district': 'Nashik', 'division': 'Nashik'},
+    'हतनूर': {'en': 'Hatnur', 'mr': 'हतनूर', 'district': 'Jalgaon', 'division': 'Nashik'},
+    'तोतलाडोह': {'en': 'Totladoh', 'mr': 'तोतलाडोह', 'district': 'Nagpur', 'division': 'Nagpur'},
+    'गोसीखुर्द': {'en': 'Gosikhurd', 'mr': 'गोसीखुर्द', 'district': 'Bhandara', 'division': 'Nagpur'},
+    'गोसीखद': {'en': 'Gosikhurd', 'mr': 'गोसीखुर्द', 'district': 'Bhandara', 'division': 'Nagpur'},
+    'बावनथडी': {'en': 'Bawanthadi', 'mr': 'बावनथडी', 'district': 'Bhandara', 'division': 'Nagpur'},
+    'इटीयाडोह': {'en': 'Itiadoh', 'mr': 'इटीयाडोह', 'district': 'Gondia', 'division': 'Nagpur'},
+    'ऊर्ध्व वर्धा': {'en': 'Upper Wardha', 'mr': 'ऊर्ध्व वर्धा', 'district': 'Amravati', 'division': 'Amravati'},
+    'निम्न वर्धा': {'en': 'Lower Wardha', 'mr': 'निम्न वर्धा', 'district': 'Wardha', 'division': 'Nagpur'},
+    'अरुणावती': {'en': 'Arunavati', 'mr': 'अरुणावती', 'district': 'Yavatmal', 'division': 'Amravati'},
+    'इसापूर': {'en': 'Isapur', 'mr': 'इसापूर', 'district': 'Yavatmal', 'division': 'Amravati'},
+    'वान': {'en': 'Wan', 'mr': 'वान', 'district': 'Akola', 'division': 'Amravati'},
+    'नळगंगा': {'en': 'Nalganga', 'mr': 'नळगंगा', 'district': 'Buldhana', 'division': 'Amravati'},
+    'पैनगंगा': {'en': 'Penganga', 'mr': 'पैनगंगा', 'district': 'Yavatmal', 'division': 'Amravati'}
 }
+
+def clean_marathi_text(text):
+    """Strips PDF font ligature artifact symbols from Marathi text."""
+    if not text: return ""
+    cleaned = re.sub(r'[\uE000-\uF8FF]', '', text).strip()
+    return cleaned if cleaned else text
 
 def get_pdf_text(pdf_path):
     """Extract text from PDF using pdftotext CLI, pypdf, or pdfplumber."""
@@ -100,11 +129,22 @@ def parse_dam_line(line, default_date=""):
 
     if date_idx >= 1 and len(tokens) >= date_idx + 7:
         name_tokens = [t for t in tokens[:date_idx] if not re.match(r'^\d+$', t)]
-        raw_dam_name = ' '.join(name_tokens).strip()
+        raw_dam_name = clean_marathi_text(' '.join(name_tokens)).strip()
         if not raw_dam_name:
-            raw_dam_name = tokens[date_idx - 1]
+            raw_dam_name = clean_marathi_text(tokens[date_idx - 1])
             
-        dam_name = DAM_NAME_EN_MAP.get(raw_dam_name, raw_dam_name)
+        dict_info = DAM_DICTIONARY.get(raw_dam_name)
+        if dict_info:
+            dam_name_en = dict_info['en']
+            dam_name_mr = dict_info['mr']
+            district = dict_info['district']
+            division = dict_info['division']
+        else:
+            dam_name_en = raw_dam_name
+            dam_name_mr = raw_dam_name
+            district = 'Maharashtra'
+            division = 'Pune'
+
         report_date = tokens[date_idx]
         
         report_time = tokens[date_idx+1]
@@ -144,7 +184,10 @@ def parse_dam_line(line, default_date=""):
                 current_pct_val = 0.0
 
             return {
-                'Dam Name': dam_name,
+                'Dam Name': dam_name_en,
+                'Dam Name MR': dam_name_mr,
+                'District': district,
+                'Division': division,
                 'Report Date': report_date,
                 'Report Time': report_time,
                 'Dead Storage (MCM)': dead_val,
@@ -152,7 +195,7 @@ def parse_dam_line(line, default_date=""):
                 'Design Gross Storage (MCM)': design_gross_val,
                 'Current Live Storage (MCM)': current_live_val,
                 'Current Gross Storage (MCM)': current_gross_val,
-                'Current Live Storage (%)': current_pct_val,
+                'Current Live Storage (%)': min(150.0, max(0.0, current_pct_val)),
                 'Last Year Storage (%)': float(last_year_pct) if re.match(r'^\d+(\.\d+)?$', last_year_pct) else 0.0,
                 'Status': 'Success'
             }

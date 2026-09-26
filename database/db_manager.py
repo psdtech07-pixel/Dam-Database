@@ -78,10 +78,12 @@ def ingest_records_from_dataframe(df):
                 design_gross_val = float(row.get('Design Gross Storage (MCM)', dead_val + design_live_val))
             except Exception: design_gross_val = dead_val + design_live_val
             
+            dam_name_mr = str(row.get('Dam Name MR', dam_name)).strip()
+            
             cursor.execute("""
             INSERT OR IGNORE INTO dams (dam_code, dam_name, dam_name_mr, district_id, basin_id, river_name, dead_storage_mcm, design_live_mcm, design_gross_mcm)
             VALUES (?, ?, ?, ?, 1, 'State River', ?, ?, ?);
-            """, (dam_code, dam_name, dam_name, dist_id, dead_val, design_live_val, design_gross_val))
+            """, (dam_code, dam_name, dam_name_mr, dist_id, dead_val, design_live_val, design_gross_val))
             
             cursor.execute("SELECT dam_id FROM dams WHERE dam_name = ?;", (dam_name,))
             new_dam_row = cursor.fetchone()
