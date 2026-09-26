@@ -18,13 +18,26 @@ def get_db_connection():
     return conn
 
 def init_db():
-    """Initializes the relational database schema in 3rd Normal Form (3NF)."""
+    """Initializes the relational database schema in 3rd Normal Form (3NF) and cleans legacy entries."""
     conn = get_db_connection()
     cursor = conn.cursor()
 
     if SCHEMA_FILE.exists():
         with open(SCHEMA_FILE, 'r', encoding='utf-8') as f:
             cursor.executescript(f.read())
+
+    # Clean up broken PUA dams if any exist from legacy runs
+    cursor.execute("SELECT dam_id, dam_name, dam_name_mr FROM dams;")
+    for row in cursor.fetchall():
+        did = row['dam_id']
+        name = row['dam_name']
+        name_mr = row['dam_name_mr'] or ""
+        
+        # If dam_name or dam_name_mr contains PUA characters \uE000-\uF8FF
+        if any('\uE000' <= c <= '\uF8FF' for c in name + name_mr):
+            # Delete orphan/broken legacy dam record if no valid mapping exists
+            cursor.execute("DELETE FROM daily_dam_storage_logs WHERE dam_id = ?;", (did,))
+            cursor.execute("DELETE FROM dams WHERE dam_id = ?;", (did,))
 
     conn.commit()
     conn.close()
@@ -33,7 +46,7 @@ def init_db():
 def ingest_records_from_dataframe(df):
     """
     Ingests/upserts DataFrame records into daily_dam_storage_logs table.
-    Dynamically auto-registers new state dams into 3NF master tables.
+    Dynamically auto-registers and updates state dams in 3NF master tables.
     """
     init_db()
     
@@ -54,32 +67,33 @@ def ingest_records_from_dataframe(df):
         if not dam_name:
             continue
             
+        dam_name_mr = str(row.get('Dam Name MR', dam_name)).strip()
+        division_name = str(row.get('Division', 'Pune')).strip()
+        district_name = str(row.get('District', division_name)).strip()
+        
+        cursor.execute("SELECT district_id FROM districts WHERE district_name LIKE ? OR district_name_mr LIKE ?;", (f"%{district_name}%", f"%{district_name}%"))
+        dist_row = cursor.fetchone()
+        dist_id = dist_row['district_id'] if dist_row else 1 # Default Pune district (id=1)
+        
+        try:
+            dead_val = float(row.get('Dead Storage (MCM)', 0.0))
+        except Exception: dead_val = 0.0
+        
+        try:
+            design_live_val = float(row.get('Design Live Storage (MCM)', 100.0))
+        except Exception: design_live_val = 100.0
+        if design_live_val <= 0: design_live_val = 100.0
+
+        try:
+            design_gross_val = float(row.get('Design Gross Storage (MCM)', dead_val + design_live_val))
+        except Exception:
+            design_gross_val = dead_val + design_live_val
+        if design_gross_val <= 0:
+            design_gross_val = max(1.0, dead_val + design_live_val)
+            
         dam_id = dam_map.get(dam_name)
         if not dam_id:
-            # Auto-register new state dam into dams master table
-            division_name = str(row.get('Division', 'Pune')).strip()
-            district_name = str(row.get('District', division_name)).strip()
-            
-            cursor.execute("SELECT district_id FROM districts WHERE district_name LIKE ? OR district_name_mr LIKE ?;", (f"%{district_name}%", f"%{district_name}%"))
-            dist_row = cursor.fetchone()
-            dist_id = dist_row['district_id'] if dist_row else 1 # Default Pune district (id=1)
-            
             dam_code = f"MH_{abs(hash(dam_name)) % 1000000:06d}"
-            try:
-                dead_val = float(row.get('Dead Storage (MCM)', 0.0))
-            except Exception: dead_val = 0.0
-            
-            try:
-                design_live_val = float(row.get('Design Live Storage (MCM)', 100.0))
-            except Exception: design_live_val = 100.0
-            if design_live_val <= 0: design_live_val = 100.0
-
-            try:
-                design_gross_val = float(row.get('Design Gross Storage (MCM)', dead_val + design_live_val))
-            except Exception: design_gross_val = dead_val + design_live_val
-            
-            dam_name_mr = str(row.get('Dam Name MR', dam_name)).strip()
-            
             cursor.execute("""
             INSERT OR IGNORE INTO dams (dam_code, dam_name, dam_name_mr, district_id, basin_id, river_name, dead_storage_mcm, design_live_mcm, design_gross_mcm)
             VALUES (?, ?, ?, ?, 1, 'State River', ?, ?, ?);
@@ -90,6 +104,17 @@ def ingest_records_from_dataframe(df):
             if new_dam_row:
                 dam_id = new_dam_row['dam_id']
                 dam_map[dam_name] = dam_id
+        else:
+            # Update master dams record to ensure clean Marathi Devanagari name & correct district
+            cursor.execute("""
+            UPDATE dams SET 
+                dam_name_mr = ?,
+                district_id = ?,
+                dead_storage_mcm = ?,
+                design_live_mcm = ?,
+                design_gross_mcm = ?
+            WHERE dam_id = ?;
+            """, (dam_name_mr, dist_id, dead_val, design_live_val, design_gross_val, dam_id))
 
         if not dam_id:
             continue
@@ -188,6 +213,7 @@ def export_db_to_json(json_output_path=JSON_OUTPUT):
         latest_dict[r['dam_name']] = {
             'date': dt_fmt,
             'time': r['report_time'],
+            'dam_name_mr': r['dam_name_mr'],
             'district': r['district_name'],
             'division': r['division_name'],
             'basin': r['basin_name'],
@@ -222,10 +248,13 @@ def export_db_to_json(json_output_path=JSON_OUTPUT):
 
     # Query All Records
     sql_all_records = """
-    SELECT report_date, report_time, dam_name, district_name, division_name, 
-           current_live_mcm, design_live_mcm, current_live_pct, same_date_last_year_pct, status_code 
-    FROM vw_dam_daily_analytics 
-    ORDER BY report_date DESC, dam_name ASC;
+    SELECT l.report_date, l.report_time, d.dam_name, d.dam_name_mr, dt.district_name, dv.division_name, 
+           l.current_live_mcm, d.design_live_mcm, l.current_live_pct, l.same_date_last_year_pct, l.status_code 
+    FROM daily_dam_storage_logs l
+    JOIN dams d ON l.dam_id = d.dam_id
+    JOIN districts dt ON d.district_id = dt.district_id
+    JOIN divisions dv ON dt.division_id = dv.division_id
+    ORDER BY l.report_date DESC, d.dam_name ASC;
     """
     cursor.execute(sql_all_records)
     all_rows = cursor.fetchall()
@@ -238,6 +267,7 @@ def export_db_to_json(json_output_path=JSON_OUTPUT):
             'iso_date': r['report_date'],
             'time': r['report_time'] or '08:00 AM',
             'dam_name': r['dam_name'],
+            'dam_name_mr': r['dam_name_mr'],
             'district': r['district_name'],
             'division': r['division_name'],
             'current_live_mcm': r['current_live_mcm'],
