@@ -1,1901 +1,1013 @@
 [
   {
+  "terminologies": {
+    "SR.NO": { "mr": "अ.क्र.", "en": "Serial Number" },
+    "DAM_NAME": { "mr": "धरणाचे नाव", "en": "Dam Name" },
+    "UPDATE_DATE_TIME": { "mr": "पाणीसाठा अद्यायावत दिनांक / वेळ", "en": "Water Level Update Date / Time" },
+    "DEAD_STORAGE": { "mr": "मृत साठा", "en": "Dead Storage", "unit": "MCM" },
+    "DESIGN_LIVE_STORAGE": { "mr": "प्रकल्पीय उपयुक्त साठा", "en": "Designed Live Storage", "unit": "MCM" },
+    "DESIGN_GROSS_STORAGE": { "mr": "प्रकल्पीय एकूण साठा", "en": "Designed Gross Storage", "unit": "MCM" },
+    "TODAY_LIVE_STORAGE": { "mr": "आजचा उपयुक्त साठा", "en": "Today's Live Storage", "unit": "MCM" },
+    "TODAY_GROSS_STORAGE": { "mr": "आजचा एकूण साठा", "en": "Today's Gross Storage", "unit": "MCM" },
+    "TODAY_PERCENT": { "mr": "आजची टक्केवारी", "en": "Percentage Live Storage Today", "unit": "%" },
+    "LAST_YEAR_PERCENT": { "mr": "गत वर्षातील याच दिनांकाची टक्केवारी", "en": "Percentage Live Storage Same Date Last Year", "unit": "%" },
+    "MAJOR_PROJECT": { "mr": "मोठे प्रकल्प", "en": "Major Projects" },
+    "MEDIUM_PROJECT": { "mr": "मध्यम प्रकल्प", "en": "Medium Projects" },
+    "MINOR_PROJECT": { "mr": "लघु प्रकल्प", "en": "Minor Projects" },
+    "BARRAGE_HLB": { "mr": "उच्च पातळी बंधारा (उ.स्त.बं.)", "en": "High Level Barrage (HLB)" },
+    "BARRAGE_NLB": { "mr": "निम्न पातळी बंधारा (नि.स्त.बं.)", "en": "Low Level Barrage (NLB)" },
+    "WEIR": { "mr": "वळण बंधारा (व.बं.) / पिकअप बंधारा", "en": "Pickup Weir / Diversion Weir" },
+    "HYDRO_ELECTRIC": { "mr": "जल विद्युत प्रकल्प (ज.वि.प्र.)", "en": "Hydro-Electric Project" }
+  }
+},
+  {
     "slug": "khadakwasla",
     "en": "Khadakwasla",
     "mr": "खडकवासला",
+    "aliases_mr": ["खडकवासला धरण", "खडकवासला"],
     "district": "Pune",
     "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 30.0,
-    "live": 55.91,
-    "gross": 85.91,
-    "keys": [
-      "khadakwasla",
-      "खडकवासला"
-    ]
+    "basin": "Krishna River Basin (Mutha Sub-basin)",
+    "design_live_mcm": 55.91,
+    "design_gross_mcm": 85.91
   },
   {
     "slug": "panshet",
     "en": "Panshet",
     "mr": "पानशेत",
+    "aliases_mr": ["पानशेत (तानाजी सागर)", "पानशेत"],
     "district": "Pune",
     "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 9.0,
-    "live": 301.61,
-    "gross": 310.61,
-    "keys": [
-      "panshet",
-      "पानशेत",
-      "पानशत"
-    ]
+    "basin": "Krishna River Basin (Ambi Sub-basin)",
+    "design_live_mcm": 301.61,
+    "design_gross_mcm": 310.61
   },
   {
     "slug": "varasgaon",
     "en": "Varasgaon",
     "mr": "वरसगाव",
+    "aliases_mr": ["वरसगाव (वीर बाजी पासलकर)", "वरसगाव"],
     "district": "Pune",
     "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 12.23,
-    "live": 363.13,
-    "gross": 375.36,
-    "keys": [
-      "varasgaon",
-      "warasgaon",
-      "वरसगाव",
-      "वरसगांव"
-    ]
+    "basin": "Krishna River Basin (Mose Sub-basin)",
+    "design_live_mcm": 363.13,
+    "design_gross_mcm": 375.36
   },
   {
     "slug": "temghar",
     "en": "Temghar",
     "mr": "टेमघर",
+    "aliases_mr": ["टेमघर धरण", "टेमघर"],
     "district": "Pune",
     "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 2.95,
-    "live": 105.01,
-    "gross": 107.96,
-    "keys": [
-      "temghar",
-      "टेमघर",
-      "टमघर"
-    ]
-  },
-  {
-    "slug": "mulshi-tata",
-    "en": "Mulshi",
-    "mr": "मुळशी",
-    "district": "Pune",
-    "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 230.0,
-    "live": 522.76,
-    "gross": 752.76,
-    "keys": [
-      "mulshi",
-      "mulshi tata",
-      "मुळशी",
-      "मुळशी टाटा",
-      "मळशी"
-    ]
-  },
-  {
-    "slug": "gunjawani",
-    "en": "Gunjawani",
-    "mr": "गुंजवणी",
-    "district": "Pune",
-    "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 0.21,
-    "live": 104.48,
-    "gross": 104.69,
-    "keys": [
-      "gunjawani",
-      "गुंजवणी",
-      "गजवणी"
-    ]
+    "basin": "Krishna River Basin (Mutha Sub-basin)",
+    "design_live_mcm": 105.01,
+    "design_gross_mcm": 107.96
   },
   {
     "slug": "pavana",
     "en": "Pavana",
     "mr": "पवना",
+    "aliases_mr": ["पवना धरण", "पवना"],
     "district": "Pune",
     "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 31.16,
-    "live": 240.97,
-    "gross": 272.13,
-    "keys": [
-      "pawana",
-      "pavana",
-      "पवना",
-      "पावना"
-    ]
+    "basin": "Krishna River Basin (Pavana Sub-basin)",
+    "design_live_mcm": 274.32,
+    "design_gross_mcm": 305.49
   },
   {
-    "slug": "chaskaman",
-    "en": "Chaskaman",
-    "mr": "चासकमान",
+    "slug": "mulshi",
+    "en": "Mulshi",
+    "mr": "मुळशी",
+    "aliases_mr": ["मुळशी टाटा", "मुळशी"],
     "district": "Pune",
     "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 27.19,
-    "live": 214.5,
-    "gross": 241.69,
-    "keys": [
-      "chaskaman",
-      "चासकमान"
-    ]
+    "basin": "Krishna River Basin (Mula Sub-basin)",
+    "design_live_mcm": 522.76,
+    "design_gross_mcm": 752.76
   },
   {
-    "slug": "dimbhe",
-    "en": "Dimbhe",
-    "mr": "डिंभे",
+    "slug": "gunjawani",
+    "en": "Gunjawani",
+    "mr": "गुंजवणी",
+    "aliases_mr": ["गुंजवणी धरण", "गुंजवणी"],
     "district": "Pune",
     "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 28.3,
-    "live": 353.75,
-    "gross": 382.05,
-    "keys": [
-      "dimbhe",
-      "डिंभे",
-      "डंभे"
-    ]
-  },
-  {
-    "slug": "bhama-askhed",
-    "en": "Bhama Askhed",
-    "mr": "भामा आसखेड",
-    "district": "Pune",
-    "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 13.37,
-    "live": 217.1,
-    "gross": 230.47,
-    "keys": [
-      "bhama askhed",
-      "भामा आसखेड",
-      "भामा आसखड"
-    ]
-  },
-  {
-    "slug": "andra",
-    "en": "Andra",
-    "mr": "आंद्रा",
-    "district": "Pune",
-    "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MEDIUM",
-    "dead": 2.0,
-    "live": 80.0,
-    "gross": 82.0,
-    "keys": [
-      "andra",
-      "आंद्रा"
-    ]
-  },
-  {
-    "slug": "pimpalgaon-joge",
-    "en": "Pimpalgaon Joge",
-    "mr": "पिंपळगाव जोगे",
-    "district": "Pune",
-    "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 125.19,
-    "live": 110.15,
-    "gross": 235.34,
-    "keys": [
-      "pimpalgaon joge",
-      "पिंपळगाव जोगे",
-      "पपळगाव जोगे"
-    ]
-  },
-  {
-    "slug": "manikdoh",
-    "en": "Manikdoh",
-    "mr": "माणिकडोह",
-    "district": "Pune",
-    "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 19.81,
-    "live": 288.1,
-    "gross": 307.91,
-    "keys": [
-      "manikdoh",
-      "माणिकडोह",
-      "माणकडोह"
-    ]
-  },
-  {
-    "slug": "yedgaon",
-    "en": "Yedgaon",
-    "mr": "येडगाव",
-    "district": "Pune",
-    "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 14.15,
-    "live": 79.28,
-    "gross": 93.43,
-    "keys": [
-      "yedgaon",
-      "येडगाव",
-      "यडगाव"
-    ]
-  },
-  {
-    "slug": "wadaj",
-    "en": "Wadaj",
-    "mr": "वडज",
-    "district": "Pune",
-    "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 2.83,
-    "live": 33.11,
-    "gross": 35.94,
-    "keys": [
-      "wadaj",
-      "वडज"
-    ]
-  },
-  {
-    "slug": "ghod-chinchani",
-    "en": "Ghod",
-    "mr": "घोड (चिंचणी)",
-    "district": "Pune",
-    "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 61.5,
-    "live": 154.8,
-    "gross": 216.3,
-    "keys": [
-      "ghod",
-      "ghod (chinchani)",
-      "घोड",
-      "घोड (चिंचणी)",
-      "घोड (चचणी)"
-    ]
-  },
-  {
-    "slug": "visapur",
-    "en": "Visapur",
-    "mr": "विसापूर",
-    "district": "Pune",
-    "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MEDIUM",
-    "dead": 1.0,
-    "live": 25.0,
-    "gross": 26.0,
-    "keys": [
-      "visapur",
-      "विसापूर",
-      "वसापर"
-    ]
-  },
-  {
-    "slug": "kalmodi",
-    "en": "Kalmodi",
-    "mr": "कलमोडी",
-    "district": "Pune",
-    "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MEDIUM",
-    "dead": 0.1,
-    "live": 42.6,
-    "gross": 42.7,
-    "keys": [
-      "kalmodi",
-      "कलमोडी"
-    ]
-  },
-  {
-    "slug": "kasarsai",
-    "en": "Kasarsai",
-    "mr": "कासारसाई",
-    "district": "Pune",
-    "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MEDIUM",
-    "dead": 0.5,
-    "live": 16.0,
-    "gross": 16.5,
-    "keys": [
-      "kasarsai",
-      "कासारसाई"
-    ]
-  },
-  {
-    "slug": "nira-deoghar",
-    "en": "Nira Deoghar",
-    "mr": "नीरा देवघर",
-    "district": "Pune",
-    "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 5.26,
-    "live": 332.13,
-    "gross": 337.39,
-    "keys": [
-      "nira deoghar",
-      "नीरा देवघर",
-      "नीरा दवघर"
-    ]
+    "basin": "Krishna River Basin (Kanandi Sub-basin)",
+    "design_live_mcm": 104.48,
+    "design_gross_mcm": 104.69
   },
   {
     "slug": "bhatghar",
     "en": "Bhatghar",
     "mr": "भाटघर",
+    "aliases_mr": ["भाटघर (येसाजी कंक)", "भाटघर"],
     "district": "Pune",
     "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 7.08,
-    "live": 665.57,
-    "gross": 672.65,
-    "keys": [
-      "bhatghar",
-      "भाटघर"
-    ]
+    "basin": "Krishna River Basin (Velvandi Sub-basin)",
+    "design_live_mcm": 665.57,
+    "design_gross_mcm": 672.65
   },
   {
-    "slug": "nazare",
-    "en": "Nazare",
-    "mr": "नाझरे",
+    "slug": "nira-deoghar",
+    "en": "Nira Deoghar",
+    "mr": "नीरा देवघर",
+    "aliases_mr": ["नीरा देवघर धरण", "नीरा देवघर"],
     "district": "Pune",
     "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MEDIUM",
-    "dead": 1.0,
-    "live": 22.3,
-    "gross": 23.3,
-    "keys": [
-      "nazare",
-      "नाझरे"
-    ]
+    "basin": "Krishna River Basin (Nira Sub-basin)",
+    "design_live_mcm": 332.13,
+    "design_gross_mcm": 337.39
   },
   {
-    "slug": "lonavala-tata",
-    "en": "Lonavala Tata",
-    "mr": "लोणावळा टाटा",
+    "slug": "chaskaman",
+    "en": "Chaskaman",
+    "mr": "चासकमान",
+    "aliases_mr": ["चासकमान धरण", "चासकमान"],
     "district": "Pune",
     "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 0.06,
-    "live": 11.72,
-    "gross": 11.78,
-    "keys": [
-      "lonavala tata",
-      "लोणावळा टाटा"
-    ]
+    "basin": "Krishna River Basin (Bhima Sub-basin)",
+    "design_live_mcm": 214.50,
+    "design_gross_mcm": 241.69
   },
   {
-    "slug": "walwhan-tata",
-    "en": "Walwhan Tata",
-    "mr": "वळवण टाटा",
+    "slug": "dimbhe",
+    "en": "Dimbhe",
+    "mr": "डिंभे",
+    "aliases_mr": ["डिंभे धरण", "डिंभे"],
     "district": "Pune",
     "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 0.28,
-    "live": 71.84,
-    "gross": 72.12,
-    "keys": [
-      "walwan tata",
-      "walwhan tata",
-      "वळवण टाटा"
-    ]
+    "basin": "Krishna River Basin (Ghod Sub-basin)",
+    "design_live_mcm": 353.75,
+    "design_gross_mcm": 382.05
   },
   {
-    "slug": "shirawta-tata",
-    "en": "Shirawta Tata",
-    "mr": "शिरवटा टाटा",
+    "slug": "manikdoh",
+    "en": "Manikdoh",
+    "mr": "माणिकडोह",
+    "aliases_mr": ["माणिकडोह धरण", "माणिकडोह"],
     "district": "Pune",
     "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 0.87,
-    "live": 197.28,
-    "gross": 198.15,
-    "keys": [
-      "shirawta tata",
-      "shirwata tata",
-      "शिरवटा टाटा",
-      "शरवटा टाटा"
-    ]
+    "basin": "Krishna River Basin (Kukadi Sub-basin)",
+    "design_live_mcm": 288.10,
+    "design_gross_mcm": 307.91
   },
   {
-    "slug": "kundali-tata",
-    "en": "Kundali Tata",
-    "mr": "कडली टाटा",
+    "slug": "yedgaon",
+    "en": "Yedgaon",
+    "mr": "येडगाव",
+    "aliases_mr": ["येडगाव धरण", "येडगाव"],
     "district": "Pune",
     "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 0.8,
-    "live": 6.34,
-    "gross": 7.14,
-    "keys": [
-      "kundali tata",
-      "कडली टाटा"
-    ]
+    "basin": "Krishna River Basin (Kukadi Sub-basin)",
+    "design_live_mcm": 79.28,
+    "design_gross_mcm": 93.43
   },
   {
-    "slug": "thokerwadi-tata",
-    "en": "Thokerwadi Tata",
-    "mr": "ठोकरवाडी टाटा",
+    "slug": "wadaj",
+    "en": "Wadaj",
+    "mr": "वडज",
+    "aliases_mr": ["वडज धरण", "वडज"],
     "district": "Pune",
     "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 11.06,
-    "live": 352.64,
-    "gross": 363.7,
-    "keys": [
-      "thokerwadi tata",
-      "ठोकरवाडी टाटा"
-    ]
+    "basin": "Krishna River Basin (Meena Sub-basin)",
+    "design_live_mcm": 33.11,
+    "design_gross_mcm": 35.94
   },
   {
-    "slug": "ujani",
-    "en": "Ujani",
-    "mr": "भीमा (उजनी)",
-    "district": "Solapur",
+    "slug": "pimpalgaon-joge",
+    "en": "Pimpalgaon Joge",
+    "mr": "पिंपळगाव जोगे",
+    "aliases_mr": ["पिंपळगाव जोगे धरण", "पिंपळगाव जोगे"],
+    "district": "Pune",
     "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 1802.81,
-    "live": 1517.2,
-    "gross": 3320.01,
-    "keys": [
-      "ujani",
-      "bhima (ujjani)",
-      "भीमा (उजनी)",
-      "उजनी"
-    ]
+    "basin": "Krishna River Basin (Arpa Sub-basin)",
+    "design_live_mcm": 110.15,
+    "design_gross_mcm": 235.34
+  },
+  {
+    "slug": "bhama-askhed",
+    "en": "Bhama Askhed",
+    "mr": "भामा आसखेड",
+    "aliases_mr": ["भामा आसखेड धरण", "भामा आसखेड"],
+    "district": "Pune",
+    "division": "Pune",
+    "basin": "Krishna River Basin (Bhama Sub-basin)",
+    "design_live_mcm": 217.10,
+    "design_gross_mcm": 230.47
+  },
+  {
+    "slug": "ghod",
+    "en": "Ghod",
+    "mr": "घोड (चिंचणी)",
+    "aliases_mr": ["घोड", "चिंचणी"],
+    "district": "Pune",
+    "division": "Pune",
+    "basin": "Krishna River Basin (Ghod Sub-basin)",
+    "design_live_mcm": 154.80,
+    "design_gross_mcm": 216.30
   },
   {
     "slug": "koyna",
     "en": "Koyna",
     "mr": "कोयना",
+    "aliases_mr": ["कोयना (शिवाजी सागर)", "कोयना"],
     "district": "Satara",
     "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 145.14,
-    "live": 2835.54,
-    "gross": 2980.68,
-    "keys": [
-      "koyna",
-      "कोयना"
-    ]
+    "basin": "Krishna River Basin (Koyna Sub-basin)",
+    "design_live_mcm": 2835.54,
+    "design_gross_mcm": 2980.68
   },
   {
     "slug": "dhom",
     "en": "Dhom",
     "mr": "धोम",
+    "aliases_mr": ["धोम धरण", "धोम"],
     "district": "Satara",
     "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 51.27,
-    "live": 331.05,
-    "gross": 382.32,
-    "keys": [
-      "dhom",
-      "धोम"
-    ]
+    "basin": "Krishna River Basin (Krishna Main)",
+    "design_live_mcm": 331.05,
+    "design_gross_mcm": 382.32
   },
   {
     "slug": "dhom-balkawadi",
     "en": "Dhom Balkawadi",
     "mr": "धोम बलकवडी",
+    "aliases_mr": ["धोम बालकवडी", "धोम बलकवडी"],
     "district": "Satara",
     "division": "Pune",
     "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 3.4,
-    "live": 112.13,
-    "gross": 115.53,
-    "keys": [
-      "dhom balkawadi",
-      "धोम बलकवडी"
-    ]
+    "design_live_mcm": 112.13,
+    "design_gross_mcm": 115.53
   },
   {
     "slug": "kanher",
     "en": "Kanher",
-    "mr": "कन्हेर",
+    "mr": "कण्हेर",
+    "aliases_mr": ["कन्हेर", "कण्हेर"],
     "district": "Satara",
     "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 14.32,
-    "live": 271.68,
-    "gross": 286.0,
-    "keys": [
-      "kanher",
-      "कन्हेर",
-      "कहरे"
-    ]
+    "basin": "Krishna River Basin (Venna Sub-basin)",
+    "design_live_mcm": 271.68,
+    "design_gross_mcm": 286.00
   },
   {
     "slug": "urmodi",
     "en": "Urmodi",
     "mr": "उरमोडी",
+    "aliases_mr": ["उरमोडी धरण", "उरमोडी"],
     "district": "Satara",
     "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 8.87,
-    "live": 273.27,
-    "gross": 282.14,
-    "keys": [
-      "urmodi",
-      "उरमोडी"
-    ]
+    "basin": "Krishna River Basin (Urmodi Sub-basin)",
+    "design_live_mcm": 273.27,
+    "design_gross_mcm": 282.14
   },
   {
     "slug": "tarali",
     "en": "Tarali",
     "mr": "तारळी",
+    "aliases_mr": ["तारळी धरण", "तारळी"],
     "district": "Satara",
     "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 0.25,
-    "live": 165.46,
-    "gross": 165.71,
-    "keys": [
-      "tarali",
-      "तारळी"
-    ]
+    "basin": "Krishna River Basin (Tarali Sub-basin)",
+    "design_live_mcm": 165.46,
+    "design_gross_mcm": 165.71
   },
   {
     "slug": "veer",
     "en": "Veer",
     "mr": "वीर",
+    "aliases_mr": ["वीर धरण", "वीर"],
     "district": "Satara",
     "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 12.09,
-    "live": 266.4,
-    "gross": 278.49,
-    "keys": [
-      "veer",
-      "वीर"
-    ]
+    "basin": "Krishna River Basin (Nira Sub-basin)",
+    "design_live_mcm": 266.40,
+    "design_gross_mcm": 278.49
   },
   {
-    "slug": "radhanagari",
-    "en": "Radhanagari",
-    "mr": "राधानगरी",
-    "district": "Kolhapur",
+    "slug": "ujani",
+    "en": "Ujani",
+    "mr": "भीमा (उजनी)",
+    "aliases_mr": ["उजनी", "यशवंत सागर", "भीमा (उजनी)"],
+    "district": "Solapur",
     "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 16.82,
-    "live": 219.97,
-    "gross": 236.79,
-    "keys": [
-      "radhanagari",
-      "radhanagari h e p",
-      "राधानगरी",
-      "राधानगरी ज. िव. कप"
-    ]
-  },
-  {
-    "slug": "dudhganga",
-    "en": "Dudhganga",
-    "mr": "दूधगंगा",
-    "district": "Kolhapur",
-    "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 40.01,
-    "live": 679.11,
-    "gross": 719.12,
-    "keys": [
-      "dudhganga",
-      "दूधगंगा",
-      "दध"
-    ]
-  },
-  {
-    "slug": "tulshi",
-    "en": "Tulshi",
-    "mr": "तुळशी",
-    "district": "Kolhapur",
-    "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 6.37,
-    "live": 91.92,
-    "gross": 98.29,
-    "keys": [
-      "tulshi",
-      "तुळशी",
-      "तळशी"
-    ]
+    "basin": "Krishna River Basin (Bhima Main)",
+    "design_live_mcm": 1517.20,
+    "design_gross_mcm": 3320.01
   },
   {
     "slug": "warna",
     "en": "Warna",
     "mr": "वारणा",
+    "aliases_mr": ["चांदोली", "वारणा (वसंत सागर)", "वारणा"],
     "district": "Sangli",
     "division": "Pune",
-    "basin": "Krishna River Basin",
-    "type": "MAJOR",
-    "dead": 194.84,
-    "live": 779.35,
-    "gross": 974.19,
-    "keys": [
-      "warna",
-      "वारणा"
-    ]
+    "basin": "Krishna River Basin (Warna Sub-basin)",
+    "design_live_mcm": 779.35,
+    "design_gross_mcm": 974.19
   },
   {
-    "slug": "bhatsa",
-    "en": "Bhatsa",
-    "mr": "भातसा",
-    "district": "Thane",
-    "division": "Kokan",
-    "basin": "West Flowing Rivers (Konkan)",
-    "type": "MAJOR",
-    "dead": 34.0,
-    "live": 942.1,
-    "gross": 976.1,
-    "keys": [
-      "bhatsa",
-      "भातसा",
-      "भातासा"
-    ]
+    "slug": "radhanagari",
+    "en": "Radhanagari",
+    "mr": "राधानगरी",
+    "aliases_mr": ["राधानगरी ज. वि. प्रकल्प", "राधानगरी"],
+    "district": "Kolhapur",
+    "division": "Pune",
+    "basin": "Krishna River Basin (Bhogawati Sub-basin)",
+    "design_live_mcm": 219.97,
+    "design_gross_mcm": 236.79
   },
   {
-    "slug": "tansa",
-    "en": "Tansa",
-    "mr": "तानसा",
-    "district": "Thane",
-    "division": "Kokan",
-    "basin": "West Flowing Rivers (Konkan)",
-    "type": "MAJOR",
-    "dead": 12.08,
-    "live": 172.52,
-    "gross": 184.6,
-    "keys": [
-      "tansa",
-      "तानसा"
-    ]
+    "slug": "tulshi",
+    "en": "Tulshi",
+    "mr": "तुळशी",
+    "aliases_mr": ["तुळशी धरण", "तुळशी"],
+    "district": "Kolhapur",
+    "division": "Pune",
+    "basin": "Krishna River Basin (Tulshi Sub-basin)",
+    "design_live_mcm": 91.92,
+    "design_gross_mcm": 98.29
   },
   {
-    "slug": "modak-sagar",
-    "en": "Modak Sagar",
-    "mr": "मोडक सागर",
-    "district": "Thane",
-    "division": "Kokan",
-    "basin": "West Flowing Rivers (Konkan)",
-    "type": "MAJOR",
-    "dead": 76.06,
-    "live": 128.92,
-    "gross": 204.98,
-    "keys": [
-      "modaksagar",
-      "modak sagar",
-      "मोडक सागर",
-      "मोडकसागर"
-    ]
+    "slug": "dudhganga",
+    "en": "Dudhganga",
+    "mr": "दूधगंगा",
+    "aliases_mr": ["काळम्मावाडी", "दूधगंगा"],
+    "district": "Kolhapur",
+    "division": "Pune",
+    "basin": "Krishna River Basin (Dudhganga Sub-basin)",
+    "design_live_mcm": 679.11,
+    "design_gross_mcm": 719.12
   },
   {
-    "slug": "middle-vaitarna",
-    "en": "Middle Vaitarna",
-    "mr": "मध्य वैतरणा",
-    "district": "Thane",
-    "division": "Kokan",
-    "basin": "West Flowing Rivers (Konkan)",
-    "type": "MAJOR",
-    "dead": 8.57,
-    "live": 193.53,
-    "gross": 202.1,
-    "keys": [
-      "middle vaitarna",
-      "मध्य वैतरणा",
-      "मय वतरणा"
-    ]
-  },
-  {
-    "slug": "barvi",
-    "en": "Barvi",
-    "mr": "बारवी",
-    "district": "Thane",
-    "division": "Kokan",
-    "basin": "West Flowing Rivers (Konkan)",
-    "type": "MAJOR",
-    "dead": 1.64,
-    "live": 338.84,
-    "gross": 340.48,
-    "keys": [
-      "barvi",
-      "बारवी"
-    ]
-  },
-  {
-    "slug": "lower-chondhe",
-    "en": "Lower Chondhe",
-    "mr": "निम्न चोंढे",
-    "district": "Thane",
-    "division": "Kokan",
-    "basin": "West Flowing Rivers (Konkan)",
-    "type": "MAJOR",
-    "dead": 0.48,
-    "live": 2.73,
-    "gross": 3.21,
-    "keys": [
-      "lower chondhe",
-      "निम्न चोंढे"
-    ]
-  },
-  {
-    "slug": "upper-ghatghar",
-    "en": "Upper Ghatghar",
-    "mr": "ऊर्ध्व घाटघर",
-    "district": "Thane",
-    "division": "Kokan",
-    "basin": "West Flowing Rivers (Konkan)",
-    "type": "MAJOR",
-    "dead": 0.68,
-    "live": 5.14,
-    "gross": 5.82,
-    "keys": [
-      "upper ghatghar",
-      "ऊर्ध्व घाटघर",
-      "ऊव घाटघर"
-    ]
-  },
-  {
-    "slug": "dhamni",
-    "en": "Dhamni",
-    "mr": "धामणी",
-    "district": "Palghar",
-    "division": "Kokan",
-    "basin": "West Flowing Rivers (Konkan)",
-    "type": "MAJOR",
-    "dead": 8.96,
-    "live": 276.35,
-    "gross": 285.31,
-    "keys": [
-      "dhamni",
-      "धामणी",
-      "सूर्या"
-    ]
-  },
-  {
-    "slug": "kawdas-weir",
-    "en": "Kawdas P. U. Weir",
-    "mr": "कवडास पिकअप बंधारा",
-    "district": "Palghar",
-    "division": "Kokan",
-    "basin": "West Flowing Rivers (Konkan)",
-    "type": "MAJOR",
-    "dead": 3.74,
-    "live": 9.96,
-    "gross": 13.7,
-    "keys": [
-      "kawdas p. u. weir",
-      "कवडास व. ब.ं"
-    ]
-  },
-  {
-    "slug": "dolwahal-weir",
-    "en": "Dolwahal weir",
-    "mr": "डोलवाहाल पिकअप बंधारा",
-    "district": "Raigad",
-    "division": "Kokan",
-    "basin": "West Flowing Rivers (Konkan)",
-    "type": "MAJOR",
-    "dead": 8.23,
-    "live": 6.5,
-    "gross": 14.74,
-    "keys": [
-      "dolwahal weir",
-      "डोलवाहल ब.ं"
-    ]
-  },
-  {
-    "slug": "tillari",
-    "en": "Tillari",
-    "mr": "तिल्लारी",
-    "district": "Sindhudurg",
-    "division": "Kokan",
-    "basin": "West Flowing Rivers (Konkan)",
-    "type": "MAJOR",
-    "dead": 14.8,
-    "live": 447.37,
-    "gross": 462.17,
-    "keys": [
-      "tillari",
-      "tillari (dhamne)",
-      "तिल्लारी",
-      "तारी",
-      "तारी (धामण)े"
-    ]
-  },
-  {
-    "slug": "bhandardara",
-    "en": "Bhandardara",
-    "mr": "भांडारदरा",
-    "district": "Ahmednagar",
-    "division": "Nashik",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 8.5,
-    "live": 304.1,
-    "gross": 312.6,
-    "keys": [
-      "bhandardara",
-      "भांडारदरा",
-      "भडारदरा"
-    ]
-  },
-  {
-    "slug": "mula",
-    "en": "Mula",
-    "mr": "मुळा",
-    "district": "Ahmednagar",
-    "division": "Nashik",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 127.42,
-    "live": 608.81,
-    "gross": 736.23,
-    "keys": [
-      "mula",
-      "मुळा",
-      "मळा"
-    ]
-  },
-  {
-    "slug": "nilwande-2",
-    "en": "Nilwande-2",
-    "mr": "निळवंडे",
-    "district": "Ahmednagar",
-    "division": "Nashik",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 3.82,
-    "live": 232.18,
-    "gross": 236.0,
-    "keys": [
-      "nilwande",
-      "nilwande-2",
-      "निळवंडे",
-      "ननळवड-2"
-    ]
-  },
-  {
-    "slug": "upper-tapi-hatnur",
-    "en": "Upper Tapi Hatnur",
-    "mr": "ऊर्ध्व तापी हतनूर",
-    "district": "Jalgaon",
-    "division": "Nashik",
-    "basin": "Tapi River Basin",
-    "type": "MAJOR",
-    "dead": 133.0,
-    "live": 255.0,
-    "gross": 388.0,
-    "keys": [
-      "upper tapi hatnur",
-      "hatnur",
-      "हतनूर",
-      "ऊर्ध्व तापी हतनूर",
-      "ऊव तापी हतनरू"
-    ]
-  },
-  {
-    "slug": "waghur",
-    "en": "Waghur",
-    "mr": "वाघूर",
-    "district": "Jalgaon",
-    "division": "Nashik",
-    "basin": "Tapi River Basin",
-    "type": "MAJOR",
-    "dead": 76.79,
-    "live": 248.21,
-    "gross": 325.0,
-    "keys": [
-      "waghur",
-      "वाघूर",
-      "वाघरू"
-    ]
-  },
-  {
-    "slug": "arjunsagar",
-    "en": "Arjunsagar",
-    "mr": "अर्जुनसागर",
-    "district": "Nashik",
-    "division": "Nashik",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 2.76,
-    "live": 36.99,
-    "gross": 39.75,
-    "keys": [
-      "arjunsagar",
-      "अर्जुनसागर"
-    ]
-  },
-  {
-    "slug": "bham-dam",
-    "en": "Bham Dam",
-    "mr": "भाम धरण",
-    "district": "Nashik",
-    "division": "Nashik",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 5.66,
-    "live": 69.76,
-    "gross": 75.42,
-    "keys": [
-      "bham dam",
-      "भाम धरण"
-    ]
-  },
-  {
-    "slug": "bhavali",
-    "en": "Bhavali",
-    "mr": "भावली",
-    "district": "Nashik",
-    "division": "Nashik",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 3.96,
-    "live": 40.79,
-    "gross": 44.75,
-    "keys": [
-      "bhavali",
-      "भावली"
-    ]
-  },
-  {
-    "slug": "chankapur",
-    "en": "Chankapur",
-    "mr": "चणकापूर",
-    "district": "Nashik",
-    "division": "Nashik",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 0.0,
-    "live": 68.72,
-    "gross": 68.72,
-    "keys": [
-      "chankapur",
-      "चणकापूर",
-      "चणकापरू"
-    ]
-  },
-  {
-    "slug": "darna",
-    "en": "Darna",
-    "mr": "दारणा",
-    "district": "Nashik",
-    "division": "Nashik",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 0.0,
-    "live": 202.42,
-    "gross": 202.42,
-    "keys": [
-      "darna",
-      "दारणा"
-    ]
-  },
-  {
-    "slug": "gangapur",
-    "en": "Gangapur",
-    "mr": "गंगापूर",
-    "district": "Nashik",
-    "division": "Nashik",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 0.68,
-    "live": 159.42,
-    "gross": 160.1,
-    "keys": [
-      "gangapur",
-      "गंगापूर",
-      "गगा"
-    ]
-  },
-  {
-    "slug": "girna",
-    "en": "Girna",
-    "mr": "गिरणा",
-    "district": "Nashik",
-    "division": "Nashik",
-    "basin": "Tapi River Basin",
-    "type": "MAJOR",
-    "dead": 84.9,
-    "live": 523.55,
-    "gross": 608.45,
-    "keys": [
-      "girna",
-      "गिरणा",
-      "गरणा"
-    ]
-  },
-  {
-    "slug": "kadwa",
-    "en": "Kadwa",
-    "mr": "कडवा",
-    "district": "Nashik",
-    "division": "Nashik",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 6.68,
-    "live": 47.79,
-    "gross": 54.47,
-    "keys": [
-      "kadwa",
-      "कडवा"
-    ]
-  },
-  {
-    "slug": "karanjwan",
-    "en": "Karanjwan",
-    "mr": "करंजवण",
-    "district": "Nashik",
-    "division": "Nashik",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 9.34,
-    "live": 152.09,
-    "gross": 161.43,
-    "keys": [
-      "karanjwan",
-      "करंजवण",
-      "करजवण"
-    ]
-  },
-  {
-    "slug": "mukane",
-    "en": "Mukane",
-    "mr": "मुकणे",
-    "district": "Nashik",
-    "division": "Nashik",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 9.18,
-    "live": 204.98,
-    "gross": 214.16,
-    "keys": [
-      "mukane",
-      "मुकणे",
-      "मदनसरी"
-    ]
-  },
-  {
-    "slug": "ozarkhed",
-    "en": "Ozarkhed",
-    "mr": "ओझरखेड",
-    "district": "Nashik",
-    "division": "Nashik",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 7.64,
-    "live": 60.32,
-    "gross": 67.96,
-    "keys": [
-      "ozarkhed",
-      "ozarkhed dam",
-      "ओझरखेड",
-      "ओझरखड"
-    ]
-  },
-  {
-    "slug": "palkhed",
-    "en": "Palkhed",
-    "mr": "पालखेड",
-    "district": "Nashik",
-    "division": "Nashik",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 1.64,
-    "live": 18.49,
-    "gross": 20.13,
-    "keys": [
-      "palkhed",
-      "पालखेड",
-      "पालखड"
-    ]
-  },
-  {
-    "slug": "punegaon",
-    "en": "Punegaon",
-    "mr": "पुणेगाव",
-    "district": "Nashik",
-    "division": "Nashik",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 2.82,
-    "live": 17.57,
-    "gross": 20.39,
-    "keys": [
-      "punegaon",
-      "पुणेगाव"
-    ]
-  },
-  {
-    "slug": "tisgaon",
-    "en": "Tisgaon",
-    "mr": "तिसगाव",
-    "district": "Nashik",
-    "division": "Nashik",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 2.7,
-    "live": 12.76,
-    "gross": 15.46,
-    "keys": [
-      "tisgaon",
-      "तिसगाव",
-      "तसगाव"
-    ]
-  },
-  {
-    "slug": "upper-vaitarna",
-    "en": "Upper Vaitarna",
-    "mr": "वैतरणा",
-    "district": "Nashik",
-    "division": "Nashik",
-    "basin": "West Flowing Rivers (Konkan)",
-    "type": "MAJOR",
-    "dead": 22.65,
-    "live": 331.31,
-    "gross": 353.96,
-    "keys": [
-      "upper vaitarna",
-      "vaitarna",
-      "वैतरणा",
-      "वतरणा",
-      "वतरणा ज. िव. कप"
-    ]
-  },
-  {
-    "slug": "waghad",
-    "en": "Waghad",
-    "mr": "वाघाड",
-    "district": "Nashik",
-    "division": "Nashik",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 2.54,
-    "live": 65.18,
-    "gross": 67.72,
-    "keys": [
-      "waghad",
-      "वाघाड"
-    ]
-  },
-  {
-    "slug": "waki-dam",
-    "en": "Waki Dam",
-    "mr": "वाकी धरण",
-    "district": "Nashik",
-    "division": "Nashik",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 5.23,
-    "live": 70.57,
-    "gross": 75.8,
-    "keys": [
-      "waki dam",
-      "वाकी धरण",
-      "वाक धरण"
-    ]
-  },
-  {
-    "slug": "jayakwadi-paithan",
-    "en": "Paithan (Jayakwadi)",
-    "mr": "जयकवाडी (पैठण)",
+    "slug": "jayakwadi",
+    "en": "Jayakwadi (Paithan)",
+    "mr": "पैठण (जायकवाडी)",
+    "aliases_mr": ["जायकवाडी (पैठण)", "नाथसागर", "जायकवाडी"],
     "district": "Chhatrapati Sambhajinagar",
     "division": "Chhatrapati Sambhajinagar",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 738.11,
-    "live": 2170.93,
-    "gross": 2909.04,
-    "keys": [
-      "paithan (jayakwadi)",
-      "jayakwadi",
-      "paithan",
-      "जयकवाडी",
-      "पैठण",
-      "पठण",
-      "जयकवाडी (पैठण)"
-    ]
+    "basin": "Godavari River Basin (Godavari Main)",
+    "design_live_mcm": 2170.93,
+    "design_gross_mcm": 2909.04
   },
   {
     "slug": "apegaon-hlb",
     "en": "Apegaon H L B",
-    "mr": "आपगाव उच्च पातळी बंधारा",
+    "mr": "आपेगाव उ स्त.बं.",
+    "aliases_mr": ["आपगाव उच्च पातळी बंधारा", "आपेगाव उ. स्त. बं."],
     "district": "Chhatrapati Sambhajinagar",
     "division": "Chhatrapati Sambhajinagar",
     "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 0.0,
-    "live": 7.0,
-    "gross": 7.0,
-    "keys": [
-      "apegaon h l b",
-      "आपगाव उ त.ब.ं"
-    ]
+    "design_live_mcm": 7.00,
+    "design_gross_mcm": 7.00
   },
   {
     "slug": "majalgaon",
     "en": "Majalgaon",
     "mr": "माजलगाव",
+    "aliases_mr": ["माजलगाव धरण", "माजलगाव"],
     "district": "Beed",
     "division": "Chhatrapati Sambhajinagar",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 142.3,
-    "live": 311.34,
-    "gross": 453.64,
-    "keys": [
-      "majalgaon",
-      "माजलगाव"
-    ]
+    "basin": "Godavari River Basin (Sindphana Sub-basin)",
+    "design_live_mcm": 311.34,
+    "design_gross_mcm": 453.64
   },
   {
     "slug": "manjara",
     "en": "Manjara",
     "mr": "मांजरा",
+    "aliases_mr": ["मांजरा धरण", "मांजरा"],
     "district": "Beed",
     "division": "Chhatrapati Sambhajinagar",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 47.13,
-    "live": 176.96,
-    "gross": 224.09,
-    "keys": [
-      "manjara",
-      "मांजरा",
-      "माजरा"
-    ]
-  },
-  {
-    "slug": "dhanegaon-hlb",
-    "en": "Dhanegaon High Level Barrage",
-    "mr": "धनेगाव उच्च पातळी बंधारा",
-    "district": "Beed",
-    "division": "Chhatrapati Sambhajinagar",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 0.34,
-    "live": 10.98,
-    "gross": 11.32,
-    "keys": [
-      "dhanegaon high level barrage",
-      "धनगाव उ. त. ब.ं"
-    ]
-  },
-  {
-    "slug": "dongargaon-hlb",
-    "en": "Dongargaon H L B",
-    "mr": "डोंगरगाव उच्च पातळी बंधारा",
-    "district": "Beed",
-    "division": "Chhatrapati Sambhajinagar",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 0.01,
-    "live": 7.89,
-    "gross": 7.9,
-    "keys": [
-      "dongargaon h l b",
-      "डगरगाव उ. त. ब.ं"
-    ]
-  },
-  {
-    "slug": "siddheshwar",
-    "en": "Siddheshwar",
-    "mr": "सिद्धेश्वर",
-    "district": "Hingoli",
-    "division": "Chhatrapati Sambhajinagar",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 169.89,
-    "live": 80.96,
-    "gross": 250.85,
-    "keys": [
-      "siddheshwar",
-      "सिद्धेश्वर",
-      "सदर"
-    ]
-  },
-  {
-    "slug": "yeldari",
-    "en": "Yeldari",
-    "mr": "येळदारी",
-    "district": "Hingoli",
-    "division": "Chhatrapati Sambhajinagar",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 124.67,
-    "live": 809.77,
-    "gross": 934.44,
-    "keys": [
-      "yeldari",
-      "येळदारी",
-      "यलदरी"
-    ]
-  },
-  {
-    "slug": "amdura",
-    "en": "Amdura",
-    "mr": "आमदुरा",
-    "district": "Nanded",
-    "division": "Chhatrapati Sambhajinagar",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 0.51,
-    "live": 23.2,
-    "gross": 23.71,
-    "keys": [
-      "amdura",
-      "अमदरा"
-    ]
-  },
-  {
-    "slug": "dhalegaon-hlb",
-    "en": "Dhalegaon H L B",
-    "mr": "ढालेगाव उच्च पातळी बंधारा",
-    "district": "Nanded",
-    "division": "Chhatrapati Sambhajinagar",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 1.37,
-    "live": 13.5,
-    "gross": 14.87,
-    "keys": [
-      "dhalegaon h l b",
-      "ढालगाव उ. त. ब.ं"
-    ]
-  },
-  {
-    "slug": "lower-manar",
-    "en": "Lower Manar",
-    "mr": "निम्न मानार",
-    "district": "Nanded",
-    "division": "Chhatrapati Sambhajinagar",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 8.71,
-    "live": 138.21,
-    "gross": 146.92,
-    "keys": [
-      "lower manar",
-      "निम्न मानार",
-      "नन मनार"
-    ]
-  },
-  {
-    "slug": "vishnupuri",
-    "en": "Vishnupuri",
-    "mr": "विष्णुपूरी",
-    "district": "Nanded",
-    "division": "Chhatrapati Sambhajinagar",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 2.76,
-    "live": 80.79,
-    "gross": 83.55,
-    "keys": [
-      "vishnupuri",
-      "विष्णुपूरी"
-    ]
+    "basin": "Godavari River Basin (Manjara Sub-basin)",
+    "design_live_mcm": 176.96,
+    "design_gross_mcm": 224.09
   },
   {
     "slug": "lower-terna",
     "en": "Lower Terna",
     "mr": "निम्न तेरणा",
+    "aliases_mr": ["निम्न तेरणा धरण", "निम्न तेरणा"],
     "district": "Dharashiv",
     "division": "Chhatrapati Sambhajinagar",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 29.97,
-    "live": 91.22,
-    "gross": 121.19,
-    "keys": [
-      "lower terna",
-      "निम्न तेरणा",
-      "नन तरणा"
-    ]
+    "basin": "Godavari River Basin (Terna Sub-basin)",
+    "design_live_mcm": 91.22,
+    "design_gross_mcm": 121.19
   },
   {
     "slug": "sina-kolegaon",
     "en": "Sina kolegaon",
-    "mr": "सीना कोळेगाव",
+    "mr": "सिना कोळेगाव",
+    "aliases_mr": ["सीना कोळेगाव", "सिना कोळेगाव"],
     "district": "Dharashiv",
     "division": "Chhatrapati Sambhajinagar",
+    "basin": "Krishna River Basin (Sina Sub-basin)",
+    "design_live_mcm": 76.18,
+    "design_gross_mcm": 150.43
+  },
+  {
+    "slug": "yeldari",
+    "en": "Yeldari",
+    "mr": "येलदरी",
+    "aliases_mr": ["येळदारी", "येलदरी"],
+    "district": "Hingoli",
+    "division": "Chhatrapati Sambhajinagar",
+    "basin": "Godavari River Basin (Purna Sub-basin)",
+    "design_live_mcm": 809.77,
+    "design_gross_mcm": 934.44
+  },
+  {
+    "slug": "siddheshwar",
+    "en": "Siddheshwar",
+    "mr": "सिध्देश्वर",
+    "aliases_mr": ["सिद्धेश्वर", "सिध्देश्वर"],
+    "district": "Hingoli",
+    "division": "Chhatrapati Sambhajinagar",
+    "basin": "Godavari River Basin (Purna Sub-basin)",
+    "design_live_mcm": 80.96,
+    "design_gross_mcm": 250.85
+  },
+  {
+    "slug": "vishnupuri",
+    "en": "Vishnupuri",
+    "mr": "विष्णुपुरी",
+    "aliases_mr": ["विष्णुपूरी", "शंकर सागर", "विष्णुपुरी"],
+    "district": "Nanded",
+    "division": "Chhatrapati Sambhajinagar",
     "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 61.14,
-    "live": 89.35,
-    "gross": 150.49,
-    "keys": [
-      "sina kolegaon",
-      "सना कोळगाव"
-    ]
+    "design_live_mcm": 80.79,
+    "design_gross_mcm": 83.55
+  },
+  {
+    "slug": "lower-manar",
+    "en": "Lower Manar",
+    "mr": "निम्न मनार",
+    "aliases_mr": ["निम्न मानार", "निम्न मनार"],
+    "district": "Nanded",
+    "division": "Chhatrapati Sambhajinagar",
+    "basin": "Godavari River Basin (Manar Sub-basin)",
+    "design_live_mcm": 138.21,
+    "design_gross_mcm": 146.92
+  },
+  {
+    "slug": "amdura",
+    "en": "Amdura",
+    "mr": "अमदुरा",
+    "aliases_mr": ["आमदुरा", "अमदुरा उ. स्त. बं."],
+    "district": "Nanded",
+    "division": "Chhatrapati Sambhajinagar",
+    "basin": "Godavari River Basin",
+    "design_live_mcm": 23.20,
+    "design_gross_mcm": 23.71
   },
   {
     "slug": "lower-dudhana",
     "en": "Lower Dudhana",
     "mr": "निम्न दुधना",
+    "aliases_mr": ["निम्न दुधना धरण", "निम्न दुधना"],
     "district": "Parbhani",
     "division": "Chhatrapati Sambhajinagar",
+    "basin": "Godavari River Basin (Dudhana Sub-basin)",
+    "design_live_mcm": 242.20,
+    "design_gross_mcm": 344.80
+  },
+  {
+    "slug": "bhandardara",
+    "en": "Bhandardara",
+    "mr": "भंडारदरा",
+    "aliases_mr": ["भांडारदरा (आर्थर लेक)", "भंडारदरा"],
+    "district": "Ahmednagar",
+    "division": "Nashik",
+    "basin": "Godavari River Basin (Pravara Sub-basin)",
+    "design_live_mcm": 304.10,
+    "design_gross_mcm": 312.60
+  },
+  {
+    "slug": "mula",
+    "en": "Mula",
+    "mr": "मुळा",
+    "aliases_mr": ["मुळा धरण", "मुळा"],
+    "district": "Ahmednagar",
+    "division": "Nashik",
+    "basin": "Godavari River Basin (Mula Sub-basin)",
+    "design_live_mcm": 608.81,
+    "design_gross_mcm": 736.23
+  },
+  {
+    "slug": "nilwande-2",
+    "en": "Nilwande-2",
+    "mr": "निळवंडे-2",
+    "aliases_mr": ["निळवंडे", "निळवंडे-२"],
+    "district": "Ahmednagar",
+    "division": "Nashik",
+    "basin": "Godavari River Basin (Pravara Sub-basin)",
+    "design_live_mcm": 232.18,
+    "design_gross_mcm": 236.00
+  },
+  {
+    "slug": "upper-tapi-hatnur",
+    "en": "Upper Tapi Hatnur",
+    "mr": "ऊर्ध्व तापी हतनूर",
+    "aliases_mr": ["हतनूर", "ऊर्ध्व तापी हतनूर"],
+    "district": "Jalgaon",
+    "division": "Nashik",
+    "basin": "Tapi River Basin",
+    "design_live_mcm": 255.00,
+    "design_gross_mcm": 388.00
+  },
+  {
+    "slug": "waghur",
+    "en": "Waghur",
+    "mr": "वाघूर",
+    "aliases_mr": ["वाघूर धरण", "वाघूर"],
+    "district": "Jalgaon",
+    "division": "Nashik",
+    "basin": "Tapi River Basin (Waghur Sub-basin)",
+    "design_live_mcm": 248.21,
+    "design_gross_mcm": 325.00
+  },
+  {
+    "slug": "gangapur",
+    "en": "Gangapur",
+    "mr": "गंगापूर",
+    "aliases_mr": ["गंगापूर धरण", "गंगापूर"],
+    "district": "Nashik",
+    "division": "Nashik",
+    "basin": "Godavari River Basin (Godavari Main)",
+    "design_live_mcm": 159.42,
+    "design_gross_mcm": 160.10
+  },
+  {
+    "slug": "darna",
+    "en": "Darna",
+    "mr": "दारणा",
+    "aliases_mr": ["दारणा धरण", "दारणा"],
+    "district": "Nashik",
+    "division": "Nashik",
+    "basin": "Godavari River Basin (Darna Sub-basin)",
+    "design_live_mcm": 202.42,
+    "design_gross_mcm": 202.42
+  },
+  {
+    "slug": "mukane",
+    "en": "Mukane",
+    "mr": "मुकणे",
+    "aliases_mr": ["मुकणे धरण", "मुकणे"],
+    "district": "Nashik",
+    "division": "Nashik",
+    "basin": "Godavari River Basin (Aundha Sub-basin)",
+    "design_live_mcm": 204.98,
+    "design_gross_mcm": 214.16
+  },
+  {
+    "slug": "karanjwan",
+    "en": "Karanjwan",
+    "mr": "करंजवण",
+    "aliases_mr": ["करंजवण धरण", "करंजवण"],
+    "district": "Nashik",
+    "division": "Nashik",
+    "basin": "Godavari River Basin (Kadva Sub-basin)",
+    "design_live_mcm": 152.09,
+    "design_gross_mcm": 161.43
+  },
+  {
+    "slug": "girna",
+    "en": "Girna",
+    "mr": "गिरणा",
+    "aliases_mr": ["गिरणा धरण", "गिरणा"],
+    "district": "Nashik",
+    "division": "Nashik",
+    "basin": "Tapi River Basin (Girna Sub-basin)",
+    "design_live_mcm": 523.55,
+    "design_gross_mcm": 608.45
+  },
+  {
+    "slug": "chankapur",
+    "en": "Chankapur",
+    "mr": "चणकापूर",
+    "aliases_mr": ["चणकापूर धरण", "चणकापूर"],
+    "district": "Nashik",
+    "division": "Nashik",
+    "basin": "Tapi River Basin (Girna Sub-basin)",
+    "design_live_mcm": 68.72,
+    "design_gross_mcm": 79.96
+  },
+  {
+    "slug": "upper-vaitarna",
+    "en": "Upper Vaitarna",
+    "mr": "वैतरणा ज. वि. प्रकल्प",
+    "aliases_mr": ["ऊर्ध्व वैतरणा", "वैतरणा"],
+    "district": "Nashik",
+    "division": "Nashik",
+    "basin": "West Flowing / Vaitarna Basin",
+    "design_live_mcm": 331.31,
+    "design_gross_mcm": 353.96
+  },
+  {
+    "slug": "bham-dam",
+    "en": "Bham Dam",
+    "mr": "भाम धरण",
+    "aliases_mr": ["भाम धरण", "भाम"],
+    "district": "Nashik",
+    "division": "Nashik",
     "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 102.6,
-    "live": 242.2,
-    "gross": 344.8,
-    "keys": [
-      "lower dudhana",
-      "निम्न दुधना",
-      "नन दधना"
-    ]
+    "design_live_mcm": 69.76,
+    "design_gross_mcm": 75.42
+  },
+  {
+    "slug": "bhavali",
+    "en": "Bhavali",
+    "mr": "भावली",
+    "aliases_mr": ["भावली धरण", "भावली"],
+    "district": "Nashik",
+    "division": "Nashik",
+    "basin": "Godavari River Basin (Bham Sub-basin)",
+    "design_live_mcm": 40.79,
+    "design_gross_mcm": 44.75
+  },
+  {
+    "slug": "kadwa",
+    "en": "Kadwa",
+    "mr": "कडवा",
+    "aliases_mr": ["कडवा धरण", "कडवा"],
+    "district": "Nashik",
+    "division": "Nashik",
+    "basin": "Godavari River Basin (Kadwa Sub-basin)",
+    "design_live_mcm": 47.79,
+    "design_gross_mcm": 54.47
+  },
+  {
+    "slug": "ozarkhed",
+    "en": "Ozarkhed",
+    "mr": "ओझरखेड",
+    "aliases_mr": ["ओझरखेड धरण", "ओझरखेड"],
+    "district": "Nashik",
+    "division": "Nashik",
+    "basin": "Godavari River Basin (Unanda Sub-basin)",
+    "design_live_mcm": 60.32,
+    "design_gross_mcm": 67.96
+  },
+  {
+    "slug": "palkhed",
+    "en": "Palkhed",
+    "mr": "पालखेड",
+    "aliases_mr": ["पालखेड धरण", "पालखेड"],
+    "district": "Nashik",
+    "division": "Nashik",
+    "basin": "Godavari River Basin (Kadwa Sub-basin)",
+    "design_live_mcm": 18.49,
+    "design_gross_mcm": 20.13
+  },
+  {
+    "slug": "punegaon",
+    "en": "Punegaon",
+    "mr": "पुणेगाव",
+    "aliases_mr": ["पुणेगाव धरण", "पुणेगाव"],
+    "district": "Nashik",
+    "division": "Nashik",
+    "basin": "Godavari River Basin (Unanda Sub-basin)",
+    "design_live_mcm": 17.57,
+    "design_gross_mcm": 20.39
+  },
+  {
+    "slug": "waghad",
+    "en": "Waghad",
+    "mr": "वाघाड",
+    "aliases_mr": ["वाघाड धरण", "वाघाड"],
+    "district": "Nashik",
+    "division": "Nashik",
+    "basin": "Godavari River Basin (Kolvan Sub-basin)",
+    "design_live_mcm": 65.18,
+    "design_gross_mcm": 67.72
+  },
+  {
+    "slug": "tisgaon",
+    "en": "Tisgaon",
+    "mr": "तिसगाव",
+    "aliases_mr": ["तिसगाव धरण", "तिसगाव"],
+    "district": "Nashik",
+    "division": "Nashik",
+    "basin": "Godavari River Basin",
+    "design_live_mcm": 12.76,
+    "design_gross_mcm": 15.46
+  },
+  {
+    "slug": "waki-dam",
+    "en": "Waki Dam",
+    "mr": "वाकी धरण",
+    "aliases_mr": ["वाकी धरण", "वाकी"],
+    "district": "Nashik",
+    "division": "Nashik",
+    "basin": "Godavari River Basin",
+    "design_live_mcm": 70.57,
+    "design_gross_mcm": 75.80
+  },
+  {
+    "slug": "bhatsa",
+    "en": "Bhatsa",
+    "mr": "भातसा",
+    "aliases_mr": ["भातसा धरण", "भातसा"],
+    "district": "Thane",
+    "division": "Kokan",
+    "basin": "West Flowing / Ulhas Basin",
+    "design_live_mcm": 942.10,
+    "design_gross_mcm": 976.10
+  },
+  {
+    "slug": "barvi",
+    "en": "Barvi",
+    "mr": "बारवी",
+    "aliases_mr": ["बारवी धरण", "बारवी"],
+    "district": "Thane",
+    "division": "Kokan",
+    "basin": "West Flowing / Ulhas Basin",
+    "design_live_mcm": 338.84,
+    "design_gross_mcm": 340.48
+  },
+  {
+    "slug": "modak-sagar",
+    "en": "Modak Sagar",
+    "mr": "मोडकसागर",
+    "aliases_mr": ["मोडक सागर", "लोअर वैतरणा", "मोडकसागर"],
+    "district": "Thane",
+    "division": "Kokan",
+    "basin": "West Flowing / Vaitarna Basin",
+    "design_live_mcm": 174.79,
+    "design_gross_mcm": 204.98
+  },
+  {
+    "slug": "tansa",
+    "en": "Tansa",
+    "mr": "तानसा",
+    "aliases_mr": ["तानसा धरण", "तानसा"],
+    "district": "Thane",
+    "division": "Kokan",
+    "basin": "West Flowing / Vaitarna Basin",
+    "design_live_mcm": 172.52,
+    "design_gross_mcm": 184.60
+  },
+  {
+    "slug": "middle-vaitarna",
+    "en": "Middle Vaitarna",
+    "mr": "मध्य वैतरणा",
+    "aliases_mr": ["मध्य वैतरणा (बाळासाहेब ठाकरे)", "मध्य वैतरणा"],
+    "district": "Thane",
+    "division": "Kokan",
+    "basin": "West Flowing / Vaitarna Basin",
+    "design_live_mcm": 193.53,
+    "design_gross_mcm": 202.10
+  },
+  {
+    "slug": "dhamni",
+    "en": "Dhamni",
+    "mr": "धामणी",
+    "aliases_mr": ["सूर्य प्रकल्प", "धामणी"],
+    "district": "Palghar",
+    "division": "Kokan",
+    "basin": "West Flowing / Surya Basin",
+    "design_live_mcm": 276.35,
+    "design_gross_mcm": 285.31
+  },
+  {
+    "slug": "tillari-kokan",
+    "en": "Tillari",
+    "mr": "तिल्लारी",
+    "aliases_mr": ["तिल्लारी धरण", "तिल्लारी आंतरराज्य"],
+    "district": "Sindhudurg",
+    "division": "Kokan",
+    "basin": "West Flowing / Tillari Basin",
+    "design_live_mcm": 447.37,
+    "design_gross_mcm": 462.17
   },
   {
     "slug": "upper-wardha",
     "en": "Upper Wardha",
     "mr": "ऊर्ध्व वर्धा",
+    "aliases_mr": ["नल दमयंती सागर", "ऊर्ध्व वर्धा"],
     "district": "Amravati",
     "division": "Amravati",
-    "basin": "Wainganga / Godavari Basin",
-    "type": "MAJOR",
-    "dead": 114.22,
-    "live": 564.05,
-    "gross": 678.27,
-    "keys": [
-      "upper wardha",
-      "ऊर्ध्व वर्धा",
-      "ऊव वधा"
-    ]
-  },
-  {
-    "slug": "arunavati",
-    "en": "Arunavati",
-    "mr": "अरुणावती",
-    "district": "Yavatmal",
-    "division": "Amravati",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 28.72,
-    "live": 169.67,
-    "gross": 198.39,
-    "keys": [
-      "arunavati",
-      "अरुणावती",
-      "अणावती"
-    ]
-  },
-  {
-    "slug": "bembla",
-    "en": "Bembla",
-    "mr": "बेम्बळा",
-    "district": "Yavatmal",
-    "division": "Amravati",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 19.39,
-    "live": 183.94,
-    "gross": 203.34,
-    "keys": [
-      "bembla",
-      "बेम्बळा",
-      "बबळा"
-    ]
-  },
-  {
-    "slug": "isapur",
-    "en": "Isapur",
-    "mr": "इसापूर",
-    "district": "Yavatmal",
-    "division": "Amravati",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 315.0,
-    "live": 964.0,
-    "gross": 1279.0,
-    "keys": [
-      "isapur",
-      "इसापूर",
-      "इसापरू"
-    ]
-  },
-  {
-    "slug": "pus",
-    "en": "Pus",
-    "mr": "पूस",
-    "district": "Yavatmal",
-    "division": "Amravati",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 22.66,
-    "live": 91.26,
-    "gross": 113.92,
-    "keys": [
-      "pus",
-      "पूस",
-      "पस"
-    ]
-  },
-  {
-    "slug": "wan",
-    "en": "Wan",
-    "mr": "वान",
-    "district": "Akola",
-    "division": "Amravati",
-    "basin": "Tapi River Basin",
-    "type": "MAJOR",
-    "dead": 1.51,
-    "live": 81.96,
-    "gross": 83.46,
-    "keys": [
-      "wan",
-      "वान"
-    ]
+    "basin": "Godavari River Basin (Wardha Sub-basin)",
+    "design_live_mcm": 564.05,
+    "design_gross_mcm": 678.27
   },
   {
     "slug": "katepurna",
     "en": "Katepurna",
     "mr": "काटेपूर्णा",
+    "aliases_mr": ["काटेपूर्णा धरण", "काटेपूर्णा"],
     "district": "Akola",
     "division": "Amravati",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 11.32,
-    "live": 86.35,
-    "gross": 97.67,
-    "keys": [
-      "katepurna",
-      "काटेपूर्णा",
-      "काटेपण"
-    ]
+    "basin": "Tapi River Basin (Purna Sub-basin)",
+    "design_live_mcm": 86.35,
+    "design_gross_mcm": 97.67
+  },
+  {
+    "slug": "wan",
+    "en": "Wan",
+    "mr": "वान",
+    "aliases_mr": ["वान धरण", "वान"],
+    "district": "Akola",
+    "division": "Amravati",
+    "basin": "Tapi River Basin (Wan Sub-basin)",
+    "design_live_mcm": 81.96,
+    "design_gross_mcm": 83.46
   },
   {
     "slug": "khadakpurna",
     "en": "Khadakpurna",
     "mr": "खडकपूर्णा",
+    "aliases_mr": ["खडकपूर्णा धरण", "खडकपूर्णा"],
     "district": "Buldhana",
     "division": "Amravati",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 67.21,
-    "live": 93.4,
-    "gross": 160.61,
-    "keys": [
-      "khadakpurna",
-      "खडकपूर्णा",
-      "खडकपण"
-    ]
+    "basin": "Godavari River Basin (Purna Sub-basin)",
+    "design_live_mcm": 93.40,
+    "design_gross_mcm": 160.61
   },
   {
     "slug": "nalganga",
     "en": "Nalganga",
     "mr": "नळगंगा",
+    "aliases_mr": ["नळगंगा धरण", "नळगंगा"],
     "district": "Buldhana",
     "division": "Amravati",
-    "basin": "Tapi River Basin",
-    "type": "MAJOR",
-    "dead": 2.54,
-    "live": 69.32,
-    "gross": 71.86,
-    "keys": [
-      "nalganga",
-      "नळगंगा",
-      "नळगगा"
-    ]
+    "basin": "Tapi River Basin (Purna Sub-basin)",
+    "design_live_mcm": 69.32,
+    "design_gross_mcm": 71.86
   },
   {
     "slug": "pentakli",
     "en": "Pentakli",
     "mr": "पेनटाकळी",
+    "aliases_mr": ["पेनटाकळी धरण", "पेनटाकळी"],
     "district": "Buldhana",
     "division": "Amravati",
-    "basin": "Godavari River Basin",
-    "type": "MAJOR",
-    "dead": 7.38,
-    "live": 59.98,
-    "gross": 67.36,
-    "keys": [
-      "pentakli",
-      "पेनटाकळी",
-      "पनटाकळी"
-    ]
+    "basin": "Godavari River Basin (Penganga Sub-basin)",
+    "design_live_mcm": 59.98,
+    "design_gross_mcm": 67.36
   },
   {
-    "slug": "totladoh",
-    "en": "Totladoh",
-    "mr": "तोतलाडोह",
-    "district": "Nagpur",
-    "division": "Nagpur",
-    "basin": "Wainganga / Godavari Basin",
-    "type": "MAJOR",
-    "dead": 150.0,
-    "live": 1016.93,
-    "gross": 1166.93,
-    "keys": [
-      "totladoh",
-      "तोतलाडोह"
-    ]
+    "slug": "arunavati",
+    "en": "Arunavati",
+    "mr": "अरुणावती",
+    "aliases_mr": ["अरुणावती धरण", "अरुणावती"],
+    "district": "Yavatmal",
+    "division": "Amravati",
+    "basin": "Godavari River Basin (Penganga Sub-basin)",
+    "design_live_mcm": 169.67,
+    "design_gross_mcm": 198.39
+  },
+  {
+    "slug": "bembla",
+    "en": "Bembla",
+    "mr": "बेंबळा",
+    "aliases_mr": ["बेंबळा धरण", "बेम्बळा", "बेंबळा"],
+    "district": "Yavatmal",
+    "division": "Amravati",
+    "basin": "Godavari River Basin (Wardha Sub-basin)",
+    "design_live_mcm": 183.94,
+    "design_gross_mcm": 203.34
+  },
+  {
+    "slug": "isapur",
+    "en": "Isapur",
+    "mr": "इसापूर",
+    "aliases_mr": ["इसापूर धरण", "इसापूर"],
+    "district": "Yavatmal",
+    "division": "Amravati",
+    "basin": "Godavari River Basin (Penganga Sub-basin)",
+    "design_live_mcm": 964.00,
+    "design_gross_mcm": 1279.00
+  },
+  {
+    "slug": "pus",
+    "en": "Pus",
+    "mr": "पूस",
+    "aliases_mr": ["पूस धरण", "पूस"],
+    "district": "Yavatmal",
+    "division": "Amravati",
+    "basin": "Godavari River Basin (Penganga Sub-basin)",
+    "design_live_mcm": 91.26,
+    "design_gross_mcm": 113.92
   },
   {
     "slug": "gosikhurd",
     "en": "Gosikhurd",
     "mr": "गोसीखुर्द",
+    "aliases_mr": ["गोसीखुर्द (इंदिरा सागर)", "गोसीखुर्द"],
     "district": "Bhandara",
     "division": "Nagpur",
-    "basin": "Wainganga / Godavari Basin",
-    "type": "MAJOR",
-    "dead": 405.91,
-    "live": 740.17,
-    "gross": 1146.08,
-    "keys": [
-      "gosikhurd",
-      "गोसीखुर्द",
-      "गोसीखद"
-    ]
+    "basin": "Godavari River Basin (Wainganga Sub-basin)",
+    "design_live_mcm": 740.17,
+    "design_gross_mcm": 1146.08
   },
   {
     "slug": "bawanthadi",
     "en": "Bawanthadi",
     "mr": "बावनथडी",
+    "aliases_mr": ["राजीव सागर", "बावनथडी"],
     "district": "Bhandara",
     "division": "Nagpur",
-    "basin": "Wainganga / Godavari Basin",
-    "type": "MAJOR",
-    "dead": 25.56,
-    "live": 254.69,
-    "gross": 280.24,
-    "keys": [
-      "bawanthadi",
-      "बावनथडी"
-    ]
+    "basin": "Godavari River Basin (Wainganga Sub-basin)",
+    "design_live_mcm": 217.32,
+    "design_gross_mcm": 280.24
   },
   {
     "slug": "asolamendha",
     "en": "Asolamendha",
     "mr": "असोलामेंढा",
+    "aliases_mr": ["असोलामेंढा धरण", "असोलामेंढा"],
     "district": "Chandrapur",
     "division": "Nagpur",
-    "basin": "Wainganga / Godavari Basin",
-    "type": "MAJOR",
-    "dead": 10.64,
-    "live": 52.33,
-    "gross": 62.97,
-    "keys": [
-      "asolamendha",
-      "असोलामेंढा",
-      "असोलामढा"
-    ]
+    "basin": "Godavari River Basin (Wainganga Sub-basin)",
+    "design_live_mcm": 52.33,
+    "design_gross_mcm": 62.97
   },
   {
     "slug": "dina",
     "en": "Dina",
     "mr": "दिना",
+    "aliases_mr": ["दिना प्रकल्प", "दिना"],
     "district": "Gadchiroli",
     "division": "Nagpur",
-    "basin": "Wainganga / Godavari Basin",
-    "type": "MAJOR",
-    "dead": 5.21,
-    "live": 67.54,
-    "gross": 72.75,
-    "keys": [
-      "dina",
-      "दिना",
-      "दना"
-    ]
-  },
-  {
-    "slug": "dhapewada",
-    "en": "Dhapewada",
-    "mr": "धापवाडा",
-    "district": "Gondia",
-    "division": "Nagpur",
-    "basin": "Wainganga / Godavari Basin",
-    "type": "MAJOR",
-    "dead": 0.0,
-    "live": 44.05,
-    "gross": 44.05,
-    "keys": [
-      "dhapewada",
-      "धापवाडा"
-    ]
+    "basin": "Godavari River Basin (Pranhita Sub-basin)",
+    "design_live_mcm": 67.54,
+    "design_gross_mcm": 72.75
   },
   {
     "slug": "itiadoh",
     "en": "Itiadoh",
-    "mr": "इटीयाडोह",
+    "mr": "इटियाडोह",
+    "aliases_mr": ["इटीयाडोह", "इटियाडोह"],
     "district": "Gondia",
     "division": "Nagpur",
-    "basin": "Wainganga / Godavari Basin",
-    "type": "MAJOR",
-    "dead": 63.71,
-    "live": 317.87,
-    "gross": 381.59,
-    "keys": [
-      "itiadoh",
-      "इटीयाडोह",
-      "इटयाडोह"
-    ]
-  },
-  {
-    "slug": "kalisarar",
-    "en": "Kalisarar",
-    "mr": "कालीसरार",
-    "district": "Gondia",
-    "division": "Nagpur",
-    "basin": "Wainganga / Godavari Basin",
-    "type": "MAJOR",
-    "dead": 2.47,
-    "live": 26.04,
-    "gross": 28.52,
-    "keys": [
-      "kalisarar",
-      "कालीसरार"
-    ]
-  },
-  {
-    "slug": "pujaritola",
-    "en": "Pujaritola P.U.Weir",
-    "mr": "पुजारीटोला",
-    "district": "Gondia",
-    "division": "Nagpur",
-    "basin": "Wainganga / Godavari Basin",
-    "type": "MAJOR",
-    "dead": 14.93,
-    "live": 43.53,
-    "gross": 58.46,
-    "keys": [
-      "pujaritola",
-      "pujaritola p.u.weir",
-      "पुजारीटोला"
-    ]
+    "basin": "Godavari River Basin (Wainganga Sub-basin)",
+    "design_live_mcm": 317.87,
+    "design_gross_mcm": 381.59
   },
   {
     "slug": "sirpur",
     "en": "Sirpur",
     "mr": "सिरपूर",
+    "aliases_mr": ["सिरपूर धरण", "सिरपूर"],
     "district": "Gondia",
     "division": "Nagpur",
-    "basin": "Wainganga / Godavari Basin",
-    "type": "MAJOR",
-    "dead": 11.32,
-    "live": 159.78,
-    "gross": 171.1,
-    "keys": [
-      "sirpur",
-      "सिरपूर",
-      "सरपरू"
-    ]
+    "basin": "Godavari River Basin (Bagh Sub-basin)",
+    "design_live_mcm": 159.78,
+    "design_gross_mcm": 171.10
+  },
+  {
+    "slug": "totladoh",
+    "en": "Totladoh",
+    "mr": "तोतलाडोह",
+    "aliases_mr": ["तोतलाडोह (मेघदूत जलाशय)", "तोतलाडोह"],
+    "district": "Nagpur",
+    "division": "Nagpur",
+    "basin": "Godavari River Basin (Pench Sub-basin)",
+    "design_live_mcm": 1016.93,
+    "design_gross_mcm": 1166.93
   },
   {
     "slug": "kamthi-khairy",
     "en": "Kamthi Khairy",
     "mr": "कामठी खैरी",
+    "aliases_mr": ["पेंच प्रकल्प", "कामठी खैरी"],
     "district": "Nagpur",
     "division": "Nagpur",
-    "basin": "Wainganga / Godavari Basin",
-    "type": "MAJOR",
-    "dead": 39.0,
-    "live": 141.98,
-    "gross": 180.98,
-    "keys": [
-      "kamthi khairy",
-      "kamthi khairi",
-      "कामठी खैरी",
-      "कामठी खरी"
-    ]
+    "basin": "Godavari River Basin (Pench Sub-basin)",
+    "design_live_mcm": 141.98,
+    "design_gross_mcm": 180.98
   },
   {
     "slug": "khindsi",
     "en": "Khindsi",
-    "mr": "खिडसी",
+    "mr": "खिंडसी",
+    "aliases_mr": ["खिडसी", "रामटेक", "खिंडसी"],
     "district": "Nagpur",
     "division": "Nagpur",
-    "basin": "Wainganga / Godavari Basin",
-    "type": "MAJOR",
-    "dead": 0.0,
-    "live": 103.0,
-    "gross": 103.0,
-    "keys": [
-      "khindsi",
-      "खिडसी",
-      "खडसी"
-    ]
-  },
-  {
-    "slug": "nand",
-    "en": "Nand",
-    "mr": "नांद",
-    "district": "Nagpur",
-    "division": "Nagpur",
-    "basin": "Wainganga / Godavari Basin",
-    "type": "MAJOR",
-    "dead": 9.0,
-    "live": 53.18,
-    "gross": 62.18,
-    "keys": [
-      "nand",
-      "नांद",
-      "नाद"
-    ]
-  },
-  {
-    "slug": "wadgaon",
-    "en": "Wadgaon",
-    "mr": "वडगाव",
-    "district": "Nagpur",
-    "division": "Nagpur",
-    "basin": "Wainganga / Godavari Basin",
-    "type": "MAJOR",
-    "dead": 16.6,
-    "live": 134.9,
-    "gross": 151.5,
-    "keys": [
-      "wadgaon",
-      "वडगाव"
-    ]
+    "basin": "Godavari River Basin (Sur Sub-basin)",
+    "design_live_mcm": 103.00,
+    "design_gross_mcm": 103.00
   },
   {
     "slug": "bor",
     "en": "Bor",
     "mr": "बोर",
+    "aliases_mr": ["बोर धरण", "बोर"],
     "district": "Wardha",
     "division": "Nagpur",
-    "basin": "Wainganga / Godavari Basin",
-    "type": "MAJOR",
-    "dead": 11.32,
-    "live": 127.42,
-    "gross": 138.74,
-    "keys": [
-      "bor",
-      "बोर"
-    ]
+    "basin": "Godavari River Basin (Wardha Sub-basin)",
+    "design_live_mcm": 127.42,
+    "design_gross_mcm": 138.74
   },
   {
     "slug": "lower-wardha",
     "en": "Lower Wardha",
     "mr": "निम्न वर्धा",
+    "aliases_mr": ["निम्न वर्धा धरण", "निम्न वर्धा"],
     "district": "Wardha",
     "division": "Nagpur",
-    "basin": "Wainganga / Godavari Basin",
-    "type": "MAJOR",
-    "dead": 36.47,
-    "live": 216.87,
-    "gross": 253.34,
-    "keys": [
-      "lower wardha",
-      "निम्न वर्धा",
-      "नन वधा"
-    ]
+    "basin": "Godavari River Basin (Wardha Sub-basin)",
+    "design_live_mcm": 216.87,
+    "design_gross_mcm": 253.34
   }
 ]

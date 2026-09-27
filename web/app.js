@@ -21,8 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function initDashboard() {
   try {
-    const resp = await fetch('data/latest_snapshot.json?v=' + Date.now(), { cache: 'no-store' });
-    if (!resp.ok) throw new Error('Failed to load data/latest_snapshot.json');
+    let resp = await fetch('data/latest.json?v=' + Date.now(), { cache: 'no-store' });
+    if (!resp.ok) {
+      resp = await fetch('data/latest_snapshot.json?v=' + Date.now(), { cache: 'no-store' });
+    }
+    if (!resp.ok) throw new Error('Failed to load latest dam metrics');
     latestSnapshot = await resp.json();
     
     if (document.getElementById('lastUpdatedText')) {
@@ -343,7 +346,14 @@ async function renderTrendChart(daysFilter = 30) {
   // Determine common date timeline
   let allDatesSet = new Set();
   histories.forEach(h => {
-    h.forEach(pt => allDatesSet.add(pt.date));
+    if (Array.isArray(h)) {
+      h.forEach(pt => {
+        const dStr = pt.d || pt.date;
+        if (dStr && dStr >= '2024-01-01' && dStr <= '2026-12-31') {
+          allDatesSet.add(dStr);
+        }
+      });
+    }
   });
 
   let sortedDates = Array.from(allDatesSet).sort();
@@ -357,7 +367,7 @@ async function renderTrendChart(daysFilter = 30) {
   let datasets = focusDams.map((dam, idx) => {
     const damColor = DAM_COLORS[idx % DAM_COLORS.length];
     const history = histories[idx] || [];
-    const ptMap = new Map(history.map(p => [p.date, p.pct]));
+    const ptMap = new Map(history.map(p => [p.d || p.date, p.p !== undefined ? p.p : p.pct]));
 
     const dataPoints = sortedDates.map(d => ptMap.has(d) ? ptMap.get(d) : null);
 
@@ -373,6 +383,7 @@ async function renderTrendChart(daysFilter = 30) {
       })(),
       fill: selectedDamSlug !== 'ALL',
       borderWidth: 2.2,
+      spanGaps: true, // Seamless line interpolation over missing report dates
       tension: 0.25,
       pointRadius: sortedDates.length > 150 ? 0 : 2,
       pointHoverRadius: 5

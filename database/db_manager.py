@@ -48,7 +48,8 @@ def init_db():
     # Load dam registry
     if REGISTRY_FILE.exists():
         with open(REGISTRY_FILE, 'r', encoding='utf-8') as f:
-            registry = json.load(f)
+            raw_data = json.load(f)
+        registry = [item for item in raw_data if isinstance(item, dict) and 'slug' in item and 'division' in item]
 
         # 1. Seed Divisions
         divisions = sorted(list({item['division'] for item in registry}))
@@ -113,7 +114,8 @@ def get_dam_lookup_map():
     if not REGISTRY_FILE.exists():
         return {}
     with open(REGISTRY_FILE, 'r', encoding='utf-8') as f:
-        registry = json.load(f)
+        raw_data = json.load(f)
+    registry = [item for item in raw_data if isinstance(item, dict) and 'slug' in item]
 
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -250,13 +252,27 @@ def ingest_records_from_dataframe(df):
     print(f"✅ Atomic DBMS Ingestion Complete: {inserted_count} records upserted into 'dam_daily_logs'.")
     return inserted_count
 
+def purge_corrupt_logs():
+    """Purges corrupt records with invalid dates outside [2024-01-01, 2026-12-31]."""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM dam_daily_logs WHERE reading_date < '2024-01-01' OR reading_date > '2026-12-31';")
+    purged = cursor.rowcount
+    conn.commit()
+    conn.close()
+    if purged > 0:
+        print(f"🧹 Purged {purged} corrupt log records outside 2024–2026 range.")
+    return purged
+
 def export_decoupled_json():
     """
-    Exports 3NF database content into decoupled static JSON files for frontend serving:
-    1. web/data/latest_snapshot.json (~25 KB): Latest Available Snapshot for all dams.
-    2. web/data/history/{dam_slug}.json (~10-15 KB each): Time-series points for each dam.
+    Exports 3NF database content into decoupled static JSON files for web serving:
+    1. web/data/latest.json (~20 KB): Latest Available Snapshot for all dams.
+    2. web/data/history/{dam_slug}.json (~10-15 KB each): Compact chronological time-series array [{"d": "YYYY-MM-DD", "m": live_mcm, "p": pct}].
     """
     init_db()
+    purge_corrupt_logs()
+
     WEB_DATA_DIR.mkdir(parents=True, exist_ok=True)
     history_dir = WEB_DATA_DIR / "history"
     history_dir.mkdir(parents=True, exist_ok=True)
@@ -319,14 +335,18 @@ def export_decoupled_json():
         'dams': latest_dams
     }
 
+    latest_path = WEB_DATA_DIR / "latest.json"
     latest_snapshot_path = WEB_DATA_DIR / "latest_snapshot.json"
+    
+    with open(latest_path, 'w', encoding='utf-8') as f:
+        json.dump(snapshot_data, f, indent=2, ensure_ascii=False)
     with open(latest_snapshot_path, 'w', encoding='utf-8') as f:
         json.dump(snapshot_data, f, indent=2, ensure_ascii=False)
 
-    size_kb = latest_snapshot_path.stat().st_size / 1024
-    print(f"✨ Exported 'web/data/latest_snapshot.json' ({size_kb:.1f} KB, {len(latest_dams)} dams).")
+    size_kb = latest_path.stat().st_size / 1024
+    print(f"✨ Exported 'web/data/latest.json' & 'latest_snapshot.json' ({size_kb:.1f} KB, {len(latest_dams)} dams).")
 
-    # 2. Generate per-dam history JSON files
+    # 2. Generate per-dam compact history JSON files
     cursor.execute("SELECT dam_id, dam_slug FROM dams;")
     all_dams = cursor.fetchall()
 
@@ -338,7 +358,7 @@ def export_decoupled_json():
         cursor.execute("""
         SELECT reading_date, live_storage_mcm, gross_storage_mcm, storage_pct, last_year_pct
         FROM dam_daily_logs
-        WHERE dam_id = ? AND reading_date >= '2024-01-01'
+        WHERE dam_id = ? AND reading_date >= '2024-01-01' AND reading_date <= '2026-12-31'
         ORDER BY reading_date ASC;
         """, (did,))
         hrows = cursor.fetchall()
@@ -346,11 +366,12 @@ def export_decoupled_json():
         history_points = []
         for hr in hrows:
             history_points.append({
+                'd': hr['reading_date'],
+                'm': hr['live_storage_mcm'],
+                'p': hr['storage_pct'],
                 'date': hr['reading_date'],
                 'mcm': hr['live_storage_mcm'],
-                'gross_mcm': hr['gross_storage_mcm'],
-                'pct': hr['storage_pct'],
-                'last_year_pct': hr['last_year_pct']
+                'pct': hr['storage_pct']
             })
 
         h_path = history_dir / f"{slug}.json"
