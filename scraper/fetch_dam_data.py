@@ -2,6 +2,7 @@ import os
 import re
 import ssl
 import sys
+import json
 import subprocess
 import urllib.request
 import urllib.parse
@@ -31,151 +32,31 @@ HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
 }
 
-# -----------------------------------------------------------------------------
-# MASTER STATE DAM DICTIONARY (138 MAJOR & MEDIUM DAMS OF MAHARASHTRA)
-# -----------------------------------------------------------------------------
-MASTER_DAMS_DATA = [
-    # PUNE REGION - Pune District
-    {'en': 'Khadakwasla', 'mr': 'खडकवासला', 'district': 'Pune', 'division': 'Pune', 'keys': ['khadakwasla', 'खडकवासला']},
-    {'en': 'Panshet', 'mr': 'पानशेत', 'district': 'Pune', 'division': 'Pune', 'keys': ['panshet', 'पानशेत', 'पानशत']},
-    {'en': 'Varasgaon', 'mr': 'वरसगाव', 'district': 'Pune', 'division': 'Pune', 'keys': ['varasgaon', 'warasgaon', 'वरसगाव', 'वरसगांव']},
-    {'en': 'Temghar', 'mr': 'टेमघर', 'district': 'Pune', 'division': 'Pune', 'keys': ['temghar', 'टेमघर', 'टमघर']},
-    {'en': 'Mulshi', 'mr': 'मुळशी', 'district': 'Pune', 'division': 'Pune', 'keys': ['mulshi', 'mulshi tata', 'मुळशी', 'मुळशी टाटा', 'मळशी', 'मळशी टाटा']},
-    {'en': 'Gunjawani', 'mr': 'गुंजवणी', 'district': 'Pune', 'division': 'Pune', 'keys': ['gunjawani', 'गुंजवणी', 'गजवणी']},
-    {'en': 'Pavana', 'mr': 'पवना', 'district': 'Pune', 'division': 'Pune', 'keys': ['pawana', 'pavana', 'पवना', 'पावना']},
-    {'en': 'Chaskaman', 'mr': 'चासकमान', 'district': 'Pune', 'division': 'Pune', 'keys': ['chaskaman', 'चासकमान']},
-    {'en': 'Dimbhe', 'mr': 'डिंभे', 'district': 'Pune', 'division': 'Pune', 'keys': ['dimbhe', 'डिंभे', 'डंभे']},
-    {'en': 'Bhama Askhed', 'mr': 'भामा आसखेड', 'district': 'Pune', 'division': 'Pune', 'keys': ['bhama askhed', 'भामा आसखेड', 'भामा आसखड']},
-    {'en': 'Andra', 'mr': 'आंद्रा', 'district': 'Pune', 'division': 'Pune', 'keys': ['andra', 'आंद्रा']},
-    {'en': 'Pimpalgaon Joge', 'mr': 'पिंपळगाव जोगे', 'district': 'Pune', 'division': 'Pune', 'keys': ['pimpalgaon joge', 'पिंपळगाव जोगे', 'पपळगाव जोगे']},
-    {'en': 'Manikdoh', 'mr': 'माणिकडोह', 'district': 'Pune', 'division': 'Pune', 'keys': ['manikdoh', 'माणिकडोह', 'माणकडोह']},
-    {'en': 'Yedgaon', 'mr': 'येडगाव', 'district': 'Pune', 'division': 'Pune', 'keys': ['yedgaon', 'येडगाव', 'यडगाव']},
-    {'en': 'Wadaj', 'mr': 'वडज', 'district': 'Pune', 'division': 'Pune', 'keys': ['wadaj', 'वडज']},
-    {'en': 'Ghod', 'mr': 'घोड (चिंचणी)', 'district': 'Pune', 'division': 'Pune', 'keys': ['ghod', 'ghod (chinchani)', 'घोड', 'घोड (चिंचणी)', 'घोड (चचणी)']},
-    {'en': 'Visapur', 'mr': 'विसापूर', 'district': 'Pune', 'division': 'Pune', 'keys': ['visapur', 'विसापूर', 'वसापर']},
-    {'en': 'Kalmodi', 'mr': 'कलमोडी', 'district': 'Pune', 'division': 'Pune', 'keys': ['kalmodi', 'कलमोडी']},
-    {'en': 'Kasarsai', 'mr': 'कासारसाई', 'district': 'Pune', 'division': 'Pune', 'keys': ['kasarsai', 'कासारसाई']},
-    {'en': 'Nira Deoghar', 'mr': 'नीरा देवघर', 'district': 'Pune', 'division': 'Pune', 'keys': ['nira deoghar', 'नीरा देवघर', 'नीरा दवघर']},
-    {'en': 'Bhatghar', 'mr': 'भाटघर', 'district': 'Pune', 'division': 'Pune', 'keys': ['bhatghar', 'भाटघर']},
-    {'en': 'Nazare', 'mr': 'नाझरे', 'district': 'Pune', 'division': 'Pune', 'keys': ['nazare', 'नाझरे']},
-    {'en': 'Lonavala Tata', 'mr': 'लोणावळा टाटा', 'district': 'Pune', 'division': 'Pune', 'keys': ['lonavala tata', 'लोणावळा टाटा']},
-    {'en': 'Walwhan Tata', 'mr': 'वळवण टाटा', 'district': 'Pune', 'division': 'Pune', 'keys': ['walwan tata', 'walwhan tata', 'वळवण टाटा']},
-    {'en': 'Shirawta Tata', 'mr': 'शिरवटा टाटा', 'district': 'Pune', 'division': 'Pune', 'keys': ['shirawta tata', 'shirwata tata', 'शिरवटा टाटा', 'शरवटा टाटा']},
-    {'en': 'Kundali Tata', 'mr': 'कडली टाटा', 'district': 'Pune', 'division': 'Pune', 'keys': ['kundali tata', 'कडली टाटा']},
-    {'en': 'Thokerwadi Tata', 'mr': 'ठोकरवाडी टाटा', 'district': 'Pune', 'division': 'Pune', 'keys': ['thokerwadi tata', 'ठोकरवाडी टाटा']},
+# Load Master Dam Lookup from database/dam_registry.json
+REGISTRY_PATH = os.path.join(os.path.dirname(__file__), '..', 'database', 'dam_registry.json')
+def load_dam_lookup():
+    if os.path.exists(REGISTRY_PATH):
+        with open(REGISTRY_PATH, 'r', encoding='utf-8') as f:
+            registry = json.load(f)
+        lookup = {}
+        for entry in registry:
+            info = {
+                'en': entry['en'],
+                'mr': entry['mr'],
+                'district': entry['district'],
+                'division': entry['division'],
+                'basin': entry.get('basin', 'Krishna'),
+                'slug': entry['slug']
+            }
+            lookup[entry['slug']] = info
+            lookup[entry['en'].lower()] = info
+            lookup[entry['mr'].lower()] = info
+            for k in entry.get('keys', []):
+                lookup[k.lower()] = info
+        return lookup
+    return {}
 
-    # PUNE REGION - Satara, Solapur, Kolhapur, Sangli
-    {'en': 'Ujani', 'mr': 'भीमा (उजनी)', 'district': 'Solapur', 'division': 'Pune', 'keys': ['ujani', 'bhima (ujjani)', 'भीमा (उजनी)', 'उजनी']},
-    {'en': 'Koyna', 'mr': 'कोयना', 'district': 'Satara', 'division': 'Pune', 'keys': ['koyna', 'कोयना']},
-    {'en': 'Dhom', 'mr': 'धोम', 'district': 'Satara', 'division': 'Pune', 'keys': ['dhom', 'धोम']},
-    {'en': 'Dhom Balkawadi', 'mr': 'धोम बलकवडी', 'district': 'Satara', 'division': 'Pune', 'keys': ['dhom balkawadi', 'धोम बलकवडी']},
-    {'en': 'Kanher', 'mr': 'कन्हेर', 'district': 'Satara', 'division': 'Pune', 'keys': ['kanher', 'कन्हेर', 'कहरे']},
-    {'en': 'Urmodi', 'mr': 'उरमोडी', 'district': 'Satara', 'division': 'Pune', 'keys': ['urmodi', 'उरमोडी']},
-    {'en': 'Tarali', 'mr': 'तारळी', 'district': 'Satara', 'division': 'Pune', 'keys': ['tarali', 'तारळी']},
-    {'en': 'Veer', 'mr': 'वीर', 'district': 'Satara', 'division': 'Pune', 'keys': ['veer', 'वीर']},
-    {'en': 'Radhanagari', 'mr': 'राधानगरी', 'district': 'Kolhapur', 'division': 'Pune', 'keys': ['radhanagari', 'radhanagari h e p', 'राधानगरी', 'राधानगरी ज. िव. कप']},
-    {'en': 'Dudhganga', 'mr': 'दूधगंगा', 'district': 'Kolhapur', 'division': 'Pune', 'keys': ['dudhganga', 'दूधगंगा', 'दध']},
-    {'en': 'Tulshi', 'mr': 'तुळशी', 'district': 'Kolhapur', 'division': 'Pune', 'keys': ['tulshi', 'तुळशी', 'तळशी']},
-    {'en': 'Warna', 'mr': 'वारणा', 'district': 'Kolhapur', 'division': 'Pune', 'keys': ['warna', 'वारणा']},
-
-    # KOKAN REGION - Thane, Palghar, Raigad, Sindhudurg
-    {'en': 'Bhatsa', 'mr': 'भातसा', 'district': 'Thane', 'division': 'Kokan', 'keys': ['bhatsa', 'भातसा', 'भातासा']},
-    {'en': 'Tansa', 'mr': 'तानसा', 'district': 'Thane', 'division': 'Kokan', 'keys': ['tansa', 'तानसा']},
-    {'en': 'Modak Sagar', 'mr': 'मोडक सागर', 'district': 'Thane', 'division': 'Kokan', 'keys': ['modaksagar', 'modak sagar', 'मोडक सागर', 'मोडकसागर']},
-    {'en': 'Middle Vaitarna', 'mr': 'मध्य वैतरणा', 'district': 'Thane', 'division': 'Kokan', 'keys': ['middle vaitarna', 'मध्य वैतरणा', 'मय वतरणा']},
-    {'en': 'Barvi', 'mr': 'बारवी', 'district': 'Thane', 'division': 'Kokan', 'keys': ['barvi', 'बारवी']},
-    {'en': 'Lower Chondhe', 'mr': 'निम्न चोंढे', 'district': 'Thane', 'division': 'Kokan', 'keys': ['lower chondhe', 'निम्न चोंढे']},
-    {'en': 'Upper Ghatghar', 'mr': 'ऊर्ध्व घाटघर', 'district': 'Thane', 'division': 'Kokan', 'keys': ['upper ghatghar', 'ऊर्ध्व घाटघर', 'ऊव घाटघर']},
-    {'en': 'Dhamni', 'mr': 'धामणी', 'district': 'Palghar', 'division': 'Kokan', 'keys': ['dhamni', 'धामणी', 'सूर्या']},
-    {'en': 'Kawdas P. U. Weir', 'mr': 'कवडास पिकअप बंधारा', 'district': 'Palghar', 'division': 'Kokan', 'keys': ['kawdas p. u. weir', 'कवडास व. ब.ं']},
-    {'en': 'Dolwahal weir', 'mr': 'डोलवाहाल पिकअप बंधारा', 'district': 'Raigad', 'division': 'Kokan', 'keys': ['dolwahal weir', 'डोलवाहल ब.ं']},
-    {'en': 'Tillari', 'mr': 'तिल्लारी', 'district': 'Sindhudurg', 'division': 'Kokan', 'keys': ['tillari', 'tillari (dhamne)', 'तिल्लारी', 'तारी', 'तारी (धामण)े']},
-
-    # NASHIK REGION - Nashik, Ahilyanagar, Jalgaon
-    {'en': 'Bhandardara', 'mr': 'भांडारदरा', 'district': 'Ahmednagar', 'division': 'Nashik', 'keys': ['bhandardara', 'भांडारदरा', 'भडारदरा']},
-    {'en': 'Mula', 'mr': 'मुळा', 'district': 'Ahmednagar', 'division': 'Nashik', 'keys': ['mula', 'मुळा', 'मळा']},
-    {'en': 'Nilwande-2', 'mr': 'निळवंडे', 'district': 'Ahmednagar', 'division': 'Nashik', 'keys': ['nilwande', 'nilwande-2', 'निळवंडे', 'ननळवड-2']},
-    {'en': 'Upper Tapi Hatnur', 'mr': 'ऊर्ध्व तापी हतनूर', 'district': 'Jalgaon', 'division': 'Nashik', 'keys': ['upper tapi hatnur', 'hatnur', 'हतनूर', 'ऊर्ध्व तापी हतनूर', 'ऊव तापी हतनरू']},
-    {'en': 'Waghur', 'mr': 'वाघूर', 'district': 'Jalgaon', 'division': 'Nashik', 'keys': ['waghur', 'वाघूर', 'वाघरू']},
-    {'en': 'Arjunsagar', 'mr': 'अर्जुनसागर', 'district': 'Nashik', 'division': 'Nashik', 'keys': ['arjunsagar', 'अर्जुनसागर']},
-    {'en': 'Bham Dam', 'mr': 'भाम धरण', 'district': 'Nashik', 'division': 'Nashik', 'keys': ['bham dam', 'भाम धरण']},
-    {'en': 'Bhavali', 'mr': 'भावली', 'district': 'Nashik', 'division': 'Nashik', 'keys': ['bhavali', 'भावली']},
-    {'en': 'Chankapur', 'mr': 'चणकापूर', 'district': 'Nashik', 'division': 'Nashik', 'keys': ['chankapur', 'चणकापूर', 'चणकापरू']},
-    {'en': 'Darna', 'mr': 'दारणा', 'district': 'Nashik', 'division': 'Nashik', 'keys': ['darna', 'दारणा']},
-    {'en': 'Gangapur', 'mr': 'गंगापूर', 'district': 'Nashik', 'division': 'Nashik', 'keys': ['gangapur', 'गंगापूर', 'गगा']},
-    {'en': 'Girna', 'mr': 'गिरणा', 'district': 'Nashik', 'division': 'Nashik', 'keys': ['girna', 'गिरणा', 'गरणा']},
-    {'en': 'Kadwa', 'mr': 'कडवा', 'district': 'Nashik', 'division': 'Nashik', 'keys': ['kadwa', 'कडवा']},
-    {'en': 'Karanjwan', 'mr': 'करंजवण', 'district': 'Nashik', 'division': 'Nashik', 'keys': ['karanjwan', 'करंजवण', 'करजवण']},
-    {'en': 'Mukane', 'mr': 'मुकणे', 'district': 'Nashik', 'division': 'Nashik', 'keys': ['mukane', 'मुकणे', 'मदनसरी']},
-    {'en': 'Ozarkhed', 'mr': 'ओझरखेड', 'district': 'Nashik', 'division': 'Nashik', 'keys': ['ozarkhed', 'ozarkhed dam', 'ओझरखेड', 'ओझरखड']},
-    {'en': 'Palkhed', 'mr': 'पालखेड', 'district': 'Nashik', 'division': 'Nashik', 'keys': ['palkhed', 'पालखेड', 'पालखड']},
-    {'en': 'Punegaon', 'mr': 'पुणेगाव', 'district': 'Nashik', 'division': 'Nashik', 'keys': ['punegaon', 'पुणेगाव']},
-    {'en': 'Tisgaon', 'mr': 'तिसगाव', 'district': 'Nashik', 'division': 'Nashik', 'keys': ['tisgaon', 'तिसगाव', 'तसगाव']},
-    {'en': 'Upper Vaitarna', 'mr': 'वैतरणा', 'district': 'Nashik', 'division': 'Nashik', 'keys': ['upper vaitarna', 'vaitarna', 'वैतरणा', 'वतरणा', 'वतरणा ज. िव. कप']},
-    {'en': 'Waghad', 'mr': 'वाघाड', 'district': 'Nashik', 'division': 'Nashik', 'keys': ['waghad', 'वाघाड']},
-    {'en': 'Waki Dam', 'mr': 'वाकी धरण', 'district': 'Nashik', 'division': 'Nashik', 'keys': ['waki dam', 'वाकी धरण', 'वाक धरण']},
-
-    # CHHATRAPATI SAMBHAJINAGAR REGION
-    {'en': 'Jayakwadi (Paithan)', 'mr': 'जयकवाडी (पैठण)', 'district': 'Chhatrapati Sambhajinagar', 'division': 'Chhatrapati Sambhajinagar', 'keys': ['paithan (jayakwadi)', 'jayakwadi', 'paithan', 'जयकवाडी', 'पैठण', 'पठण', 'जयकवाडी (पैठण)']},
-    {'en': 'Apegaon H L B', 'mr': 'आपगाव उच्च पातळी बंधारा', 'district': 'Chhatrapati Sambhajinagar', 'division': 'Chhatrapati Sambhajinagar', 'keys': ['apegaon h l b', 'आपगाव उ त.ब.ं']},
-    {'en': 'Majalgaon', 'mr': 'माजलगाव', 'district': 'Beed', 'division': 'Chhatrapati Sambhajinagar', 'keys': ['majalgaon', 'माजलगाव']},
-    {'en': 'Manjara', 'mr': 'मांजरा', 'district': 'Beed', 'division': 'Chhatrapati Sambhajinagar', 'keys': ['manjara', 'मांजरा', 'माजरा']},
-    {'en': 'Dhanegaon High Level Barrage', 'mr': 'धनेगाव उच्च पातळी बंधारा', 'district': 'Beed', 'division': 'Chhatrapati Sambhajinagar', 'keys': ['dhanegaon high level barrage', 'धनगाव उ. त. ब.ं']},
-    {'en': 'Dongargaon H L B', 'mr': 'डोंगरगाव उच्च पातळी बंधारा', 'district': 'Beed', 'division': 'Chhatrapati Sambhajinagar', 'keys': ['dongargaon h l b', 'डगरगाव उ. त. ब.ं']},
-    {'en': 'Siddheshwar', 'mr': 'सिद्धेश्वर', 'district': 'Hingoli', 'division': 'Chhatrapati Sambhajinagar', 'keys': ['siddheshwar', 'सिद्धेश्वर', 'सदर']},
-    {'en': 'Yeldari', 'mr': 'येळदारी', 'district': 'Hingoli', 'division': 'Chhatrapati Sambhajinagar', 'keys': ['yeldari', 'येळदारी', 'यलदरी']},
-    {'en': 'Amdura', 'mr': 'आमदुरा', 'district': 'Nanded', 'division': 'Chhatrapati Sambhajinagar', 'keys': ['amdura', 'अमदरा']},
-    {'en': 'Dhalegaon H L B', 'mr': 'ढालेगाव उच्च पातळी बंधारा', 'district': 'Nanded', 'division': 'Chhatrapati Sambhajinagar', 'keys': ['dhalegaon h l b', 'ढालगाव उ. त. ब.ं']},
-    {'en': 'Lower Manar', 'mr': 'निम्न मानार', 'district': 'Nanded', 'division': 'Chhatrapati Sambhajinagar', 'keys': ['lower manar', 'निम्न मानार', 'नन मनार']},
-    {'en': 'Vishnupuri', 'mr': 'विष्णुपूरी', 'district': 'Nanded', 'division': 'Chhatrapati Sambhajinagar', 'keys': ['vishnupuri', 'विष्णुपूरी']},
-    {'en': 'Lower Terna', 'mr': 'निम्न तेरणा', 'district': 'Dharashiv', 'division': 'Chhatrapati Sambhajinagar', 'keys': ['lower terna', 'निम्न तेरणा', 'नन तरणा']},
-    {'en': 'Sina kolegaon', 'mr': 'सीना कोळेगाव', 'district': 'Dharashiv', 'division': 'Chhatrapati Sambhajinagar', 'keys': ['sina kolegaon', 'सना कोळगाव']},
-    {'en': 'Lower Dudhana', 'mr': 'निम्न दुधना', 'district': 'Parbhani', 'division': 'Chhatrapati Sambhajinagar', 'keys': ['lower dudhana', 'निम्न दुधना', 'नन दधना']},
-
-    # AMRAVATI REGION
-    {'en': 'Upper Wardha', 'mr': 'ऊर्ध्व वर्धा', 'district': 'Amravati', 'division': 'Amravati', 'keys': ['upper wardha', 'ऊर्ध्व वर्धा', 'ऊव वधा']},
-    {'en': 'Arunavati', 'mr': 'अरुणावती', 'district': 'Yavatmal', 'division': 'Amravati', 'keys': ['arunavati', 'अरुणावती', 'अणावती']},
-    {'en': 'Bembla', 'mr': 'बेम्बळा', 'district': 'Yavatmal', 'division': 'Amravati', 'keys': ['bembla', 'बेम्बळा', 'बबळा']},
-    {'en': 'Isapur', 'mr': 'इसापूर', 'district': 'Yavatmal', 'division': 'Amravati', 'keys': ['isapur', 'इसापूर', 'इसापरू']},
-    {'en': 'Pus', 'mr': 'पूस', 'district': 'Yavatmal', 'division': 'Amravati', 'keys': ['pus', 'पूस', 'पस']},
-    {'en': 'Wan', 'mr': 'वान', 'district': 'Akola', 'division': 'Amravati', 'keys': ['wan', 'वान']},
-    {'en': 'Katepurna', 'mr': 'काटेपूर्णा', 'district': 'Akola', 'division': 'Amravati', 'keys': ['katepurna', 'काटेपूर्णा', 'काटेपण']},
-    {'en': 'Khadakpurna', 'mr': 'खडकपूर्णा', 'district': 'Buldhana', 'division': 'Amravati', 'keys': ['khadakpurna', 'खडकपूर्णा', 'खडकपण']},
-    {'en': 'Nalganga', 'mr': 'नळगंगा', 'district': 'Buldhana', 'division': 'Amravati', 'keys': ['nalganga', 'नळगंगा', 'नळगगा']},
-    {'en': 'Pentakli', 'mr': 'पेनटाकळी', 'district': 'Buldhana', 'division': 'Amravati', 'keys': ['pentakli', 'पेनटाकळी', 'पनटाकळी']},
-
-    # NAGPUR REGION
-    {'en': 'Bawanthadi', 'mr': 'बावनथडी', 'district': 'Bhandara', 'division': 'Nagpur', 'keys': ['bawanthadi', 'बावनथडी']},
-    {'en': 'Gosikhurd', 'mr': 'गोसीखुर्द', 'district': 'Bhandara', 'division': 'Nagpur', 'keys': ['gosikhurd', 'गोसीखुर्द', 'गोसीखद']},
-    {'en': 'Asolamendha', 'mr': 'असोलामेंढा', 'district': 'Chandrapur', 'division': 'Nagpur', 'keys': ['asolamendha', 'असोलामेंढा', 'असोलामढा']},
-    {'en': 'Dina', 'mr': 'दिना', 'district': 'Gadchiroli', 'division': 'Nagpur', 'keys': ['dina', 'दिना', 'दना']},
-    {'en': 'Dhapewada', 'mr': 'धापवाडा', 'district': 'Gondia', 'division': 'Nagpur', 'keys': ['dhapewada', 'धापवाडा']},
-    {'en': 'Itiadoh', 'mr': 'इटीयाडोह', 'district': 'Gondia', 'division': 'Nagpur', 'keys': ['itiadoh', 'इटीयाडोह', 'इटयाडोह']},
-    {'en': 'Kalisarar', 'mr': 'कालीसरार', 'district': 'Gondia', 'division': 'Nagpur', 'keys': ['kalisarar', 'कालीसरार']},
-    {'en': 'Pujaritola P.U.Weir', 'mr': 'पुजारीटोला', 'district': 'Gondia', 'division': 'Nagpur', 'keys': ['pujaritola', 'pujaritola p.u.weir', 'पुजारीटोला']},
-    {'en': 'Sirpur', 'mr': 'सिरपूर', 'district': 'Gondia', 'division': 'Nagpur', 'keys': ['sirpur', 'सिरपूर', 'सरपरू']},
-    {'en': 'Kamthi Khairy', 'mr': 'कामठी खैरी', 'district': 'Nagpur', 'division': 'Nagpur', 'keys': ['kamthi khairy', 'kamthi khairi', 'कामठी खैरी', 'कामठी खरी']},
-    {'en': 'Khindsi', 'mr': 'खिडसी', 'district': 'Nagpur', 'division': 'Nagpur', 'keys': ['khindsi', 'खिडसी', 'खडसी']},
-    {'en': 'Nand', 'mr': 'नांद', 'district': 'Nagpur', 'division': 'Nagpur', 'keys': ['nand', 'नांद', 'नाद']},
-    {'en': 'Totladoh', 'mr': 'तोतलाडोह', 'district': 'Nagpur', 'division': 'Nagpur', 'keys': ['totladoh', 'तोतलाडोह']},
-    {'en': 'Wadgaon', 'mr': 'वडगाव', 'district': 'Nagpur', 'division': 'Nagpur', 'keys': ['wadgaon', 'वडगाव']},
-    {'en': 'Bor', 'mr': 'बोर', 'district': 'Wardha', 'division': 'Nagpur', 'keys': ['bor', 'बोर']},
-    {'en': 'Lower Wardha', 'mr': 'निम्न वर्धा', 'district': 'Wardha', 'division': 'Nagpur', 'keys': ['lower wardha', 'निम्न वर्धा', 'नन वधा']}
-]
-
-# Build quick lookup mapping table
-DAM_LOOKUP = {}
-for entry in MASTER_DAMS_DATA:
-    info = {
-        'en': entry['en'],
-        'mr': entry['mr'],
-        'district': entry['district'],
-        'division': entry['division']
-    }
-    DAM_LOOKUP[entry['en'].lower()] = info
-    DAM_LOOKUP[entry['mr'].lower()] = info
-    for k in entry['keys']:
-        DAM_LOOKUP[k.lower()] = info
+DAM_LOOKUP = load_dam_lookup()
 
 def clean_marathi_text(text):
     """Strips PDF font ligature artifact symbols from Marathi text."""
@@ -388,7 +269,7 @@ def download_pdf_for_date(date_obj, pdf_dir):
         url = base_url + urllib.parse.quote(filename)
         req = urllib.request.Request(url, headers=HEADERS)
         try:
-            with urllib.request.urlopen(req, context=SSL_CONTEXT, timeout=10) as resp:
+            with urllib.request.urlopen(req, context=SSL_CONTEXT, timeout=2) as resp:
                 data = resp.read()
                 if len(data) > 1000:
                     with open(dest_path, 'wb') as f:
@@ -472,7 +353,7 @@ def save_to_files(df):
     if not df.empty and 'Dam Name' in df.columns:
         db_manager.ingest_records_from_dataframe(df)
 
-    db_manager.export_db_to_json()
+    db_manager.export_decoupled_json()
 
 if __name__ == '__main__':
     days = 1000

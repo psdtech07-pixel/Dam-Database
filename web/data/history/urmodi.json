@@ -1,0 +1,6008 @@
+[
+  {
+    "date": "2024-01-01",
+    "mcm": 146.2,
+    "gross_mcm": 155.07,
+    "pct": 53.5,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-01-02",
+    "mcm": 146.2,
+    "gross_mcm": 155.07,
+    "pct": 53.5,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-01-03",
+    "mcm": 146.2,
+    "gross_mcm": 155.07,
+    "pct": 53.5,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-01-05",
+    "mcm": 145.96,
+    "gross_mcm": 154.83,
+    "pct": 53.41,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-01-06",
+    "mcm": 145.6,
+    "gross_mcm": 154.47,
+    "pct": 53.28,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-01-07",
+    "mcm": 145.48,
+    "gross_mcm": 154.34,
+    "pct": 53.24,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-01-08",
+    "mcm": 145.48,
+    "gross_mcm": 154.34,
+    "pct": 53.24,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-01-09",
+    "mcm": 145.48,
+    "gross_mcm": 154.34,
+    "pct": 53.24,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-01-10",
+    "mcm": 145.48,
+    "gross_mcm": 154.34,
+    "pct": 53.24,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-01-12",
+    "mcm": 145.48,
+    "gross_mcm": 154.34,
+    "pct": 53.24,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-01-13",
+    "mcm": 145.36,
+    "gross_mcm": 154.22,
+    "pct": 53.19,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-01-15",
+    "mcm": 144.39,
+    "gross_mcm": 153.26,
+    "pct": 52.84,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-01-16",
+    "mcm": 143.79,
+    "gross_mcm": 152.66,
+    "pct": 52.62,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-01-17",
+    "mcm": 143.07,
+    "gross_mcm": 151.93,
+    "pct": 52.35,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-01-18",
+    "mcm": 142.46,
+    "gross_mcm": 151.33,
+    "pct": 52.13,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-01-19",
+    "mcm": 141.86,
+    "gross_mcm": 150.73,
+    "pct": 51.91,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-01-20",
+    "mcm": 140.78,
+    "gross_mcm": 149.64,
+    "pct": 51.52,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-02-07",
+    "mcm": 116.28,
+    "gross_mcm": 125.15,
+    "pct": 42.55,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-02-08",
+    "mcm": 114.49,
+    "gross_mcm": 123.35,
+    "pct": 41.9,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-02-09",
+    "mcm": 112.9,
+    "gross_mcm": 121.77,
+    "pct": 41.31,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-02-10",
+    "mcm": 111.55,
+    "gross_mcm": 120.41,
+    "pct": 40.82,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-02-11",
+    "mcm": 109.78,
+    "gross_mcm": 118.64,
+    "pct": 40.17,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-02-12",
+    "mcm": 108.32,
+    "gross_mcm": 117.18,
+    "pct": 39.64,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-02-13",
+    "mcm": 107.48,
+    "gross_mcm": 116.35,
+    "pct": 39.33,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-02-14",
+    "mcm": 106.86,
+    "gross_mcm": 115.72,
+    "pct": 39.1,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-02-15",
+    "mcm": 106.75,
+    "gross_mcm": 115.62,
+    "pct": 39.06,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-02-16",
+    "mcm": 106.65,
+    "gross_mcm": 115.51,
+    "pct": 39.03,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-02-18",
+    "mcm": 106.33,
+    "gross_mcm": 115.2,
+    "pct": 38.91,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-02-19",
+    "mcm": 105.4,
+    "gross_mcm": 114.26,
+    "pct": 38.57,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-02-20",
+    "mcm": 104.88,
+    "gross_mcm": 113.74,
+    "pct": 38.38,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-02-21",
+    "mcm": 103.94,
+    "gross_mcm": 112.8,
+    "pct": 38.04,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-02-22",
+    "mcm": 103.42,
+    "gross_mcm": 112.28,
+    "pct": 37.85,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-02-23",
+    "mcm": 101.96,
+    "gross_mcm": 110.82,
+    "pct": 37.31,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-02-24",
+    "mcm": 100.5,
+    "gross_mcm": 109.36,
+    "pct": 36.78,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-02-25",
+    "mcm": 99.14,
+    "gross_mcm": 108.01,
+    "pct": 36.28,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-02-26",
+    "mcm": 97.78,
+    "gross_mcm": 106.65,
+    "pct": 35.78,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-02-27",
+    "mcm": 96.43,
+    "gross_mcm": 105.3,
+    "pct": 35.29,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-02-29",
+    "mcm": 93.72,
+    "gross_mcm": 102.58,
+    "pct": 34.3,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-01",
+    "mcm": 92.36,
+    "gross_mcm": 101.23,
+    "pct": 33.8,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-02",
+    "mcm": 91.04,
+    "gross_mcm": 99.9,
+    "pct": 33.32,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-03",
+    "mcm": 89.72,
+    "gross_mcm": 98.59,
+    "pct": 32.83,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-04",
+    "mcm": 88.41,
+    "gross_mcm": 97.28,
+    "pct": 32.35,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-05",
+    "mcm": 87.19,
+    "gross_mcm": 96.06,
+    "pct": 31.91,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-06",
+    "mcm": 85.69,
+    "gross_mcm": 94.55,
+    "pct": 31.36,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-07",
+    "mcm": 84.37,
+    "gross_mcm": 93.24,
+    "pct": 30.87,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-08",
+    "mcm": 82.96,
+    "gross_mcm": 91.83,
+    "pct": 30.36,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-09",
+    "mcm": 81.18,
+    "gross_mcm": 90.05,
+    "pct": 29.71,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-10",
+    "mcm": 79.86,
+    "gross_mcm": 88.73,
+    "pct": 29.22,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-11",
+    "mcm": 78.55,
+    "gross_mcm": 87.42,
+    "pct": 28.74,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-12",
+    "mcm": 77.05,
+    "gross_mcm": 85.92,
+    "pct": 28.2,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-13",
+    "mcm": 75.55,
+    "gross_mcm": 84.41,
+    "pct": 27.65,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-14",
+    "mcm": 74.23,
+    "gross_mcm": 83.1,
+    "pct": 27.16,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-15",
+    "mcm": 72.72,
+    "gross_mcm": 81.59,
+    "pct": 26.61,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-16",
+    "mcm": 71.13,
+    "gross_mcm": 79.99,
+    "pct": 26.03,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-17",
+    "mcm": 69.53,
+    "gross_mcm": 78.4,
+    "pct": 25.44,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-18",
+    "mcm": 67.68,
+    "gross_mcm": 76.55,
+    "pct": 24.77,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-19",
+    "mcm": 66.0,
+    "gross_mcm": 74.86,
+    "pct": 24.15,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-20",
+    "mcm": 64.32,
+    "gross_mcm": 73.18,
+    "pct": 23.54,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-22",
+    "mcm": 60.7,
+    "gross_mcm": 69.57,
+    "pct": 22.21,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-23",
+    "mcm": 59.02,
+    "gross_mcm": 67.88,
+    "pct": 21.6,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-24",
+    "mcm": 57.25,
+    "gross_mcm": 66.12,
+    "pct": 20.95,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-25",
+    "mcm": 55.56,
+    "gross_mcm": 64.43,
+    "pct": 20.33,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-26",
+    "mcm": 54.32,
+    "gross_mcm": 63.18,
+    "pct": 19.88,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-27",
+    "mcm": 53.07,
+    "gross_mcm": 61.94,
+    "pct": 19.42,
+    "last_year_pct": 92.96
+  },
+  {
+    "date": "2024-03-28",
+    "mcm": 51.82,
+    "gross_mcm": 60.69,
+    "pct": 18.96,
+    "last_year_pct": 65.76
+  },
+  {
+    "date": "2024-03-29",
+    "mcm": 50.8,
+    "gross_mcm": 59.66,
+    "pct": 18.59,
+    "last_year_pct": 65.09
+  },
+  {
+    "date": "2024-03-30",
+    "mcm": 49.18,
+    "gross_mcm": 58.05,
+    "pct": 18.0,
+    "last_year_pct": 64.56
+  },
+  {
+    "date": "2024-03-31",
+    "mcm": 48.08,
+    "gross_mcm": 56.95,
+    "pct": 17.59,
+    "last_year_pct": 64.03
+  },
+  {
+    "date": "2024-04-02",
+    "mcm": 46.25,
+    "gross_mcm": 55.12,
+    "pct": 16.92,
+    "last_year_pct": 62.93
+  },
+  {
+    "date": "2024-04-03",
+    "mcm": 45.52,
+    "gross_mcm": 54.38,
+    "pct": 16.66,
+    "last_year_pct": 62.45
+  },
+  {
+    "date": "2024-04-04",
+    "mcm": 44.64,
+    "gross_mcm": 53.5,
+    "pct": 16.34,
+    "last_year_pct": 61.93
+  },
+  {
+    "date": "2024-04-05",
+    "mcm": 44.34,
+    "gross_mcm": 53.21,
+    "pct": 16.23,
+    "last_year_pct": 61.59
+  },
+  {
+    "date": "2024-04-06",
+    "mcm": 44.2,
+    "gross_mcm": 53.06,
+    "pct": 16.17,
+    "last_year_pct": 61.21
+  },
+  {
+    "date": "2024-04-07",
+    "mcm": 44.2,
+    "gross_mcm": 53.06,
+    "pct": 16.17,
+    "last_year_pct": 60.78
+  },
+  {
+    "date": "2024-04-08",
+    "mcm": 44.2,
+    "gross_mcm": 53.06,
+    "pct": 16.17,
+    "last_year_pct": 60.35
+  },
+  {
+    "date": "2024-04-10",
+    "mcm": 44.2,
+    "gross_mcm": 53.06,
+    "pct": 16.17,
+    "last_year_pct": 59.49
+  },
+  {
+    "date": "2024-04-15",
+    "mcm": 40.77,
+    "gross_mcm": 49.64,
+    "pct": 14.92,
+    "last_year_pct": 57.47
+  },
+  {
+    "date": "2024-04-19",
+    "mcm": 34.95,
+    "gross_mcm": 43.82,
+    "pct": 12.79,
+    "last_year_pct": 55.35
+  },
+  {
+    "date": "2024-04-21",
+    "mcm": 31.76,
+    "gross_mcm": 40.63,
+    "pct": 11.62,
+    "last_year_pct": 54.21
+  },
+  {
+    "date": "2024-04-22",
+    "mcm": 30.66,
+    "gross_mcm": 39.53,
+    "pct": 11.22,
+    "last_year_pct": 53.68
+  },
+  {
+    "date": "2024-04-24",
+    "mcm": 28.13,
+    "gross_mcm": 37.0,
+    "pct": 10.29,
+    "last_year_pct": 53.54
+  },
+  {
+    "date": "2024-04-25",
+    "mcm": 26.72,
+    "gross_mcm": 35.59,
+    "pct": 9.78,
+    "last_year_pct": 53.54
+  },
+  {
+    "date": "2024-04-27",
+    "mcm": 23.2,
+    "gross_mcm": 32.06,
+    "pct": 8.49,
+    "last_year_pct": 50.9
+  },
+  {
+    "date": "2024-04-28",
+    "mcm": 21.68,
+    "gross_mcm": 30.55,
+    "pct": 7.93,
+    "last_year_pct": 50.46
+  },
+  {
+    "date": "2024-05-03",
+    "mcm": 19.23,
+    "gross_mcm": 28.09,
+    "pct": 7.04,
+    "last_year_pct": 48.36
+  },
+  {
+    "date": "2024-05-09",
+    "mcm": 16.61,
+    "gross_mcm": 25.48,
+    "pct": 6.08,
+    "last_year_pct": 45.07
+  },
+  {
+    "date": "2024-05-10",
+    "mcm": 16.61,
+    "gross_mcm": 25.48,
+    "pct": 6.08,
+    "last_year_pct": 44.6
+  },
+  {
+    "date": "2024-05-11",
+    "mcm": 16.61,
+    "gross_mcm": 25.48,
+    "pct": 6.08,
+    "last_year_pct": 44.06
+  },
+  {
+    "date": "2024-05-12",
+    "mcm": 16.61,
+    "gross_mcm": 25.48,
+    "pct": 6.08,
+    "last_year_pct": 43.52
+  },
+  {
+    "date": "2024-05-13",
+    "mcm": 16.61,
+    "gross_mcm": 25.48,
+    "pct": 6.08,
+    "last_year_pct": 42.94
+  },
+  {
+    "date": "2024-05-14",
+    "mcm": 16.61,
+    "gross_mcm": 25.48,
+    "pct": 6.08,
+    "last_year_pct": 42.55
+  },
+  {
+    "date": "2024-05-15",
+    "mcm": 16.61,
+    "gross_mcm": 25.48,
+    "pct": 6.08,
+    "last_year_pct": 42.24
+  },
+  {
+    "date": "2024-05-17",
+    "mcm": 16.61,
+    "gross_mcm": 25.48,
+    "pct": 6.08,
+    "last_year_pct": 41.86
+  },
+  {
+    "date": "2024-05-18",
+    "mcm": 16.61,
+    "gross_mcm": 25.48,
+    "pct": 6.08,
+    "last_year_pct": 41.86
+  },
+  {
+    "date": "2024-05-19",
+    "mcm": 16.61,
+    "gross_mcm": 25.48,
+    "pct": 6.08,
+    "last_year_pct": 41.7
+  },
+  {
+    "date": "2024-05-20",
+    "mcm": 16.61,
+    "gross_mcm": 25.48,
+    "pct": 6.08,
+    "last_year_pct": 41.43
+  },
+  {
+    "date": "2024-05-21",
+    "mcm": 16.61,
+    "gross_mcm": 25.48,
+    "pct": 6.08,
+    "last_year_pct": 41.16
+  },
+  {
+    "date": "2024-05-22",
+    "mcm": 16.61,
+    "gross_mcm": 25.48,
+    "pct": 6.08,
+    "last_year_pct": 40.9
+  },
+  {
+    "date": "2024-05-23",
+    "mcm": 16.61,
+    "gross_mcm": 25.48,
+    "pct": 6.08,
+    "last_year_pct": 40.67
+  },
+  {
+    "date": "2024-05-24",
+    "mcm": 16.57,
+    "gross_mcm": 25.44,
+    "pct": 6.06,
+    "last_year_pct": 40.44
+  },
+  {
+    "date": "2024-05-25",
+    "mcm": 16.57,
+    "gross_mcm": 25.44,
+    "pct": 6.06,
+    "last_year_pct": 40.25
+  },
+  {
+    "date": "2024-05-26",
+    "mcm": 16.57,
+    "gross_mcm": 25.44,
+    "pct": 6.06,
+    "last_year_pct": 40.02
+  },
+  {
+    "date": "2024-05-27",
+    "mcm": 16.57,
+    "gross_mcm": 25.44,
+    "pct": 6.06,
+    "last_year_pct": 39.9
+  },
+  {
+    "date": "2024-05-28",
+    "mcm": 16.57,
+    "gross_mcm": 25.44,
+    "pct": 6.06,
+    "last_year_pct": 39.87
+  },
+  {
+    "date": "2024-05-29",
+    "mcm": 16.57,
+    "gross_mcm": 25.44,
+    "pct": 6.06,
+    "last_year_pct": 39.83
+  },
+  {
+    "date": "2024-05-30",
+    "mcm": 16.57,
+    "gross_mcm": 25.44,
+    "pct": 6.06,
+    "last_year_pct": 41.39
+  },
+  {
+    "date": "2024-05-31",
+    "mcm": 16.57,
+    "gross_mcm": 25.44,
+    "pct": 6.06,
+    "last_year_pct": 41.39
+  },
+  {
+    "date": "2024-06-01",
+    "mcm": 16.57,
+    "gross_mcm": 25.44,
+    "pct": 6.06,
+    "last_year_pct": 39.9
+  },
+  {
+    "date": "2024-06-02",
+    "mcm": 16.57,
+    "gross_mcm": 25.44,
+    "pct": 6.06,
+    "last_year_pct": 39.52
+  },
+  {
+    "date": "2024-06-03",
+    "mcm": 16.57,
+    "gross_mcm": 25.44,
+    "pct": 6.06,
+    "last_year_pct": 38.99
+  },
+  {
+    "date": "2024-06-04",
+    "mcm": 16.57,
+    "gross_mcm": 25.44,
+    "pct": 6.06,
+    "last_year_pct": 38.42
+  },
+  {
+    "date": "2024-06-05",
+    "mcm": 16.57,
+    "gross_mcm": 25.44,
+    "pct": 6.06,
+    "last_year_pct": 37.81
+  },
+  {
+    "date": "2024-06-06",
+    "mcm": 16.57,
+    "gross_mcm": 25.44,
+    "pct": 6.06,
+    "last_year_pct": 37.31
+  },
+  {
+    "date": "2024-06-14",
+    "mcm": 12.14,
+    "gross_mcm": 21.01,
+    "pct": 4.44,
+    "last_year_pct": 33.73
+  },
+  {
+    "date": "2024-06-15",
+    "mcm": 12.1,
+    "gross_mcm": 20.97,
+    "pct": 4.43,
+    "last_year_pct": 32.42
+  },
+  {
+    "date": "2024-06-16",
+    "mcm": 12.1,
+    "gross_mcm": 20.97,
+    "pct": 4.43,
+    "last_year_pct": 31.94
+  },
+  {
+    "date": "2024-06-18",
+    "mcm": 12.1,
+    "gross_mcm": 20.97,
+    "pct": 4.43,
+    "last_year_pct": 30.91
+  },
+  {
+    "date": "2024-06-19",
+    "mcm": 12.06,
+    "gross_mcm": 20.93,
+    "pct": 4.41,
+    "last_year_pct": 30.36
+  },
+  {
+    "date": "2024-06-20",
+    "mcm": 12.06,
+    "gross_mcm": 20.93,
+    "pct": 4.41,
+    "last_year_pct": 29.91
+  },
+  {
+    "date": "2024-06-21",
+    "mcm": 12.06,
+    "gross_mcm": 20.93,
+    "pct": 4.41,
+    "last_year_pct": 29.26
+  },
+  {
+    "date": "2024-06-22",
+    "mcm": 12.06,
+    "gross_mcm": 20.93,
+    "pct": 4.41,
+    "last_year_pct": 28.74
+  },
+  {
+    "date": "2024-06-23",
+    "mcm": 12.06,
+    "gross_mcm": 20.93,
+    "pct": 4.41,
+    "last_year_pct": 28.19
+  },
+  {
+    "date": "2024-06-25",
+    "mcm": 12.02,
+    "gross_mcm": 20.89,
+    "pct": 4.4,
+    "last_year_pct": 27.2
+  },
+  {
+    "date": "2024-06-26",
+    "mcm": 12.02,
+    "gross_mcm": 20.89,
+    "pct": 4.4,
+    "last_year_pct": 26.77
+  },
+  {
+    "date": "2024-06-28",
+    "mcm": 11.98,
+    "gross_mcm": 20.85,
+    "pct": 4.38,
+    "last_year_pct": 26.15
+  },
+  {
+    "date": "2024-06-29",
+    "mcm": 11.98,
+    "gross_mcm": 20.85,
+    "pct": 4.38,
+    "last_year_pct": 25.84
+  },
+  {
+    "date": "2024-06-30",
+    "mcm": 18.06,
+    "gross_mcm": 26.93,
+    "pct": 6.61,
+    "last_year_pct": 25.87
+  },
+  {
+    "date": "2024-07-01",
+    "mcm": 18.06,
+    "gross_mcm": 26.93,
+    "pct": 6.61,
+    "last_year_pct": 26.34
+  },
+  {
+    "date": "2024-07-02",
+    "mcm": 18.06,
+    "gross_mcm": 26.93,
+    "pct": 6.61,
+    "last_year_pct": 26.74
+  },
+  {
+    "date": "2024-07-06",
+    "mcm": 19.77,
+    "gross_mcm": 28.64,
+    "pct": 7.23,
+    "last_year_pct": 27.85
+  },
+  {
+    "date": "2024-07-10",
+    "mcm": 49.26,
+    "gross_mcm": 58.12,
+    "pct": 18.03,
+    "last_year_pct": 32.28
+  },
+  {
+    "date": "2024-07-11",
+    "mcm": 50.72,
+    "gross_mcm": 59.59,
+    "pct": 18.56,
+    "last_year_pct": 32.76
+  },
+  {
+    "date": "2024-07-12",
+    "mcm": 51.9,
+    "gross_mcm": 60.76,
+    "pct": 18.99,
+    "last_year_pct": 33.14
+  },
+  {
+    "date": "2024-07-13",
+    "mcm": 53.88,
+    "gross_mcm": 62.74,
+    "pct": 19.72,
+    "last_year_pct": 33.49
+  },
+  {
+    "date": "2024-07-16",
+    "mcm": 49.26,
+    "gross_mcm": 58.12,
+    "pct": 18.03,
+    "last_year_pct": 34.26
+  },
+  {
+    "date": "2024-07-18",
+    "mcm": 68.27,
+    "gross_mcm": 77.13,
+    "pct": 24.98,
+    "last_year_pct": 36.51
+  },
+  {
+    "date": "2024-07-19",
+    "mcm": 72.47,
+    "gross_mcm": 81.34,
+    "pct": 26.52,
+    "last_year_pct": 36.77
+  },
+  {
+    "date": "2024-07-20",
+    "mcm": 77.71,
+    "gross_mcm": 86.57,
+    "pct": 28.44,
+    "last_year_pct": 40.21
+  },
+  {
+    "date": "2024-07-21",
+    "mcm": 82.87,
+    "gross_mcm": 91.74,
+    "pct": 30.33,
+    "last_year_pct": 41.89
+  },
+  {
+    "date": "2024-07-22",
+    "mcm": 94.86,
+    "gross_mcm": 103.73,
+    "pct": 34.71,
+    "last_year_pct": 42.59
+  },
+  {
+    "date": "2024-07-23",
+    "mcm": 107.69,
+    "gross_mcm": 116.56,
+    "pct": 39.41,
+    "last_year_pct": 43.48
+  },
+  {
+    "date": "2024-07-24",
+    "mcm": 119.88,
+    "gross_mcm": 128.75,
+    "pct": 43.87,
+    "last_year_pct": 45.65
+  },
+  {
+    "date": "2024-07-25",
+    "mcm": 139.93,
+    "gross_mcm": 148.8,
+    "pct": 51.21,
+    "last_year_pct": 3.24
+  },
+  {
+    "date": "2024-07-26",
+    "mcm": 164.92,
+    "gross_mcm": 173.78,
+    "pct": 60.35,
+    "last_year_pct": 50.55
+  },
+  {
+    "date": "2024-07-27",
+    "mcm": 175.64,
+    "gross_mcm": 184.51,
+    "pct": 64.27,
+    "last_year_pct": 53.1
+  },
+  {
+    "date": "2024-07-28",
+    "mcm": 183.49,
+    "gross_mcm": 192.35,
+    "pct": 67.15,
+    "last_year_pct": 53.99
+  },
+  {
+    "date": "2024-07-30",
+    "mcm": 199.06,
+    "gross_mcm": 207.92,
+    "pct": 72.84,
+    "last_year_pct": 56.15
+  },
+  {
+    "date": "2024-07-31",
+    "mcm": 205.14,
+    "gross_mcm": 214.01,
+    "pct": 75.07,
+    "last_year_pct": 56.68
+  },
+  {
+    "date": "2024-08-01",
+    "mcm": 211.92,
+    "gross_mcm": 220.79,
+    "pct": 77.55,
+    "last_year_pct": 57.78
+  },
+  {
+    "date": "2024-08-02",
+    "mcm": 211.92,
+    "gross_mcm": 220.79,
+    "pct": 77.55,
+    "last_year_pct": 58.1
+  },
+  {
+    "date": "2024-08-03",
+    "mcm": 211.92,
+    "gross_mcm": 220.79,
+    "pct": 77.55,
+    "last_year_pct": 59.97
+  },
+  {
+    "date": "2024-08-04",
+    "mcm": 211.92,
+    "gross_mcm": 220.79,
+    "pct": 77.55,
+    "last_year_pct": 60.49
+  },
+  {
+    "date": "2024-08-05",
+    "mcm": 223.96,
+    "gross_mcm": 232.83,
+    "pct": 81.96,
+    "last_year_pct": 61.45
+  },
+  {
+    "date": "2024-08-06",
+    "mcm": 227.69,
+    "gross_mcm": 236.55,
+    "pct": 83.32,
+    "last_year_pct": 61.64
+  },
+  {
+    "date": "2024-08-07",
+    "mcm": 230.96,
+    "gross_mcm": 239.83,
+    "pct": 84.52,
+    "last_year_pct": 62.17
+  },
+  {
+    "date": "2024-08-08",
+    "mcm": 231.41,
+    "gross_mcm": 240.28,
+    "pct": 84.68,
+    "last_year_pct": 62.26
+  },
+  {
+    "date": "2024-08-09",
+    "mcm": 231.41,
+    "gross_mcm": 240.28,
+    "pct": 84.68,
+    "last_year_pct": 62.36
+  },
+  {
+    "date": "2024-08-10",
+    "mcm": 231.41,
+    "gross_mcm": 240.28,
+    "pct": 84.68,
+    "last_year_pct": 62.45
+  },
+  {
+    "date": "2024-08-13",
+    "mcm": 231.41,
+    "gross_mcm": 240.28,
+    "pct": 84.68,
+    "last_year_pct": 62.79
+  },
+  {
+    "date": "2024-08-15",
+    "mcm": 242.93,
+    "gross_mcm": 251.79,
+    "pct": 88.9,
+    "last_year_pct": 62.69
+  },
+  {
+    "date": "2024-08-16",
+    "mcm": 243.55,
+    "gross_mcm": 252.42,
+    "pct": 89.12,
+    "last_year_pct": 62.55
+  },
+  {
+    "date": "2024-08-17",
+    "mcm": 244.18,
+    "gross_mcm": 253.04,
+    "pct": 89.35,
+    "last_year_pct": 62.31
+  },
+  {
+    "date": "2024-08-18",
+    "mcm": 245.9,
+    "gross_mcm": 254.76,
+    "pct": 89.98,
+    "last_year_pct": 62.07
+  },
+  {
+    "date": "2024-08-19",
+    "mcm": 246.68,
+    "gross_mcm": 255.55,
+    "pct": 90.27,
+    "last_year_pct": 61.78
+  },
+  {
+    "date": "2024-08-20",
+    "mcm": 247.3,
+    "gross_mcm": 256.17,
+    "pct": 90.5,
+    "last_year_pct": 61.55
+  },
+  {
+    "date": "2024-08-21",
+    "mcm": 247.93,
+    "gross_mcm": 256.8,
+    "pct": 90.73,
+    "last_year_pct": 61.31
+  },
+  {
+    "date": "2024-08-22",
+    "mcm": 248.4,
+    "gross_mcm": 257.27,
+    "pct": 90.9,
+    "last_year_pct": 61.11
+  },
+  {
+    "date": "2024-08-23",
+    "mcm": 249.03,
+    "gross_mcm": 257.89,
+    "pct": 91.13,
+    "last_year_pct": 60.83
+  },
+  {
+    "date": "2024-08-24",
+    "mcm": 249.81,
+    "gross_mcm": 258.68,
+    "pct": 91.42,
+    "last_year_pct": 60.3
+  },
+  {
+    "date": "2024-08-25",
+    "mcm": 251.53,
+    "gross_mcm": 260.4,
+    "pct": 92.04,
+    "last_year_pct": 60.21
+  },
+  {
+    "date": "2024-08-27",
+    "mcm": 256.22,
+    "gross_mcm": 265.09,
+    "pct": 93.76,
+    "last_year_pct": 59.58
+  },
+  {
+    "date": "2024-08-28",
+    "mcm": 253.56,
+    "gross_mcm": 262.43,
+    "pct": 92.79,
+    "last_year_pct": 59.63
+  },
+  {
+    "date": "2024-08-30",
+    "mcm": 258.41,
+    "gross_mcm": 267.28,
+    "pct": 94.56,
+    "last_year_pct": 59.68
+  },
+  {
+    "date": "2024-08-31",
+    "mcm": 271.55,
+    "gross_mcm": 280.42,
+    "pct": 99.37,
+    "last_year_pct": 59.54
+  },
+  {
+    "date": "2024-09-01",
+    "mcm": 272.18,
+    "gross_mcm": 281.04,
+    "pct": 99.6,
+    "last_year_pct": 59.34
+  },
+  {
+    "date": "2024-09-02",
+    "mcm": 272.65,
+    "gross_mcm": 281.51,
+    "pct": 99.77,
+    "last_year_pct": 59.1
+  },
+  {
+    "date": "2024-09-04",
+    "mcm": 273.12,
+    "gross_mcm": 281.98,
+    "pct": 99.95,
+    "last_year_pct": 58.67
+  },
+  {
+    "date": "2024-09-05",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 58.43
+  },
+  {
+    "date": "2024-09-06",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 58.15
+  },
+  {
+    "date": "2024-09-07",
+    "mcm": 273.12,
+    "gross_mcm": 281.98,
+    "pct": 99.95,
+    "last_year_pct": 57.96
+  },
+  {
+    "date": "2024-09-08",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 57.65
+  },
+  {
+    "date": "2024-09-09",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 57.29
+  },
+  {
+    "date": "2024-09-10",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 57.03
+  },
+  {
+    "date": "2024-09-11",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 56.72
+  },
+  {
+    "date": "2024-09-12",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 56.32
+  },
+  {
+    "date": "2024-09-13",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 55.97
+  },
+  {
+    "date": "2024-09-14",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 55.62
+  },
+  {
+    "date": "2024-09-15",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 55.27
+  },
+  {
+    "date": "2024-09-16",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 54.96
+  },
+  {
+    "date": "2024-09-17",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 54.69
+  },
+  {
+    "date": "2024-09-18",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 54.65
+  },
+  {
+    "date": "2024-09-19",
+    "mcm": 272.96,
+    "gross_mcm": 281.83,
+    "pct": 99.89,
+    "last_year_pct": 54.6
+  },
+  {
+    "date": "2024-09-20",
+    "mcm": 272.8,
+    "gross_mcm": 281.67,
+    "pct": 99.83,
+    "last_year_pct": 54.56
+  },
+  {
+    "date": "2024-09-21",
+    "mcm": 272.49,
+    "gross_mcm": 281.36,
+    "pct": 99.71,
+    "last_year_pct": 54.47
+  },
+  {
+    "date": "2024-09-22",
+    "mcm": 272.02,
+    "gross_mcm": 280.89,
+    "pct": 99.54,
+    "last_year_pct": 54.43
+  },
+  {
+    "date": "2024-09-23",
+    "mcm": 271.55,
+    "gross_mcm": 280.42,
+    "pct": 99.37,
+    "last_year_pct": 54.34
+  },
+  {
+    "date": "2024-09-25",
+    "mcm": 270.77,
+    "gross_mcm": 279.64,
+    "pct": 99.09,
+    "last_year_pct": 54.96
+  },
+  {
+    "date": "2024-09-26",
+    "mcm": 271.86,
+    "gross_mcm": 280.73,
+    "pct": 99.48,
+    "last_year_pct": 55.22
+  },
+  {
+    "date": "2024-09-27",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 55.49
+  },
+  {
+    "date": "2024-09-28",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 55.62
+  },
+  {
+    "date": "2024-09-29",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 55.79
+  },
+  {
+    "date": "2024-09-30",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 56.01
+  },
+  {
+    "date": "2024-10-01",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 56.28
+  },
+  {
+    "date": "2024-10-02",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 56.46
+  },
+  {
+    "date": "2024-10-03",
+    "mcm": 273.12,
+    "gross_mcm": 281.98,
+    "pct": 99.95,
+    "last_year_pct": 56.63
+  },
+  {
+    "date": "2024-10-04",
+    "mcm": 272.96,
+    "gross_mcm": 281.83,
+    "pct": 99.89,
+    "last_year_pct": 56.81
+  },
+  {
+    "date": "2024-10-05",
+    "mcm": 272.49,
+    "gross_mcm": 281.36,
+    "pct": 99.71,
+    "last_year_pct": 56.94
+  },
+  {
+    "date": "2024-10-06",
+    "mcm": 272.8,
+    "gross_mcm": 281.67,
+    "pct": 99.83,
+    "last_year_pct": 57.03
+  },
+  {
+    "date": "2024-10-07",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 57.12
+  },
+  {
+    "date": "2024-10-10",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 57.38
+  },
+  {
+    "date": "2024-10-11",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 57.43
+  },
+  {
+    "date": "2024-10-12",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 57.47
+  },
+  {
+    "date": "2024-10-13",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 57.47
+  },
+  {
+    "date": "2024-10-14",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 57.34
+  },
+  {
+    "date": "2024-10-15",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 57.16
+  },
+  {
+    "date": "2024-10-22",
+    "mcm": 272.96,
+    "gross_mcm": 281.83,
+    "pct": 99.89,
+    "last_year_pct": 57.38
+  },
+  {
+    "date": "2024-10-23",
+    "mcm": 272.49,
+    "gross_mcm": 281.36,
+    "pct": 99.71,
+    "last_year_pct": 57.43
+  },
+  {
+    "date": "2024-10-25",
+    "mcm": 272.18,
+    "gross_mcm": 281.04,
+    "pct": 99.6,
+    "last_year_pct": 57.43
+  },
+  {
+    "date": "2024-10-26",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 57.47
+  },
+  {
+    "date": "2024-10-27",
+    "mcm": 272.33,
+    "gross_mcm": 281.2,
+    "pct": 99.66,
+    "last_year_pct": 57.47
+  },
+  {
+    "date": "2024-10-28",
+    "mcm": 272.49,
+    "gross_mcm": 281.36,
+    "pct": 99.71,
+    "last_year_pct": 57.47
+  },
+  {
+    "date": "2024-10-29",
+    "mcm": 272.49,
+    "gross_mcm": 281.36,
+    "pct": 99.71,
+    "last_year_pct": 57.29
+  },
+  {
+    "date": "2024-10-30",
+    "mcm": 272.49,
+    "gross_mcm": 281.36,
+    "pct": 99.71,
+    "last_year_pct": 57.07
+  },
+  {
+    "date": "2024-10-31",
+    "mcm": 272.65,
+    "gross_mcm": 281.51,
+    "pct": 99.77,
+    "last_year_pct": 56.9
+  },
+  {
+    "date": "2024-11-04",
+    "mcm": 273.12,
+    "gross_mcm": 281.98,
+    "pct": 99.95,
+    "last_year_pct": 56.37
+  },
+  {
+    "date": "2024-11-05",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 56.28
+  },
+  {
+    "date": "2024-11-06",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 56.1
+  },
+  {
+    "date": "2024-11-07",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 56.06
+  },
+  {
+    "date": "2024-11-08",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 56.06
+  },
+  {
+    "date": "2024-11-09",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 56.1
+  },
+  {
+    "date": "2024-11-11",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 56.15
+  },
+  {
+    "date": "2024-11-13",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 56.15
+  },
+  {
+    "date": "2024-11-14",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 56.15
+  },
+  {
+    "date": "2024-11-15",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 56.19
+  },
+  {
+    "date": "2024-11-16",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 56.19
+  },
+  {
+    "date": "2024-11-17",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 56.19
+  },
+  {
+    "date": "2024-11-18",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 56.19
+  },
+  {
+    "date": "2024-11-19",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 56.1
+  },
+  {
+    "date": "2024-11-22",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 55.49
+  },
+  {
+    "date": "2024-11-24",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 55.04
+  },
+  {
+    "date": "2024-11-25",
+    "mcm": 272.8,
+    "gross_mcm": 281.67,
+    "pct": 99.83,
+    "last_year_pct": 54.96
+  },
+  {
+    "date": "2024-11-27",
+    "mcm": 271.24,
+    "gross_mcm": 280.11,
+    "pct": 99.26,
+    "last_year_pct": 55.18
+  },
+  {
+    "date": "2024-11-28",
+    "mcm": 270.46,
+    "gross_mcm": 279.32,
+    "pct": 98.97,
+    "last_year_pct": 55.22
+  },
+  {
+    "date": "2024-11-29",
+    "mcm": 269.99,
+    "gross_mcm": 278.86,
+    "pct": 98.8,
+    "last_year_pct": 55.22
+  },
+  {
+    "date": "2024-11-30",
+    "mcm": 269.83,
+    "gross_mcm": 278.7,
+    "pct": 98.74,
+    "last_year_pct": 55.22
+  },
+  {
+    "date": "2024-12-01",
+    "mcm": 269.83,
+    "gross_mcm": 278.7,
+    "pct": 98.74,
+    "last_year_pct": 55.22
+  },
+  {
+    "date": "2024-12-02",
+    "mcm": 269.83,
+    "gross_mcm": 278.7,
+    "pct": 98.74,
+    "last_year_pct": 55.22
+  },
+  {
+    "date": "2024-12-03",
+    "mcm": 269.2,
+    "gross_mcm": 278.07,
+    "pct": 98.51,
+    "last_year_pct": 55.22
+  },
+  {
+    "date": "2024-12-04",
+    "mcm": 269.68,
+    "gross_mcm": 278.54,
+    "pct": 98.69,
+    "last_year_pct": 55.22
+  },
+  {
+    "date": "2024-12-05",
+    "mcm": 269.68,
+    "gross_mcm": 278.54,
+    "pct": 98.69,
+    "last_year_pct": 55.22
+  },
+  {
+    "date": "2024-12-06",
+    "mcm": 269.05,
+    "gross_mcm": 277.92,
+    "pct": 98.46,
+    "last_year_pct": 55.22
+  },
+  {
+    "date": "2024-12-07",
+    "mcm": 269.52,
+    "gross_mcm": 278.38,
+    "pct": 98.63,
+    "last_year_pct": 55.22
+  },
+  {
+    "date": "2024-12-08",
+    "mcm": 269.52,
+    "gross_mcm": 278.38,
+    "pct": 98.63,
+    "last_year_pct": 55.22
+  },
+  {
+    "date": "2024-12-09",
+    "mcm": 269.36,
+    "gross_mcm": 278.23,
+    "pct": 98.57,
+    "last_year_pct": 55.22
+  },
+  {
+    "date": "2024-12-10",
+    "mcm": 268.89,
+    "gross_mcm": 277.76,
+    "pct": 98.4,
+    "last_year_pct": 55.22
+  },
+  {
+    "date": "2024-12-11",
+    "mcm": 268.27,
+    "gross_mcm": 277.13,
+    "pct": 98.17,
+    "last_year_pct": 55.22
+  },
+  {
+    "date": "2024-12-12",
+    "mcm": 267.64,
+    "gross_mcm": 276.51,
+    "pct": 97.94,
+    "last_year_pct": 55.22
+  },
+  {
+    "date": "2024-12-13",
+    "mcm": 266.86,
+    "gross_mcm": 275.73,
+    "pct": 97.65,
+    "last_year_pct": 55.18
+  },
+  {
+    "date": "2024-12-14",
+    "mcm": 266.39,
+    "gross_mcm": 275.26,
+    "pct": 97.48,
+    "last_year_pct": 55.09
+  },
+  {
+    "date": "2024-12-15",
+    "mcm": 266.39,
+    "gross_mcm": 275.26,
+    "pct": 97.48,
+    "last_year_pct": 55.09
+  },
+  {
+    "date": "2024-12-16",
+    "mcm": 266.23,
+    "gross_mcm": 275.1,
+    "pct": 97.42,
+    "last_year_pct": 55.04
+  },
+  {
+    "date": "2024-12-17",
+    "mcm": 266.23,
+    "gross_mcm": 275.1,
+    "pct": 97.42,
+    "last_year_pct": 55.0
+  },
+  {
+    "date": "2024-12-18",
+    "mcm": 266.23,
+    "gross_mcm": 275.1,
+    "pct": 97.42,
+    "last_year_pct": 54.91
+  },
+  {
+    "date": "2024-12-19",
+    "mcm": 266.08,
+    "gross_mcm": 274.94,
+    "pct": 97.37,
+    "last_year_pct": 54.56
+  },
+  {
+    "date": "2024-12-20",
+    "mcm": 266.08,
+    "gross_mcm": 274.94,
+    "pct": 97.37,
+    "last_year_pct": 54.38
+  },
+  {
+    "date": "2024-12-21",
+    "mcm": 266.08,
+    "gross_mcm": 274.94,
+    "pct": 97.37,
+    "last_year_pct": 54.16
+  },
+  {
+    "date": "2024-12-22",
+    "mcm": 266.08,
+    "gross_mcm": 274.94,
+    "pct": 97.37,
+    "last_year_pct": 53.94
+  },
+  {
+    "date": "2024-12-23",
+    "mcm": 266.08,
+    "gross_mcm": 274.94,
+    "pct": 97.37,
+    "last_year_pct": 53.77
+  },
+  {
+    "date": "2024-12-24",
+    "mcm": 265.92,
+    "gross_mcm": 274.79,
+    "pct": 97.31,
+    "last_year_pct": 53.59
+  },
+  {
+    "date": "2024-12-25",
+    "mcm": 265.61,
+    "gross_mcm": 274.47,
+    "pct": 97.2,
+    "last_year_pct": 53.59
+  },
+  {
+    "date": "2024-12-26",
+    "mcm": 265.45,
+    "gross_mcm": 274.32,
+    "pct": 97.14,
+    "last_year_pct": 53.59
+  },
+  {
+    "date": "2024-12-27",
+    "mcm": 265.45,
+    "gross_mcm": 274.32,
+    "pct": 97.14,
+    "last_year_pct": 53.54
+  },
+  {
+    "date": "2024-12-28",
+    "mcm": 265.14,
+    "gross_mcm": 274.0,
+    "pct": 97.02,
+    "last_year_pct": 53.54
+  },
+  {
+    "date": "2024-12-29",
+    "mcm": 264.36,
+    "gross_mcm": 273.22,
+    "pct": 96.74,
+    "last_year_pct": 53.54
+  },
+  {
+    "date": "2024-12-30",
+    "mcm": 263.57,
+    "gross_mcm": 272.44,
+    "pct": 96.45,
+    "last_year_pct": 53.54
+  },
+  {
+    "date": "2024-12-31",
+    "mcm": 263.26,
+    "gross_mcm": 272.13,
+    "pct": 96.34,
+    "last_year_pct": 53.5
+  },
+  {
+    "date": "2025-01-02",
+    "mcm": 263.26,
+    "gross_mcm": 272.13,
+    "pct": 96.34,
+    "last_year_pct": 53.5
+  },
+  {
+    "date": "2025-01-03",
+    "mcm": 263.1,
+    "gross_mcm": 271.97,
+    "pct": 96.28,
+    "last_year_pct": 53.5
+  },
+  {
+    "date": "2025-01-04",
+    "mcm": 262.95,
+    "gross_mcm": 271.81,
+    "pct": 96.22,
+    "last_year_pct": 53.5
+  },
+  {
+    "date": "2025-01-05",
+    "mcm": 262.95,
+    "gross_mcm": 271.81,
+    "pct": 96.22,
+    "last_year_pct": 53.28
+  },
+  {
+    "date": "2025-01-06",
+    "mcm": 262.95,
+    "gross_mcm": 271.81,
+    "pct": 96.22,
+    "last_year_pct": 53.24
+  },
+  {
+    "date": "2025-01-07",
+    "mcm": 262.79,
+    "gross_mcm": 271.66,
+    "pct": 96.16,
+    "last_year_pct": 53.24
+  },
+  {
+    "date": "2025-01-08",
+    "mcm": 262.32,
+    "gross_mcm": 271.19,
+    "pct": 95.99,
+    "last_year_pct": 53.24
+  },
+  {
+    "date": "2025-01-09",
+    "mcm": 262.63,
+    "gross_mcm": 271.5,
+    "pct": 96.11,
+    "last_year_pct": 53.24
+  },
+  {
+    "date": "2025-01-10",
+    "mcm": 262.32,
+    "gross_mcm": 271.19,
+    "pct": 95.99,
+    "last_year_pct": 53.24
+  },
+  {
+    "date": "2025-01-11",
+    "mcm": 261.07,
+    "gross_mcm": 269.94,
+    "pct": 95.54,
+    "last_year_pct": 53.24
+  },
+  {
+    "date": "2025-01-12",
+    "mcm": 260.29,
+    "gross_mcm": 269.16,
+    "pct": 95.25,
+    "last_year_pct": 53.24
+  },
+  {
+    "date": "2025-01-13",
+    "mcm": 259.35,
+    "gross_mcm": 268.22,
+    "pct": 94.91,
+    "last_year_pct": 53.19
+  },
+  {
+    "date": "2025-01-14",
+    "mcm": 259.04,
+    "gross_mcm": 267.9,
+    "pct": 94.79,
+    "last_year_pct": 52.93
+  },
+  {
+    "date": "2025-01-15",
+    "mcm": 257.94,
+    "gross_mcm": 266.81,
+    "pct": 94.39,
+    "last_year_pct": 52.84
+  },
+  {
+    "date": "2025-01-16",
+    "mcm": 257.47,
+    "gross_mcm": 266.34,
+    "pct": 94.22,
+    "last_year_pct": 52.44
+  },
+  {
+    "date": "2025-01-17",
+    "mcm": 255.44,
+    "gross_mcm": 264.3,
+    "pct": 93.48,
+    "last_year_pct": 52.22
+  },
+  {
+    "date": "2025-01-18",
+    "mcm": 253.87,
+    "gross_mcm": 262.74,
+    "pct": 92.9,
+    "last_year_pct": 52.13
+  },
+  {
+    "date": "2025-01-19",
+    "mcm": 252.78,
+    "gross_mcm": 261.65,
+    "pct": 92.5,
+    "last_year_pct": 51.74
+  },
+  {
+    "date": "2025-01-20",
+    "mcm": 251.53,
+    "gross_mcm": 260.4,
+    "pct": 92.04,
+    "last_year_pct": 51.3
+  },
+  {
+    "date": "2025-01-21",
+    "mcm": 251.06,
+    "gross_mcm": 259.93,
+    "pct": 91.87,
+    "last_year_pct": 51.3
+  },
+  {
+    "date": "2025-01-22",
+    "mcm": 249.81,
+    "gross_mcm": 258.68,
+    "pct": 91.42,
+    "last_year_pct": 51.3
+  },
+  {
+    "date": "2025-01-23",
+    "mcm": 248.4,
+    "gross_mcm": 257.27,
+    "pct": 90.9,
+    "last_year_pct": 51.3
+  },
+  {
+    "date": "2025-01-25",
+    "mcm": 245.43,
+    "gross_mcm": 254.3,
+    "pct": 89.81,
+    "last_year_pct": 51.3
+  },
+  {
+    "date": "2025-01-26",
+    "mcm": 244.18,
+    "gross_mcm": 253.04,
+    "pct": 89.35,
+    "last_year_pct": 51.3
+  },
+  {
+    "date": "2025-01-27",
+    "mcm": 242.93,
+    "gross_mcm": 251.79,
+    "pct": 88.9,
+    "last_year_pct": 51.3
+  },
+  {
+    "date": "2025-01-28",
+    "mcm": 242.77,
+    "gross_mcm": 251.64,
+    "pct": 88.84,
+    "last_year_pct": 51.3
+  },
+  {
+    "date": "2025-01-29",
+    "mcm": 242.77,
+    "gross_mcm": 251.64,
+    "pct": 88.84,
+    "last_year_pct": 51.3
+  },
+  {
+    "date": "2025-01-30",
+    "mcm": 242.61,
+    "gross_mcm": 251.48,
+    "pct": 88.78,
+    "last_year_pct": 51.3
+  },
+  {
+    "date": "2025-01-31",
+    "mcm": 242.46,
+    "gross_mcm": 251.32,
+    "pct": 88.73,
+    "last_year_pct": 51.3
+  },
+  {
+    "date": "2025-02-01",
+    "mcm": 241.39,
+    "gross_mcm": 250.26,
+    "pct": 88.33,
+    "last_year_pct": 51.3
+  },
+  {
+    "date": "2025-02-02",
+    "mcm": 240.5,
+    "gross_mcm": 249.36,
+    "pct": 88.01,
+    "last_year_pct": 51.3
+  },
+  {
+    "date": "2025-02-03",
+    "mcm": 239.46,
+    "gross_mcm": 248.32,
+    "pct": 87.63,
+    "last_year_pct": 51.3
+  },
+  {
+    "date": "2025-02-05",
+    "mcm": 236.92,
+    "gross_mcm": 245.79,
+    "pct": 86.7,
+    "last_year_pct": 51.3
+  },
+  {
+    "date": "2025-02-06",
+    "mcm": 235.73,
+    "gross_mcm": 244.6,
+    "pct": 86.26,
+    "last_year_pct": 42.71
+  },
+  {
+    "date": "2025-02-07",
+    "mcm": 234.54,
+    "gross_mcm": 243.41,
+    "pct": 85.83,
+    "last_year_pct": 42.13
+  },
+  {
+    "date": "2025-02-08",
+    "mcm": 233.35,
+    "gross_mcm": 242.21,
+    "pct": 85.39,
+    "last_year_pct": 41.59
+  },
+  {
+    "date": "2025-02-09",
+    "mcm": 232.3,
+    "gross_mcm": 241.17,
+    "pct": 85.01,
+    "last_year_pct": 41.12
+  },
+  {
+    "date": "2025-02-10",
+    "mcm": 230.96,
+    "gross_mcm": 239.83,
+    "pct": 84.52,
+    "last_year_pct": 40.4
+  },
+  {
+    "date": "2025-02-11",
+    "mcm": 229.77,
+    "gross_mcm": 238.64,
+    "pct": 84.08,
+    "last_year_pct": 40.02
+  },
+  {
+    "date": "2025-02-12",
+    "mcm": 228.28,
+    "gross_mcm": 237.15,
+    "pct": 83.54,
+    "last_year_pct": 39.41
+  },
+  {
+    "date": "2025-02-13",
+    "mcm": 226.79,
+    "gross_mcm": 235.66,
+    "pct": 82.99,
+    "last_year_pct": 39.22
+  },
+  {
+    "date": "2025-02-14",
+    "mcm": 225.3,
+    "gross_mcm": 234.17,
+    "pct": 82.45,
+    "last_year_pct": 39.06
+  },
+  {
+    "date": "2025-02-15",
+    "mcm": 224.26,
+    "gross_mcm": 233.13,
+    "pct": 82.07,
+    "last_year_pct": 39.06
+  },
+  {
+    "date": "2025-02-16",
+    "mcm": 222.62,
+    "gross_mcm": 231.49,
+    "pct": 81.47,
+    "last_year_pct": 39.03
+  },
+  {
+    "date": "2025-02-17",
+    "mcm": 221.43,
+    "gross_mcm": 230.3,
+    "pct": 81.03,
+    "last_year_pct": 38.91
+  },
+  {
+    "date": "2025-02-18",
+    "mcm": 220.84,
+    "gross_mcm": 229.7,
+    "pct": 80.81,
+    "last_year_pct": 38.72
+  },
+  {
+    "date": "2025-02-19",
+    "mcm": 220.84,
+    "gross_mcm": 229.7,
+    "pct": 80.81,
+    "last_year_pct": 38.57
+  },
+  {
+    "date": "2025-02-20",
+    "mcm": 217.41,
+    "gross_mcm": 226.28,
+    "pct": 79.56,
+    "last_year_pct": 38.15
+  },
+  {
+    "date": "2025-02-21",
+    "mcm": 215.92,
+    "gross_mcm": 224.79,
+    "pct": 79.01,
+    "last_year_pct": 37.92
+  },
+  {
+    "date": "2025-02-22",
+    "mcm": 214.43,
+    "gross_mcm": 223.3,
+    "pct": 78.47,
+    "last_year_pct": 37.54
+  },
+  {
+    "date": "2025-02-23",
+    "mcm": 213.39,
+    "gross_mcm": 222.26,
+    "pct": 78.09,
+    "last_year_pct": 36.97
+  },
+  {
+    "date": "2025-02-24",
+    "mcm": 211.5,
+    "gross_mcm": 220.37,
+    "pct": 77.4,
+    "last_year_pct": 36.47
+  },
+  {
+    "date": "2025-02-25",
+    "mcm": 210.54,
+    "gross_mcm": 219.4,
+    "pct": 77.04,
+    "last_year_pct": 35.97
+  },
+  {
+    "date": "2025-02-26",
+    "mcm": 208.6,
+    "gross_mcm": 217.47,
+    "pct": 76.33,
+    "last_year_pct": 35.48
+  },
+  {
+    "date": "2025-02-27",
+    "mcm": 207.08,
+    "gross_mcm": 215.94,
+    "pct": 75.78,
+    "last_year_pct": 35.29
+  },
+  {
+    "date": "2025-02-28",
+    "mcm": 206.39,
+    "gross_mcm": 215.25,
+    "pct": 75.53,
+    "last_year_pct": 34.49
+  },
+  {
+    "date": "2025-03-01",
+    "mcm": 205.0,
+    "gross_mcm": 213.87,
+    "pct": 75.02,
+    "last_year_pct": 33.52
+  },
+  {
+    "date": "2025-03-02",
+    "mcm": 203.48,
+    "gross_mcm": 212.35,
+    "pct": 74.46,
+    "last_year_pct": 33.14
+  },
+  {
+    "date": "2025-03-03",
+    "mcm": 202.1,
+    "gross_mcm": 210.97,
+    "pct": 73.96,
+    "last_year_pct": 32.52
+  },
+  {
+    "date": "2025-03-04",
+    "mcm": 200.44,
+    "gross_mcm": 209.31,
+    "pct": 73.35,
+    "last_year_pct": 32.04
+  },
+  {
+    "date": "2025-03-05",
+    "mcm": 199.06,
+    "gross_mcm": 207.92,
+    "pct": 72.84,
+    "last_year_pct": 31.56
+  },
+  {
+    "date": "2025-03-06",
+    "mcm": 197.81,
+    "gross_mcm": 206.68,
+    "pct": 72.39,
+    "last_year_pct": 31.05
+  },
+  {
+    "date": "2025-03-07",
+    "mcm": 196.98,
+    "gross_mcm": 205.85,
+    "pct": 72.08,
+    "last_year_pct": 30.6
+  },
+  {
+    "date": "2025-03-08",
+    "mcm": 195.32,
+    "gross_mcm": 204.19,
+    "pct": 71.48,
+    "last_year_pct": 30.02
+  },
+  {
+    "date": "2025-03-09",
+    "mcm": 194.21,
+    "gross_mcm": 203.08,
+    "pct": 71.07,
+    "last_year_pct": 29.4
+  },
+  {
+    "date": "2025-03-10",
+    "mcm": 194.21,
+    "gross_mcm": 203.08,
+    "pct": 71.07,
+    "last_year_pct": 28.95
+  },
+  {
+    "date": "2025-03-11",
+    "mcm": 194.21,
+    "gross_mcm": 203.08,
+    "pct": 71.07,
+    "last_year_pct": 28.4
+  },
+  {
+    "date": "2025-03-12",
+    "mcm": 194.21,
+    "gross_mcm": 203.08,
+    "pct": 71.07,
+    "last_year_pct": 27.85
+  },
+  {
+    "date": "2025-03-13",
+    "mcm": 194.21,
+    "gross_mcm": 203.08,
+    "pct": 71.07,
+    "last_year_pct": 27.3
+  },
+  {
+    "date": "2025-03-14",
+    "mcm": 194.21,
+    "gross_mcm": 203.08,
+    "pct": 71.07,
+    "last_year_pct": 26.77
+  },
+  {
+    "date": "2025-03-15",
+    "mcm": 194.21,
+    "gross_mcm": 203.08,
+    "pct": 71.07,
+    "last_year_pct": 26.24
+  },
+  {
+    "date": "2025-03-16",
+    "mcm": 194.21,
+    "gross_mcm": 203.08,
+    "pct": 71.07,
+    "last_year_pct": 25.66
+  },
+  {
+    "date": "2025-03-17",
+    "mcm": 194.21,
+    "gross_mcm": 203.08,
+    "pct": 71.07,
+    "last_year_pct": 24.98
+  },
+  {
+    "date": "2025-03-18",
+    "mcm": 194.21,
+    "gross_mcm": 203.08,
+    "pct": 71.07,
+    "last_year_pct": 24.37
+  },
+  {
+    "date": "2025-03-19",
+    "mcm": 194.21,
+    "gross_mcm": 203.08,
+    "pct": 71.07,
+    "last_year_pct": 23.75
+  },
+  {
+    "date": "2025-03-20",
+    "mcm": 194.21,
+    "gross_mcm": 203.08,
+    "pct": 71.07,
+    "last_year_pct": 23.07
+  },
+  {
+    "date": "2025-03-21",
+    "mcm": 282.14,
+    "gross_mcm": 282.14,
+    "pct": 120.0,
+    "last_year_pct": 71.07
+  },
+  {
+    "date": "2025-03-23",
+    "mcm": 194.21,
+    "gross_mcm": 203.08,
+    "pct": 71.07,
+    "last_year_pct": 21.17
+  },
+  {
+    "date": "2025-03-24",
+    "mcm": 194.21,
+    "gross_mcm": 203.08,
+    "pct": 71.07,
+    "last_year_pct": 20.55
+  },
+  {
+    "date": "2025-03-25",
+    "mcm": 194.21,
+    "gross_mcm": 203.08,
+    "pct": 71.07,
+    "last_year_pct": 20.09
+  },
+  {
+    "date": "2025-03-26",
+    "mcm": 194.21,
+    "gross_mcm": 203.08,
+    "pct": 71.07,
+    "last_year_pct": 19.55
+  },
+  {
+    "date": "2025-03-27",
+    "mcm": 194.21,
+    "gross_mcm": 203.08,
+    "pct": 71.07,
+    "last_year_pct": 19.13
+  },
+  {
+    "date": "2025-03-28",
+    "mcm": 117.34,
+    "gross_mcm": 126.21,
+    "pct": 42.94,
+    "last_year_pct": 18.75
+  },
+  {
+    "date": "2025-03-29",
+    "mcm": 164.0,
+    "gross_mcm": 172.87,
+    "pct": 60.01,
+    "last_year_pct": 18.35
+  },
+  {
+    "date": "2025-03-30",
+    "mcm": 162.56,
+    "gross_mcm": 171.43,
+    "pct": 59.49,
+    "last_year_pct": 18.0
+  },
+  {
+    "date": "2025-03-31",
+    "mcm": 161.52,
+    "gross_mcm": 170.38,
+    "pct": 59.11,
+    "last_year_pct": 17.6
+  },
+  {
+    "date": "2025-04-01",
+    "mcm": 159.82,
+    "gross_mcm": 168.68,
+    "pct": 58.48,
+    "last_year_pct": 17.09
+  },
+  {
+    "date": "2025-04-02",
+    "mcm": 158.51,
+    "gross_mcm": 167.37,
+    "pct": 58.0,
+    "last_year_pct": 16.76
+  },
+  {
+    "date": "2025-04-03",
+    "mcm": 157.17,
+    "gross_mcm": 166.04,
+    "pct": 57.51,
+    "last_year_pct": 16.47
+  },
+  {
+    "date": "2025-04-04",
+    "mcm": 155.84,
+    "gross_mcm": 164.71,
+    "pct": 57.03,
+    "last_year_pct": 16.25
+  },
+  {
+    "date": "2025-04-05",
+    "mcm": 154.64,
+    "gross_mcm": 163.51,
+    "pct": 56.59,
+    "last_year_pct": 16.2
+  },
+  {
+    "date": "2025-04-06",
+    "mcm": 153.43,
+    "gross_mcm": 162.3,
+    "pct": 56.15,
+    "last_year_pct": 16.17
+  },
+  {
+    "date": "2025-04-07",
+    "mcm": 152.23,
+    "gross_mcm": 161.1,
+    "pct": 55.71,
+    "last_year_pct": 16.17
+  },
+  {
+    "date": "2025-04-08",
+    "mcm": 150.66,
+    "gross_mcm": 159.53,
+    "pct": 55.13,
+    "last_year_pct": 16.17
+  },
+  {
+    "date": "2025-04-09",
+    "mcm": 150.66,
+    "gross_mcm": 159.53,
+    "pct": 55.13,
+    "last_year_pct": 16.17
+  },
+  {
+    "date": "2025-04-10",
+    "mcm": 150.66,
+    "gross_mcm": 159.53,
+    "pct": 55.13,
+    "last_year_pct": 16.17
+  },
+  {
+    "date": "2025-04-11",
+    "mcm": 150.66,
+    "gross_mcm": 159.53,
+    "pct": 55.13,
+    "last_year_pct": 16.09
+  },
+  {
+    "date": "2025-04-12",
+    "mcm": 150.66,
+    "gross_mcm": 159.53,
+    "pct": 55.13,
+    "last_year_pct": 16.09
+  },
+  {
+    "date": "2025-04-13",
+    "mcm": 150.66,
+    "gross_mcm": 159.53,
+    "pct": 55.13,
+    "last_year_pct": 15.91
+  },
+  {
+    "date": "2025-04-14",
+    "mcm": 150.66,
+    "gross_mcm": 159.53,
+    "pct": 55.13,
+    "last_year_pct": 15.5
+  },
+  {
+    "date": "2025-04-15",
+    "mcm": 150.66,
+    "gross_mcm": 159.53,
+    "pct": 55.13,
+    "last_year_pct": 14.92
+  },
+  {
+    "date": "2025-04-16",
+    "mcm": 139.45,
+    "gross_mcm": 148.32,
+    "pct": 51.03,
+    "last_year_pct": 14.36
+  },
+  {
+    "date": "2025-04-17",
+    "mcm": 138.0,
+    "gross_mcm": 146.87,
+    "pct": 50.5,
+    "last_year_pct": 13.8
+  },
+  {
+    "date": "2025-04-18",
+    "mcm": 136.68,
+    "gross_mcm": 145.55,
+    "pct": 50.02,
+    "last_year_pct": 13.35
+  },
+  {
+    "date": "2025-04-19",
+    "mcm": 135.23,
+    "gross_mcm": 144.1,
+    "pct": 49.49,
+    "last_year_pct": 12.79
+  },
+  {
+    "date": "2025-04-20",
+    "mcm": 133.84,
+    "gross_mcm": 142.71,
+    "pct": 48.98,
+    "last_year_pct": 12.34
+  },
+  {
+    "date": "2025-04-21",
+    "mcm": 132.68,
+    "gross_mcm": 141.55,
+    "pct": 48.55,
+    "last_year_pct": 11.62
+  },
+  {
+    "date": "2025-04-22",
+    "mcm": 131.1,
+    "gross_mcm": 139.96,
+    "pct": 47.97,
+    "last_year_pct": 11.22
+  },
+  {
+    "date": "2025-04-23",
+    "mcm": 129.51,
+    "gross_mcm": 138.38,
+    "pct": 47.39,
+    "last_year_pct": 10.75
+  },
+  {
+    "date": "2025-04-24",
+    "mcm": 127.92,
+    "gross_mcm": 136.79,
+    "pct": 46.81,
+    "last_year_pct": 10.29
+  },
+  {
+    "date": "2025-04-25",
+    "mcm": 126.65,
+    "gross_mcm": 135.52,
+    "pct": 46.35,
+    "last_year_pct": 9.78
+  },
+  {
+    "date": "2025-04-26",
+    "mcm": 125.17,
+    "gross_mcm": 134.04,
+    "pct": 45.8,
+    "last_year_pct": 9.04
+  },
+  {
+    "date": "2025-04-27",
+    "mcm": 123.69,
+    "gross_mcm": 132.56,
+    "pct": 45.26,
+    "last_year_pct": 8.49
+  },
+  {
+    "date": "2025-04-28",
+    "mcm": 122.32,
+    "gross_mcm": 131.18,
+    "pct": 44.76,
+    "last_year_pct": 7.94
+  },
+  {
+    "date": "2025-04-30",
+    "mcm": 119.78,
+    "gross_mcm": 128.64,
+    "pct": 43.83,
+    "last_year_pct": 7.36
+  },
+  {
+    "date": "2025-05-01",
+    "mcm": 118.61,
+    "gross_mcm": 127.48,
+    "pct": 43.4,
+    "last_year_pct": 7.35
+  },
+  {
+    "date": "2025-05-02",
+    "mcm": 117.02,
+    "gross_mcm": 125.89,
+    "pct": 42.82,
+    "last_year_pct": 7.2
+  },
+  {
+    "date": "2025-05-03",
+    "mcm": 115.65,
+    "gross_mcm": 124.52,
+    "pct": 42.32,
+    "last_year_pct": 7.04
+  },
+  {
+    "date": "2025-05-04",
+    "mcm": 114.8,
+    "gross_mcm": 123.67,
+    "pct": 42.01,
+    "last_year_pct": 6.8
+  },
+  {
+    "date": "2025-05-05",
+    "mcm": 112.69,
+    "gross_mcm": 121.56,
+    "pct": 41.24,
+    "last_year_pct": 6.58
+  },
+  {
+    "date": "2025-05-06",
+    "mcm": 282.14,
+    "gross_mcm": 282.14,
+    "pct": 119.27,
+    "last_year_pct": 40.4
+  },
+  {
+    "date": "2025-05-08",
+    "mcm": 108.32,
+    "gross_mcm": 117.18,
+    "pct": 39.64,
+    "last_year_pct": 6.08
+  },
+  {
+    "date": "2025-05-09",
+    "mcm": 106.86,
+    "gross_mcm": 115.72,
+    "pct": 39.1,
+    "last_year_pct": 6.08
+  },
+  {
+    "date": "2025-05-11",
+    "mcm": 103.73,
+    "gross_mcm": 112.6,
+    "pct": 37.96,
+    "last_year_pct": 6.08
+  },
+  {
+    "date": "2025-05-12",
+    "mcm": 102.37,
+    "gross_mcm": 111.24,
+    "pct": 37.46,
+    "last_year_pct": 6.08
+  },
+  {
+    "date": "2025-05-13",
+    "mcm": 100.81,
+    "gross_mcm": 109.68,
+    "pct": 36.89,
+    "last_year_pct": 6.08
+  },
+  {
+    "date": "2025-05-14",
+    "mcm": 99.35,
+    "gross_mcm": 108.22,
+    "pct": 36.36,
+    "last_year_pct": 6.08
+  },
+  {
+    "date": "2025-05-15",
+    "mcm": 98.51,
+    "gross_mcm": 107.38,
+    "pct": 36.05,
+    "last_year_pct": 6.08
+  },
+  {
+    "date": "2025-05-17",
+    "mcm": 98.51,
+    "gross_mcm": 107.38,
+    "pct": 36.05,
+    "last_year_pct": 6.08
+  },
+  {
+    "date": "2025-05-18",
+    "mcm": 98.51,
+    "gross_mcm": 107.38,
+    "pct": 36.05,
+    "last_year_pct": 6.08
+  },
+  {
+    "date": "2025-05-19",
+    "mcm": 98.51,
+    "gross_mcm": 107.38,
+    "pct": 36.05,
+    "last_year_pct": 6.08
+  },
+  {
+    "date": "2025-05-20",
+    "mcm": 98.51,
+    "gross_mcm": 107.38,
+    "pct": 36.05,
+    "last_year_pct": 6.08
+  },
+  {
+    "date": "2025-05-21",
+    "mcm": 98.51,
+    "gross_mcm": 107.38,
+    "pct": 36.05,
+    "last_year_pct": 6.08
+  },
+  {
+    "date": "2025-05-22",
+    "mcm": 96.43,
+    "gross_mcm": 105.3,
+    "pct": 35.29,
+    "last_year_pct": 6.08
+  },
+  {
+    "date": "2025-05-23",
+    "mcm": 97.47,
+    "gross_mcm": 106.34,
+    "pct": 35.67,
+    "last_year_pct": 6.08
+  },
+  {
+    "date": "2025-05-24",
+    "mcm": 98.31,
+    "gross_mcm": 107.17,
+    "pct": 35.98,
+    "last_year_pct": 6.06
+  },
+  {
+    "date": "2025-05-25",
+    "mcm": 98.83,
+    "gross_mcm": 107.69,
+    "pct": 36.17,
+    "last_year_pct": 6.06
+  },
+  {
+    "date": "2025-05-26",
+    "mcm": 98.62,
+    "gross_mcm": 107.49,
+    "pct": 36.09,
+    "last_year_pct": 6.06
+  },
+  {
+    "date": "2025-05-27",
+    "mcm": 99.04,
+    "gross_mcm": 107.9,
+    "pct": 36.24,
+    "last_year_pct": 6.06
+  },
+  {
+    "date": "2025-05-28",
+    "mcm": 100.08,
+    "gross_mcm": 108.94,
+    "pct": 36.62,
+    "last_year_pct": 6.06
+  },
+  {
+    "date": "2025-05-29",
+    "mcm": 100.39,
+    "gross_mcm": 109.26,
+    "pct": 36.74,
+    "last_year_pct": 6.06
+  },
+  {
+    "date": "2025-05-30",
+    "mcm": 100.6,
+    "gross_mcm": 109.47,
+    "pct": 36.81,
+    "last_year_pct": 6.06
+  },
+  {
+    "date": "2025-05-31",
+    "mcm": 100.81,
+    "gross_mcm": 109.68,
+    "pct": 36.89,
+    "last_year_pct": 6.06
+  },
+  {
+    "date": "2025-06-01",
+    "mcm": 101.02,
+    "gross_mcm": 109.88,
+    "pct": 36.97,
+    "last_year_pct": 6.06
+  },
+  {
+    "date": "2025-06-02",
+    "mcm": 101.22,
+    "gross_mcm": 110.09,
+    "pct": 37.04,
+    "last_year_pct": 6.06
+  },
+  {
+    "date": "2025-06-03",
+    "mcm": 101.22,
+    "gross_mcm": 110.09,
+    "pct": 37.04,
+    "last_year_pct": 6.06
+  },
+  {
+    "date": "2025-06-04",
+    "mcm": 101.33,
+    "gross_mcm": 110.2,
+    "pct": 37.08,
+    "last_year_pct": 6.06
+  },
+  {
+    "date": "2025-06-05",
+    "mcm": 102.16,
+    "gross_mcm": 111.03,
+    "pct": 37.38,
+    "last_year_pct": 6.06
+  },
+  {
+    "date": "2025-06-06",
+    "mcm": 102.37,
+    "gross_mcm": 111.24,
+    "pct": 37.46,
+    "last_year_pct": 6.37
+  },
+  {
+    "date": "2025-06-07",
+    "mcm": 102.37,
+    "gross_mcm": 111.24,
+    "pct": 37.46,
+    "last_year_pct": 6.37
+  },
+  {
+    "date": "2025-06-08",
+    "mcm": 102.37,
+    "gross_mcm": 111.24,
+    "pct": 37.46,
+    "last_year_pct": 6.37
+  },
+  {
+    "date": "2025-06-09",
+    "mcm": 102.37,
+    "gross_mcm": 111.24,
+    "pct": 37.46,
+    "last_year_pct": 6.37
+  },
+  {
+    "date": "2025-06-10",
+    "mcm": 102.37,
+    "gross_mcm": 111.24,
+    "pct": 37.46,
+    "last_year_pct": 6.37
+  },
+  {
+    "date": "2025-06-11",
+    "mcm": 103.42,
+    "gross_mcm": 112.28,
+    "pct": 37.85,
+    "last_year_pct": 6.37
+  },
+  {
+    "date": "2025-06-12",
+    "mcm": 103.42,
+    "gross_mcm": 112.28,
+    "pct": 37.85,
+    "last_year_pct": 6.37
+  },
+  {
+    "date": "2025-06-13",
+    "mcm": 103.42,
+    "gross_mcm": 112.28,
+    "pct": 37.85,
+    "last_year_pct": 6.37
+  },
+  {
+    "date": "2025-06-14",
+    "mcm": 103.42,
+    "gross_mcm": 112.28,
+    "pct": 37.85,
+    "last_year_pct": 4.44
+  },
+  {
+    "date": "2025-06-15",
+    "mcm": 105.19,
+    "gross_mcm": 114.05,
+    "pct": 38.49,
+    "last_year_pct": 4.43
+  },
+  {
+    "date": "2025-06-16",
+    "mcm": 105.81,
+    "gross_mcm": 114.68,
+    "pct": 38.72,
+    "last_year_pct": 4.43
+  },
+  {
+    "date": "2025-06-17",
+    "mcm": 109.98,
+    "gross_mcm": 118.85,
+    "pct": 40.25,
+    "last_year_pct": 4.43
+  },
+  {
+    "date": "2025-06-18",
+    "mcm": 109.98,
+    "gross_mcm": 118.85,
+    "pct": 40.25,
+    "last_year_pct": 4.43
+  },
+  {
+    "date": "2025-06-19",
+    "mcm": 121.68,
+    "gross_mcm": 130.55,
+    "pct": 44.53,
+    "last_year_pct": 4.41
+  },
+  {
+    "date": "2025-06-20",
+    "mcm": 131.84,
+    "gross_mcm": 140.7,
+    "pct": 48.25,
+    "last_year_pct": 4.41
+  },
+  {
+    "date": "2025-06-21",
+    "mcm": 135.84,
+    "gross_mcm": 144.7,
+    "pct": 49.71,
+    "last_year_pct": 4.41
+  },
+  {
+    "date": "2025-06-22",
+    "mcm": 147.04,
+    "gross_mcm": 155.91,
+    "pct": 53.81,
+    "last_year_pct": 4.41
+  },
+  {
+    "date": "2025-06-23",
+    "mcm": 147.04,
+    "gross_mcm": 155.91,
+    "pct": 53.81,
+    "last_year_pct": 4.41
+  },
+  {
+    "date": "2025-06-24",
+    "mcm": 190.76,
+    "gross_mcm": 199.62,
+    "pct": 69.81,
+    "last_year_pct": 4.4
+  },
+  {
+    "date": "2025-06-25",
+    "mcm": 190.76,
+    "gross_mcm": 199.62,
+    "pct": 69.81,
+    "last_year_pct": 4.4
+  },
+  {
+    "date": "2025-06-26",
+    "mcm": 190.76,
+    "gross_mcm": 199.62,
+    "pct": 69.81,
+    "last_year_pct": 4.4
+  },
+  {
+    "date": "2025-06-27",
+    "mcm": 190.76,
+    "gross_mcm": 199.62,
+    "pct": 69.81,
+    "last_year_pct": 4.4
+  },
+  {
+    "date": "2025-06-28",
+    "mcm": 190.76,
+    "gross_mcm": 199.62,
+    "pct": 69.81,
+    "last_year_pct": 4.38
+  },
+  {
+    "date": "2025-06-29",
+    "mcm": 187.58,
+    "gross_mcm": 196.44,
+    "pct": 68.64,
+    "last_year_pct": 6.61
+  },
+  {
+    "date": "2025-06-30",
+    "mcm": 194.21,
+    "gross_mcm": 203.08,
+    "pct": 71.07,
+    "last_year_pct": 6.61
+  },
+  {
+    "date": "2025-07-01",
+    "mcm": 196.29,
+    "gross_mcm": 205.16,
+    "pct": 71.83,
+    "last_year_pct": 6.61
+  },
+  {
+    "date": "2025-07-02",
+    "mcm": 196.29,
+    "gross_mcm": 205.16,
+    "pct": 71.83,
+    "last_year_pct": 6.61
+  },
+  {
+    "date": "2025-07-03",
+    "mcm": 194.91,
+    "gross_mcm": 203.77,
+    "pct": 71.33,
+    "last_year_pct": 6.61
+  },
+  {
+    "date": "2025-07-04",
+    "mcm": 196.01,
+    "gross_mcm": 204.88,
+    "pct": 71.73,
+    "last_year_pct": 6.61
+  },
+  {
+    "date": "2025-07-05",
+    "mcm": 196.01,
+    "gross_mcm": 204.88,
+    "pct": 71.73,
+    "last_year_pct": 7.23
+  },
+  {
+    "date": "2025-07-06",
+    "mcm": 193.94,
+    "gross_mcm": 202.8,
+    "pct": 70.97,
+    "last_year_pct": 7.23
+  },
+  {
+    "date": "2025-07-07",
+    "mcm": 192.14,
+    "gross_mcm": 201.01,
+    "pct": 70.31,
+    "last_year_pct": 7.23
+  },
+  {
+    "date": "2025-07-08",
+    "mcm": 191.03,
+    "gross_mcm": 199.9,
+    "pct": 69.91,
+    "last_year_pct": 7.23
+  },
+  {
+    "date": "2025-07-09",
+    "mcm": 191.72,
+    "gross_mcm": 200.59,
+    "pct": 70.16,
+    "last_year_pct": 17.86
+  },
+  {
+    "date": "2025-07-10",
+    "mcm": 192.83,
+    "gross_mcm": 201.7,
+    "pct": 70.56,
+    "last_year_pct": 18.4
+  },
+  {
+    "date": "2025-07-11",
+    "mcm": 194.21,
+    "gross_mcm": 203.08,
+    "pct": 71.07,
+    "last_year_pct": 18.8
+  },
+  {
+    "date": "2025-07-12",
+    "mcm": 194.91,
+    "gross_mcm": 203.77,
+    "pct": 71.33,
+    "last_year_pct": 19.39
+  },
+  {
+    "date": "2025-07-13",
+    "mcm": 195.6,
+    "gross_mcm": 204.46,
+    "pct": 71.58,
+    "last_year_pct": 19.72
+  },
+  {
+    "date": "2025-07-14",
+    "mcm": 196.98,
+    "gross_mcm": 205.85,
+    "pct": 72.08,
+    "last_year_pct": 19.72
+  },
+  {
+    "date": "2025-07-15",
+    "mcm": 199.61,
+    "gross_mcm": 208.48,
+    "pct": 73.04,
+    "last_year_pct": 17.54
+  },
+  {
+    "date": "2025-07-16",
+    "mcm": 203.34,
+    "gross_mcm": 212.21,
+    "pct": 74.41,
+    "last_year_pct": 18.24
+  },
+  {
+    "date": "2025-07-17",
+    "mcm": 204.73,
+    "gross_mcm": 213.59,
+    "pct": 74.92,
+    "last_year_pct": 24.61
+  },
+  {
+    "date": "2025-07-18",
+    "mcm": 205.56,
+    "gross_mcm": 214.42,
+    "pct": 75.22,
+    "last_year_pct": 25.72
+  },
+  {
+    "date": "2025-07-19",
+    "mcm": 206.11,
+    "gross_mcm": 214.98,
+    "pct": 75.42,
+    "last_year_pct": 27.47
+  },
+  {
+    "date": "2025-07-20",
+    "mcm": 207.22,
+    "gross_mcm": 216.08,
+    "pct": 75.83,
+    "last_year_pct": 30.05
+  },
+  {
+    "date": "2025-07-21",
+    "mcm": 208.32,
+    "gross_mcm": 217.19,
+    "pct": 76.23,
+    "last_year_pct": 30.87
+  },
+  {
+    "date": "2025-07-22",
+    "mcm": 209.29,
+    "gross_mcm": 218.16,
+    "pct": 76.59,
+    "last_year_pct": 37.19
+  },
+  {
+    "date": "2025-07-23",
+    "mcm": 210.12,
+    "gross_mcm": 218.99,
+    "pct": 76.89,
+    "last_year_pct": 42.01
+  },
+  {
+    "date": "2025-07-24",
+    "mcm": 211.78,
+    "gross_mcm": 220.65,
+    "pct": 77.5,
+    "last_year_pct": 47.43
+  },
+  {
+    "date": "2025-07-25",
+    "mcm": 213.98,
+    "gross_mcm": 222.85,
+    "pct": 78.3,
+    "last_year_pct": 58.43
+  },
+  {
+    "date": "2025-07-26",
+    "mcm": 220.39,
+    "gross_mcm": 229.26,
+    "pct": 80.65,
+    "last_year_pct": 62.65
+  },
+  {
+    "date": "2025-07-27",
+    "mcm": 229.18,
+    "gross_mcm": 238.04,
+    "pct": 83.87,
+    "last_year_pct": 65.23
+  },
+  {
+    "date": "2025-07-28",
+    "mcm": 236.48,
+    "gross_mcm": 245.34,
+    "pct": 86.54,
+    "last_year_pct": 67.14
+  },
+  {
+    "date": "2025-07-29",
+    "mcm": 241.84,
+    "gross_mcm": 250.7,
+    "pct": 88.5,
+    "last_year_pct": 71.93
+  },
+  {
+    "date": "2025-07-30",
+    "mcm": 245.9,
+    "gross_mcm": 254.76,
+    "pct": 89.98,
+    "last_year_pct": 74.26
+  },
+  {
+    "date": "2025-07-31",
+    "mcm": 248.56,
+    "gross_mcm": 257.42,
+    "pct": 90.96,
+    "last_year_pct": 77.55
+  },
+  {
+    "date": "2025-08-01",
+    "mcm": 250.75,
+    "gross_mcm": 259.61,
+    "pct": 91.76,
+    "last_year_pct": 77.55
+  },
+  {
+    "date": "2025-08-02",
+    "mcm": 252.15,
+    "gross_mcm": 261.02,
+    "pct": 92.27,
+    "last_year_pct": 77.55
+  },
+  {
+    "date": "2025-08-03",
+    "mcm": 252.94,
+    "gross_mcm": 261.8,
+    "pct": 92.56,
+    "last_year_pct": 77.55
+  },
+  {
+    "date": "2025-08-04",
+    "mcm": 253.87,
+    "gross_mcm": 262.74,
+    "pct": 92.9,
+    "last_year_pct": 82.39
+  },
+  {
+    "date": "2025-08-05",
+    "mcm": 255.12,
+    "gross_mcm": 263.99,
+    "pct": 93.36,
+    "last_year_pct": 82.83
+  },
+  {
+    "date": "2025-08-06",
+    "mcm": 256.06,
+    "gross_mcm": 264.93,
+    "pct": 93.7,
+    "last_year_pct": 84.14
+  },
+  {
+    "date": "2025-08-07",
+    "mcm": 257.63,
+    "gross_mcm": 266.5,
+    "pct": 94.28,
+    "last_year_pct": 84.68
+  },
+  {
+    "date": "2025-08-08",
+    "mcm": 258.25,
+    "gross_mcm": 267.12,
+    "pct": 94.5,
+    "last_year_pct": 84.68
+  },
+  {
+    "date": "2025-08-09",
+    "mcm": 258.88,
+    "gross_mcm": 267.75,
+    "pct": 94.73,
+    "last_year_pct": 84.68
+  },
+  {
+    "date": "2025-08-11",
+    "mcm": 260.13,
+    "gross_mcm": 269.0,
+    "pct": 95.19,
+    "last_year_pct": 84.68
+  },
+  {
+    "date": "2025-08-12",
+    "mcm": 260.6,
+    "gross_mcm": 269.47,
+    "pct": 95.36,
+    "last_year_pct": 84.68
+  },
+  {
+    "date": "2025-08-13",
+    "mcm": 260.91,
+    "gross_mcm": 269.78,
+    "pct": 95.48,
+    "last_year_pct": 84.68
+  },
+  {
+    "date": "2025-08-14",
+    "mcm": 261.23,
+    "gross_mcm": 270.09,
+    "pct": 95.59,
+    "last_year_pct": 88.84
+  },
+  {
+    "date": "2025-08-15",
+    "mcm": 261.85,
+    "gross_mcm": 270.72,
+    "pct": 95.82,
+    "last_year_pct": 89.07
+  },
+  {
+    "date": "2025-08-16",
+    "mcm": 262.63,
+    "gross_mcm": 271.5,
+    "pct": 96.11,
+    "last_year_pct": 89.24
+  },
+  {
+    "date": "2025-08-17",
+    "mcm": 265.14,
+    "gross_mcm": 274.0,
+    "pct": 97.02,
+    "last_year_pct": 89.87
+  },
+  {
+    "date": "2025-08-18",
+    "mcm": 267.64,
+    "gross_mcm": 276.51,
+    "pct": 97.94,
+    "last_year_pct": 90.16
+  },
+  {
+    "date": "2025-08-19",
+    "mcm": 268.58,
+    "gross_mcm": 277.45,
+    "pct": 98.28,
+    "last_year_pct": 90.44
+  },
+  {
+    "date": "2025-08-20",
+    "mcm": 266.08,
+    "gross_mcm": 274.94,
+    "pct": 97.37,
+    "last_year_pct": 90.61
+  },
+  {
+    "date": "2025-08-22",
+    "mcm": 268.42,
+    "gross_mcm": 277.29,
+    "pct": 98.23,
+    "last_year_pct": 91.07
+  },
+  {
+    "date": "2025-08-23",
+    "mcm": 270.14,
+    "gross_mcm": 279.01,
+    "pct": 98.85,
+    "last_year_pct": 91.24
+  },
+  {
+    "date": "2025-08-24",
+    "mcm": 266.86,
+    "gross_mcm": 275.73,
+    "pct": 97.65,
+    "last_year_pct": 91.76
+  },
+  {
+    "date": "2025-08-25",
+    "mcm": 267.48,
+    "gross_mcm": 276.35,
+    "pct": 97.88,
+    "last_year_pct": 89.64
+  },
+  {
+    "date": "2025-08-26",
+    "mcm": 268.27,
+    "gross_mcm": 277.13,
+    "pct": 98.17,
+    "last_year_pct": 92.62
+  },
+  {
+    "date": "2025-08-27",
+    "mcm": 268.11,
+    "gross_mcm": 276.98,
+    "pct": 98.11,
+    "last_year_pct": 92.79
+  },
+  {
+    "date": "2025-08-28",
+    "mcm": 267.95,
+    "gross_mcm": 276.82,
+    "pct": 98.05,
+    "last_year_pct": 93.47
+  },
+  {
+    "date": "2025-08-29",
+    "mcm": 267.48,
+    "gross_mcm": 276.35,
+    "pct": 97.88,
+    "last_year_pct": 94.22
+  },
+  {
+    "date": "2025-08-30",
+    "mcm": 267.64,
+    "gross_mcm": 276.51,
+    "pct": 97.94,
+    "last_year_pct": 99.2
+  },
+  {
+    "date": "2025-08-31",
+    "mcm": 268.74,
+    "gross_mcm": 277.6,
+    "pct": 98.34,
+    "last_year_pct": 99.54
+  },
+  {
+    "date": "2025-09-01",
+    "mcm": 270.14,
+    "gross_mcm": 279.01,
+    "pct": 98.85,
+    "last_year_pct": 99.77
+  },
+  {
+    "date": "2025-09-02",
+    "mcm": 271.55,
+    "gross_mcm": 280.42,
+    "pct": 99.37,
+    "last_year_pct": 99.77
+  },
+  {
+    "date": "2025-09-03",
+    "mcm": 271.55,
+    "gross_mcm": 280.42,
+    "pct": 99.37,
+    "last_year_pct": 99.89
+  },
+  {
+    "date": "2025-09-04",
+    "mcm": 271.4,
+    "gross_mcm": 280.26,
+    "pct": 99.32,
+    "last_year_pct": 99.94
+  },
+  {
+    "date": "2025-09-05",
+    "mcm": 271.71,
+    "gross_mcm": 280.58,
+    "pct": 99.43,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-09-07",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-09-10",
+    "mcm": 272.18,
+    "gross_mcm": 281.04,
+    "pct": 99.6,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-09-11",
+    "mcm": 272.02,
+    "gross_mcm": 280.89,
+    "pct": 99.54,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-09-12",
+    "mcm": 271.86,
+    "gross_mcm": 280.73,
+    "pct": 99.48,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-09-14",
+    "mcm": 271.4,
+    "gross_mcm": 280.26,
+    "pct": 99.32,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-09-15",
+    "mcm": 271.24,
+    "gross_mcm": 280.11,
+    "pct": 99.26,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-09-16",
+    "mcm": 271.08,
+    "gross_mcm": 279.95,
+    "pct": 99.2,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-09-17",
+    "mcm": 271.55,
+    "gross_mcm": 280.42,
+    "pct": 99.37,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-09-18",
+    "mcm": 282.14,
+    "gross_mcm": 282.14,
+    "pct": 120.0,
+    "last_year_pct": 99.48
+  },
+  {
+    "date": "2025-09-19",
+    "mcm": 272.65,
+    "gross_mcm": 281.51,
+    "pct": 99.77,
+    "last_year_pct": 99.89
+  },
+  {
+    "date": "2025-09-20",
+    "mcm": 272.18,
+    "gross_mcm": 281.04,
+    "pct": 99.6,
+    "last_year_pct": 99.77
+  },
+  {
+    "date": "2025-09-21",
+    "mcm": 271.86,
+    "gross_mcm": 280.73,
+    "pct": 99.48,
+    "last_year_pct": 99.6
+  },
+  {
+    "date": "2025-09-22",
+    "mcm": 271.4,
+    "gross_mcm": 280.26,
+    "pct": 99.32,
+    "last_year_pct": 99.49
+  },
+  {
+    "date": "2025-09-23",
+    "mcm": 271.24,
+    "gross_mcm": 280.11,
+    "pct": 99.26,
+    "last_year_pct": 99.37
+  },
+  {
+    "date": "2025-09-24",
+    "mcm": 271.4,
+    "gross_mcm": 280.26,
+    "pct": 99.32,
+    "last_year_pct": 99.2
+  },
+  {
+    "date": "2025-09-25",
+    "mcm": 271.71,
+    "gross_mcm": 280.58,
+    "pct": 99.43,
+    "last_year_pct": 99.14
+  },
+  {
+    "date": "2025-09-26",
+    "mcm": 272.02,
+    "gross_mcm": 280.89,
+    "pct": 99.54,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-09-27",
+    "mcm": 271.86,
+    "gross_mcm": 280.73,
+    "pct": 99.48,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-09-28",
+    "mcm": 268.89,
+    "gross_mcm": 277.76,
+    "pct": 98.4,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-09-29",
+    "mcm": 269.05,
+    "gross_mcm": 277.92,
+    "pct": 98.46,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-09-30",
+    "mcm": 270.14,
+    "gross_mcm": 279.01,
+    "pct": 98.85,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-10-01",
+    "mcm": 271.24,
+    "gross_mcm": 280.11,
+    "pct": 99.26,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-10-02",
+    "mcm": 272.49,
+    "gross_mcm": 281.36,
+    "pct": 99.71,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-10-03",
+    "mcm": 273.12,
+    "gross_mcm": 281.98,
+    "pct": 99.95,
+    "last_year_pct": 99.89
+  },
+  {
+    "date": "2025-10-04",
+    "mcm": 273.12,
+    "gross_mcm": 281.98,
+    "pct": 99.95,
+    "last_year_pct": 99.77
+  },
+  {
+    "date": "2025-10-05",
+    "mcm": 272.96,
+    "gross_mcm": 281.83,
+    "pct": 99.89,
+    "last_year_pct": 99.83
+  },
+  {
+    "date": "2025-10-06",
+    "mcm": 272.65,
+    "gross_mcm": 281.51,
+    "pct": 99.77,
+    "last_year_pct": 99.94
+  },
+  {
+    "date": "2025-10-07",
+    "mcm": 272.96,
+    "gross_mcm": 281.83,
+    "pct": 99.89,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-10-08",
+    "mcm": 273.12,
+    "gross_mcm": 281.98,
+    "pct": 99.95,
+    "last_year_pct": 99.89
+  },
+  {
+    "date": "2025-10-09",
+    "mcm": 272.8,
+    "gross_mcm": 281.67,
+    "pct": 99.83,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-10-10",
+    "mcm": 273.12,
+    "gross_mcm": 281.98,
+    "pct": 99.95,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-10-11",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-10-12",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-10-13",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-10-14",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-10-15",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-10-17",
+    "mcm": 273.12,
+    "gross_mcm": 281.98,
+    "pct": 99.95,
+    "last_year_pct": 99.94
+  },
+  {
+    "date": "2025-10-18",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 99.83
+  },
+  {
+    "date": "2025-10-19",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 99.83
+  },
+  {
+    "date": "2025-10-20",
+    "mcm": 273.12,
+    "gross_mcm": 281.98,
+    "pct": 99.95,
+    "last_year_pct": 99.83
+  },
+  {
+    "date": "2025-10-21",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-10-22",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 99.89
+  },
+  {
+    "date": "2025-10-23",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 99.71
+  },
+  {
+    "date": "2025-10-24",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 99.6
+  },
+  {
+    "date": "2025-10-25",
+    "mcm": 272.96,
+    "gross_mcm": 281.83,
+    "pct": 99.89,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-10-26",
+    "mcm": 273.12,
+    "gross_mcm": 281.98,
+    "pct": 99.95,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-10-27",
+    "mcm": 273.12,
+    "gross_mcm": 281.98,
+    "pct": 99.95,
+    "last_year_pct": 99.66
+  },
+  {
+    "date": "2025-10-28",
+    "mcm": 272.96,
+    "gross_mcm": 281.83,
+    "pct": 99.89,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-10-29",
+    "mcm": 273.12,
+    "gross_mcm": 281.98,
+    "pct": 99.95,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-10-30",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 99.71
+  },
+  {
+    "date": "2025-10-31",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 99.77
+  },
+  {
+    "date": "2025-11-01",
+    "mcm": 273.27,
+    "gross_mcm": 282.14,
+    "pct": 100.0,
+    "last_year_pct": 99.77
+  },
+  {
+    "date": "2025-11-02",
+    "mcm": 272.96,
+    "gross_mcm": 281.83,
+    "pct": 99.89,
+    "last_year_pct": 99.77
+  },
+  {
+    "date": "2025-11-03",
+    "mcm": 272.8,
+    "gross_mcm": 281.67,
+    "pct": 99.83,
+    "last_year_pct": 99.89
+  },
+  {
+    "date": "2025-11-04",
+    "mcm": 272.96,
+    "gross_mcm": 281.83,
+    "pct": 99.89,
+    "last_year_pct": 99.94
+  },
+  {
+    "date": "2025-11-05",
+    "mcm": 272.96,
+    "gross_mcm": 281.83,
+    "pct": 99.89,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-11-06",
+    "mcm": 272.96,
+    "gross_mcm": 281.83,
+    "pct": 99.89,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-11-07",
+    "mcm": 273.12,
+    "gross_mcm": 281.98,
+    "pct": 99.95,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-11-08",
+    "mcm": 273.12,
+    "gross_mcm": 281.98,
+    "pct": 99.95,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-11-09",
+    "mcm": 273.12,
+    "gross_mcm": 281.98,
+    "pct": 99.95,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-11-10",
+    "mcm": 273.12,
+    "gross_mcm": 281.98,
+    "pct": 99.95,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-11-11",
+    "mcm": 273.12,
+    "gross_mcm": 281.98,
+    "pct": 99.95,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-11-12",
+    "mcm": 273.12,
+    "gross_mcm": 281.98,
+    "pct": 99.95,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-11-13",
+    "mcm": 273.12,
+    "gross_mcm": 281.98,
+    "pct": 99.95,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-11-14",
+    "mcm": 273.12,
+    "gross_mcm": 281.98,
+    "pct": 99.95,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-11-15",
+    "mcm": 272.96,
+    "gross_mcm": 281.83,
+    "pct": 99.89,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-11-16",
+    "mcm": 272.96,
+    "gross_mcm": 281.83,
+    "pct": 99.89,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-11-17",
+    "mcm": 272.96,
+    "gross_mcm": 281.83,
+    "pct": 99.89,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-11-18",
+    "mcm": 272.33,
+    "gross_mcm": 281.2,
+    "pct": 99.66,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-11-19",
+    "mcm": 272.02,
+    "gross_mcm": 280.89,
+    "pct": 99.54,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-11-20",
+    "mcm": 271.86,
+    "gross_mcm": 280.73,
+    "pct": 99.48,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-11-21",
+    "mcm": 271.55,
+    "gross_mcm": 280.42,
+    "pct": 99.37,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-11-22",
+    "mcm": 271.55,
+    "gross_mcm": 280.42,
+    "pct": 99.37,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-11-23",
+    "mcm": 271.55,
+    "gross_mcm": 280.42,
+    "pct": 99.37,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-11-24",
+    "mcm": 271.55,
+    "gross_mcm": 280.42,
+    "pct": 99.37,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2025-11-25",
+    "mcm": 271.55,
+    "gross_mcm": 280.42,
+    "pct": 99.37,
+    "last_year_pct": 99.83
+  },
+  {
+    "date": "2025-11-26",
+    "mcm": 270.93,
+    "gross_mcm": 279.79,
+    "pct": 99.14,
+    "last_year_pct": 99.43
+  },
+  {
+    "date": "2025-11-27",
+    "mcm": 270.77,
+    "gross_mcm": 279.64,
+    "pct": 99.09,
+    "last_year_pct": 99.09
+  },
+  {
+    "date": "2025-11-28",
+    "mcm": 269.99,
+    "gross_mcm": 278.86,
+    "pct": 98.8,
+    "last_year_pct": 98.86
+  },
+  {
+    "date": "2025-11-29",
+    "mcm": 269.2,
+    "gross_mcm": 278.07,
+    "pct": 98.51,
+    "last_year_pct": 98.8
+  },
+  {
+    "date": "2025-11-30",
+    "mcm": 268.27,
+    "gross_mcm": 277.13,
+    "pct": 98.17,
+    "last_year_pct": 98.74
+  },
+  {
+    "date": "2025-12-01",
+    "mcm": 267.95,
+    "gross_mcm": 276.82,
+    "pct": 98.05,
+    "last_year_pct": 98.74
+  },
+  {
+    "date": "2025-12-02",
+    "mcm": 267.8,
+    "gross_mcm": 276.66,
+    "pct": 98.0,
+    "last_year_pct": 98.74
+  },
+  {
+    "date": "2025-12-03",
+    "mcm": 267.64,
+    "gross_mcm": 276.51,
+    "pct": 97.94,
+    "last_year_pct": 98.68
+  },
+  {
+    "date": "2025-12-04",
+    "mcm": 267.64,
+    "gross_mcm": 276.51,
+    "pct": 97.94,
+    "last_year_pct": 98.68
+  },
+  {
+    "date": "2025-12-05",
+    "mcm": 267.64,
+    "gross_mcm": 276.51,
+    "pct": 97.94,
+    "last_year_pct": 98.68
+  },
+  {
+    "date": "2025-12-06",
+    "mcm": 267.48,
+    "gross_mcm": 276.35,
+    "pct": 97.88,
+    "last_year_pct": 98.63
+  },
+  {
+    "date": "2025-12-07",
+    "mcm": 267.48,
+    "gross_mcm": 276.35,
+    "pct": 97.88,
+    "last_year_pct": 98.63
+  },
+  {
+    "date": "2025-12-08",
+    "mcm": 267.48,
+    "gross_mcm": 276.35,
+    "pct": 97.88,
+    "last_year_pct": 98.63
+  },
+  {
+    "date": "2025-12-09",
+    "mcm": 266.08,
+    "gross_mcm": 274.94,
+    "pct": 97.37,
+    "last_year_pct": 98.57
+  },
+  {
+    "date": "2025-12-10",
+    "mcm": 265.45,
+    "gross_mcm": 274.32,
+    "pct": 97.14,
+    "last_year_pct": 98.28
+  },
+  {
+    "date": "2025-12-11",
+    "mcm": 264.67,
+    "gross_mcm": 273.54,
+    "pct": 96.85,
+    "last_year_pct": 98.11
+  },
+  {
+    "date": "2025-12-12",
+    "mcm": 264.67,
+    "gross_mcm": 273.54,
+    "pct": 96.85,
+    "last_year_pct": 97.77
+  },
+  {
+    "date": "2025-12-13",
+    "mcm": 264.51,
+    "gross_mcm": 273.38,
+    "pct": 96.79,
+    "last_year_pct": 97.54
+  },
+  {
+    "date": "2025-12-14",
+    "mcm": 264.51,
+    "gross_mcm": 273.38,
+    "pct": 96.79,
+    "last_year_pct": 97.48
+  },
+  {
+    "date": "2025-12-15",
+    "mcm": 264.36,
+    "gross_mcm": 273.22,
+    "pct": 96.74,
+    "last_year_pct": 97.48
+  },
+  {
+    "date": "2025-12-16",
+    "mcm": 264.2,
+    "gross_mcm": 273.07,
+    "pct": 96.68,
+    "last_year_pct": 97.42
+  },
+  {
+    "date": "2025-12-17",
+    "mcm": 264.2,
+    "gross_mcm": 273.07,
+    "pct": 96.68,
+    "last_year_pct": 97.42
+  },
+  {
+    "date": "2025-12-18",
+    "mcm": 263.57,
+    "gross_mcm": 272.44,
+    "pct": 96.45,
+    "last_year_pct": 97.42
+  },
+  {
+    "date": "2025-12-19",
+    "mcm": 262.48,
+    "gross_mcm": 271.34,
+    "pct": 96.05,
+    "last_year_pct": 97.37
+  },
+  {
+    "date": "2025-12-20",
+    "mcm": 261.07,
+    "gross_mcm": 269.94,
+    "pct": 95.54,
+    "last_year_pct": 97.37
+  },
+  {
+    "date": "2025-12-21",
+    "mcm": 259.82,
+    "gross_mcm": 268.68,
+    "pct": 95.08,
+    "last_year_pct": 97.37
+  },
+  {
+    "date": "2025-12-22",
+    "mcm": 258.72,
+    "gross_mcm": 267.59,
+    "pct": 94.68,
+    "last_year_pct": 97.42
+  },
+  {
+    "date": "2025-12-24",
+    "mcm": 256.22,
+    "gross_mcm": 265.09,
+    "pct": 93.76,
+    "last_year_pct": 97.37
+  },
+  {
+    "date": "2025-12-25",
+    "mcm": 256.06,
+    "gross_mcm": 264.93,
+    "pct": 93.7,
+    "last_year_pct": 97.14
+  },
+  {
+    "date": "2025-12-26",
+    "mcm": 254.19,
+    "gross_mcm": 263.05,
+    "pct": 93.02,
+    "last_year_pct": 97.14
+  },
+  {
+    "date": "2025-12-27",
+    "mcm": 253.4,
+    "gross_mcm": 262.27,
+    "pct": 92.73,
+    "last_year_pct": 97.14
+  },
+  {
+    "date": "2025-12-28",
+    "mcm": 252.47,
+    "gross_mcm": 261.33,
+    "pct": 92.39,
+    "last_year_pct": 96.91
+  },
+  {
+    "date": "2025-12-29",
+    "mcm": 251.84,
+    "gross_mcm": 260.71,
+    "pct": 92.16,
+    "last_year_pct": 96.57
+  },
+  {
+    "date": "2025-12-30",
+    "mcm": 250.75,
+    "gross_mcm": 259.61,
+    "pct": 91.76,
+    "last_year_pct": 96.34
+  },
+  {
+    "date": "2025-12-31",
+    "mcm": 250.28,
+    "gross_mcm": 259.14,
+    "pct": 91.59,
+    "last_year_pct": 96.34
+  },
+  {
+    "date": "2026-01-01",
+    "mcm": 249.96,
+    "gross_mcm": 258.83,
+    "pct": 91.47,
+    "last_year_pct": 96.34
+  },
+  {
+    "date": "2026-01-02",
+    "mcm": 248.87,
+    "gross_mcm": 257.74,
+    "pct": 91.07,
+    "last_year_pct": 96.28
+  },
+  {
+    "date": "2026-01-03",
+    "mcm": 248.24,
+    "gross_mcm": 257.11,
+    "pct": 90.84,
+    "last_year_pct": 96.28
+  },
+  {
+    "date": "2026-01-04",
+    "mcm": 247.62,
+    "gross_mcm": 256.48,
+    "pct": 90.61,
+    "last_year_pct": 96.22
+  },
+  {
+    "date": "2026-01-05",
+    "mcm": 247.15,
+    "gross_mcm": 256.02,
+    "pct": 90.44,
+    "last_year_pct": 96.22
+  },
+  {
+    "date": "2026-01-06",
+    "mcm": 246.37,
+    "gross_mcm": 255.23,
+    "pct": 90.16,
+    "last_year_pct": 96.22
+  },
+  {
+    "date": "2026-01-07",
+    "mcm": 245.74,
+    "gross_mcm": 254.61,
+    "pct": 89.93,
+    "last_year_pct": 96.17
+  },
+  {
+    "date": "2026-01-08",
+    "mcm": 244.8,
+    "gross_mcm": 253.67,
+    "pct": 89.58,
+    "last_year_pct": 95.99
+  },
+  {
+    "date": "2026-01-09",
+    "mcm": 244.18,
+    "gross_mcm": 253.04,
+    "pct": 89.35,
+    "last_year_pct": 96.11
+  },
+  {
+    "date": "2026-01-10",
+    "mcm": 243.24,
+    "gross_mcm": 252.1,
+    "pct": 89.01,
+    "last_year_pct": 95.99
+  },
+  {
+    "date": "2026-01-11",
+    "mcm": 242.3,
+    "gross_mcm": 251.17,
+    "pct": 88.67,
+    "last_year_pct": 95.54
+  },
+  {
+    "date": "2026-01-12",
+    "mcm": 241.54,
+    "gross_mcm": 250.41,
+    "pct": 88.39,
+    "last_year_pct": 95.25
+  },
+  {
+    "date": "2026-01-13",
+    "mcm": 240.65,
+    "gross_mcm": 249.51,
+    "pct": 88.06,
+    "last_year_pct": 94.85
+  },
+  {
+    "date": "2026-01-14",
+    "mcm": 239.6,
+    "gross_mcm": 248.47,
+    "pct": 87.68,
+    "last_year_pct": 94.68
+  },
+  {
+    "date": "2026-01-15",
+    "mcm": 238.41,
+    "gross_mcm": 247.28,
+    "pct": 87.24,
+    "last_year_pct": 94.22
+  },
+  {
+    "date": "2026-01-16",
+    "mcm": 282.14,
+    "gross_mcm": 282.14,
+    "pct": 120.0,
+    "last_year_pct": 86.64
+  },
+  {
+    "date": "2026-01-18",
+    "mcm": 234.84,
+    "gross_mcm": 243.7,
+    "pct": 85.94,
+    "last_year_pct": 92.73
+  },
+  {
+    "date": "2026-01-19",
+    "mcm": 233.64,
+    "gross_mcm": 242.51,
+    "pct": 85.5,
+    "last_year_pct": 92.22
+  },
+  {
+    "date": "2026-01-20",
+    "mcm": 232.3,
+    "gross_mcm": 241.17,
+    "pct": 85.01,
+    "last_year_pct": 91.93
+  },
+  {
+    "date": "2026-01-21",
+    "mcm": 230.96,
+    "gross_mcm": 239.83,
+    "pct": 84.52,
+    "last_year_pct": 91.64
+  },
+  {
+    "date": "2026-01-22",
+    "mcm": 229.77,
+    "gross_mcm": 238.64,
+    "pct": 84.08,
+    "last_year_pct": 91.07
+  },
+  {
+    "date": "2026-01-23",
+    "mcm": 229.03,
+    "gross_mcm": 237.9,
+    "pct": 83.81,
+    "last_year_pct": 90.84
+  },
+  {
+    "date": "2026-01-24",
+    "mcm": 226.64,
+    "gross_mcm": 235.51,
+    "pct": 82.94,
+    "last_year_pct": 90.84
+  },
+  {
+    "date": "2026-01-25",
+    "mcm": 225.16,
+    "gross_mcm": 234.02,
+    "pct": 82.39,
+    "last_year_pct": 89.81
+  },
+  {
+    "date": "2026-01-26",
+    "mcm": 223.81,
+    "gross_mcm": 232.68,
+    "pct": 81.9,
+    "last_year_pct": 89.35
+  },
+  {
+    "date": "2026-01-27",
+    "mcm": 222.32,
+    "gross_mcm": 231.19,
+    "pct": 81.36,
+    "last_year_pct": 88.9
+  },
+  {
+    "date": "2026-01-28",
+    "mcm": 221.58,
+    "gross_mcm": 230.45,
+    "pct": 81.08,
+    "last_year_pct": 88.84
+  },
+  {
+    "date": "2026-01-29",
+    "mcm": 220.24,
+    "gross_mcm": 229.11,
+    "pct": 80.59,
+    "last_year_pct": 88.78
+  },
+  {
+    "date": "2026-01-30",
+    "mcm": 218.9,
+    "gross_mcm": 227.77,
+    "pct": 80.1,
+    "last_year_pct": 88.72
+  },
+  {
+    "date": "2026-01-31",
+    "mcm": 217.41,
+    "gross_mcm": 226.28,
+    "pct": 79.56,
+    "last_year_pct": 88.55
+  },
+  {
+    "date": "2026-02-01",
+    "mcm": 216.07,
+    "gross_mcm": 224.94,
+    "pct": 79.07,
+    "last_year_pct": 88.12
+  },
+  {
+    "date": "2026-02-02",
+    "mcm": 214.88,
+    "gross_mcm": 223.74,
+    "pct": 78.63,
+    "last_year_pct": 87.79
+  },
+  {
+    "date": "2026-02-03",
+    "mcm": 214.88,
+    "gross_mcm": 223.74,
+    "pct": 78.63,
+    "last_year_pct": 87.41
+  },
+  {
+    "date": "2026-02-04",
+    "mcm": 214.88,
+    "gross_mcm": 223.74,
+    "pct": 78.63,
+    "last_year_pct": 86.92
+  },
+  {
+    "date": "2026-02-05",
+    "mcm": 214.73,
+    "gross_mcm": 223.6,
+    "pct": 78.58,
+    "last_year_pct": 86.43
+  },
+  {
+    "date": "2026-02-06",
+    "mcm": 214.58,
+    "gross_mcm": 223.45,
+    "pct": 78.52,
+    "last_year_pct": 85.99
+  },
+  {
+    "date": "2026-02-07",
+    "mcm": 214.43,
+    "gross_mcm": 223.3,
+    "pct": 78.47,
+    "last_year_pct": 85.55
+  },
+  {
+    "date": "2026-02-08",
+    "mcm": 213.83,
+    "gross_mcm": 222.7,
+    "pct": 78.25,
+    "last_year_pct": 85.39
+  },
+  {
+    "date": "2026-02-09",
+    "mcm": 214.28,
+    "gross_mcm": 223.15,
+    "pct": 78.41,
+    "last_year_pct": 84.79
+  },
+  {
+    "date": "2026-02-10",
+    "mcm": 214.28,
+    "gross_mcm": 223.15,
+    "pct": 78.41,
+    "last_year_pct": 84.25
+  },
+  {
+    "date": "2026-02-11",
+    "mcm": 213.54,
+    "gross_mcm": 222.4,
+    "pct": 78.14,
+    "last_year_pct": 84.08
+  },
+  {
+    "date": "2026-02-12",
+    "mcm": 212.94,
+    "gross_mcm": 221.81,
+    "pct": 77.92,
+    "last_year_pct": 83.21
+  },
+  {
+    "date": "2026-02-13",
+    "mcm": 212.2,
+    "gross_mcm": 221.06,
+    "pct": 77.65,
+    "last_year_pct": 82.67
+  },
+  {
+    "date": "2026-02-14",
+    "mcm": 211.5,
+    "gross_mcm": 220.37,
+    "pct": 77.4,
+    "last_year_pct": 82.12
+  },
+  {
+    "date": "2026-02-15",
+    "mcm": 211.09,
+    "gross_mcm": 219.96,
+    "pct": 77.25,
+    "last_year_pct": 81.57
+  },
+  {
+    "date": "2026-02-16",
+    "mcm": 211.09,
+    "gross_mcm": 219.96,
+    "pct": 77.25,
+    "last_year_pct": 81.25
+  },
+  {
+    "date": "2026-02-17",
+    "mcm": 210.95,
+    "gross_mcm": 219.82,
+    "pct": 77.19,
+    "last_year_pct": 80.81
+  },
+  {
+    "date": "2026-02-18",
+    "mcm": 210.54,
+    "gross_mcm": 219.4,
+    "pct": 77.04,
+    "last_year_pct": 80.81
+  },
+  {
+    "date": "2026-02-19",
+    "mcm": 209.98,
+    "gross_mcm": 218.85,
+    "pct": 76.84,
+    "last_year_pct": 79.83
+  },
+  {
+    "date": "2026-02-20",
+    "mcm": 209.29,
+    "gross_mcm": 218.16,
+    "pct": 76.59,
+    "last_year_pct": 79.23
+  },
+  {
+    "date": "2026-02-21",
+    "mcm": 208.6,
+    "gross_mcm": 217.47,
+    "pct": 76.33,
+    "last_year_pct": 78.8
+  },
+  {
+    "date": "2026-02-22",
+    "mcm": 208.32,
+    "gross_mcm": 217.19,
+    "pct": 76.23,
+    "last_year_pct": 78.2
+  },
+  {
+    "date": "2026-02-23",
+    "mcm": 208.18,
+    "gross_mcm": 217.05,
+    "pct": 76.18,
+    "last_year_pct": 77.71
+  },
+  {
+    "date": "2026-02-24",
+    "mcm": 208.18,
+    "gross_mcm": 217.05,
+    "pct": 76.18,
+    "last_year_pct": 77.14
+  },
+  {
+    "date": "2026-02-25",
+    "mcm": 208.05,
+    "gross_mcm": 216.91,
+    "pct": 76.13,
+    "last_year_pct": 76.54
+  },
+  {
+    "date": "2026-02-26",
+    "mcm": 207.91,
+    "gross_mcm": 216.78,
+    "pct": 76.08,
+    "last_year_pct": 75.98
+  },
+  {
+    "date": "2026-02-27",
+    "mcm": 207.77,
+    "gross_mcm": 216.64,
+    "pct": 76.03,
+    "last_year_pct": 75.52
+  },
+  {
+    "date": "2026-02-28",
+    "mcm": 207.22,
+    "gross_mcm": 216.08,
+    "pct": 75.83,
+    "last_year_pct": 75.22
+  },
+  {
+    "date": "2026-03-01",
+    "mcm": 205.97,
+    "gross_mcm": 214.84,
+    "pct": 75.37,
+    "last_year_pct": 74.77
+  },
+  {
+    "date": "2026-03-02",
+    "mcm": 204.59,
+    "gross_mcm": 213.46,
+    "pct": 74.87,
+    "last_year_pct": 74.21
+  },
+  {
+    "date": "2026-03-03",
+    "mcm": 203.07,
+    "gross_mcm": 211.93,
+    "pct": 74.31,
+    "last_year_pct": 73.75
+  },
+  {
+    "date": "2026-03-04",
+    "mcm": 201.82,
+    "gross_mcm": 210.69,
+    "pct": 73.85,
+    "last_year_pct": 73.1
+  },
+  {
+    "date": "2026-03-05",
+    "mcm": 200.44,
+    "gross_mcm": 209.31,
+    "pct": 73.35,
+    "last_year_pct": 72.64
+  },
+  {
+    "date": "2026-03-06",
+    "mcm": 198.92,
+    "gross_mcm": 207.78,
+    "pct": 72.79,
+    "last_year_pct": 72.13
+  },
+  {
+    "date": "2026-03-07",
+    "mcm": 196.7,
+    "gross_mcm": 205.57,
+    "pct": 71.98,
+    "last_year_pct": 72.08
+  },
+  {
+    "date": "2026-03-08",
+    "mcm": 196.15,
+    "gross_mcm": 205.02,
+    "pct": 71.78,
+    "last_year_pct": 71.27
+  },
+  {
+    "date": "2026-03-09",
+    "mcm": 194.77,
+    "gross_mcm": 203.64,
+    "pct": 71.27,
+    "last_year_pct": 71.07
+  },
+  {
+    "date": "2026-03-10",
+    "mcm": 193.38,
+    "gross_mcm": 202.25,
+    "pct": 70.77,
+    "last_year_pct": 71.07
+  },
+  {
+    "date": "2026-03-11",
+    "mcm": 192.0,
+    "gross_mcm": 200.87,
+    "pct": 70.26,
+    "last_year_pct": 71.07
+  },
+  {
+    "date": "2026-03-12",
+    "mcm": 190.34,
+    "gross_mcm": 199.21,
+    "pct": 69.65,
+    "last_year_pct": 71.07
+  },
+  {
+    "date": "2026-03-13",
+    "mcm": 188.82,
+    "gross_mcm": 197.69,
+    "pct": 69.1,
+    "last_year_pct": 71.07
+  },
+  {
+    "date": "2026-03-14",
+    "mcm": 187.44,
+    "gross_mcm": 196.3,
+    "pct": 68.59,
+    "last_year_pct": 71.07
+  },
+  {
+    "date": "2026-03-15",
+    "mcm": 187.02,
+    "gross_mcm": 195.89,
+    "pct": 68.44,
+    "last_year_pct": 71.07
+  },
+  {
+    "date": "2026-03-16",
+    "mcm": 187.02,
+    "gross_mcm": 195.89,
+    "pct": 68.44,
+    "last_year_pct": 71.07
+  },
+  {
+    "date": "2026-03-17",
+    "mcm": 187.02,
+    "gross_mcm": 195.89,
+    "pct": 68.44,
+    "last_year_pct": 71.07
+  },
+  {
+    "date": "2026-03-18",
+    "mcm": 187.02,
+    "gross_mcm": 195.89,
+    "pct": 68.44,
+    "last_year_pct": 71.07
+  },
+  {
+    "date": "2026-03-19",
+    "mcm": 187.02,
+    "gross_mcm": 195.89,
+    "pct": 68.44,
+    "last_year_pct": 71.07
+  },
+  {
+    "date": "2026-03-20",
+    "mcm": 187.02,
+    "gross_mcm": 195.89,
+    "pct": 68.44,
+    "last_year_pct": 71.07
+  },
+  {
+    "date": "2026-03-21",
+    "mcm": 187.02,
+    "gross_mcm": 195.89,
+    "pct": 68.44,
+    "last_year_pct": 71.07
+  },
+  {
+    "date": "2026-03-22",
+    "mcm": 174.46,
+    "gross_mcm": 183.33,
+    "pct": 63.84,
+    "last_year_pct": 71.07
+  },
+  {
+    "date": "2026-03-23",
+    "mcm": 173.15,
+    "gross_mcm": 182.02,
+    "pct": 63.36,
+    "last_year_pct": 71.07
+  },
+  {
+    "date": "2026-03-24",
+    "mcm": 171.72,
+    "gross_mcm": 180.58,
+    "pct": 62.84,
+    "last_year_pct": 71.07
+  },
+  {
+    "date": "2026-03-25",
+    "mcm": 170.02,
+    "gross_mcm": 178.88,
+    "pct": 62.22,
+    "last_year_pct": 71.07
+  },
+  {
+    "date": "2026-03-26",
+    "mcm": 168.45,
+    "gross_mcm": 177.31,
+    "pct": 61.64,
+    "last_year_pct": 71.07
+  },
+  {
+    "date": "2026-03-27",
+    "mcm": 167.14,
+    "gross_mcm": 176.0,
+    "pct": 61.16,
+    "last_year_pct": 71.07
+  },
+  {
+    "date": "2026-03-28",
+    "mcm": 165.83,
+    "gross_mcm": 174.7,
+    "pct": 60.68,
+    "last_year_pct": 42.94
+  },
+  {
+    "date": "2026-03-29",
+    "mcm": 164.52,
+    "gross_mcm": 173.39,
+    "pct": 60.2,
+    "last_year_pct": 60.01
+  },
+  {
+    "date": "2026-03-30",
+    "mcm": 163.22,
+    "gross_mcm": 172.08,
+    "pct": 59.73,
+    "last_year_pct": 59.49
+  },
+  {
+    "date": "2026-04-01",
+    "mcm": 160.6,
+    "gross_mcm": 169.47,
+    "pct": 58.77,
+    "last_year_pct": 58.48
+  },
+  {
+    "date": "2026-04-03",
+    "mcm": 157.77,
+    "gross_mcm": 166.64,
+    "pct": 57.73,
+    "last_year_pct": 57.51
+  },
+  {
+    "date": "2026-04-04",
+    "mcm": 156.33,
+    "gross_mcm": 165.19,
+    "pct": 57.21,
+    "last_year_pct": 57.03
+  },
+  {
+    "date": "2026-04-05",
+    "mcm": 154.76,
+    "gross_mcm": 163.63,
+    "pct": 56.63,
+    "last_year_pct": 56.59
+  },
+  {
+    "date": "2026-04-06",
+    "mcm": 153.19,
+    "gross_mcm": 162.06,
+    "pct": 56.06,
+    "last_year_pct": 56.15
+  },
+  {
+    "date": "2026-04-08",
+    "mcm": 149.94,
+    "gross_mcm": 158.8,
+    "pct": 54.87,
+    "last_year_pct": 55.13
+  },
+  {
+    "date": "2026-04-09",
+    "mcm": 148.37,
+    "gross_mcm": 157.24,
+    "pct": 54.29,
+    "last_year_pct": 55.13
+  },
+  {
+    "date": "2026-04-10",
+    "mcm": 146.92,
+    "gross_mcm": 155.79,
+    "pct": 53.76,
+    "last_year_pct": 55.13
+  },
+  {
+    "date": "2026-04-11",
+    "mcm": 145.6,
+    "gross_mcm": 154.47,
+    "pct": 53.28,
+    "last_year_pct": 55.13
+  },
+  {
+    "date": "2026-04-12",
+    "mcm": 144.15,
+    "gross_mcm": 153.02,
+    "pct": 52.75,
+    "last_year_pct": 55.13
+  },
+  {
+    "date": "2026-04-13",
+    "mcm": 142.71,
+    "gross_mcm": 151.57,
+    "pct": 52.22,
+    "last_year_pct": 55.13
+  },
+  {
+    "date": "2026-04-16",
+    "mcm": 138.37,
+    "gross_mcm": 147.23,
+    "pct": 50.63,
+    "last_year_pct": 51.03
+  },
+  {
+    "date": "2026-04-17",
+    "mcm": 137.04,
+    "gross_mcm": 145.91,
+    "pct": 50.15,
+    "last_year_pct": 50.5
+  },
+  {
+    "date": "2026-04-20",
+    "mcm": 133.32,
+    "gross_mcm": 142.18,
+    "pct": 48.79,
+    "last_year_pct": 48.98
+  },
+  {
+    "date": "2026-04-21",
+    "mcm": 132.36,
+    "gross_mcm": 141.23,
+    "pct": 48.44,
+    "last_year_pct": 48.55
+  },
+  {
+    "date": "2026-04-22",
+    "mcm": 131.41,
+    "gross_mcm": 140.28,
+    "pct": 48.09,
+    "last_year_pct": 47.97
+  },
+  {
+    "date": "2026-04-23",
+    "mcm": 130.57,
+    "gross_mcm": 139.43,
+    "pct": 47.78,
+    "last_year_pct": 47.39
+  },
+  {
+    "date": "2026-04-24",
+    "mcm": 129.4,
+    "gross_mcm": 138.27,
+    "pct": 47.35,
+    "last_year_pct": 46.81
+  },
+  {
+    "date": "2026-04-25",
+    "mcm": 128.34,
+    "gross_mcm": 137.21,
+    "pct": 46.96,
+    "last_year_pct": 46.35
+  },
+  {
+    "date": "2026-04-26",
+    "mcm": 127.18,
+    "gross_mcm": 136.05,
+    "pct": 46.54,
+    "last_year_pct": 45.8
+  },
+  {
+    "date": "2026-04-27",
+    "mcm": 126.34,
+    "gross_mcm": 135.2,
+    "pct": 46.23,
+    "last_year_pct": 45.26
+  },
+  {
+    "date": "2026-04-28",
+    "mcm": 125.49,
+    "gross_mcm": 134.36,
+    "pct": 45.92,
+    "last_year_pct": 44.76
+  },
+  {
+    "date": "2026-04-29",
+    "mcm": 124.96,
+    "gross_mcm": 133.83,
+    "pct": 45.73,
+    "last_year_pct": 44.6
+  },
+  {
+    "date": "2026-04-30",
+    "mcm": 124.75,
+    "gross_mcm": 133.62,
+    "pct": 45.65,
+    "last_year_pct": 43.83
+  },
+  {
+    "date": "2026-05-01",
+    "mcm": 124.75,
+    "gross_mcm": 133.62,
+    "pct": 45.65,
+    "last_year_pct": 43.4
+  },
+  {
+    "date": "2026-05-03",
+    "mcm": 114.17,
+    "gross_mcm": 123.04,
+    "pct": 41.78,
+    "last_year_pct": 42.32
+  },
+  {
+    "date": "2026-05-04",
+    "mcm": 114.17,
+    "gross_mcm": 123.04,
+    "pct": 41.78,
+    "last_year_pct": 42.01
+  },
+  {
+    "date": "2026-05-05",
+    "mcm": 114.17,
+    "gross_mcm": 123.04,
+    "pct": 41.78,
+    "last_year_pct": 41.24
+  },
+  {
+    "date": "2026-05-06",
+    "mcm": 114.17,
+    "gross_mcm": 123.04,
+    "pct": 41.78,
+    "last_year_pct": 40.7
+  },
+  {
+    "date": "2026-05-07",
+    "mcm": 114.17,
+    "gross_mcm": 123.04,
+    "pct": 41.78,
+    "last_year_pct": 40.4
+  },
+  {
+    "date": "2026-05-08",
+    "mcm": 114.17,
+    "gross_mcm": 123.04,
+    "pct": 41.78,
+    "last_year_pct": 39.64
+  },
+  {
+    "date": "2026-05-09",
+    "mcm": 114.17,
+    "gross_mcm": 123.04,
+    "pct": 41.78,
+    "last_year_pct": 39.1
+  },
+  {
+    "date": "2026-05-10",
+    "mcm": 114.17,
+    "gross_mcm": 123.04,
+    "pct": 41.78,
+    "last_year_pct": 38.91
+  },
+  {
+    "date": "2026-05-12",
+    "mcm": 114.17,
+    "gross_mcm": 123.04,
+    "pct": 41.78,
+    "last_year_pct": 37.46
+  },
+  {
+    "date": "2026-05-13",
+    "mcm": 114.17,
+    "gross_mcm": 123.04,
+    "pct": 41.78,
+    "last_year_pct": 36.89
+  },
+  {
+    "date": "2026-05-14",
+    "mcm": 107.69,
+    "gross_mcm": 116.56,
+    "pct": 39.41,
+    "last_year_pct": 36.36
+  },
+  {
+    "date": "2026-05-15",
+    "mcm": 114.17,
+    "gross_mcm": 123.04,
+    "pct": 41.78,
+    "last_year_pct": 36.05
+  },
+  {
+    "date": "2026-05-16",
+    "mcm": 114.17,
+    "gross_mcm": 123.04,
+    "pct": 41.78,
+    "last_year_pct": 36.05
+  },
+  {
+    "date": "2026-05-17",
+    "mcm": 114.17,
+    "gross_mcm": 123.04,
+    "pct": 41.78,
+    "last_year_pct": 36.05
+  },
+  {
+    "date": "2026-05-18",
+    "mcm": 114.17,
+    "gross_mcm": 123.04,
+    "pct": 41.78,
+    "last_year_pct": 36.05
+  },
+  {
+    "date": "2026-05-19",
+    "mcm": 114.17,
+    "gross_mcm": 123.04,
+    "pct": 41.78,
+    "last_year_pct": 36.05
+  },
+  {
+    "date": "2026-05-20",
+    "mcm": 114.17,
+    "gross_mcm": 123.04,
+    "pct": 41.78,
+    "last_year_pct": 36.05
+  },
+  {
+    "date": "2026-05-21",
+    "mcm": 114.17,
+    "gross_mcm": 123.04,
+    "pct": 41.78,
+    "last_year_pct": 36.05
+  },
+  {
+    "date": "2026-05-22",
+    "mcm": 114.17,
+    "gross_mcm": 123.04,
+    "pct": 41.78,
+    "last_year_pct": 35.29
+  },
+  {
+    "date": "2026-05-23",
+    "mcm": 114.17,
+    "gross_mcm": 123.04,
+    "pct": 41.78,
+    "last_year_pct": 35.67
+  },
+  {
+    "date": "2026-05-24",
+    "mcm": 98.93,
+    "gross_mcm": 107.8,
+    "pct": 36.2,
+    "last_year_pct": 35.97
+  },
+  {
+    "date": "2026-05-25",
+    "mcm": 98.93,
+    "gross_mcm": 107.8,
+    "pct": 36.2,
+    "last_year_pct": 36.16
+  },
+  {
+    "date": "2026-05-26",
+    "mcm": 98.93,
+    "gross_mcm": 107.8,
+    "pct": 36.2,
+    "last_year_pct": 36.09
+  },
+  {
+    "date": "2026-05-27",
+    "mcm": 98.93,
+    "gross_mcm": 107.8,
+    "pct": 36.2,
+    "last_year_pct": 36.24
+  },
+  {
+    "date": "2026-05-28",
+    "mcm": 98.93,
+    "gross_mcm": 107.8,
+    "pct": 36.2,
+    "last_year_pct": 36.62
+  },
+  {
+    "date": "2026-05-29",
+    "mcm": 98.93,
+    "gross_mcm": 107.8,
+    "pct": 36.2,
+    "last_year_pct": 36.74
+  },
+  {
+    "date": "2026-05-30",
+    "mcm": 98.93,
+    "gross_mcm": 107.8,
+    "pct": 36.2,
+    "last_year_pct": 36.81
+  },
+  {
+    "date": "2026-05-31",
+    "mcm": 98.41,
+    "gross_mcm": 107.28,
+    "pct": 36.01,
+    "last_year_pct": 36.89
+  },
+  {
+    "date": "2026-06-01",
+    "mcm": 98.41,
+    "gross_mcm": 107.28,
+    "pct": 36.01,
+    "last_year_pct": 36.97
+  },
+  {
+    "date": "2026-06-02",
+    "mcm": 87.28,
+    "gross_mcm": 96.15,
+    "pct": 31.94,
+    "last_year_pct": 37.04
+  },
+  {
+    "date": "2026-06-03",
+    "mcm": 86.16,
+    "gross_mcm": 95.02,
+    "pct": 31.53,
+    "last_year_pct": 37.04
+  },
+  {
+    "date": "2026-06-04",
+    "mcm": 84.94,
+    "gross_mcm": 93.8,
+    "pct": 31.08,
+    "last_year_pct": 37.08
+  },
+  {
+    "date": "2026-06-06",
+    "mcm": 82.87,
+    "gross_mcm": 91.74,
+    "pct": 30.33,
+    "last_year_pct": 37.46
+  },
+  {
+    "date": "2026-06-07",
+    "mcm": 82.68,
+    "gross_mcm": 91.55,
+    "pct": 30.26,
+    "last_year_pct": 37.46
+  },
+  {
+    "date": "2026-06-08",
+    "mcm": 82.68,
+    "gross_mcm": 91.55,
+    "pct": 30.26,
+    "last_year_pct": 37.46
+  },
+  {
+    "date": "2026-06-09",
+    "mcm": 82.68,
+    "gross_mcm": 91.55,
+    "pct": 30.26,
+    "last_year_pct": 37.46
+  },
+  {
+    "date": "2026-06-10",
+    "mcm": 82.59,
+    "gross_mcm": 91.45,
+    "pct": 30.22,
+    "last_year_pct": 37.46
+  },
+  {
+    "date": "2026-06-11",
+    "mcm": 82.49,
+    "gross_mcm": 91.36,
+    "pct": 30.19,
+    "last_year_pct": 37.84
+  },
+  {
+    "date": "2026-06-12",
+    "mcm": 81.84,
+    "gross_mcm": 90.7,
+    "pct": 29.95,
+    "last_year_pct": 37.84
+  },
+  {
+    "date": "2026-06-13",
+    "mcm": 81.18,
+    "gross_mcm": 90.05,
+    "pct": 29.71,
+    "last_year_pct": 37.84
+  },
+  {
+    "date": "2026-06-15",
+    "mcm": 80.62,
+    "gross_mcm": 89.48,
+    "pct": 29.5,
+    "last_year_pct": 38.49
+  },
+  {
+    "date": "2026-06-16",
+    "mcm": 80.52,
+    "gross_mcm": 89.39,
+    "pct": 29.47,
+    "last_year_pct": 38.72
+  },
+  {
+    "date": "2026-06-17",
+    "mcm": 80.43,
+    "gross_mcm": 89.3,
+    "pct": 29.43,
+    "last_year_pct": 40.25
+  },
+  {
+    "date": "2026-06-18",
+    "mcm": 80.33,
+    "gross_mcm": 89.2,
+    "pct": 29.4,
+    "last_year_pct": 40.25
+  },
+  {
+    "date": "2026-06-19",
+    "mcm": 80.24,
+    "gross_mcm": 89.11,
+    "pct": 29.36,
+    "last_year_pct": 44.53
+  },
+  {
+    "date": "2026-06-20",
+    "mcm": 79.68,
+    "gross_mcm": 88.54,
+    "pct": 29.16,
+    "last_year_pct": 48.24
+  },
+  {
+    "date": "2026-06-21",
+    "mcm": 79.68,
+    "gross_mcm": 88.54,
+    "pct": 29.16,
+    "last_year_pct": 49.71
+  },
+  {
+    "date": "2026-06-22",
+    "mcm": 79.68,
+    "gross_mcm": 88.54,
+    "pct": 29.16,
+    "last_year_pct": 53.81
+  },
+  {
+    "date": "2026-06-23",
+    "mcm": 79.68,
+    "gross_mcm": 88.54,
+    "pct": 29.16,
+    "last_year_pct": 69.8
+  },
+  {
+    "date": "2026-06-25",
+    "mcm": 79.86,
+    "gross_mcm": 88.73,
+    "pct": 29.22,
+    "last_year_pct": 69.8
+  },
+  {
+    "date": "2026-06-26",
+    "mcm": 79.86,
+    "gross_mcm": 88.73,
+    "pct": 29.22,
+    "last_year_pct": 69.8
+  },
+  {
+    "date": "2026-06-27",
+    "mcm": 79.86,
+    "gross_mcm": 88.73,
+    "pct": 29.22,
+    "last_year_pct": 69.8
+  },
+  {
+    "date": "2026-06-28",
+    "mcm": 79.96,
+    "gross_mcm": 88.83,
+    "pct": 29.26,
+    "last_year_pct": 69.8
+  },
+  {
+    "date": "2026-06-29",
+    "mcm": 80.24,
+    "gross_mcm": 89.11,
+    "pct": 29.36,
+    "last_year_pct": 69.86
+  },
+  {
+    "date": "2026-06-30",
+    "mcm": 80.24,
+    "gross_mcm": 89.11,
+    "pct": 29.36,
+    "last_year_pct": 71.73
+  },
+  {
+    "date": "2026-07-01",
+    "mcm": 80.62,
+    "gross_mcm": 89.48,
+    "pct": 29.5,
+    "last_year_pct": 71.88
+  },
+  {
+    "date": "2026-07-03",
+    "mcm": 81.56,
+    "gross_mcm": 90.42,
+    "pct": 29.85,
+    "last_year_pct": 71.68
+  },
+  {
+    "date": "2026-07-04",
+    "mcm": 84.46,
+    "gross_mcm": 93.33,
+    "pct": 30.91,
+    "last_year_pct": 72.08
+  },
+  {
+    "date": "2026-07-05",
+    "mcm": 88.69,
+    "gross_mcm": 97.56,
+    "pct": 32.46,
+    "last_year_pct": 71.22
+  },
+  {
+    "date": "2026-07-06",
+    "mcm": 100.91,
+    "gross_mcm": 109.78,
+    "pct": 36.93,
+    "last_year_pct": 70.46
+  },
+  {
+    "date": "2026-07-07",
+    "mcm": 119.78,
+    "gross_mcm": 128.64,
+    "pct": 43.83,
+    "last_year_pct": 70.16
+  },
+  {
+    "date": "2026-07-08",
+    "mcm": 136.8,
+    "gross_mcm": 145.67,
+    "pct": 50.06,
+    "last_year_pct": 70.16
+  },
+  {
+    "date": "2026-07-09",
+    "mcm": 150.66,
+    "gross_mcm": 159.53,
+    "pct": 55.13,
+    "last_year_pct": 70.26
+  },
+  {
+    "date": "2026-07-10",
+    "mcm": 154.88,
+    "gross_mcm": 163.75,
+    "pct": 56.68,
+    "last_year_pct": 70.56
+  },
+  {
+    "date": "2026-07-11",
+    "mcm": 157.29,
+    "gross_mcm": 166.16,
+    "pct": 57.56,
+    "last_year_pct": 71.07
+  },
+  {
+    "date": "2026-07-12",
+    "mcm": 159.42,
+    "gross_mcm": 168.29,
+    "pct": 58.34,
+    "last_year_pct": 71.32
+  },
+  {
+    "date": "2026-07-13",
+    "mcm": 160.6,
+    "gross_mcm": 169.47,
+    "pct": 58.77,
+    "last_year_pct": 71.58
+  },
+  {
+    "date": "2026-07-15",
+    "mcm": 162.3,
+    "gross_mcm": 171.17,
+    "pct": 59.39,
+    "last_year_pct": 74.06
+  },
+  {
+    "date": "2026-07-16",
+    "mcm": 163.61,
+    "gross_mcm": 172.47,
+    "pct": 59.87,
+    "last_year_pct": 74.82
+  },
+  {
+    "date": "2026-07-17",
+    "mcm": 164.52,
+    "gross_mcm": 173.39,
+    "pct": 60.2,
+    "last_year_pct": 75.17
+  },
+  {
+    "date": "2026-07-18",
+    "mcm": 165.44,
+    "gross_mcm": 174.3,
+    "pct": 60.54,
+    "last_year_pct": 75.37
+  },
+  {
+    "date": "2026-07-19",
+    "mcm": 168.45,
+    "gross_mcm": 177.31,
+    "pct": 61.64,
+    "last_year_pct": 75.42
+  },
+  {
+    "date": "2026-07-20",
+    "mcm": 171.98,
+    "gross_mcm": 180.84,
+    "pct": 62.93,
+    "last_year_pct": 76.13
+  },
+  {
+    "date": "2026-07-21",
+    "mcm": 175.38,
+    "gross_mcm": 184.24,
+    "pct": 64.18,
+    "last_year_pct": 76.44
+  },
+  {
+    "date": "2026-07-22",
+    "mcm": 182.18,
+    "gross_mcm": 191.04,
+    "pct": 66.67,
+    "last_year_pct": 76.79
+  },
+  {
+    "date": "2026-07-23",
+    "mcm": 192.83,
+    "gross_mcm": 201.7,
+    "pct": 70.56,
+    "last_year_pct": 76.89
+  },
+  {
+    "date": "2026-07-24",
+    "mcm": 203.62,
+    "gross_mcm": 212.49,
+    "pct": 74.51,
+    "last_year_pct": 77.87
+  },
+  {
+    "date": "2026-07-25",
+    "mcm": 214.73,
+    "gross_mcm": 223.6,
+    "pct": 78.58,
+    "last_year_pct": 78.3
+  },
+  {
+    "date": "2026-07-26",
+    "mcm": 223.37,
+    "gross_mcm": 232.23,
+    "pct": 81.74,
+    "last_year_pct": 80.65
+  },
+  {
+    "date": "2026-07-27",
+    "mcm": 230.52,
+    "gross_mcm": 239.38,
+    "pct": 84.36,
+    "last_year_pct": 83.86
+  },
+  {
+    "date": "2026-07-28",
+    "mcm": 234.69,
+    "gross_mcm": 243.56,
+    "pct": 85.88,
+    "last_year_pct": 86.54
+  },
+  {
+    "date": "2026-07-30",
+    "mcm": 240.65,
+    "gross_mcm": 249.51,
+    "pct": 88.06,
+    "last_year_pct": 89.98
+  },
+  {
+    "date": "2026-07-31",
+    "mcm": 244.49,
+    "gross_mcm": 253.36,
+    "pct": 89.47,
+    "last_year_pct": 90.96
+  },
+  {
+    "date": "2026-08-01",
+    "mcm": 248.71,
+    "gross_mcm": 257.58,
+    "pct": 91.01,
+    "last_year_pct": 91.76
+  },
+  {
+    "date": "2026-08-02",
+    "mcm": 249.96,
+    "gross_mcm": 258.83,
+    "pct": 91.47,
+    "last_year_pct": 92.27
+  },
+  {
+    "date": "2026-08-03",
+    "mcm": 250.28,
+    "gross_mcm": 259.14,
+    "pct": 91.59,
+    "last_year_pct": 92.56
+  },
+  {
+    "date": "2026-08-04",
+    "mcm": 250.59,
+    "gross_mcm": 259.46,
+    "pct": 91.7,
+    "last_year_pct": 92.9
+  },
+  {
+    "date": "2026-08-05",
+    "mcm": 251.06,
+    "gross_mcm": 259.93,
+    "pct": 91.87,
+    "last_year_pct": 93.36
+  },
+  {
+    "date": "2026-08-06",
+    "mcm": 252.78,
+    "gross_mcm": 261.65,
+    "pct": 92.5,
+    "last_year_pct": 93.7
+  },
+  {
+    "date": "2026-08-09",
+    "mcm": 255.6,
+    "gross_mcm": 264.46,
+    "pct": 93.53,
+    "last_year_pct": 94.73
+  },
+  {
+    "date": "2026-08-10",
+    "mcm": 255.91,
+    "gross_mcm": 264.77,
+    "pct": 93.65,
+    "last_year_pct": 94.96
+  },
+  {
+    "date": "2026-08-11",
+    "mcm": 255.91,
+    "gross_mcm": 264.77,
+    "pct": 93.65,
+    "last_year_pct": 95.19
+  },
+  {
+    "date": "2026-08-12",
+    "mcm": 256.38,
+    "gross_mcm": 265.24,
+    "pct": 93.82,
+    "last_year_pct": 95.36
+  },
+  {
+    "date": "2026-08-14",
+    "mcm": 257.94,
+    "gross_mcm": 266.81,
+    "pct": 94.39,
+    "last_year_pct": 95.59
+  },
+  {
+    "date": "2026-08-15",
+    "mcm": 258.88,
+    "gross_mcm": 267.75,
+    "pct": 94.73,
+    "last_year_pct": 95.82
+  },
+  {
+    "date": "2026-08-16",
+    "mcm": 259.98,
+    "gross_mcm": 268.84,
+    "pct": 95.14,
+    "last_year_pct": 96.11
+  },
+  {
+    "date": "2026-08-17",
+    "mcm": 260.76,
+    "gross_mcm": 269.62,
+    "pct": 95.42,
+    "last_year_pct": 97.02
+  },
+  {
+    "date": "2026-08-18",
+    "mcm": 262.16,
+    "gross_mcm": 271.03,
+    "pct": 95.93,
+    "last_year_pct": 97.94
+  },
+  {
+    "date": "2026-08-19",
+    "mcm": 262.48,
+    "gross_mcm": 271.34,
+    "pct": 96.05,
+    "last_year_pct": 98.28
+  },
+  {
+    "date": "2026-08-20",
+    "mcm": 263.42,
+    "gross_mcm": 272.28,
+    "pct": 96.4,
+    "last_year_pct": 97.37
+  },
+  {
+    "date": "2026-08-21",
+    "mcm": 264.2,
+    "gross_mcm": 273.07,
+    "pct": 96.68,
+    "last_year_pct": 96.51
+  },
+  {
+    "date": "2026-08-22",
+    "mcm": 264.51,
+    "gross_mcm": 273.38,
+    "pct": 96.79,
+    "last_year_pct": 98.23
+  },
+  {
+    "date": "2026-08-24",
+    "mcm": 264.82,
+    "gross_mcm": 273.69,
+    "pct": 96.91,
+    "last_year_pct": 97.65
+  },
+  {
+    "date": "2026-08-25",
+    "mcm": 264.98,
+    "gross_mcm": 273.85,
+    "pct": 96.97,
+    "last_year_pct": 97.88
+  },
+  {
+    "date": "2026-08-26",
+    "mcm": 264.98,
+    "gross_mcm": 273.85,
+    "pct": 96.97,
+    "last_year_pct": 98.17
+  },
+  {
+    "date": "2026-08-27",
+    "mcm": 264.98,
+    "gross_mcm": 273.85,
+    "pct": 96.97,
+    "last_year_pct": 98.11
+  },
+  {
+    "date": "2026-08-28",
+    "mcm": 264.36,
+    "gross_mcm": 273.22,
+    "pct": 96.74,
+    "last_year_pct": 98.05
+  },
+  {
+    "date": "2026-08-29",
+    "mcm": 264.51,
+    "gross_mcm": 273.38,
+    "pct": 96.79,
+    "last_year_pct": 97.88
+  },
+  {
+    "date": "2026-08-30",
+    "mcm": 265.29,
+    "gross_mcm": 274.16,
+    "pct": 97.08,
+    "last_year_pct": 97.94
+  },
+  {
+    "date": "2026-08-31",
+    "mcm": 265.45,
+    "gross_mcm": 274.32,
+    "pct": 97.14,
+    "last_year_pct": 98.34
+  },
+  {
+    "date": "2026-09-01",
+    "mcm": 265.61,
+    "gross_mcm": 274.47,
+    "pct": 97.2,
+    "last_year_pct": 98.86
+  },
+  {
+    "date": "2026-09-05",
+    "mcm": 265.14,
+    "gross_mcm": 274.0,
+    "pct": 97.02,
+    "last_year_pct": 99.43
+  },
+  {
+    "date": "2026-09-09",
+    "mcm": 263.42,
+    "gross_mcm": 272.28,
+    "pct": 96.4,
+    "last_year_pct": 100.0
+  },
+  {
+    "date": "2026-09-10",
+    "mcm": 263.1,
+    "gross_mcm": 271.97,
+    "pct": 96.28,
+    "last_year_pct": 99.6
+  },
+  {
+    "date": "2026-09-12",
+    "mcm": 261.85,
+    "gross_mcm": 270.72,
+    "pct": 95.82,
+    "last_year_pct": 99.49
+  },
+  {
+    "date": "2026-09-17",
+    "mcm": 257.94,
+    "gross_mcm": 266.81,
+    "pct": 94.39,
+    "last_year_pct": 99.37
+  },
+  {
+    "date": "2026-09-20",
+    "mcm": 256.22,
+    "gross_mcm": 265.09,
+    "pct": 93.76,
+    "last_year_pct": 99.6
+  },
+  {
+    "date": "2026-09-22",
+    "mcm": 254.19,
+    "gross_mcm": 263.05,
+    "pct": 93.02,
+    "last_year_pct": 99.31
+  },
+  {
+    "date": "2026-09-24",
+    "mcm": 252.31,
+    "gross_mcm": 261.18,
+    "pct": 92.33,
+    "last_year_pct": 99.31
+  },
+  {
+    "date": "2026-09-26",
+    "mcm": 249.5,
+    "gross_mcm": 258.36,
+    "pct": 91.3,
+    "last_year_pct": 99.54
+  }
+]

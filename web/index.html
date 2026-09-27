@@ -159,6 +159,13 @@
       <div class="card filter-card">
         <div class="filter-controls-grid">
           <div class="filter-group">
+            <label for="basinSelectFilter">Filter River Basin:</label>
+            <select id="basinSelectFilter" class="select-pill" onchange="filterTable()">
+              <option value="ALL">All River Basins</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
             <label for="districtSelectFilter">Filter District:</label>
             <select id="districtSelectFilter" class="select-pill" onchange="filterTable()">
               <option value="ALL">All Districts</option>

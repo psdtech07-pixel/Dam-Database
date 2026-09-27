@@ -1,4 +1,4 @@
-let globalData = null;
+let latestSnapshot = null;
 let filteredRecords = [];
 let currentPage = 1;
 const pageSize = 25;
@@ -7,15 +7,8 @@ let trendChartInstance = null;
 let volumeChartInstance = null;
 let currentChartDays = 30;
 let currentActiveRegion = 'Pune'; // Pune forefront default
-
-const DIVISION_DISTRICT_MAP = {
-  'Pune': ['Pune', 'Satara', 'Solapur', 'Sangli', 'Kolhapur'],
-  'Kokan': ['Thane', 'Palghar', 'Raigad', 'Ratnagiri', 'Sindhudurg'],
-  'Nashik': ['Nashik', 'Ahmednagar', 'Jalgaon', 'Dhule', 'Nandurbar'],
-  'Chhatrapati Sambhajinagar': ['Chhatrapati Sambhajinagar', 'Jalna', 'Beed', 'Latur', 'Dharashiv', 'Nanded', 'Parbhani', 'Hingoli'],
-  'Amravati': ['Amravati', 'Akola', 'Buldhana', 'Yavatmal', 'Washim'],
-  'Nagpur': ['Nagpur', 'Bhandara', 'Gondia', 'Chandrapur', 'Gadchiroli', 'Wardha']
-};
+let currentActiveBasin = 'ALL';
+let historyCache = {}; // Cache for decoupled time-series JSON files (dam_slug -> points array)
 
 const DAM_COLORS = [
   '#38bdf8', '#818cf8', '#a78bfa', '#f472b6', '#34d399', 
@@ -28,55 +21,78 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function initDashboard() {
   try {
-    const resp = await fetch('dam_data.json?v=' + Date.now(), { cache: 'no-store' });
-    if (!resp.ok) throw new Error('Failed to load dam_data.json');
-    globalData = await resp.json();
+    const resp = await fetch('data/latest_snapshot.json?v=' + Date.now(), { cache: 'no-store' });
+    if (!resp.ok) throw new Error('Failed to load data/latest_snapshot.json');
+    latestSnapshot = await resp.json();
     
-    populateDropdowns();
-
-    filteredRecords = [...(globalData.all_records || [])];
+    if (document.getElementById('lastUpdatedText')) {
+      document.getElementById('lastUpdatedText').innerText = `Sync: ${latestSnapshot.batch_date || 'Live'}`;
+    }
 
     if (document.getElementById('totalRecordsBadge')) {
-      document.getElementById('totalRecordsBadge').innerText = (globalData.total_records || filteredRecords.length).toLocaleString();
+      document.getElementById('totalRecordsBadge').innerText = (latestSnapshot.total_dams || Object.keys(latestSnapshot.dams || {}).length).toLocaleString();
     }
-    
-    // Default to Pune Region View
+
+    populateDropdowns();
     selectRegionTab('Pune');
   } catch (err) {
     console.error('Error initializing dashboard:', err);
-    document.getElementById('lastUpdatedText').innerText = 'Offline Mode';
+    if (document.getElementById('lastUpdatedText')) {
+      document.getElementById('lastUpdatedText').innerText = 'Offline Mode';
+    }
   }
 }
 
-function populateDropdowns() {
-  if (!globalData) return;
+function getDamList() {
+  if (!latestSnapshot || !latestSnapshot.dams) return [];
+  return Object.values(latestSnapshot.dams);
+}
 
+function populateDropdowns() {
+  if (!latestSnapshot || !latestSnapshot.dams) return;
+
+  const dams = getDamList();
+  const basinSelect = document.getElementById('basinSelectFilter');
   const districtSelect = document.getElementById('districtSelectFilter');
   const damSelect = document.getElementById('damSelectFilter');
   const chartDamSelect = document.getElementById('chartDamFilter');
 
-  const dams = Object.keys(globalData.latest || {}).sort();
+  // Populate Basins
+  if (basinSelect) {
+    const basins = [...new Set(dams.map(d => d.basin).filter(Boolean))].sort();
+    let basinOpts = '<option value="ALL">All River Basins</option>';
+    basins.forEach(b => {
+      basinOpts += `<option value="${b}">${b} Basin</option>`;
+    });
+    basinSelect.innerHTML = basinOpts;
+  }
 
-  if (districtSelect && globalData.districts) {
+  // Populate Districts
+  if (districtSelect) {
+    const districts = [...new Set(dams.map(d => d.district).filter(Boolean))].sort();
     let distOpts = '<option value="ALL">All Districts</option>';
-    globalData.districts.forEach(d => {
+    districts.forEach(d => {
       distOpts += `<option value="${d}">${d}</option>`;
     });
     districtSelect.innerHTML = distOpts;
   }
 
+  // Populate Dams
   if (damSelect) {
+    const sortedDams = [...dams].sort((a, b) => a.name_en.localeCompare(b.name_en));
     let damOpts = '<option value="ALL">All Monitored Dams</option>';
-    dams.forEach(d => {
-      damOpts += `<option value="${d}">${d}</option>`;
+    sortedDams.forEach(d => {
+      damOpts += `<option value="${d.slug}">${d.name_en} (${d.name_mr})</option>`;
     });
     damSelect.innerHTML = damOpts;
   }
 
+  // Populate Chart Dam Selector
   if (chartDamSelect) {
+    const sortedDams = [...dams].sort((a, b) => a.name_en.localeCompare(b.name_en));
     let chartOpts = '<option value="ALL">Top Major Dams</option>';
-    dams.forEach(d => {
-      chartOpts += `<option value="${d}">${d}</option>`;
+    sortedDams.forEach(d => {
+      chartOpts += `<option value="${d.slug}">${d.name_en}</option>`;
     });
     chartDamSelect.innerHTML = chartOpts;
   }
@@ -105,10 +121,10 @@ function selectRegionTab(regionName, btnElem) {
 }
 
 function renderHeroBanner(regionName) {
-  if (!globalData || !globalData.latest) return;
+  if (!latestSnapshot || !latestSnapshot.dams) return;
 
-  const latest = globalData.latest;
-  const dams = Object.keys(latest);
+  const basinFilter = document.getElementById('basinSelectFilter') ? document.getElementById('basinSelectFilter').value : 'ALL';
+  const dams = getDamList();
 
   let totalLive = 0;
   let totalDesign = 0;
@@ -116,13 +132,13 @@ function renderHeroBanner(regionName) {
   let totalLastYearSum = 0;
   let count = 0;
 
-  dams.forEach(dam => {
-    const item = latest[dam];
+  dams.forEach(item => {
     if (regionName !== 'ALL' && item.division !== regionName) return;
+    if (basinFilter !== 'ALL' && item.basin !== basinFilter) return;
 
-    totalLive += (item.current_live_mcm || 0);
+    totalLive += (item.live_mcm || 0);
     totalDesign += (item.design_live_mcm || 0);
-    totalPctSum += (item.current_pct || 0);
+    totalPctSum += (item.pct || 0);
     totalLastYearSum += (item.last_year_pct || 0);
     count++;
   });
@@ -144,10 +160,12 @@ function renderHeroBanner(regionName) {
     'ALL': 'MAHARASHTRA STATE-WIDE STORAGE'
   };
 
+  const batchDate = latestSnapshot.batch_date || 'Current Date';
+
   document.getElementById('heroBadgeRegion').innerText = regionTitleMap[regionName] || 'RESERVOIR STORAGE';
   document.getElementById('heroPct').innerText = `${avgPct}%`;
   
-  document.getElementById('heroSubtitle').innerText = `Live status as of 26 September 2026 across ${count} monitored dams in ${regionName === 'ALL' ? 'Maharashtra' : regionName + ' Division'}.`;
+  document.getElementById('heroSubtitle').innerText = `Live status as of ${batchDate} across ${count} monitored dams in ${regionName === 'ALL' ? 'Maharashtra' : regionName + ' Division'}.`;
 
   document.getElementById('kpiTotalLive').innerText = `${totalLive.toLocaleString('en-US', {maximumFractionDigits:2})} MCM`;
   document.getElementById('kpiTotalLiveML').innerText = `${totalLiveML.toLocaleString('en-US')} Million Litres`;
@@ -171,49 +189,50 @@ function getTagDetails(pct) {
 
 function renderDamCards(regionName = currentActiveRegion) {
   const container = document.getElementById('damCardsGrid');
-  if (!container || !globalData || !globalData.latest) return;
+  if (!container || !latestSnapshot || !latestSnapshot.dams) return;
 
-  const latest = globalData.latest;
-  let dams = Object.keys(latest);
+  const basinFilter = document.getElementById('basinSelectFilter') ? document.getElementById('basinSelectFilter').value : 'ALL';
+  let dams = getDamList();
 
   // Priority ordering for Pune dams when in Pune view
   if (regionName === 'Pune') {
-    const priorityPune = ['Khadakwasla', 'Panshet', 'Varasgaon', 'Temghar', 'Mulshi', 'Pavana', 'Gunjawani', 'Chaskaman', 'Dimbhe', 'Koyna', 'Ujani', 'Veer'];
+    const priorityPune = ['khadakwasla', 'panshet', 'varasgaon', 'temghar', 'mulshi', 'pawana', 'gunjawani', 'chaskaman', 'dimbhe', 'koyna', 'ujani', 'veer'];
     dams.sort((a, b) => {
-      const idxA = priorityPune.indexOf(a);
-      const idxB = priorityPune.indexOf(b);
+      const idxA = priorityPune.indexOf(a.slug);
+      const idxB = priorityPune.indexOf(b.slug);
       if (idxA !== -1 && idxB !== -1) return idxA - idxB;
       if (idxA !== -1) return -1;
       if (idxB !== -1) return 1;
-      return a.localeCompare(b);
+      return a.name_en.localeCompare(b.name_en);
     });
+  } else {
+    dams.sort((a, b) => a.name_en.localeCompare(b.name_en));
   }
 
   let html = '';
   let renderedCount = 0;
 
-  dams.forEach(dam => {
-    const data = latest[dam];
+  dams.forEach(data => {
     if (regionName !== 'ALL' && data.division !== regionName) return;
+    if (basinFilter !== 'ALL' && data.basin !== basinFilter) return;
 
     renderedCount++;
     if (renderedCount > 24) return;
 
-    const liveMcm = data.current_live_mcm || 0;
+    const liveMcm = data.live_mcm || 0;
     const designMcm = data.design_live_mcm || 100;
-    const pct = data.current_pct || 0;
+    const pct = data.pct || 0;
     const tag = getTagDetails(pct);
     const liveML = Math.round(liveMcm * 1000);
-
-    const displayNameMR = data.dam_name_mr || dam;
+    const displayNameMR = data.name_mr || data.name_en;
 
     html += `
       <div class="dam-card">
         <div class="dam-card-header">
           <div class="dam-name-wrapper">
-            <h3>${dam}</h3>
+            <h3>${data.name_en}</h3>
             <span class="dam-mr-name">${displayNameMR}</span>
-            <span class="dam-location">${data.district || 'Pune'} District</span>
+            <span class="dam-location">${data.district || 'Pune'} • ${data.basin || 'Krishna'} Basin</span>
           </div>
           <span class="dam-tag ${tag.class}">${pct}%</span>
         </div>
@@ -237,14 +256,14 @@ function renderDamCards(regionName = currentActiveRegion) {
 
         <div class="dam-card-footer">
           <span>Last Year: ${data.last_year_pct}%</span>
-          <span>Updated: ${data.date}</span>
+          <span>Updated: ${data.date || latestSnapshot.batch_date}</span>
         </div>
       </div>
     `;
   });
 
   if (renderedCount === 0) {
-    html = `<div style="grid-column: 1/-1; padding: 24px; text-align: center; color: var(--text-muted);">No reservoirs found for selected region.</div>`;
+    html = `<div style="grid-column: 1/-1; padding: 24px; text-align: center; color: var(--text-muted);">No reservoirs found for selected region/basin filters.</div>`;
   }
 
   container.innerHTML = html;
@@ -252,6 +271,20 @@ function renderDamCards(regionName = currentActiveRegion) {
   const title = document.getElementById('cardsGridTitle');
   if (title) {
     title.innerText = regionName === 'Pune' ? 'Pune Primary Supply Reservoirs' : `${regionName} Region Reservoirs`;
+  }
+}
+
+async function fetchDamHistory(slug) {
+  if (historyCache[slug]) return historyCache[slug];
+  try {
+    const resp = await fetch(`data/history/${slug}.json?v=` + Date.now());
+    if (!resp.ok) return [];
+    const data = await resp.json();
+    historyCache[slug] = data;
+    return data;
+  } catch (err) {
+    console.warn(`Failed to fetch history for ${slug}:`, err);
+    return [];
   }
 }
 
@@ -265,59 +298,86 @@ function setChartDays(days, btnElem) {
   renderTrendChart(days);
 }
 
-function renderTrendChart(daysFilter = 30) {
-  const ctx = document.getElementById('trendChart').getContext('2d');
-  if (!globalData || !globalData.time_series) return;
+async function renderTrendChart(daysFilter = 30) {
+  const canvas = document.getElementById('trendChart');
+  if (!canvas || !latestSnapshot) return;
+  const ctx = canvas.getContext('2d');
 
-  const rawTs = globalData.time_series || [];
-  let slice = [...rawTs];
-  
-  if (daysFilter !== 'all' && typeof daysFilter === 'number') {
-    slice = slice.slice(-daysFilter);
-  }
+  const selectedDamSlug = document.getElementById('chartDamFilter').value;
+  const basinFilter = document.getElementById('basinSelectFilter') ? document.getElementById('basinSelectFilter').value : 'ALL';
 
-  const labels = slice.map(s => s.date_fmt || s.date);
-  const selectedDam = document.getElementById('chartDamFilter').value;
+  let focusDams = [];
 
-  let datasets = [];
-
-  if (selectedDam === 'ALL') {
-    let focusDams = ['Khadakwasla', 'Panshet', 'Varasgaon', 'Temghar', 'Mulshi', 'Pavana', 'Koyna'];
-    if (currentActiveRegion !== 'Pune' && currentActiveRegion !== 'ALL') {
-      focusDams = Object.keys(globalData.latest || {}).filter(d => globalData.latest[d].division === currentActiveRegion).slice(0, 6);
-    }
-    
-    datasets = focusDams.map((dam, idx) => {
-      const damColor = DAM_COLORS[idx % DAM_COLORS.length];
-      return {
-        label: dam,
-        data: slice.map(s => s[`${dam}_pct`] !== undefined ? s[`${dam}_pct`] : null),
-        borderColor: damColor,
-        backgroundColor: 'transparent',
-        borderWidth: 2,
-        tension: 0.25,
-        pointRadius: slice.length > 150 ? 0 : 2,
-        pointHoverRadius: 5
-      };
+  if (selectedDamSlug === 'ALL') {
+    let candidateDams = getDamList().filter(d => {
+      const matchRegion = (currentActiveRegion === 'ALL') || (d.division === currentActiveRegion);
+      const matchBasin = (basinFilter === 'ALL') || (d.basin === basinFilter);
+      return matchRegion && matchBasin;
     });
-  } else {
-    const damColor = DAM_COLORS[0];
-    const gradient = ctx.createLinearGradient(0, 0, 0, 260);
-    gradient.addColorStop(0, damColor + '30');
-    gradient.addColorStop(1, damColor + '00');
 
-    datasets = [{
-      label: `${selectedDam} Storage Level (%)`,
-      data: slice.map(s => s[`${selectedDam}_pct`] !== undefined ? s[`${selectedDam}_pct`] : null),
-      borderColor: damColor,
-      backgroundColor: gradient,
-      fill: true,
-      borderWidth: 2.5,
-      tension: 0.25,
-      pointRadius: slice.length > 150 ? 0 : 3,
-      pointHoverRadius: 6
-    }];
+    if (currentActiveRegion === 'Pune') {
+      const priorityPune = ['khadakwasla', 'panshet', 'varasgaon', 'temghar', 'mulshi', 'pawana', 'koyna', 'ujani'];
+      candidateDams.sort((a, b) => {
+        const idxA = priorityPune.indexOf(a.slug);
+        const idxB = priorityPune.indexOf(b.slug);
+        if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+        if (idxA !== -1) return -1;
+        if (idxB !== -1) return 1;
+        return b.design_live_mcm - a.design_live_mcm;
+      });
+    } else {
+      candidateDams.sort((a, b) => b.design_live_mcm - a.design_live_mcm);
+    }
+    focusDams = candidateDams.slice(0, 6);
+  } else {
+    const match = latestSnapshot.dams[selectedDamSlug];
+    if (match) focusDams = [match];
   }
+
+  if (focusDams.length === 0) return;
+
+  // Load history files concurrently
+  const historyPromises = focusDams.map(d => fetchDamHistory(d.slug));
+  const histories = await Promise.all(historyPromises);
+
+  // Determine common date timeline
+  let allDatesSet = new Set();
+  histories.forEach(h => {
+    h.forEach(pt => allDatesSet.add(pt.date));
+  });
+
+  let sortedDates = Array.from(allDatesSet).sort();
+  if (daysFilter !== 'all' && typeof daysFilter === 'number') {
+    sortedDates = sortedDates.slice(-daysFilter);
+  }
+
+  const dateMap = new Map();
+  sortedDates.forEach((d, idx) => dateMap.set(d, idx));
+
+  let datasets = focusDams.map((dam, idx) => {
+    const damColor = DAM_COLORS[idx % DAM_COLORS.length];
+    const history = histories[idx] || [];
+    const ptMap = new Map(history.map(p => [p.date, p.pct]));
+
+    const dataPoints = sortedDates.map(d => ptMap.has(d) ? ptMap.get(d) : null);
+
+    return {
+      label: `${dam.name_en} (%)`,
+      data: dataPoints,
+      borderColor: damColor,
+      backgroundColor: selectedDamSlug === 'ALL' ? 'transparent' : (() => {
+        const grad = ctx.createLinearGradient(0, 0, 0, 260);
+        grad.addColorStop(0, damColor + '35');
+        grad.addColorStop(1, damColor + '00');
+        return grad;
+      })(),
+      fill: selectedDamSlug !== 'ALL',
+      borderWidth: 2.2,
+      tension: 0.25,
+      pointRadius: sortedDates.length > 150 ? 0 : 2,
+      pointHoverRadius: 5
+    };
+  });
 
   if (trendChartInstance) {
     trendChartInstance.destroy();
@@ -325,7 +385,7 @@ function renderTrendChart(daysFilter = 30) {
 
   trendChartInstance = new Chart(ctx, {
     type: 'line',
-    data: { labels, datasets },
+    data: { labels: sortedDates, datasets },
     options: {
       responsive: true,
       maintainAspectRatio: false,
@@ -364,17 +424,35 @@ function renderTrendChart(daysFilter = 30) {
 }
 
 function renderVolumeChart() {
-  const ctx = document.getElementById('volumeChart').getContext('2d');
-  if (!globalData || !globalData.latest) return;
+  const canvas = document.getElementById('volumeChart');
+  if (!canvas || !latestSnapshot || !latestSnapshot.dams) return;
+  const ctx = canvas.getContext('2d');
 
-  const latest = globalData.latest;
-  let dams = ['Khadakwasla', 'Panshet', 'Varasgaon', 'Temghar', 'Mulshi', 'Pavana', 'Koyna'].filter(d => latest[d]);
-  if (currentActiveRegion !== 'Pune' && currentActiveRegion !== 'ALL') {
-    dams = Object.keys(latest).filter(d => latest[d].division === currentActiveRegion).slice(0, 7);
+  const basinFilter = document.getElementById('basinSelectFilter') ? document.getElementById('basinSelectFilter').value : 'ALL';
+  let dams = getDamList().filter(d => {
+    const matchRegion = (currentActiveRegion === 'ALL') || (d.division === currentActiveRegion);
+    const matchBasin = (basinFilter === 'ALL') || (d.basin === basinFilter);
+    return matchRegion && matchBasin;
+  });
+
+  if (currentActiveRegion === 'Pune') {
+    const priorityPune = ['khadakwasla', 'panshet', 'varasgaon', 'temghar', 'mulshi', 'pawana', 'koyna', 'ujani'];
+    dams.sort((a, b) => {
+      const idxA = priorityPune.indexOf(a.slug);
+      const idxB = priorityPune.indexOf(b.slug);
+      if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+      if (idxA !== -1) return -1;
+      if (idxB !== -1) return 1;
+      return b.design_live_mcm - a.design_live_mcm;
+    });
+  } else {
+    dams.sort((a, b) => b.design_live_mcm - a.design_live_mcm);
   }
 
-  const currentLive = dams.map(d => latest[d] ? latest[d].current_live_mcm : 0);
-  const remaining = dams.map(d => latest[d] ? Math.max(0, latest[d].design_live_mcm - latest[d].current_live_mcm) : 0);
+  const displayDams = dams.slice(0, 7);
+  const labels = displayDams.map(d => d.name_en);
+  const currentLive = displayDams.map(d => d.live_mcm || 0);
+  const remaining = displayDams.map(d => Math.max(0, (d.design_live_mcm || 0) - (d.live_mcm || 0)));
 
   if (volumeChartInstance) {
     volumeChartInstance.destroy();
@@ -383,7 +461,7 @@ function renderVolumeChart() {
   volumeChartInstance = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: dams,
+      labels: labels,
       datasets: [
         {
           label: 'Stored (MCM)',
@@ -426,29 +504,35 @@ function renderVolumeChart() {
 
 function filterTable() {
   const query = document.getElementById('tableSearchInput').value.toLowerCase().trim();
+  const basinFilter = document.getElementById('basinSelectFilter') ? document.getElementById('basinSelectFilter').value : 'ALL';
   const districtFilter = document.getElementById('districtSelectFilter').value;
   const damFilter = document.getElementById('damSelectFilter').value;
 
-  if (!globalData || !globalData.all_records) return;
+  if (!latestSnapshot || !latestSnapshot.dams) return;
 
-  const all = [...globalData.all_records];
+  const all = getDamList();
 
   filteredRecords = all.filter(item => {
     const matchesRegion = (currentActiveRegion === 'ALL') || (item.division === currentActiveRegion);
+    const matchesBasin = (basinFilter === 'ALL') || (item.basin === basinFilter);
     const matchesDist = (districtFilter === 'ALL') || (item.district === districtFilter);
-    const matchesDam = (damFilter === 'ALL') || (item.dam_name === damFilter);
+    const matchesDam = (damFilter === 'ALL') || (item.slug === damFilter);
     
     const matchesSearch = !query || 
-      item.date.toLowerCase().includes(query) ||
-      item.dam_name.toLowerCase().includes(query) ||
+      item.name_en.toLowerCase().includes(query) ||
+      (item.name_mr && item.name_mr.toLowerCase().includes(query)) ||
       (item.district && item.district.toLowerCase().includes(query)) ||
       (item.division && item.division.toLowerCase().includes(query)) ||
-      item.status.toLowerCase().includes(query) ||
-      item.current_pct.toString().includes(query) ||
-      item.current_live_mcm.toString().includes(query);
+      (item.basin && item.basin.toLowerCase().includes(query)) ||
+      (item.pct && item.pct.toString().includes(query)) ||
+      (item.live_mcm && item.live_mcm.toString().includes(query));
 
-    return matchesRegion && matchesDist && matchesDam && matchesSearch;
+    return matchesRegion && matchesBasin && matchesDist && matchesDam && matchesSearch;
   });
+
+  // Also trigger cards & banner update if basin changed
+  renderHeroBanner(currentActiveRegion);
+  renderDamCards(currentActiveRegion);
 
   currentPage = 1;
   renderTable();
@@ -472,24 +556,25 @@ function renderTable() {
     html = `<tr><td colspan="11" style="text-align:center; padding:24px; color:var(--text-muted);">No records found matching active filters.</td></tr>`;
   } else {
     currentSlice.forEach(row => {
-      const tag = getTagDetails(row.current_pct);
-      const liveML = Math.round(row.current_live_mcm * 1000);
+      const tag = getTagDetails(row.pct || 0);
+      const liveML = Math.round((row.live_mcm || 0) * 1000);
 
       html += `
         <tr>
-          <td><strong>${row.date}</strong></td>
+          <td><strong>${row.date || latestSnapshot.batch_date}</strong></td>
           <td>
-            <span style="color:var(--text-primary); font-weight:600;">${row.dam_name}</span>
+            <span style="color:var(--text-primary); font-weight:600;">${row.name_en}</span>
+            <div style="font-size:0.75rem; color:var(--text-muted);">${row.name_mr || ''}</div>
           </td>
           <td style="color:var(--text-secondary);">${row.division || 'Pune'}</td>
           <td style="color:var(--text-secondary);">${row.district || 'Pune'}</td>
           <td style="color:var(--text-secondary);">${row.time || '08:00 AM'}</td>
-          <td><strong>${row.current_live_mcm.toFixed(2)}</strong> MCM</td>
+          <td><strong>${(row.live_mcm || 0).toFixed(2)}</strong> MCM</td>
           <td style="color:var(--accent-sky); font-weight:500;">${liveML.toLocaleString()} ML</td>
-          <td style="color:var(--text-secondary);">${row.design_live_mcm.toFixed(2)} MCM</td>
-          <td><span class="dam-tag ${tag.class}">${row.current_pct}%</span></td>
-          <td style="color:var(--text-secondary);">${row.last_year_pct}%</td>
-          <td><span style="color:${row.status === 'Success' ? 'var(--accent-emerald)' : 'var(--accent-amber)'}; font-weight:500;">${row.status}</span></td>
+          <td style="color:var(--text-secondary);">${(row.design_live_mcm || 0).toFixed(2)} MCM</td>
+          <td><span class="dam-tag ${tag.class}">${(row.pct || 0).toFixed(1)}%</span></td>
+          <td style="color:var(--text-secondary);">${(row.last_year_pct || 0).toFixed(1)}%</td>
+          <td><span style="color:var(--accent-emerald); font-weight:500;">Success</span></td>
         </tr>
       `;
     });
@@ -502,7 +587,7 @@ function renderTable() {
     if (totalRecords === 0) {
       countText.innerText = `Showing 0 of 0 records`;
     } else {
-      countText.innerText = `Showing ${(startIdx + 1).toLocaleString()} - ${endIdx.toLocaleString()} of ${totalRecords.toLocaleString()} database records`;
+      countText.innerText = `Showing ${(startIdx + 1).toLocaleString()} - ${endIdx.toLocaleString()} of ${totalRecords.toLocaleString()} database dams`;
     }
   }
 
@@ -528,26 +613,28 @@ function exportTableToCSV() {
     return;
   }
 
-  const headers = ['Report Date', 'Dam Name', 'Division', 'District', 'Report Time', 'Live Storage (MCM)', 'Live Storage (ML)', 'Design Live (MCM)', 'Current Storage (%)', 'Last Year (%)', 'Status'];
+  const headers = ['Report Date', 'Dam Name (EN)', 'Dam Name (MR)', 'Division', 'District', 'Basin', 'Report Time', 'Live Storage (MCM)', 'Live Storage (ML)', 'Design Live (MCM)', 'Current Storage (%)', 'Last Year (%)', 'Status'];
   const rows = filteredRecords.map(r => [
-    `"${r.date}"`,
-    `"${r.dam_name}"`,
+    `"${r.date || latestSnapshot.batch_date}"`,
+    `"${r.name_en}"`,
+    `"${r.name_mr || ''}"`,
     `"${r.division || 'Pune'}"`,
     `"${r.district || 'Pune'}"`,
+    `"${r.basin || 'Krishna'}"`,
     `"${r.time || '08:00 AM'}"`,
-    r.current_live_mcm,
-    Math.round(r.current_live_mcm * 1000),
-    r.design_live_mcm,
-    r.current_pct,
-    r.last_year_pct,
-    `"${r.status}"`
+    r.live_mcm || 0,
+    Math.round((r.live_mcm || 0) * 1000),
+    r.design_live_mcm || 0,
+    r.pct || 0,
+    r.last_year_pct || 0,
+    `"Success"`
   ]);
 
   const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
   const encodedUri = encodeURI(csvContent);
   const link = document.createElement('a');
   link.setAttribute('href', encodedUri);
-  link.setAttribute('download', `pune_maharashtra_dam_storage_export_${Date.now()}.csv`);
+  link.setAttribute('download', `maharashtra_dam_storage_snapshot_${Date.now()}.csv`);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
