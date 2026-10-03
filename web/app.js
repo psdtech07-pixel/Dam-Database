@@ -393,7 +393,6 @@ function resetDateSync() {
   renderVolumeChart();
   filterTable();
 }
-}
 
 async function fetchDamHistory(slug) {
   if (historyCache[slug]) return historyCache[slug];
