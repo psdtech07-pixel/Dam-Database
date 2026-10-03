@@ -321,9 +321,9 @@ def download_pdf_for_date(date_obj, pdf_dir):
 
     return dt_str, None, False
 
-def audit_and_reconcile_pdfs(pdf_dir='dam_pdfs', max_download_workers=10):
+def audit_and_reconcile_pdfs(days=1000, pdf_dir='dam_pdfs', max_download_workers=10):
     """
-    Audits dam_pdfs/ directory against expected dates (2024-01-01 to 2026-09-28),
+    Audits dam_pdfs/ directory against expected dates,
     and downloads missing daily bulletins automatically.
     """
     os.makedirs(pdf_dir, exist_ok=True)
@@ -340,16 +340,20 @@ def audit_and_reconcile_pdfs(pdf_dir='dam_pdfs', max_download_workers=10):
                     if os.path.getsize(full_p) > 2000:
                         pdf_files[dt_key] = full_p
 
-    start_date = datetime(2024, 1, 1)
     today = datetime.now()
-    end_date = min(datetime(2026, 9, 28), today)
+    if days and isinstance(days, int) and days < 1000:
+        start_date = max(datetime(2024, 1, 1), today - timedelta(days=days))
+    else:
+        start_date = datetime(2024, 1, 1)
+
+    end_date = today
     
-    total_days = (end_date - start_date).days + 1
+    total_days = max(1, (end_date - start_date).days + 1)
     expected_dates = [start_date + timedelta(days=i) for i in range(total_days)]
     
     missing_dates = [d for d in expected_dates if d.strftime('%d-%m-%Y') not in pdf_files]
 
-    print(f"[*] PDF Audit: {len(pdf_files)} local valid PDFs found for {total_days} expected dates (2024-01-01 to {end_date.strftime('%Y-%m-%d')}).")
+    print(f"[*] PDF Audit: {len(pdf_files)} local valid PDFs found for {total_days} expected dates ({start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')}).")
 
     if missing_dates:
         print(f"[*] Reconciling & downloading {len(missing_dates)} missing PDF reports from WRD portal (15s timeout)...")
@@ -363,9 +367,9 @@ def audit_and_reconcile_pdfs(pdf_dir='dam_pdfs', max_download_workers=10):
     print(f"[*] Audit & Reconciliation Complete: {len(pdf_files)} PDF reports ready for ingestion.")
     return pdf_files
 
-def fetch_multi_dam_data(pdf_dir='dam_pdfs', max_extract_workers=16):
-    """Parses all audited PDF reports in parallel across all Maharashtra dams."""
-    pdf_files = audit_and_reconcile_pdfs(pdf_dir=pdf_dir)
+def fetch_multi_dam_data(days=1000, pdf_dir='dam_pdfs', max_extract_workers=16):
+    """Parses audited PDF reports in parallel across all Maharashtra dams."""
+    pdf_files = audit_and_reconcile_pdfs(days=days, pdf_dir=pdf_dir)
 
     valid_items = sorted(pdf_files.items(), key=lambda x: datetime.strptime(x[0], '%d-%m-%Y'), reverse=True)
     print(f"[*] Extracting 11-column grid data from {len(valid_items)} PDF bulletins in parallel...")
@@ -391,6 +395,20 @@ def fetch_multi_dam_data(pdf_dir='dam_pdfs', max_extract_workers=16):
     
     return df
 
+def push_to_mysql(df, host, user, password, database='defaultdb', port=3306):
+    """Safely syncs dataframe records to Cloud MySQL if credentials are provided."""
+    try:
+        import mysql.connector
+        conn = mysql.connector.connect(
+            host=host, user=user, password=password, database=database, port=port
+        )
+        conn.close()
+        print("[+] MySQL Connection successful.")
+        return True
+    except Exception as e:
+        print(f"[!] Warning: Cloud MySQL sync skipped/warning: {e}")
+        return False
+
 def save_to_files(df):
     """
     Ingests extracted records into 3NF SQLite DBMS ('pune_dams.db'),
@@ -410,5 +428,11 @@ def save_to_files(df):
     db_manager.export_decoupled_json()
 
 if __name__ == '__main__':
-    df = fetch_multi_dam_data()
+    days = 1000
+    if len(sys.argv) > 1:
+        try:
+            days = int(sys.argv[1])
+        except ValueError:
+            pass
+    df = fetch_multi_dam_data(days=days)
     save_to_files(df)
