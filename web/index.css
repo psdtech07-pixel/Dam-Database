@@ -105,17 +105,63 @@ body {
   color: var(--text-secondary);
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .status-badge {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(52, 211, 153, 0.1);
-  border: 1px solid rgba(52, 211, 153, 0.25);
-  color: var(--accent-emerald);
-  padding: 6px 14px;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  color: var(--accent-sky);
+  padding: 8px 16px;
   border-radius: 9999px;
   font-size: 0.825rem;
   font-weight: 600;
+  position: relative;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.status-badge.clickable {
+  cursor: pointer;
+}
+
+.status-badge.clickable:hover {
+  background: rgba(56, 189, 248, 0.22);
+  border-color: var(--accent-sky);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.35);
+}
+
+#syncDatePicker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.pill-btn-reset {
+  background: rgba(244, 114, 182, 0.15);
+  border: 1px solid rgba(244, 114, 182, 0.4);
+  color: var(--accent-rose);
+  padding: 8px 14px;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pill-btn-reset:hover {
+  background: rgba(244, 114, 182, 0.25);
+  box-shadow: 0 0 12px rgba(244, 114, 182, 0.3);
 }
 
 .pulse-indicator {
@@ -125,6 +171,11 @@ body {
   border-radius: 50%;
   box-shadow: 0 0 10px var(--accent-emerald);
   animation: pulse 2s infinite;
+}
+
+.pulse-indicator.historical {
+  background-color: var(--accent-amber);
+  box-shadow: 0 0 10px var(--accent-amber);
 }
 
 @keyframes pulse {
@@ -325,13 +376,43 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
 }
 
 .dam-card:hover {
   background: var(--bg-card-hover);
-  border-color: rgba(255, 255, 255, 0.18);
+  border-color: rgba(56, 189, 248, 0.4);
   transform: translateY(-3px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3), 0 0 16px rgba(56, 189, 248, 0.15);
+}
+
+.dam-card::after {
+  content: '⚡ Double-click for trend';
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--accent-sky);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.dam-card:hover::after {
+  opacity: 0.85;
+}
+
+@keyframes highlightGlow {
+  0% { box-shadow: 0 0 0 rgba(56, 189, 248, 0); border-color: var(--border-card); }
+  50% { box-shadow: 0 0 30px rgba(56, 189, 248, 0.6); border-color: var(--accent-sky); }
+  100% { box-shadow: 0 0 0 rgba(56, 189, 248, 0); border-color: var(--border-card); }
+}
+
+.chart-card-highlight {
+  animation: highlightGlow 1.8s ease-in-out;
 }
 
 .dam-card-header {

@@ -346,7 +346,16 @@ def export_decoupled_json():
     size_kb = latest_path.stat().st_size / 1024
     print(f"✨ Exported 'web/data/latest.json' & 'latest_snapshot.json' ({size_kb:.1f} KB, {len(latest_dams)} dams).")
 
-    # 2. Generate per-dam compact history JSON files
+    # 2. Export list of available distinct dates
+    cursor.execute("SELECT DISTINCT reading_date FROM dam_daily_logs WHERE reading_date >= '2024-01-01' ORDER BY reading_date DESC;")
+    date_rows = cursor.fetchall()
+    available_dates = [r['reading_date'] for r in date_rows if r['reading_date']]
+    dates_path = WEB_DATA_DIR / "dates.json"
+    with open(dates_path, 'w', encoding='utf-8') as f:
+        json.dump(available_dates, f, indent=2, ensure_ascii=False)
+    print(f"✨ Exported 'web/data/dates.json' ({len(available_dates)} unique dates).")
+
+    # 3. Generate per-dam compact history JSON files
     cursor.execute("SELECT dam_id, dam_slug FROM dams;")
     all_dams = cursor.fetchall()
 

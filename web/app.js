@@ -1,4 +1,6 @@
 let latestSnapshot = null;
+let originalLatestSnapshot = null;
+let currentSyncedDate = null;
 let filteredRecords = [];
 let currentPage = 1;
 const pageSize = 25;
@@ -27,6 +29,7 @@ async function initDashboard() {
     }
     if (!resp.ok) throw new Error('Failed to load latest dam metrics');
     latestSnapshot = await resp.json();
+    originalLatestSnapshot = JSON.parse(JSON.stringify(latestSnapshot));
     
     if (document.getElementById('lastUpdatedText')) {
       document.getElementById('lastUpdatedText').innerText = `Sync: ${latestSnapshot.batch_date || 'Live'}`;
@@ -35,6 +38,17 @@ async function initDashboard() {
     if (document.getElementById('totalRecordsBadge')) {
       document.getElementById('totalRecordsBadge').innerText = (latestSnapshot.total_dams || Object.keys(latestSnapshot.dams || {}).length).toLocaleString();
     }
+
+    // Set Date Picker bounds dynamically from dates.json
+    fetch('data/dates.json?v=' + Date.now()).then(r => r.json()).then(dates => {
+      if (Array.isArray(dates) && dates.length > 0) {
+        const picker = document.getElementById('syncDatePicker');
+        if (picker) {
+          picker.max = dates[0];
+          picker.min = dates[dates.length - 1];
+        }
+      }
+    }).catch(() => {});
 
     populateDropdowns();
     selectRegionTab('Pune');
@@ -220,7 +234,6 @@ function renderDamCards(regionName = currentActiveRegion) {
     if (basinFilter !== 'ALL' && data.basin !== basinFilter) return;
 
     renderedCount++;
-    if (renderedCount > 24) return;
 
     const liveMcm = data.live_mcm || 0;
     const designMcm = data.design_live_mcm || 100;
@@ -230,7 +243,7 @@ function renderDamCards(regionName = currentActiveRegion) {
     const displayNameMR = data.name_mr || data.name_en;
 
     html += `
-      <div class="dam-card">
+      <div class="dam-card" ondblclick="openDamTrend('${data.slug}')" title="Double-click to view water storage trend chart for ${data.name_en}">
         <div class="dam-card-header">
           <div class="dam-name-wrapper">
             <h3>${data.name_en}</h3>
@@ -273,8 +286,113 @@ function renderDamCards(regionName = currentActiveRegion) {
 
   const title = document.getElementById('cardsGridTitle');
   if (title) {
-    title.innerText = regionName === 'Pune' ? 'Pune Primary Supply Reservoirs' : `${regionName} Region Reservoirs`;
+    const regionText = regionName === 'ALL' ? 'All Maharashtra State' : (regionName === 'Pune' ? 'Pune Primary' : `${regionName} Region`);
+    title.innerText = `${regionText} Monitored Reservoirs (${renderedCount} Dams)`;
   }
+}
+
+async function openDamTrend(slug) {
+  const chartDamSelect = document.getElementById('chartDamFilter');
+  if (chartDamSelect) {
+    chartDamSelect.value = slug;
+  }
+  await renderTrendChart(currentChartDays);
+  
+  const chartCard = document.querySelector('.chart-card');
+  if (chartCard) {
+    chartCard.classList.remove('chart-card-highlight');
+    void chartCard.offsetWidth; // trigger reflow
+    chartCard.classList.add('chart-card-highlight');
+    chartCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+
+async function onDateSyncSelected(selectedDate) {
+  if (!selectedDate) return;
+
+  const textElem = document.getElementById('lastUpdatedText');
+  const pulseElem = document.getElementById('syncPulse');
+  const resetBtn = document.getElementById('resetDateSyncBtn');
+
+  if (textElem) textElem.innerText = `Syncing ${selectedDate}...`;
+
+  if (!originalLatestSnapshot && latestSnapshot) {
+    originalLatestSnapshot = JSON.parse(JSON.stringify(latestSnapshot));
+  }
+
+  const allDams = getDamList();
+  
+  // Load histories concurrently
+  const historyPromises = allDams.map(d => fetchDamHistory(d.slug));
+  const histories = await Promise.all(historyPromises);
+
+  const updatedDamsMap = {};
+
+  allDams.forEach((dam, idx) => {
+    const history = histories[idx] || [];
+    let match = history.find(p => (p.d || p.date) === selectedDate);
+    if (!match) {
+      const preceding = history.filter(p => (p.d || p.date) <= selectedDate);
+      if (preceding.length > 0) {
+        match = preceding[preceding.length - 1];
+      }
+    }
+
+    const liveMcm = match ? (match.m !== undefined ? match.m : match.mcm || 0) : (dam.live_mcm || 0);
+    const pct = match ? (match.p !== undefined ? match.p : match.pct || 0) : (dam.pct || 0);
+    const readingDate = match ? (match.d || match.date) : selectedDate;
+
+    updatedDamsMap[dam.slug] = {
+      ...dam,
+      date: readingDate,
+      live_mcm: liveMcm,
+      gross_mcm: liveMcm + (dam.dead_mcm || 0),
+      pct: pct,
+      remaining_mcm: Math.max(0, (dam.design_live_mcm || 0) - liveMcm)
+    };
+  });
+
+  latestSnapshot = {
+    batch_date: selectedDate,
+    total_dams: Object.keys(updatedDamsMap).length,
+    dams: updatedDamsMap
+  };
+
+  currentSyncedDate = selectedDate;
+
+  if (textElem) textElem.innerText = `📅 Date: ${selectedDate}`;
+  if (pulseElem) pulseElem.classList.add('historical');
+  if (resetBtn) resetBtn.style.display = 'inline-block';
+
+  renderHeroBanner(currentActiveRegion);
+  renderDamCards(currentActiveRegion);
+  renderTrendChart(currentChartDays);
+  renderVolumeChart();
+  filterTable();
+}
+
+function resetDateSync() {
+  if (originalLatestSnapshot) {
+    latestSnapshot = JSON.parse(JSON.stringify(originalLatestSnapshot));
+  }
+  currentSyncedDate = null;
+  const picker = document.getElementById('syncDatePicker');
+  if (picker) picker.value = '';
+
+  const textElem = document.getElementById('lastUpdatedText');
+  const pulseElem = document.getElementById('syncPulse');
+  const resetBtn = document.getElementById('resetDateSyncBtn');
+
+  if (textElem) textElem.innerText = `Sync: ${latestSnapshot.batch_date || 'Live'}`;
+  if (pulseElem) pulseElem.classList.remove('historical');
+  if (resetBtn) resetBtn.style.display = 'none';
+
+  renderHeroBanner(currentActiveRegion);
+  renderDamCards(currentActiveRegion);
+  renderTrendChart(currentChartDays);
+  renderVolumeChart();
+  filterTable();
+}
 }
 
 async function fetchDamHistory(slug) {
