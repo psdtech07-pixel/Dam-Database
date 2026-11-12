@@ -87,14 +87,16 @@ def init_db():
             dead = float(item.get('dead', 0.0))
             live = float(item.get('live', 100.0))
             gross = float(item.get('gross', dead + live))
+            wiki_url = item.get('wikipedia_url', '')
             if gross < live:
                 gross = live + dead
 
             cursor.execute("""
             INSERT INTO dams (
                 dam_slug, dam_name_en, dam_name_mr, district_id, basin_id, 
-                project_type, dead_storage_mcm, design_live_mcm, design_gross_mcm
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                project_type, dead_storage_mcm, design_live_mcm, design_gross_mcm,
+                wikipedia_url
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             ON CONFLICT(dam_slug) DO UPDATE SET
                 dam_name_en = excluded.dam_name_en,
                 dam_name_mr = excluded.dam_name_mr,
@@ -102,8 +104,9 @@ def init_db():
                 basin_id = excluded.basin_id,
                 dead_storage_mcm = excluded.dead_storage_mcm,
                 design_live_mcm = excluded.design_live_mcm,
-                design_gross_mcm = excluded.design_gross_mcm;
-            """, (slug, name_en, name_mr, dist_id, basin_id, ptype, dead, live, gross))
+                design_gross_mcm = excluded.design_gross_mcm,
+                wikipedia_url = COALESCE(excluded.wikipedia_url, dams.wikipedia_url);
+            """, (slug, name_en, name_mr, dist_id, basin_id, ptype, dead, live, gross, wiki_url))
 
     conn.commit()
     conn.close()
@@ -292,7 +295,7 @@ def export_decoupled_json():
         d.dam_id, d.dam_slug, d.dam_name_en, d.dam_name_mr,
         dt.district_name, dv.division_name, b.basin_name,
         d.project_type, d.dead_storage_mcm, d.design_live_mcm, d.design_gross_mcm,
-        d.taluka, d.nearest_city, d.river, d.completion_year, d.purpose, d.description, d.image_url, d.height_m, d.length_m,
+        d.taluka, d.nearest_city, d.river, d.completion_year, d.purpose, d.description, d.image_url, d.wikipedia_url, d.height_m, d.length_m,
         l.reading_date, l.reading_time, l.live_storage_mcm, l.gross_storage_mcm,
         l.storage_pct, l.last_year_pct,
         ROUND(d.design_live_mcm - l.live_storage_mcm, 2) AS remaining_capacity_mcm
@@ -326,6 +329,7 @@ def export_decoupled_json():
             'purpose': r['purpose'] or 'Irrigation & Drinking Water Supply',
             'description': r['description'] or '',
             'image_url': r['image_url'] or '',
+            'wikipedia_url': r['wikipedia_url'] or '',
             'height_m': r['height_m'] or 45.0,
             'length_m': r['length_m'] or 1200.0,
             'dead_mcm': r['dead_storage_mcm'],

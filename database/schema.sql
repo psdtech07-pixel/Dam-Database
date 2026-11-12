@@ -55,6 +55,7 @@ CREATE TABLE IF NOT EXISTS dams (
     purpose                 TEXT,
     description             TEXT,
     image_url               TEXT,
+    wikipedia_url           TEXT,
     height_m                REAL,
     length_m                REAL,
     FOREIGN KEY (district_id) REFERENCES districts(district_id),

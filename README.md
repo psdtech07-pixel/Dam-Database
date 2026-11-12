@@ -1,154 +1,368 @@
 # Maharashtra Dam Water Storage Analytics System 💧
 
-An enterprise-grade **Database Management System (DBMS)** and real-time civic-tech web analytics platform monitoring **139 major dams and reservoirs** across all 6 administrative divisions of Maharashtra.
+[![Live Dashboard](https://img.shields.io/badge/Live_Dashboard-GitHub_Pages-0284c7?style=for-the-badge&logo=github&logoColor=white)](https://psdtech07-pixel.github.io/Dam-Database/web/index.html)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/psdtech07-pixel/Dam-Database)
+[![Developer LinkedIn](https://img.shields.io/badge/LinkedIn-Parth_Debadwar-0077b5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/parth-debadwar-005205377)
+[![Database](https://img.shields.io/badge/Database-SQLite_3NF-003B57?style=for-the-badge&logo=sqlite&logoColor=white)](database/schema.sql)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](scraper/)
 
-Live daily reports are sourced automatically from official **Maharashtra Water Resources Department (WRD)** bulletins and archived into a normalized relational database.
+An open, database-driven **civic-tech and hydrological analytics platform** monitoring **139 major dams and reservoirs** across all 6 administrative divisions of Maharashtra.
+
+The platform transforms daily unstructured PDF bulletins published by the **Water Resources Department (WRD), Government of Maharashtra** into a normalized relational database, maintaining a continuous historical archive and presenting interactive, accessible water analytics to the public.
 
 ---
 
-## 🏛️ System Architecture
+## 🌐 Live Web Dashboard
+
+Explore the live, interactive web dashboard hosted on GitHub Pages:  
+👉 **[https://psdtech07-pixel.github.io/Dam-Database/web/index.html](https://psdtech07-pixel.github.io/Dam-Database/web/index.html)**
+
+---
+
+## 🏛️ Project Evolution & Academic Background
+
+The **Maharashtra Dam Water Storage Analytics System** originated as an academic course project for the **Database Management System (DBMS)** curriculum during undergraduate studies in **Instrumentation and Control Engineering** at **Vishwakarma Institute of Technology (VIT), Pune** (Academic Period: 2025–2029).
+
+### The Problem
+Maharashtra possesses an extensive network of reservoirs critical for municipal drinking supplies, agricultural irrigation, and hydroelectric generation. The Water Resources Department (WRD) publishes official storage figures daily at 08:00 AM IST. However, these figures are distributed across isolated daily PDF bulletins. For everyday citizens, researchers, and students, comparing reservoirs across river basins, tracking multi-month depletion curves, or conducting historical analyses required tedious manual downloading and parsing of hundreds of individual documents.
+
+### The Journey
+- **Academic Idea**: Apply relational database concepts (normalization, integrity constraints, views, transactions) to real-world government water data rather than simulated classroom datasets.
+- **Database Project**: Designed a normalized **Third Normal Form (3NF)** relational schema to store reservoir metadata and daily telemetry logs without data redundancy.
+- **Automated Data Platform**: Developed automated Python ingestion scrapers and background schedulers to process daily morning bulletins, cleanse anomalies, and maintain an uninterrupted historical archive.
+- **Public Dashboard**: Built a fast, responsive, zero-runtime-cost web dashboard on GitHub Pages, decoupling dynamic database queries into lightweight static JSON endpoints to ensure sub-50ms load times worldwide.
+
+Developed by **Parth Sadanand Debadwar**, the platform has expanded far beyond its original classroom submission into an enduring, publicly accessible civic resource.
+
+---
+
+## 📊 Current Dataset & Scope
+
+As verified in the current production database:
+
+| Metric | Verified Value | Description |
+|---|---|---|
+| **Major Dams & Reservoirs** | **139** | State-monitored water storage assets across Maharashtra |
+| **Administrative Divisions** | **6** | Pune, Konkan, Nashik, Chhatrapati Sambhajinagar, Amravati, Nagpur |
+| **Administrative Districts** | **30+** | Multi-tier district hierarchy linking reservoirs to revenue authorities |
+| **River Basins** | **5** | Krishna, Godavari, Tapi, Narmada, and West Flowing Rivers |
+| **Historical Records** | **130,154** | Normalized daily time-series observation rows in `dam_daily_logs` |
+| **Continuous Days** | **1,046** | Uninterrupted calendar coverage (**1 January 2024 – 12 November 2026**) |
+
+---
+
+## ⚙️ Data Pipeline & Architecture
+
+The system operates an automated, five-stage continuous ingestion and publishing pipeline:
 
 ```
-├── database/                   # Relational DBMS Core (3NF Normalized Schema)
-│   ├── pune_dams.db            # SQLite 3NF Database (130,154 records across 1,046 days)
-│   ├── schema.sql              # SQL DDL & DML Schema (Tables, Views, Indexes, Foreign Keys)
-│   ├── db_manager.py           # DBMS Engine, Transactional Upsert & Integrity Inspector
-│   └── dam_registry.json       # Master metadata registry for 139 dams
+[WRD Portal 08:00 AM Bulletin]
+            │
+            ▼
+┌─────────────────────────────────┐
+│ 1. Automated Retrieval & Ingest │  fetch_dam_data.py / daily_dam_worker.py
+│    - English PDF Downloads      │  (Direct English bulletins: Today's-Storage-ReportEng-DD-MM-YYYY.pdf)
+└─────────────────────────────────┘
+            │
+            ▼
+┌─────────────────────────────────┐
+│ 2. Parsing & Data Cleansing     │  pypdf / pdfplumber regex extraction
+│    - Matrix layout alignment    │  Validates bounds, checks storage percentages,
+│    - Zero translation overhead  │  resolves dam aliases & slugs
+└─────────────────────────────────┘
+            │
+            ▼
+┌─────────────────────────────────┐
+│ 3. 3NF Relational DBMS Engine   │  database/pune_dams.db (SQLite)
+│    - Referential Integrity (FK) │  ACID-compliant transactions
+│    - B-Tree Composite Indexing  │  Idempotent UPSERT (ON CONFLICT DO UPDATE)
+│    - vw_dam_daily_analytics     │  Analytical View for pre-computed metrics
+└─────────────────────────────────┘
+            │
+            ▼
+┌─────────────────────────────────┐
+│ 4. Decoupled Static JSON Feeds  │  database/db_manager.py
+│    - web/data/latest.json       │  Snapshot of all 139 dams (~160 KB)
+│    - web/data/dates.json        │  Chronological index of 1,046 dates
+│    - web/data/history/*.json    │  Individual per-dam time-series shards (~12 KB each)
+└─────────────────────────────────┘
+            │
+            ▼
+┌─────────────────────────────────┐
+│ 5. Public Web Dashboard (SPA)   │  GitHub Pages Edge CDN
+│    - Sub-50ms instant loading   │  Zero server database costs, no connection pool limits
+│    - Light/Dark mode, Chart.js  │  Command Palette (Ctrl+K), Dam Detail Views
+└─────────────────────────────────┘
+```
+
+### Why Decoupled Static JSON?
+Traditional web architectures query an active database server on every visitor page request. In an emergency (e.g. intense monsoon downpours or flood discharge alerts), thousands of concurrent citizens querying the database would exhaust server memory and connection pools, crashing the service.
+
+By pre-rendering the database into compact, decoupled static JSON feeds (`latest.json` for immediate dashboard display, and lazy-loaded `history/{dam_slug}.json` only when opening a dam trend chart), the frontend runs entirely from static CDN edge nodes with **zero hosting bills, zero server maintenance, and sub-50ms latency**.
+
+---
+
+## 🗄️ Relational Database Schema (3NF)
+
+The database schema (`database/schema.sql`) strictly adheres to **Third Normal Form (3NF)** principles to guarantee data integrity, eliminate update anomalies, and optimize storage efficiency.
+
+```sql
+PRAGMA foreign_keys = ON;
+
+-- 1. Administrative Divisions (6 Revenue Divisions of Maharashtra)
+CREATE TABLE divisions (
+    division_id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    division_name       TEXT NOT NULL UNIQUE
+);
+
+-- 2. Administrative Districts
+CREATE TABLE districts (
+    district_id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    district_name       TEXT NOT NULL UNIQUE,
+    division_id         INTEGER NOT NULL,
+    FOREIGN KEY (division_id) REFERENCES divisions(division_id) ON DELETE RESTRICT
+);
+
+-- 3. Hydrological River Basins
+CREATE TABLE basins (
+    basin_id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    basin_name          TEXT NOT NULL UNIQUE
+);
+
+-- 4. Dam Master Metadata Entities
+CREATE TABLE dams (
+    dam_id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    dam_slug            TEXT NOT NULL UNIQUE,
+    dam_name_en         TEXT NOT NULL,
+    dam_name_mr         TEXT,
+    district_id         INTEGER NOT NULL,
+    basin_id            INTEGER NOT NULL,
+    project_type        TEXT NOT NULL CHECK(project_type IN ('MAJOR', 'MEDIUM', 'MINOR')),
+    dead_storage_mcm    REAL NOT NULL DEFAULT 0.0 CHECK(dead_storage_mcm >= 0),
+    design_live_mcm     REAL NOT NULL CHECK(design_live_mcm > 0),
+    design_gross_mcm    REAL NOT NULL CHECK(design_gross_mcm >= design_live_mcm),
+    taluka              TEXT,
+    nearest_city        TEXT,
+    river               TEXT,
+    completion_year     INTEGER,
+    purpose             TEXT,
+    description         TEXT,
+    image_url           TEXT,
+    wikipedia_url       TEXT,
+    height_m            REAL,
+    length_m            REAL,
+    FOREIGN KEY (district_id) REFERENCES districts(district_id),
+    FOREIGN KEY (basin_id) REFERENCES basins(basin_id)
+);
+
+-- 5. Dynamic Time-Series Telemetry Fact Table
+CREATE TABLE dam_daily_logs (
+    log_id              INTEGER PRIMARY KEY AUTOINCREMENT,
+    dam_id              INTEGER NOT NULL,
+    reading_date        DATE NOT NULL,          -- ISO 8601 'YYYY-MM-DD'
+    reading_time        TEXT,
+    live_storage_mcm    REAL NOT NULL CHECK(live_storage_mcm >= 0),
+    gross_storage_mcm   REAL NOT NULL CHECK(gross_storage_mcm >= live_storage_mcm),
+    storage_pct         REAL NOT NULL CHECK(storage_pct >= 0 AND storage_pct <= 120.0),
+    last_year_pct       REAL CHECK(last_year_pct IS NULL OR (last_year_pct >= 0 AND last_year_pct <= 120.0)),
+    created_at          DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (dam_id) REFERENCES dams(dam_id) ON DELETE CASCADE,
+    CONSTRAINT unique_dam_daily_log UNIQUE (dam_id, reading_date)
+);
+
+-- High-Performance Query Indexing
+CREATE INDEX idx_logs_dam_date ON dam_daily_logs(dam_id, reading_date DESC);
+CREATE INDEX idx_logs_date     ON dam_daily_logs(reading_date);
+CREATE INDEX idx_dams_district ON dams(district_id);
+CREATE INDEX idx_dams_basin    ON dams(basin_id);
+
+-- Pre-Computed Analytical View
+CREATE VIEW vw_dam_daily_analytics AS
+SELECT 
+    d.dam_id, d.dam_slug, d.dam_name_en, d.dam_name_mr,
+    dt.district_name, dv.division_name, b.basin_name,
+    d.project_type, d.dead_storage_mcm, d.design_live_mcm, d.design_gross_mcm,
+    l.reading_date, l.live_storage_mcm, l.gross_storage_mcm,
+    l.storage_pct, l.last_year_pct,
+    ROUND(d.design_live_mcm - l.live_storage_mcm, 2) AS remaining_capacity_mcm,
+    ROUND(l.storage_pct - l.last_year_pct, 2) AS yoy_pct_diff
+FROM dams d
+JOIN districts dt ON d.district_id = dt.district_id
+JOIN divisions dv ON dt.division_id = dv.division_id
+JOIN basins b ON d.basin_id = b.basin_id
+JOIN dam_daily_logs l ON d.dam_id = l.dam_id;
+```
+
+---
+
+## ✨ Platform Features
+
+1. **Circular Storage Progress Gauge**:
+   - Displays real-time aggregate storage percentage for any selected division or all Maharashtra.
+   - Status categorization: **Critical** (<10%), **Low** (10–25%), **Moderate** (25–50%), **Healthy** (≥50%).
+   - Daily delta indicators showing changes compared with yesterday.
+   - Volumes displayed simultaneously in **Million Litres (ML)**, **Million Cubic Metres (MCM)**, and **TMC**.
+
+2. **Year-on-Year Comparative Graph**:
+   - Compares current storage with the exact same calendar date from the prior year.
+
+3. **Regional Division Filters**:
+   - Instant filtering across **Pune**, **Konkan**, **Nashik**, **Chhatrapati Sambhajinagar**, **Amravati**, **Nagpur**, or **All Maharashtra**.
+
+4. **Command Palette (`Ctrl + K` / `⌘K`) & Table Search**:
+   - Keyboard-accessible instant search dialog matching reservoirs by English name, Marathi name, district, or river.
+   - Multi-criteria tabular filters by river basin, district, and storage health tier.
+
+5. **Dedicated Reservoir Pages (`#/dam/{slug}`)**:
+   - Single-page application routing displaying comprehensive reservoir data:
+     - Live stored water vs. designed live capacity in ML, MCM, and TMC.
+     - Year-on-year percentage comparison.
+     - Technical specifications (dam height, wall length, completion year, dead storage, river, basin).
+     - Verified authentic reservoir photography.
+     - Direct **"Learn more on Wikipedia ↗"** supplementary links.
+     - Interactive time-series trends chart with **30D**, **90D**, **1Y**, and **All-Time** historical ranges.
+     - Quick navigation pills to other major reservoirs in the same district.
+
+6. **Light & Dark Theme**:
+   - High-contrast accessible design tokens with persistent theme storage in `localStorage` and automatic OS preference detection.
+
+7. **Streamlined About Page (`#/about`)**:
+   - 7 curated sections detailing platform purpose, VIT Pune academic origin, audience breakdown, current dataset metrics, developer profile, more projects by the developer, and technical documentation links.
+
+---
+
+## 📁 Repository Structure
+
+```
+Dam-Database/
+├── database/                    # Relational DBMS Core (3NF SQLite Schema)
+│   ├── pune_dams.db             # Primary SQLite database (130,154 records, 1,046 days)
+│   ├── schema.sql               # SQL DDL & DML specifications (tables, views, indexes)
+│   ├── db_manager.py            # DBMS engine, transactional upserts & web JSON export
+│   └── dam_registry.json        # Master reservoir registry with metadata & Wikipedia URLs
 │
-├── scraper/                    # Ingestion Engine & Automated Workers
-│   ├── fetch_dam_data.py       # English PDF parser with regex layout extraction
-│   ├── daily_dam_worker.py    # Daily incremental worker (runs in ~7 seconds)
+├── scraper/                     # Automated Extraction & Ingestion Engine
+│   ├── fetch_dam_data.py        # English PDF parser with regex tabular matrix extraction
+│   ├── daily_dam_worker.py     # Incremental daily scraper (~7s execution time)
 │   └── download_english_pdfs.py # Parallel batch downloader for historical bulletins
 │
-├── web/                        # Modern Civic-Tech Web Frontend
-│   ├── index.html              # Main dashboard with SPA routing (#/dam/{slug}, #/about)
-│   ├── about.html              # Standalone About page redirector
-│   ├── dam.html                # Standalone Dam details redirector (?slug=...)
-│   ├── index.css               # Editorial CSS system with Light & Dark mode tokens
-│   ├── app.js                  # Client-side routing, Chart.js graphs, Command Palette
-│   ├── logo.png                # Circular hydro-analytics emblem logo
-│   ├── logo.svg                # Vector branding logo
-│   ├── favicon.svg             # Standalone vector favicon
-│   ├── favicon.ico             # Multi-resolution ICO (16x16, 32x32, 48x48, 64x64)
-│   └── data/                   # Decoupled static data feeds for zero-latency loading
-│       ├── latest.json         # Real-time metrics + full metadata for 139 dams
-│       ├── dates.json          # Calendar index of 1,046 historical dates
-│       └── history/*.json      # 139 decoupled time-series files (one per dam)
+├── web/                         # Modern Static Web Frontend (GitHub Pages)
+│   ├── index.html               # Main SPA dashboard (#overview, #damDetail, #about)
+│   ├── index.css                # Responsive stylesheet with Light & Dark mode tokens
+│   ├── app.js                   # Client SPA router, Chart.js graphs, Command Palette
+│   ├── logo.png / logo.svg      # Circular hydro-analytics emblem branding
+│   ├── favicon.ico / favicon.svg# Multi-size vector and raster favicons
+│   └── data/                    # Decoupled static JSON feeds
+│       ├── latest.json          # Real-time metrics & metadata for 139 dams (~160 KB)
+│       ├── dates.json           # Index of 1,046 available historical dates
+│       └── history/*.json       # 139 decoupled per-dam historical time-series shards
 │
-├── .github/workflows/          # CI/CD Automation
-│   └── daily_dam_scraper.yml  # Scheduled GitHub Action running at 09:00 AM & 03:00 PM IST
+├── scripts/                     # Maintenance & Metadata Scripts
+│   ├── enrich_dam_metadata.py   # Curates authentic imagery, Wikipedia links, and specs
+│   └── generate_logo.py         # Vector and raster logo generator
 │
-├── systemd/                    # Linux Self-Hosted Service Alternative
-│   ├── dam_scraper.service     # Systemd service unit definition
-│   └── dam_scraper.timer       # Systemd timer unit for automated execution
+├── .github/workflows/           # CI/CD Automation
+│   └── daily_dam_scraper.yml   # Scheduled workflow for daily bulletin processing
 │
-├── scripts/                    # Maintenance & Enrichment Scripts
-│   ├── enrich_dam_metadata.py  # Populates encyclopedic specs and photo URLs
-│   └── generate_logo.py        # Vector & raster icon generator
+├── systemd/                     # Headless Linux Daemon Configuration
+│   ├── dam_scraper.service      # Systemd service unit definition
+│   └── dam_scraper.timer        # Systemd timer unit for automated scheduling
 │
-├── run.sh                      # One-click launcher for web server & database inspect
-└── README.md                   # Project documentation
+├── CONTRIBUTIONS.md             # Open-source contribution guidelines & workflow
+├── run.sh                       # One-click execution and database inspection utility
+└── README.md                    # Project documentation
 ```
 
 ---
 
-## 📌 Key Features
+## 🚀 Installation & Local Development
 
-### 1. 3NF Relational DBMS
-- **Full 3rd Normal Form**: Master entities (`dams`, `divisions`, `districts`, `river_basins`), daily time-series logs (`dam_daily_logs`), and audit tracking.
-- **Relational Analytics View (`vw_dam_daily_analytics`)**: Pre-computes remaining storage volume, percentage full, and year-over-year percentage point differences.
-- **Comprehensive Historical Backfill**: **130,154 records** spanning **1,046 consecutive calendar days** (`2024-01-01` to `2026-11-12`).
-- **Encyclopedic Metadata**: Schema includes river, basin, nearest city, taluka, completion year, height, length, dead storage, gross capacity, primary purpose, and high-resolution photo URLs.
+### 1. Prerequisites
+- **Python**: Version 3.10 or higher
+- **SQLite**: Version 3.35+
+- **Git**: Installed and configured
+- **Modern Web Browser**: Chrome, Firefox, Safari, or Edge
 
-### 2. High-Performance English PDF Scraper
-- **Zero Translation Overhead**: Directly ingests official English bulletins (`Today's-Storage-ReportEng-DD-MM-YYYY.pdf`), eliminating Devanagari font ligature translation and regex corruption.
-- **Sub-10-Second Incremental Execution**: `scraper/daily_dam_worker.py --once --days 3` audits missing dates, downloads PDFs, extracts 138+ tables, upserts to SQLite, and regenerates web JSON in **~7 seconds**.
-- **Dual Automation Pipeline**:
-  - **GitHub Actions**: Configured in `.github/workflows/daily_dam_scraper.yml` to run twice daily. Commits only static data assets without bloating Git with heavy PDF files.
-  - **Linux Systemd Service / Crontab**: Standalone headless background automation with zero third-party dependencies (see [`SCRAPER_AND_AUTOMATION_GUIDE.md`](SCRAPER_AND_AUTOMATION_GUIDE.md)).
+### 2. Clone Repository & Setup
+```bash
+git clone https://github.com/psdtech07-pixel/Dam-Database.git
+cd Dam-Database
 
-### 3. Clean Civic-Tech UI/UX (Inspired by Bombay7)
-- **Minimalist Typography & Editorial Layout**: Clean typography (`Inter` and `Newsreader`), neutral border contrast, and color-coded status badges.
-- **Dark Mode Support**: Persistent Light/Dark theme toggle with automatic system preference detection (`prefers-color-scheme`).
-- **Circular Ring Progress Gauge**: Real-time storage percentage, status pill (`Healthy`, `Moderate`, `Low`, `Critical`), daily change delta (`↘ -0.15% since yesterday`), and volumes in **Million Litres (ML)**, **MCM**, and **TMC**.
-- **2025 vs 2026 YoY Comparison**: Vertical two-bar comparative graph with dashed reference gridlines.
-- **"What it means today" Advisory Callout**: Plain-language water assessment and 4-tier color bands legend:
-  - 🔴 **Critical**: `< 10%`
-  - 🟠 **Low**: `10–25%`
-  - 🟡 **Moderate**: `25–50%`
-  - 🟢 **Healthy**: `≥ 50%`
+# Create and activate virtual environment
+python3 -m venv venv
+source venv/bin/activate
 
-### 4. Dedicated Dam Detail Pages
-- **Instant Client-Side Routing**: Clicking any reservoir card seamlessly navigates to `#/dam/{slug}` (e.g. `#/dam/khadakwasla` or `#/dam/panshet`).
-- **Breadcrumb Navigation**: `Maharashtra dams by district / {District} / {Dam Name}`.
-- **Primary Metric Card**: Stored vs. Capacity in ML/MCM/TMC, Today's % vs. Same-Date Last Year %, and YoY difference (`+20.78 pp Higher YoY`).
-- **Encyclopedia & Specifications Grid**: Architectural dimensions, river basin, year completed, dead storage, gross storage, and purpose.
-- **Interactive Historical Chart**: Dedicated Chart.js line graph with **30D**, **90D**, **1Y**, and **All** time range filters.
-- **"Other Major Dams in {District}"**: Interactive pill block grid for exploring related reservoirs in the same administrative area.
+# Install required Python packages
+pip install pypdf pdfplumber pandas requests
+```
 
-### 5. Search & Command Palette Suite
-- **Quick Search Command Palette (`Ctrl+K` / `⌘K`)**: Instant search modal accessible via the top navigation bar or keyboard shortcuts to find any reservoir by English name, Marathi name, district, or river.
-- **Dynamic Table Search**: Table search input with an explicit **Search** button and live dropdown filters for River Basin, District, and Storage Status.
-
-### 6. Dedicated About Page & Global Site-Wide Footer
-- **Comprehensive About Section (`#/about`)**: Covers project background, 7 core objectives, visual 7-step pipeline flow, 3NF database architecture, complete technology stack, data transparency, and developer profile.
-- **Academic Context**: Details the project's evolution from a second-year DBMS course project at Vishwakarma Institute of Technology (VIT), Pune into an open civic-tech platform serving citizens, researchers, and students.
-- **Global Footer**: Persistent dark-navy footer across all pages with project identity, WRD source notes, quick navigation pills, developer attribution, and GitHub repository links.
-- **Floating Scroll-to-Top Button**: Responsive back-to-top button smoothly appearing when scrolling through long reservoir lists.
-
----
-
-## 🚀 Quick Start
-
-### 1. Inspect Database Health
-Run the built-in DBMS inspection utility to verify schema normalization and recent data:
+### 3. Inspect Database Health
+Verify the 3NF schema, record counts, and latest readings:
 ```bash
 ./run.sh --inspect
-# or
+# or directly with Python:
 python3 database/db_manager.py --inspect
 ```
 
-### 2. Launch Local Web Dashboard
+### 4. Run the Local Web Server
+Start the local static server:
 ```bash
 ./run.sh 8000
-# or
-python3 -m http.server 8000 --directory web
+# or:
+python3 -m http.server 8000 --directory web/
 ```
 Open **`http://localhost:8000`** in your browser.
 
-Direct view links:
-- Overview: `http://localhost:8000`
-- About Page: `http://localhost:8000/#/about`
-- Dam Details: `http://localhost:8000/#/dam/khadakwasla`
-- Koyna Dam: `http://localhost:8000/#/dam/koyna`
+Direct view URLs:
+- **Overview Dashboard**: `http://localhost:8000`
+- **About Page**: `http://localhost:8000/#/about`
+- **About Developer**: `http://localhost:8000/#/about-us`
+- **Khadakwasla Dam**: `http://localhost:8000/#/dam/khadakwasla`
+- **Koyna Dam**: `http://localhost:8000/#/dam/koyna`
+- **Ujjani Dam**: `http://localhost:8000/#/dam/bhima-ujjani`
 
-### 3. Run Incremental Daily Update
+### 5. Execute Incremental Ingestion Worker
+To fetch recent bulletins and perform transactional upserts:
 ```bash
 python3 scraper/daily_dam_worker.py --once --days 3
 ```
 
 ---
 
-## 👨‍💻 Developer & Academic Context
-Developed by **Parth Sadanand Debadwar**, Second-Year (SY) B.Tech Student in Instrumentation and Control Engineering at **Vishwakarma Institute of Technology (VIT), Pune** (Academic Period: 2025–2029).
+## 👨‍💻 About the Developer
 
-- **GitHub Repository**: [psdtech07-pixel/Dam-Database](https://github.com/psdtech07-pixel/Dam-Database)
-- **LinkedIn Profile**: [Parth Debadwar](https://www.linkedin.com/in/parth-debadwar-005205377)
+Developed and maintained by:
+
+**Parth Sadanand Debadwar**  
+*Second-Year (SY) B.Tech Student — Instrumentation and Control Engineering*  
+**Vishwakarma Institute of Technology (VIT), Pune**  
+*Academic Period: 2025–2029*
+
+- **GitHub**: [@psdtech07-pixel](https://github.com/psdtech07-pixel)
+- **LinkedIn**: [linkedin.com/in/parth-debadwar-005205377](https://www.linkedin.com/in/parth-debadwar-005205377)
+
+### Other Projects by the Developer
+- **[Moodify Aura](https://modify-s9hc.onrender.com/)**: A mood-based music recommendation platform that connects user emotions with suitable songs using audio analysis and intelligent playlists.
+- **[Arduino Masterclass](https://basics-of-arduino-eftdsakn0-psd-tech.vercel.app/)**: A comprehensive beginner-friendly learning resource covering Arduino fundamentals, electronics basics, sensor integration, and microcontroller programming.
 
 ---
 
-## 📊 Hydrological Units Reference
+## 🤝 Contributing
 
-| Unit | Expansion | Equivalent |
-|---|---|---|
-| **ML** | Million Litres | 10 Lakh Litres |
-| **MCM** | Million Cubic Metres | 1,000 ML (100 Crore Litres) |
-| **TMC** | Thousand Million Cubic Feet | 28.317 MCM (2,831.7 Crore Litres) |
-| **1 MCM** | — | **0.035315 TMC** |
+Contributions to data accuracy, scraper resilience, UI accessibility, or photographic attribution are welcome! Please read **[CONTRIBUTIONS.md](CONTRIBUTIONS.md)** for detailed workflows, coding standards, and ground rules.
 
 ---
 
-## 📜 Data Source & Transparency
-Hydrological observations are compiled from publicly available official bulletins published by the **Water Resources Department (WRD), Government of Maharashtra**. This platform is an independent educational and civic-tech public-information initiative and is not an official government service.
+## 📜 Data Source & Transparency Disclaimer
 
+All hydrological records, dam water levels, storage capacities, and rainfall data presented on this platform are compiled directly from publicly available daily storage bulletins published by:
 
+**Water Resources Department (WRD), Government of Maharashtra**  
+*Official Bulletin: Daily Dam Water Storage Report (08:00 AM IST)*
+
+> [!NOTE]  
+> The **Maharashtra Dam Water Storage Analytics System** is an independent civic-tech and educational platform developed for public information, data transparency, and academic learning. It is **not** an official Government of Maharashtra website and does not claim any official government representation. For official regulatory, emergency flood release, or legal purposes, always consult the official communications of the Maharashtra Water Resources Department.
+
+---
+
+*© 2026 Maharashtra Dam Water Storage Analytics System • Designed & Developed by Parth Sadanand Debadwar*

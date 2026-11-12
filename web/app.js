@@ -632,6 +632,7 @@ function renderDamDetailPage(dam) {
   // Dam Encyclopedia & Specifications
   const photo = document.getElementById('dpImage');
   photo.src = dam.image_url || 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80';
+  photo.alt = `${dam.name_en} Reservoir in ${dam.district} district, Maharashtra`;
   document.getElementById('dpPhotoCaption').innerText = `${dam.name_en} Reservoir (${dam.name_mr || dam.name_en}), ${dam.district}, Maharashtra`;
 
   document.getElementById('dpDescription').innerText = dam.description || `${dam.name_en} is a major storage reservoir situated in ${dam.district} district, ${dam.division} division.`;
@@ -644,6 +645,18 @@ function renderDamDetailPage(dam) {
   document.getElementById('dpSpecDead').innerText = `${dam.dead_mcm || 0} MCM`;
   document.getElementById('dpSpecGross').innerText = `${dam.design_gross_mcm || (designMCM + (dam.dead_mcm || 0)).toFixed(2)} MCM`;
   document.getElementById('dpSpecPurpose').innerText = dam.purpose || 'Drinking water supply and agricultural irrigation';
+
+  // Wikipedia Supplementary Reference Link
+  const wikiWrap = document.getElementById('dpWikiLinkWrap');
+  const wikiLink = document.getElementById('dpWikiLink');
+  if (wikiWrap && wikiLink) {
+    if (dam.wikipedia_url && dam.wikipedia_url.trim().length > 0) {
+      wikiLink.href = dam.wikipedia_url.trim();
+      wikiWrap.style.display = 'block';
+    } else {
+      wikiWrap.style.display = 'none';
+    }
+  }
 
   // Dedicated Historical Trend Chart for this Dam
   document.getElementById('dpChartDamName').innerText = dam.name_en;
