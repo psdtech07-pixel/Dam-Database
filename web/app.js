@@ -71,7 +71,7 @@ function getThemeColors() {
 }
 
 /* ----------------------------------------------------------------------------
-   ROUTING: OVERVIEW <-> DEDICATED DAM DETAIL PAGE
+   ROUTING: OVERVIEW <-> DEDICATED DAM DETAIL PAGE <-> ABOUT PAGE
    ---------------------------------------------------------------------------- */
 function handleHashRouting() {
   const hash = window.location.hash || '';
@@ -81,6 +81,12 @@ function handleHashRouting() {
       openDamPage(slug, false);
       return;
     }
+  } else if (hash === '#/about' || hash === '#/about-project') {
+    openAboutPage('project', false);
+    return;
+  } else if (hash === '#/about-us' || hash === '#/about-developer') {
+    openAboutPage('developer', false);
+    return;
   }
   navigateToOverview(false);
 }
@@ -90,10 +96,14 @@ function navigateToOverview(updateHash = true) {
     history.pushState(null, '', window.location.pathname + window.location.search);
   }
   currentDamSlug = null;
-  document.getElementById('damDetailView').classList.remove('active');
-  document.getElementById('damDetailView').style.display = 'none';
-  document.getElementById('overviewView').style.display = 'block';
-  document.getElementById('overviewView').classList.add('active');
+
+  const overview = document.getElementById('overviewView');
+  const damDetail = document.getElementById('damDetailView');
+  const about = document.getElementById('aboutView');
+
+  if (damDetail) { damDetail.classList.remove('active'); damDetail.style.display = 'none'; }
+  if (about) { about.classList.remove('active'); about.style.display = 'none'; }
+  if (overview) { overview.style.display = 'block'; overview.classList.add('active'); }
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
   if (trendChartInstance) renderTrendChart(currentChartDays);
@@ -110,12 +120,39 @@ function openDamPage(slug, updateHash = true) {
     window.location.hash = `#/dam/${slug}`;
   }
 
-  document.getElementById('overviewView').classList.remove('active');
-  document.getElementById('overviewView').style.display = 'none';
-  document.getElementById('damDetailView').style.display = 'block';
-  document.getElementById('damDetailView').classList.add('active');
+  const overview = document.getElementById('overviewView');
+  const damDetail = document.getElementById('damDetailView');
+  const about = document.getElementById('aboutView');
+
+  if (overview) { overview.classList.remove('active'); overview.style.display = 'none'; }
+  if (about) { about.classList.remove('active'); about.style.display = 'none'; }
+  if (damDetail) { damDetail.style.display = 'block'; damDetail.classList.add('active'); }
 
   renderDamDetailPage(dam);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function openAboutPage(targetSection = 'project', updateHash = true) {
+  if (updateHash) {
+    window.location.hash = targetSection === 'developer' ? '#/about-us' : '#/about';
+  }
+  currentDamSlug = null;
+
+  const overview = document.getElementById('overviewView');
+  const damDetail = document.getElementById('damDetailView');
+  const about = document.getElementById('aboutView');
+
+  if (overview) { overview.classList.remove('active'); overview.style.display = 'none'; }
+  if (damDetail) { damDetail.classList.remove('active'); damDetail.style.display = 'none'; }
+  if (about) { about.style.display = 'block'; about.classList.add('active'); }
+
+  if (targetSection === 'developer') {
+    const devSection = document.getElementById('aboutDeveloperSection');
+    if (devSection) {
+      setTimeout(() => devSection.scrollIntoView({ behavior: 'smooth' }), 50);
+      return;
+    }
+  }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -173,9 +210,9 @@ async function initDashboard() {
 
     populateDropdowns();
 
-    // Check if initial URL points to a specific dam
+    // Check if initial URL points to a specific dam or about page
     const hash = window.location.hash || '';
-    if (hash.startsWith('#/dam/')) {
+    if (hash.startsWith('#/dam/') || hash.startsWith('#/about')) {
       handleHashRouting();
     } else {
       selectRegionTab('Pune');
@@ -1173,6 +1210,8 @@ async function onDateSyncSelected(isoDate) {
 
 
 
+
+
 function resetDateSync() {
   currentSyncedDate = null;
   latestSnapshot = JSON.parse(JSON.stringify(originalLatestSnapshot));
@@ -1199,4 +1238,188 @@ function resetDateSync() {
   }
 }
 
+/* ----------------------------------------------------------------------------
+   QUICK SEARCH MODAL & GLOBAL COMMAND PALETTE (CTRL+K / CMD+K)
+   ---------------------------------------------------------------------------- */
+let quickSearchResults = [];
+let quickSearchSelectedIndex = 0;
 
+function openQuickSearchModal() {
+  const modal = document.getElementById('quickSearchModal');
+  const input = document.getElementById('quickSearchModalInput');
+  if (!modal || !input) return;
+
+  modal.style.display = 'flex';
+  input.value = '';
+  quickSearchSelectedIndex = 0;
+  onQuickSearchInput('');
+  setTimeout(() => input.focus(), 60);
+}
+
+function closeQuickSearchModal() {
+  const modal = document.getElementById('quickSearchModal');
+  if (modal) modal.style.display = 'none';
+}
+
+function closeQuickSearchOnBackdrop(event) {
+  if (event.target && event.target.id === 'quickSearchModal') {
+    closeQuickSearchModal();
+  }
+}
+
+function onQuickSearchInput(query) {
+  const container = document.getElementById('quickSearchResultsList');
+  if (!container) return;
+
+  const allDams = getDamList();
+  const q = (query || '').trim().toLowerCase();
+
+  let matches = allDams;
+  if (q) {
+    matches = allDams.filter(d => {
+      const matchEn = d.name_en && d.name_en.toLowerCase().includes(q);
+      const matchMr = d.name_mr && d.name_mr.toLowerCase().includes(q);
+      const matchDist = d.district && d.district.toLowerCase().includes(q);
+      const matchDiv = d.division && d.division.toLowerCase().includes(q);
+      const matchBasin = d.basin && d.basin.toLowerCase().includes(q);
+      const matchRiver = d.river && d.river.toLowerCase().includes(q);
+      return matchEn || matchMr || matchDist || matchDiv || matchBasin || matchRiver;
+    });
+  }
+
+  // Sort by highest capacity / relevance
+  matches.sort((a, b) => (Number(b.live_mcm) || 0) - (Number(a.live_mcm) || 0));
+  quickSearchResults = matches.slice(0, 20);
+  quickSearchSelectedIndex = 0;
+
+  if (quickSearchResults.length === 0) {
+    container.innerHTML = `<div class="quick-search-empty">No reservoirs found matching "<strong>${escapeHtml(query)}</strong>". Try searching by district (e.g. Pune, Satara, Nashik).</div>`;
+    return;
+  }
+
+  renderQuickSearchResults();
+}
+
+function renderQuickSearchResults() {
+  const container = document.getElementById('quickSearchResultsList');
+  if (!container) return;
+
+  let html = '';
+  quickSearchResults.forEach((dam, idx) => {
+    const pct = Number(dam.pct) || 0;
+    const status = getStatusDetails(pct);
+    const selectedClass = idx === quickSearchSelectedIndex ? 'selected' : '';
+    const mrSpan = dam.name_mr && dam.name_mr !== dam.name_en ? `<span class="qs-name-mr">${dam.name_mr}</span>` : '';
+
+    html += `
+      <div class="quick-search-item ${selectedClass}" onclick="selectQuickSearchResult('${dam.slug}')" onmouseenter="setQuickSearchHover(${idx})">
+        <div class="qs-left">
+          <div class="qs-title-row">
+            <span class="qs-name-en">${dam.name_en}</span>
+            ${mrSpan}
+          </div>
+          <div class="qs-meta">${dam.district} · ${dam.division} · ${dam.river || dam.basin || 'Krishna'}</div>
+        </div>
+        <div class="qs-right">
+          <span class="qs-pct-tag" style="background-color: var(--accent-green-bg); color: ${status.color};">${pct.toFixed(1)}%</span>
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+function setQuickSearchHover(idx) {
+  quickSearchSelectedIndex = idx;
+  const items = document.querySelectorAll('.quick-search-item');
+  items.forEach((it, i) => {
+    if (i === idx) it.classList.add('selected');
+    else it.classList.remove('selected');
+  });
+}
+
+function selectQuickSearchResult(slug) {
+  closeQuickSearchModal();
+  openDamPage(slug);
+}
+
+function onQuickSearchKeydown(event) {
+  if (event.key === 'Escape') {
+    closeQuickSearchModal();
+    return;
+  }
+  if (event.key === 'ArrowDown') {
+    event.preventDefault();
+    if (quickSearchResults.length > 0) {
+      quickSearchSelectedIndex = (quickSearchSelectedIndex + 1) % quickSearchResults.length;
+      renderQuickSearchResults();
+      scrollSelectedQuickSearchIntoView();
+    }
+    return;
+  }
+  if (event.key === 'ArrowUp') {
+    event.preventDefault();
+    if (quickSearchResults.length > 0) {
+      quickSearchSelectedIndex = (quickSearchSelectedIndex - 1 + quickSearchResults.length) % quickSearchResults.length;
+      renderQuickSearchResults();
+      scrollSelectedQuickSearchIntoView();
+    }
+    return;
+  }
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    if (quickSearchResults[quickSearchSelectedIndex]) {
+      selectQuickSearchResult(quickSearchResults[quickSearchSelectedIndex].slug);
+    }
+  }
+}
+
+function scrollSelectedQuickSearchIntoView() {
+  const container = document.getElementById('quickSearchResultsList');
+  const selected = container ? container.querySelector('.quick-search-item.selected') : null;
+  if (selected) {
+    selected.scrollIntoView({ block: 'nearest' });
+  }
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+/* ----------------------------------------------------------------------------
+   SCROLL TO TOP ("UP") BUTTON
+   ---------------------------------------------------------------------------- */
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+window.addEventListener('scroll', () => {
+  const topBtn = document.getElementById('scrollToTopBtn');
+  if (topBtn) {
+    if (window.scrollY > 300) {
+      topBtn.classList.add('visible');
+    } else {
+      topBtn.classList.remove('visible');
+    }
+  }
+});
+
+// Global Keyboard Shortcut listener (Cmd+K / Ctrl+K / '/' key)
+document.addEventListener('keydown', (e) => {
+  if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === 'K')) {
+    e.preventDefault();
+    const modal = document.getElementById('quickSearchModal');
+    if (modal && modal.style.display === 'flex') {
+      closeQuickSearchModal();
+    } else {
+      openQuickSearchModal();
+    }
+    return;
+  }
+
+  if (e.key === 'Escape') {
+    closeQuickSearchModal();
+  }
+});

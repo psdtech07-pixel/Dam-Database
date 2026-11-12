@@ -29,7 +29,7 @@
     <header class="navbar">
       <div class="brand" onclick="navigateToOverview()" style="cursor: pointer;">
         <div class="brand-crest">
-          <img src="logo.svg" alt="Maharashtra Dam Water Storage Logo" width="38" height="38">
+          <img src="logo.png" alt="Maharashtra Dam Water Storage Logo" width="38" height="38">
         </div>
         <div class="brand-text">
           <h1 class="brand-title">Maharashtra Dam Water Storage</h1>
@@ -46,6 +46,11 @@
           </svg>
           <span class="nav-search-label">Search</span>
           <kbd class="nav-search-kbd">⌘K</kbd>
+        </button>
+
+        <!-- About Page Nav Link -->
+        <button class="nav-link-btn" onclick="openAboutPage('project')" title="About the project & database architecture">
+          About
         </button>
 
         <!-- Date Selector / Sync Status -->
@@ -434,6 +439,36 @@
         </div>
       </section>
 
+      <!-- Info / Units Conversion Reference -->
+      <section class="info-section">
+        <div class="info-grid">
+          <div class="info-box">
+            <h4>About Dam Storage Metrics</h4>
+            <p>
+              <strong>Live Storage (Useful Content):</strong> The active volume of water above the lowest outlet / silt level available for municipal drinking, agricultural irrigation, and hydroelectric generation.
+            </p>
+            <p>
+              <strong>Dead Storage:</strong> Water stored below the lowest sluice gates that cannot be drained by gravity, reserved for silt accumulation.
+            </p>
+            <p>
+              <strong>Gross Storage:</strong> The entire volume of water stored in the reservoir (Live Storage + Dead Storage).
+            </p>
+          </div>
+
+          <div class="info-box">
+            <h4>Hydrological Units Conversion</h4>
+            <ul class="units-list">
+              <li><strong>1 MCM</strong> (Million Cubic Metres) = <strong>1,000 Million Litres</strong> = 100 Crore Litres</li>
+              <li><strong>1 TMC</strong> (Thousand Million Cubic Feet) = <strong>28.317 MCM</strong> = 2,831.7 Crore Litres</li>
+              <li><strong>1 MCM</strong> = <strong>0.035315 TMC</strong></li>
+            </ul>
+            <p class="source-credit">
+              <strong>Data Source:</strong> Maharashtra Water Resources Department (WRD) Daily Storage Bulletins, published daily at 08:00 AM IST.
+            </p>
+          </div>
+        </div>
+      </section>
+
     </main>
 
 
@@ -622,45 +657,589 @@
 
     </main>
 
-    <!-- Info / Units Conversion Reference -->
-    <section class="info-section">
-      <div class="info-grid">
-        <div class="info-box">
-          <h4>About Dam Storage Metrics</h4>
+    <!-- ======================================================================
+         VIEW 3: ABOUT PAGE (ABOUT PROJECT & ABOUT DEVELOPER)
+         ====================================================================== -->
+    <main id="aboutView" class="page-view" style="display: none;">
+      
+      <!-- Top Breadcrumbs -->
+      <nav class="dam-breadcrumbs" aria-label="Breadcrumb">
+        <a href="javascript:void(0)" onclick="navigateToOverview()">Overview Dashboard</a>
+        <span class="crumb-separator">/</span>
+        <span class="crumb-active">About the Platform</span>
+      </nav>
+
+      <!-- Hero Header -->
+      <header class="about-hero">
+        <div class="about-hero-badge">Civic-Tech & Database Analytics</div>
+        <h1 class="about-hero-title">About the Platform</h1>
+        <p class="about-hero-subtitle">
+          An open, database-driven civic-tech initiative transforming distributed government bulletins into structured, searchable, and historical dam water storage intelligence across Maharashtra.
+        </p>
+      </header>
+
+      <!-- Centralized Dataset Key Metrics (4 KPI Cards) -->
+      <section class="about-section">
+        <div class="about-stats-grid">
+          <div class="about-stat-card">
+            <span class="stat-number">139</span>
+            <span class="stat-label">Major Dams & Reservoirs</span>
+            <span class="stat-desc">State-wide monitored storage assets</span>
+          </div>
+          <div class="about-stat-card">
+            <span class="stat-number">6</span>
+            <span class="stat-label">Administrative Divisions</span>
+            <span class="stat-desc">Pune, Konkan, Nashik, Sambhajinagar, Amravati, Nagpur</span>
+          </div>
+          <div class="about-stat-card">
+            <span class="stat-number">1,30,154</span>
+            <span class="stat-label">Historical Records</span>
+            <span class="stat-desc">Normalized relational storage logs</span>
+          </div>
+          <div class="about-stat-card">
+            <span class="stat-number">1,046</span>
+            <span class="stat-label">Consecutive Days</span>
+            <span class="stat-desc">Historical archive: 1 Jan 2024 – 12 Nov 2026</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. About the Project -->
+      <section class="about-card-section" id="aboutProjectSection">
+        <div class="about-card-header">
+          <div class="about-icon-box">🏛️</div>
+          <div>
+            <h2 class="about-section-heading">Project Overview & Background</h2>
+            <p class="about-section-sub">Why this platform was developed and the civic problem it addresses</p>
+          </div>
+        </div>
+        <div class="about-prose">
           <p>
-            <strong>Live Storage (Useful Content):</strong> The active volume of water above the lowest outlet / silt level available for municipal drinking, agricultural irrigation, and hydroelectric generation.
+            The <strong>Maharashtra Dam Water Storage Analytics System</strong> is a database-driven civic-tech and data analytics platform designed to make dam water-storage information across Maharashtra accessible, structured, searchable, and understandable.
           </p>
           <p>
-            <strong>Dead Storage:</strong> Water stored below the lowest sluice gates that cannot be drained by gravity, reserved for silt accumulation.
+            Maharashtra has numerous dams and reservoirs distributed across diverse administrative divisions, districts, and river basins. Information about their water-storage levels is published periodically through official bulletins by the <strong>Water Resources Department (WRD), Government of Maharashtra</strong>.
           </p>
           <p>
-            <strong>Gross Storage:</strong> The entire volume of water stored in the reservoir (Live Storage + Dead Storage).
+            However, accessing historical records, comparing reservoirs across regions, tracking multi-month storage depletion, and analysing seasonal refill trends can be inconvenient when data is distributed across individual daily PDF reports.
+          </p>
+          <p>
+            This platform directly addresses that challenge by systematically collecting, extracting, validating, storing, and visualizing this vital public hydrological information through a centralised relational database and an interactive web dashboard. It transforms periodic static reports into structured, searchable, and accessible public civic data.
+          </p>
+        </div>
+      </section>
+
+      <!-- 2. Key Objectives -->
+      <section class="about-card-section">
+        <div class="about-card-header">
+          <div class="about-icon-box">🎯</div>
+          <div>
+            <h2 class="about-section-heading">Key Objectives</h2>
+            <p class="about-section-sub">Core pillars guiding the engineering and architecture of the platform</p>
+          </div>
+        </div>
+        <div class="objectives-grid">
+          <div class="objective-card">
+            <span class="obj-num">01</span>
+            <h4>Centralise Hydrological Information</h4>
+            <p>Aggregate distributed daily storage reports from official government bulletins into a unified database.</p>
+          </div>
+          <div class="objective-card">
+            <span class="obj-num">02</span>
+            <h4>Convert Unstructured Data</h4>
+            <p>Parse complex PDF tabular layouts and convert raw documents into clean, machine-readable datasets.</p>
+          </div>
+          <div class="objective-card">
+            <span class="obj-num">03</span>
+            <h4>Maintain Historical Archive</h4>
+            <p>Preserve continuous daily time-series storage records for long-term trend analysis and accountability.</p>
+          </div>
+          <div class="objective-card">
+            <span class="obj-num">04</span>
+            <h4>Enable Regional Exploration</h4>
+            <p>Empower users to compare reservoirs across river basins, administrative divisions, and districts.</p>
+          </div>
+          <div class="objective-card">
+            <span class="obj-num">05</span>
+            <h4>Interactive Visual Analytics</h4>
+            <p>Provide accessible visualisations including circular progress gauges, YoY comparison charts, and trend lines.</p>
+          </div>
+          <div class="objective-card">
+            <span class="obj-num">06</span>
+            <h4>Demonstrate Practical DBMS Concepts</h4>
+            <p>Apply real-world database normalisation (3NF), relational views, foreign keys, and indexing in production.</p>
+          </div>
+          <div class="objective-card full-width">
+            <span class="obj-num">07</span>
+            <h4>Open Public Accessibility</h4>
+            <p>Democratise access to essential water-resource information for citizens, researchers, students, and civic communities.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. How the System Works (Data Pipeline Visual Flow) -->
+      <section class="about-card-section">
+        <div class="about-card-header">
+          <div class="about-icon-box">⚙️</div>
+          <div>
+            <h2 class="about-section-heading">How the System Works</h2>
+            <p class="about-section-sub">End-to-end automated data ingestion, validation, storage, and publishing pipeline</p>
+          </div>
+        </div>
+        
+        <div class="pipeline-flow">
+          <div class="pipeline-step">
+            <div class="step-badge">Step 1</div>
+            <div class="step-icon">📡</div>
+            <h4>Data Collection</h4>
+            <p>Official daily dam storage bulletins are retrieved directly from the Maharashtra WRD portal published daily at 08:00 AM IST.</p>
+          </div>
+
+          <div class="pipeline-step">
+            <div class="step-badge">Step 2</div>
+            <div class="step-icon">📄</div>
+            <h4>PDF Processing</h4>
+            <p>An automated Python engine downloads PDF bulletins and extracts tabular storage matrices across 139 dams.</p>
+          </div>
+
+          <div class="pipeline-step">
+            <div class="step-badge">Step 3</div>
+            <div class="step-icon">🛡️</div>
+            <h4>Validation & Cleansing</h4>
+            <p>Extracted values undergo bounds-checking, coordinate mapping, and anomaly rejection before ingestion.</p>
+          </div>
+
+          <div class="pipeline-step">
+            <div class="step-badge">Step 4</div>
+            <div class="step-icon">🗄️</div>
+            <h4>Database Storage</h4>
+            <p>Validated records are transactionally upserted into an SQLite relational database designed in Third Normal Form (3NF).</p>
+          </div>
+
+          <div class="pipeline-step">
+            <div class="step-badge">Step 5</div>
+            <div class="step-icon">🔄</div>
+            <h4>Automated Scheduling</h4>
+            <p>Scheduled workflows (GitHub Actions & Linux systemd timers) execute daily to maintain continuous records.</p>
+          </div>
+
+          <div class="pipeline-step">
+            <div class="step-badge">Step 6</div>
+            <div class="step-icon">⚡</div>
+            <h4>Data Publishing</h4>
+            <p>The database exports decoupled, lightweight JSON endpoints (latest snapshot, calendar dates, and dam time-series).</p>
+          </div>
+
+          <div class="pipeline-step">
+            <div class="step-badge">Step 7</div>
+            <div class="step-icon">📊</div>
+            <h4>Interactive Dashboard</h4>
+            <p>Users explore real-time storage gauges, execute multi-filter table searches, and inspect dedicated dam trend pages.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Database Architecture -->
+      <section class="about-card-section">
+        <div class="about-card-header">
+          <div class="about-icon-box">🗃️</div>
+          <div>
+            <h2 class="about-section-heading">Database Architecture & Normalisation</h2>
+            <p class="about-section-sub">Engineered on relational principles for data integrity, efficiency, and zero redundancy</p>
+          </div>
+        </div>
+        <div class="about-prose">
+          <p>
+            At the heart of the platform is a robust <strong>SQLite relational database</strong> structured strictly adhering to <strong>Third Normal Form (3NF)</strong>. By decoupling static reservoir metadata from dynamic daily observations, the schema prevents update anomalies and minimises storage footprints.
           </p>
         </div>
 
-        <div class="info-box">
-          <h4>Hydrological Units Conversion</h4>
-          <ul class="units-list">
-            <li><strong>1 MCM</strong> (Million Cubic Metres) = <strong>1,000 Million Litres</strong> = 100 Crore Litres</li>
-            <li><strong>1 TMC</strong> (Thousand Million Cubic Feet) = <strong>28.317 MCM</strong> = 2,831.7 Crore Litres</li>
-            <li><strong>1 MCM</strong> = <strong>0.035315 TMC</strong></li>
-          </ul>
-          <p class="source-credit">
-            <strong>Data Source:</strong> Maharashtra Water Resources Department (WRD) Daily Storage Bulletins, published daily at 08:00 AM IST.
+        <div class="db-features-grid">
+          <div class="db-feature-card">
+            <h4>Relational Entity Separation</h4>
+            <p>Normalized tables for <code>divisions</code>, <code>districts</code>, <code>river_basins</code>, <code>dams</code>, <code>dam_daily_logs</code>, and <code>system_audit_logs</code> ensure zero redundant storage of names or geographic hierarchies.</p>
+          </div>
+          <div class="db-feature-card">
+            <h4>Referential Integrity</h4>
+            <p>Foreign-key constraints enforce structural hierarchy: dams link to districts, districts link to revenue divisions, and daily time-series logs cascade from registered dams.</p>
+          </div>
+          <div class="db-feature-card">
+            <h4>Query Optimization & Indexing</h4>
+            <p>Composite B-Tree indexes on <code>(dam_id, report_date)</code> and single-column indexes on <code>report_date</code> ensure sub-millisecond lookups across 130,000+ historical rows.</p>
+          </div>
+          <div class="db-feature-card">
+            <h4>Transactional Atomic Upserts</h4>
+            <p>Data ingestion utilizes SQLite's <code>ON CONFLICT(dam_id, report_date) DO UPDATE</code> mechanism, guaranteeing idempotent runs with zero data loss or duplication.</p>
+          </div>
+          <div class="db-feature-card full-width">
+            <h4>Materialised Analytics View (<code>vw_dam_daily_analytics</code>)</h4>
+            <p>A pre-joined SQL view computes derived analytical metrics—including remaining capacity to fill (MCM), live storage fill percentage, and year-over-year percentage point differences—without incurring runtime calculation penalties on the client.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Implemented Features -->
+      <section class="about-card-section">
+        <div class="about-card-header">
+          <div class="about-icon-box">✨</div>
+          <div>
+            <h2 class="about-section-heading">Implemented Platform Features</h2>
+            <p class="about-section-sub">Comprehensive tools designed for citizens, researchers, and water management stakeholders</p>
+          </div>
+        </div>
+        <div class="features-list-grid">
+          <div class="feat-card">
+            <span class="feat-check">✓</span>
+            <div>
+              <strong>Statewide Coverage</strong>
+              <p>Complete coverage of 139 major dams across all 6 administrative divisions of Maharashtra.</p>
+            </div>
+          </div>
+          <div class="feat-card">
+            <span class="feat-check">✓</span>
+            <div>
+              <strong>Historical Daily Logs</strong>
+              <p>Continuous daily storage observations from January 2024 through November 2026.</p>
+            </div>
+          </div>
+          <div class="feat-card">
+            <span class="feat-check">✓</span>
+            <div>
+              <strong>Dedicated Dam Pages</strong>
+              <p>Deep-dive view for every dam with encyclopedic specs, photographs, and regional peers.</p>
+            </div>
+          </div>
+          <div class="feat-card">
+            <span class="feat-check">✓</span>
+            <div>
+              <strong>Interactive Trend Visuals</strong>
+              <p>High-resolution Chart.js time-series plots with 30-day, 90-day, 1-year, and all-time ranges.</p>
+            </div>
+          </div>
+          <div class="feat-card">
+            <span class="feat-check">✓</span>
+            <div>
+              <strong>Command Palette (Ctrl + K)</strong>
+              <p>Keyboard-accessible instant reservoir search modal with bilingual name and district matching.</p>
+            </div>
+          </div>
+          <div class="feat-card">
+            <span class="feat-check">✓</span>
+            <div>
+              <strong>Multi-Criteria Filtering</strong>
+              <p>Dynamic tabular search and multi-select filtering across river basins, districts, and status tiers.</p>
+            </div>
+          </div>
+          <div class="feat-card">
+            <span class="feat-check">✓</span>
+            <div>
+              <strong>Standardised Hydrological Units</strong>
+              <p>Simultaneous display in Million Litres (ML), Million Cubic Metres (MCM), and TMC.</p>
+            </div>
+          </div>
+          <div class="feat-card">
+            <span class="feat-check">✓</span>
+            <div>
+              <strong>Light & Dark Mode</strong>
+              <p>High-contrast, accessible UI themes with persistent preference storage and auto system matching.</p>
+            </div>
+          </div>
+          <div class="feat-card">
+            <span class="feat-check">✓</span>
+            <div>
+              <strong>Comprehensive Reservoir Metadata</strong>
+              <p>Specifications including river, basin, nearest city, taluka, year, height, length, and purpose.</p>
+            </div>
+          </div>
+          <div class="feat-card">
+            <span class="feat-check">✓</span>
+            <div>
+              <strong>Automated Data Pipeline</strong>
+              <p>Scheduled background workers ensuring consistent synchronization with official morning bulletins.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Technology Stack -->
+      <section class="about-card-section">
+        <div class="about-card-header">
+          <div class="about-icon-box">💻</div>
+          <div>
+            <h2 class="about-section-heading">Technology Stack</h2>
+            <p class="about-section-sub">Tools, frameworks, and libraries utilized across the platform architecture</p>
+          </div>
+        </div>
+        <div class="tech-stack-grid">
+          <div class="tech-group-card">
+            <h4>Backend & Data Ingestion</h4>
+            <div class="tech-tags">
+              <span class="tech-tag">Python 3.10+</span>
+              <span class="tech-tag">SQLite 3 (3NF)</span>
+              <span class="tech-tag">Relational SQL DDL/DML</span>
+              <span class="tech-tag">PDF Table Extraction (pypdf/pdfplumber)</span>
+              <span class="tech-tag">Static JSON Serialization</span>
+            </div>
+          </div>
+
+          <div class="tech-group-card">
+            <h4>Frontend Architecture</h4>
+            <div class="tech-tags">
+              <span class="tech-tag">HTML5 (Semantic Web)</span>
+              <span class="tech-tag">CSS3 (Custom Properties & Tokens)</span>
+              <span class="tech-tag">Vanilla JavaScript (ES6+ SPA)</span>
+              <span class="tech-tag">Chart.js 4</span>
+              <span class="tech-tag">Hash-Based Routing</span>
+            </div>
+          </div>
+
+          <div class="tech-group-card">
+            <h4>Automation & Infrastructure</h4>
+            <div class="tech-tags">
+              <span class="tech-tag">GitHub Actions (CI/CD Cron)</span>
+              <span class="tech-tag">Linux Systemd Timers & Services</span>
+              <span class="tech-tag">Git Version Control</span>
+              <span class="tech-tag">GitHub Pages Deployment</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. Data Source & Transparency -->
+      <section class="about-card-section">
+        <div class="about-card-header">
+          <div class="about-icon-box">📋</div>
+          <div>
+            <h2 class="about-section-heading">Data Source & Transparency</h2>
+            <p class="about-section-sub">Institutional source acknowledgement and educational disclaimer</p>
+          </div>
+        </div>
+        <div class="about-prose">
+          <p>
+            All hydrological observations, dam storage numbers, live percentages, and rainfall records presented on this platform are compiled directly from official daily storage bulletins published by:
+          </p>
+          <div class="source-callout">
+            <strong>Water Resources Department (WRD), Government of Maharashtra</strong>
+            <p>Official Bulletin: <em>Daily Dam Water Storage Report (08:00 AM)</em></p>
+          </div>
+          <p>
+            The platform automatically retrieves and organizes these publicly available bulletins for civic transparency, educational evaluation, and trend exploration.
+          </p>
+          <div class="disclaimer-callout">
+            <strong>Educational & Civic-Tech Disclaimer:</strong>
+            <p>
+              The Maharashtra Dam Water Storage Analytics System is an independent educational and public-information platform. It is <strong>not</strong> an official Government of Maharashtra website and does not claim any official government affiliation, endorsement, or representation. For legal, municipal water rationing, or emergency flood discharge notices, always consult the official communications of the Water Resources Department.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. About Us – The Developer -->
+      <section class="about-card-section developer-card-section" id="aboutDeveloperSection">
+        <div class="about-card-header">
+          <div class="about-icon-box">👨‍💻</div>
+          <div>
+            <h2 class="about-section-heading">About Us — The Developer</h2>
+            <p class="about-section-sub">Student engineering initiative bridging software, data, and public systems</p>
+          </div>
+        </div>
+
+        <div class="developer-profile-card">
+          <div class="dev-header">
+            <div class="dev-avatar">PD</div>
+            <div class="dev-meta">
+              <h3 class="dev-name">Parth Sadanand Debadwar</h3>
+              <p class="dev-title">Second-Year (SY) B.Tech Student — Instrumentation and Control Engineering</p>
+              <p class="dev-institution">Vishwakarma Institute of Technology (VIT), Pune • Academic Period: 2025–2029</p>
+            </div>
+          </div>
+
+          <div class="dev-bio">
+            <p>
+              I am <strong>Parth Sadanand Debadwar</strong>, a second-year Instrumentation and Control Engineering undergraduate student at Vishwakarma Institute of Technology (VIT), Pune.
+            </p>
+            <p>
+              I am passionate about building practical, technology-driven solutions that connect software, hardware, data, and engineering systems. My areas of interest include software development, embedded systems, robotics, the Internet of Things (IoT), automation, and Linux-based system engineering.
+            </p>
+            <p>
+              I enjoy learning by actively building projects, experimenting with new technologies, solving real-world challenges, and understanding how complex systems function internally. This platform reflects my passion for applying core database management and software engineering concepts to a meaningful domain with statewide civic relevance.
+            </p>
+          </div>
+
+          <div class="dev-interests-block">
+            <span class="interests-label">Areas of Interest:</span>
+            <div class="dev-tags">
+              <span class="dev-tag">Software Development</span>
+              <span class="dev-tag">Database Systems</span>
+              <span class="dev-tag">Embedded Systems</span>
+              <span class="dev-tag">Robotics</span>
+              <span class="dev-tag">Internet of Things (IoT)</span>
+              <span class="dev-tag">Automation</span>
+              <span class="dev-tag">Linux & Open Source</span>
+              <span class="dev-tag">Engineering & Technology</span>
+            </div>
+          </div>
+
+          <div class="dev-links-row">
+            <a href="https://github.com/psdtech07-pixel/Dam-Database" target="_blank" rel="noopener noreferrer" class="dev-btn github-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+              GitHub Repository
+            </a>
+            <a href="https://www.linkedin.com/in/parth-debadwar-005205377" target="_blank" rel="noopener noreferrer" class="dev-btn linkedin-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              </svg>
+              LinkedIn Profile
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. Academic Origin and Evolution -->
+      <section class="about-card-section">
+        <div class="about-card-header">
+          <div class="about-icon-box">🌱</div>
+          <div>
+            <h2 class="about-section-heading">From a Course Project to a Public Platform</h2>
+            <p class="about-section-sub">The story of expansion from an academic DBMS assignment into a live civic resource</p>
+          </div>
+        </div>
+        <div class="about-prose">
+          <p>
+            This website originally began as a course project for the <strong>Database Management System (DBMS)</strong> curriculum during my undergraduate studies in Instrumentation and Control Engineering at <strong>Vishwakarma Institute of Technology (VIT), Pune</strong>.
+          </p>
+          <p>
+            The initial academic objective was to ground theoretical relational database concepts—such as normalization, entity relationships, views, and integrity constraints—in a practical, real-world application rather than creating an artificial textbook schema.
+          </p>
+          <p>
+            What started as a focused classroom project gradually evolved into an extensive statewide information infrastructure. The project scope expanded far beyond academic submission requirements to incorporate automated web scraping, historical multi-year archiving, automated CI/CD synchronization, analytical querying, and an editorial, citizen-friendly dashboard.
+          </p>
+          <p>
+            Today, the platform is intentionally designed to be openly accessible to everyone—not just students or academic evaluators. It aims to serve diverse user communities:
           </p>
         </div>
-      </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="site-footer">
-      <div class="footer-content">
-        <p>Maharashtra Dam Water Storage Analytics • Open Civic Data</p>
-        <p class="footer-sub">Data updated daily from Maharashtra WRD official reports • Relational 3NF SQLite Engine</p>
-      </div>
-    </footer>
+        <div class="audience-grid">
+          <div class="audience-card">
+            <span class="aud-icon">👥</span>
+            <h4>Citizens & Residents</h4>
+            <p>Everyday citizens seeking transparent, accessible understanding of dam storage levels and municipal water security.</p>
+          </div>
+          <div class="audience-card">
+            <span class="aud-icon">🔬</span>
+            <h4>Hydrological Researchers</h4>
+            <p>Academics, environmental analysts, and climate researchers requiring clean, structured time-series datasets for exploratory study.</p>
+          </div>
+          <div class="audience-card">
+            <span class="aud-icon">🎓</span>
+            <h4>Students & Educators</h4>
+            <p>Learners studying database architectures, full-stack engineering, civic-tech, and practical real-world data systems.</p>
+          </div>
+          <div class="audience-card">
+            <span class="aud-icon">🏞️</span>
+            <h4>Water-Resource Enthusiasts</h4>
+            <p>Individuals passionate about Maharashtra's geographical landmarks, river basins, monsoons, and storage dynamics.</p>
+          </div>
+          <div class="audience-card full-width">
+            <span class="aud-icon">💻</span>
+            <h4>Developers & Civic-Tech Builders</h4>
+            <p>Engineers interested in automated data pipelines, schema design, public data curation, and community tech projects.</p>
+          </div>
+        </div>
 
-  </div>
+        <div class="about-prose" style="margin-top: 24px;">
+          <p>
+            The overarching vision is simple: to make critical public water-resource information effortless to access, explore, and understand. Although it was born in an academic classroom, this project is built as an enduring public initiative for the people of Maharashtra.
+          </p>
+        </div>
+      </section>
+
+      <!-- Return button -->
+      <div class="bottom-back-action">
+        <button class="btn-return-overview" onclick="navigateToOverview()">
+          ← Return to Regional Overview Dashboard
+        </button>
+      </div>
+
+    </main>
+
+  </div> <!-- Close .site-wrapper -->
+
+  <!-- ======================================================================
+       MANDATORY SITE-WIDE GLOBAL FOOTER (Image 3 exact clone)
+       ====================================================================== -->
+  <footer class="global-site-footer">
+    <div class="footer-container">
+      
+      <!-- Top Main Row -->
+      <div class="footer-main-row">
+        
+        <!-- Left: Project Identity & Disclaimers -->
+        <div class="footer-brand-col">
+          <div class="footer-brand-header">
+            <img src="logo.png" alt="Logo" class="footer-logo-img" width="28" height="28">
+            <h3 class="footer-project-title">Maharashtra Dam Water Storage Analytics System</h3>
+          </div>
+          
+          <p class="footer-project-desc">
+            An independent citizen-focused platform making Maharashtra’s dam and reservoir water-storage information accessible through structured data and interactive analytics.
+          </p>
+
+          <div class="footer-meta-notes">
+            <p class="footer-source-note">
+              <strong>Data Source:</strong> Water Resources Department (WRD), Government of Maharashtra.
+            </p>
+            <p class="footer-disclaimer-note">
+              This is an independent, unofficial information platform. For official water-resource information, please refer to the Maharashtra Water Resources Department.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: Navigation Pills & Support -->
+        <div class="footer-nav-col">
+          <nav class="footer-nav-pills" aria-label="Footer Navigation">
+            <button type="button" class="footer-pill-btn" onclick="navigateToOverview()">Overview</button>
+            <button type="button" class="footer-pill-btn" onclick="openAboutPage('project')">About Project</button>
+            <button type="button" class="footer-pill-btn" onclick="openAboutPage('developer')">About Us</button>
+            <a href="https://github.com/psdtech07-pixel/Dam-Database" target="_blank" rel="noopener noreferrer" class="footer-pill-btn">GitHub</a>
+          </nav>
+
+          <div class="footer-support-wrap">
+            <a href="https://github.com/psdtech07-pixel/Dam-Database" target="_blank" rel="noopener noreferrer" class="footer-support-btn" title="Support the project on GitHub">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+              <span>Support Us</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="footer-bottom-bar">
+        <p class="footer-copy">
+          © 2026 Maharashtra Dam Water Storage Analytics System • Developed by <strong>Parth Sadanand Debadwar</strong>
+        </p>
+        <div class="footer-bottom-links">
+          <a href="https://github.com/psdtech07-pixel/Dam-Database" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+          <span class="sep">•</span>
+          <a href="https://www.linkedin.com/in/parth-debadwar-005205377" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Floating Scroll-to-Top Button (Up) -->
+  <button id="scrollToTopBtn" class="scroll-to-top-btn" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="19" x2="12" y2="5"></line>
+      <polyline points="5 12 12 5 19 12"></polyline>
+    </svg>
+  </button>
 
   <!-- Quick Search Command Palette Modal (Ctrl+K) -->
   <div id="quickSearchModal" class="quick-search-backdrop" style="display: none;" onclick="closeQuickSearchOnBackdrop(event)">

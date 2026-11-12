@@ -21,10 +21,12 @@ Live daily reports are sourced automatically from official **Maharashtra Water R
 │   └── download_english_pdfs.py # Parallel batch downloader for historical bulletins
 │
 ├── web/                        # Modern Civic-Tech Web Frontend
-│   ├── index.html              # Main dashboard with SPA routing (#/dam/{slug})
-│   ├── dam.html                # Standalone URL redirector (?slug=...)
+│   ├── index.html              # Main dashboard with SPA routing (#/dam/{slug}, #/about)
+│   ├── about.html              # Standalone About page redirector
+│   ├── dam.html                # Standalone Dam details redirector (?slug=...)
 │   ├── index.css               # Editorial CSS system with Light & Dark mode tokens
 │   ├── app.js                  # Client-side routing, Chart.js graphs, Command Palette
+│   ├── logo.png                # Circular hydro-analytics emblem logo
 │   ├── logo.svg                # Vector branding logo
 │   ├── favicon.svg             # Standalone vector favicon
 │   ├── favicon.ico             # Multi-resolution ICO (16x16, 32x32, 48x48, 64x64)
@@ -88,6 +90,12 @@ Live daily reports are sourced automatically from official **Maharashtra Water R
 - **Quick Search Command Palette (`Ctrl+K` / `⌘K`)**: Instant search modal accessible via the top navigation bar or keyboard shortcuts to find any reservoir by English name, Marathi name, district, or river.
 - **Dynamic Table Search**: Table search input with an explicit **Search** button and live dropdown filters for River Basin, District, and Storage Status.
 
+### 6. Dedicated About Page & Global Site-Wide Footer
+- **Comprehensive About Section (`#/about`)**: Covers project background, 7 core objectives, visual 7-step pipeline flow, 3NF database architecture, complete technology stack, data transparency, and developer profile.
+- **Academic Context**: Details the project's evolution from a second-year DBMS course project at Vishwakarma Institute of Technology (VIT), Pune into an open civic-tech platform serving citizens, researchers, and students.
+- **Global Footer**: Persistent dark-navy footer across all pages with project identity, WRD source notes, quick navigation pills, developer attribution, and GitHub repository links.
+- **Floating Scroll-to-Top Button**: Responsive back-to-top button smoothly appearing when scrolling through long reservoir lists.
+
 ---
 
 ## 🚀 Quick Start
@@ -108,15 +116,24 @@ python3 -m http.server 8000 --directory web
 ```
 Open **`http://localhost:8000`** in your browser.
 
-Direct dam view links:
-- `http://localhost:8000/#/dam/khadakwasla`
-- `http://localhost:8000/#/dam/koyna`
-- `http://localhost:8000/#/dam/bhima-ujjani`
+Direct view links:
+- Overview: `http://localhost:8000`
+- About Page: `http://localhost:8000/#/about`
+- Dam Details: `http://localhost:8000/#/dam/khadakwasla`
+- Koyna Dam: `http://localhost:8000/#/dam/koyna`
 
 ### 3. Run Incremental Daily Update
 ```bash
 python3 scraper/daily_dam_worker.py --once --days 3
 ```
+
+---
+
+## 👨‍💻 Developer & Academic Context
+Developed by **Parth Sadanand Debadwar**, Second-Year (SY) B.Tech Student in Instrumentation and Control Engineering at **Vishwakarma Institute of Technology (VIT), Pune** (Academic Period: 2025–2029).
+
+- **GitHub Repository**: [psdtech07-pixel/Dam-Database](https://github.com/psdtech07-pixel/Dam-Database)
+- **LinkedIn Profile**: [Parth Debadwar](https://www.linkedin.com/in/parth-debadwar-005205377)
 
 ---
 
@@ -131,5 +148,7 @@ python3 scraper/daily_dam_worker.py --once --days 3
 
 ---
 
-## 📜 Data Source & Attribution
-Data is compiled from official daily dam water storage bulletins published by the **Water Resources Department (WRD), Government of Maharashtra**.
+## 📜 Data Source & Transparency
+Hydrological observations are compiled from publicly available official bulletins published by the **Water Resources Department (WRD), Government of Maharashtra**. This platform is an independent educational and civic-tech public-information initiative and is not an official government service.
+
+
