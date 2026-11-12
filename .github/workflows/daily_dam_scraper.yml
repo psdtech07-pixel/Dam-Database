@@ -1,21 +1,21 @@
-name: Daily Maharashtra State-Wide Dam Data Collector
+name: Daily Maharashtra Dam Storage Tracker
 
 on:
   schedule:
-    # Runs daily at 02:00 PM IST (08:30 AM UTC) & 08:00 PM IST (14:30 UTC)
-    - cron: '30 8 * * *'
-    - cron: '30 14 * * *'
-  workflow_dispatch: # Allows manual trigger from GitHub UI anytime
+    # Runs daily at 09:00 AM IST (03:30 AM UTC) & 03:00 PM IST (09:30 AM UTC)
+    - cron: '30 3 * * *'
+    - cron: '30 9 * * *'
+  workflow_dispatch: # Allows manual run anytime
 
 permissions:
   contents: write
 
 jobs:
-  run-scraper-and-sync-db:
+  scrape-and-update-dashboard:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository Code
+      - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Set up Python 3.12
@@ -23,63 +23,24 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install System Dependencies & Python Libraries
+      - name: Install System Utilities & Python Packages
         run: |
           sudo apt-get update
           sudo apt-get install -y poppler-utils
-          pip install pandas mysql-connector-python pypdf pdfplumber
+          pip install pandas pypdf pdfplumber schedule
 
-      - name: Fetch Dam Data & Sync to Cloud MySQL
-        env:
-          MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
-          MYSQL_PORT: ${{ secrets.MYSQL_PORT }}
-          MYSQL_USER: ${{ secrets.MYSQL_USER }}
-          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+      - name: Execute Daily Dam Storage Scraper & Database Ingestion
         run: |
-          python3 -c "
-          import sys, os
-          sys.path.append('scraper')
-          sys.path.append('database')
-          import fetch_dam_data
-          import db_manager
+          python3 scraper/daily_dam_worker.py --once --days 5
 
-          # 1. Fetch recent 14 days data to ensure no missing reports
-          df = fetch_dam_data.fetch_multi_dam_data(days=14)
-          
-          # 2. Ingest into SQLite DBMS & export web JSON
-          fetch_dam_data.save_to_files(df)
-
-          # 3. Sync to Cloud MySQL tables if credentials are set
-          mysql_host = os.environ.get('MYSQL_HOST')
-          if mysql_host and mysql_host.strip():
-              try:
-                  fetch_dam_data.push_to_mysql(
-                      df,
-                      host=mysql_host.strip(),
-                      user=os.environ.get('MYSQL_USER', 'avnadmin').strip(),
-                      password=os.environ.get('MYSQL_PASSWORD', '').strip(),
-                      database='defaultdb',
-                      port=int(os.environ.get('MYSQL_PORT', 19180))
-                  )
-              except Exception as e:
-                  print('[!] Note: MySQL Sync warning:', e)
-          else:
-              print('[!] MYSQL_HOST secret not set. Skipping DB sync.')
-          "
-
-      - name: Ingest to SQLite DBMS & Regenerate Dashboard JSON
-        run: |
-          python3 database/db_manager.py
-
-      - name: Commit and Push Updated Database & Files
+      - name: Commit & Publish Updated Data Files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add database/pune_dams.db web/data/ web/dam_data.json dam_pdfs/ || true
+          git add web/data/ database/pune_dams.db || true
           if git diff --staged --quiet; then
-            echo "No changes to commit."
+            echo "No data changes to commit."
           else
-            git commit -m "Auto-update dam storage records, SQLite DB & dashboard JSON [$(date +'%Y-%m-%d')]"
+            git commit -m "Auto-update Maharashtra dam storage records [$(date +'%Y-%m-%d')]"
             git push
           fi
-

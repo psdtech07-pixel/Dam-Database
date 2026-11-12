@@ -48,6 +48,15 @@ CREATE TABLE IF NOT EXISTS dams (
     full_reservoir_level_m  REAL,
     latitude                REAL,
     longitude               REAL,
+    taluka                  TEXT,
+    nearest_city            TEXT,
+    river                   TEXT,
+    completion_year         INTEGER,
+    purpose                 TEXT,
+    description             TEXT,
+    image_url               TEXT,
+    height_m                REAL,
+    length_m                REAL,
     FOREIGN KEY (district_id) REFERENCES districts(district_id),
     FOREIGN KEY (basin_id) REFERENCES basins(basin_id)
 );

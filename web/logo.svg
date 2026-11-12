@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <!-- Background Squircle Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="60%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+
+    <!-- Reservoir Water Gradient -->
+    <linearGradient id="reservoirGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+
+    <!-- Spillway Flow Gradient -->
+    <linearGradient id="spillwayGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#93c5fd"/>
+    </linearGradient>
+
+    <filter id="subtleShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="1" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Squircle Base Frame -->
+  <rect width="64" height="64" rx="15" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle Inner Border Highlight -->
+  <rect x="1" y="1" width="62" height="62" rx="14" fill="none" stroke="#ffffff" stroke-opacity="0.18" stroke-width="1.5"/>
+
+  <!-- Reservoir Level Wave Lines (Top Storage Basin) -->
+  <path d="M12 18 C18 16.5, 24 19.5, 32 18 C40 16.5, 46 19.5, 52 18" 
+        stroke="#7dd3fc" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.85"/>
+  <path d="M14 23 C20 21.5, 26 24.5, 32 23 C38 21.5, 44 24.5, 50 23" 
+        stroke="#bae6fd" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.65"/>
+
+  <!-- Concrete Dam Gravity Wall Structure -->
+  <!-- Top Crest Roadway -->
+  <rect x="11" y="27" width="42" height="4" rx="1.5" fill="#f8fafc" filter="url(#subtleShadow)"/>
+
+  <!-- Sloping Dam Wall / Spillway Chute Body -->
+  <path d="M13 31 L18 48 C22 49, 42 49, 46 48 L51 31 Z" fill="#ffffff" fill-opacity="0.95" filter="url(#subtleShadow)"/>
+
+  <!-- Vertical Spillway Piers / Sluice Gates (3 Sluice Channels) -->
+  <rect x="21.5" y="32" width="2.5" height="13" rx="1.2" fill="#1d4ed8"/>
+  <rect x="30.75" y="32" width="2.5" height="13" rx="1.2" fill="#1d4ed8"/>
+  <rect x="40" y="32" width="2.5" height="13" rx="1.2" fill="#1d4ed8"/>
+
+  <!-- Cascading Flow at Dam Base -->
+  <path d="M16 51 C22 49.5, 26 52.5, 32 51 C38 49.5, 42 52.5, 48 51" 
+        stroke="url(#spillwayGrad)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M20 55 C24 54, 28 56, 32 55 C36 54, 40 56, 44 55" 
+        stroke="#60a5fa" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.9"/>
+</svg>

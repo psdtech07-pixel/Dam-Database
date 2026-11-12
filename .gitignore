@@ -1,5 +1,11 @@
-# Ignore cached downloaded PDFs and virtualenvs
+# Ignore downloaded PDF archives and large backups
+dam_pdf/
 dam_pdfs/
+new_dam_pdf/
+backup/
 __pycache__/
 *.pyc
 .env
+
+# Obsolete legacy 36MB dump
+web/dam_data.json

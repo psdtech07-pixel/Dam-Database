@@ -1,216 +1,398 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>Pune Dam Water Levels Today | Khadakwasla, Panshet, Pavana, Mulshi Storage</title>
-  <meta name="description" content="Live and historical water storage analytics dashboard for Khadakwasla, Panshet, Varasgaon, Temghar, Mulshi, and Pavana dams supplying Pune & Pimpri-Chinchwad. Data sourced directly from Maharashtra WRD.">
+  <title>Maharashtra Dam Water Storage | Live Reservoir Analytics & Historical Levels</title>
+  <meta name="description" content="Live and historical water storage monitoring dashboard for Maharashtra dams and reservoirs including Khadakwasla, Panshet, Varasgaon, Temghar, Pavana, Mulshi, Koyna, Ujjani, and Jayakwadi. Daily reports sourced from Maharashtra WRD.">
   
-  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <!-- Modern Clean Typography: Inter & Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Newsreader:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+
+  <!-- Favicon & Touch Icons -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="logo-192.png">
 
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- Clean Premium Stylesheet -->
-  <link rel="stylesheet" href="index.css?v=6.0">
+  <!-- Clean Civic Stylesheet (mumbailakewaterlevel.in Style + Dark Mode) -->
+  <link rel="stylesheet" href="index.css?v=8.0">
 </head>
 <body>
-  <div class="app-container">
+  <div class="site-wrapper">
     
-    <!-- Top Navigation Header -->
+    <!-- Top Civic Navigation Bar -->
     <header class="navbar">
-      <div class="brand">
-        <div class="brand-logo">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
-          </svg>
+      <div class="brand" onclick="navigateToOverview()" style="cursor: pointer;">
+        <div class="brand-crest">
+          <img src="logo.svg" alt="Maharashtra Dam Water Storage Logo" width="38" height="38">
         </div>
-        <div class="brand-info">
-          <h1>Pune Dam Water Levels Today</h1>
-          <p>Khadakwasla • Panshet • Varasgaon • Temghar • Mulshi • Pavana</p>
+        <div class="brand-text">
+          <h1 class="brand-title">Maharashtra Dam Water Storage</h1>
+          <p class="brand-subtitle" id="navbarSubtitle">Report as of 12 November 2026 • Maharashtra WRD</p>
         </div>
       </div>
 
-      <div class="header-actions">
-        <div class="status-badge clickable" id="headerStatusBadge" title="Click to pick any historical date and view state-wide dam records">
-          <span class="pulse-indicator" id="syncPulse"></span>
-          <span id="lastUpdatedText">Live Sync</span>
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="margin-left: 2px;">
+      <div class="nav-controls">
+        <!-- Quick Dam Search Button -->
+        <button id="navSearchBtn" class="nav-search-btn" onclick="openQuickSearchModal()" title="Search 139 Maharashtra reservoirs (Ctrl+K)" aria-label="Search reservoirs">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span class="nav-search-label">Search</span>
+          <kbd class="nav-search-kbd">⌘K</kbd>
+        </button>
+
+        <!-- Date Selector / Sync Status -->
+        <div class="date-sync-pill" id="headerDateSync" title="Select a historical date from 2024 to 2026">
+          <span class="sync-dot"></span>
+          <span id="lastUpdatedText">12 Nov 2026 (Live)</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
             <line x1="16" y1="2" x2="16" y2="6"/>
             <line x1="8" y1="2" x2="8" y2="6"/>
             <line x1="3" y1="10" x2="21" y2="10"/>
           </svg>
-          <input type="date" id="syncDatePicker" title="Select date to view historical dam storage logs" onchange="onDateSyncSelected(this.value)">
+          <input type="date" id="syncDatePicker" title="Historical date picker" onchange="onDateSyncSelected(this.value)">
         </div>
-        <button id="resetDateSyncBtn" class="pill-btn-reset" style="display:none;" onclick="resetDateSync()" title="Return to latest live data">
-          ↺ Return to Live
+
+        <button id="resetDateSyncBtn" class="btn-ghost" style="display:none;" onclick="resetDateSync()" title="Return to latest live data">
+          ↺ Latest Live
+        </button>
+
+        <!-- Dark / Light Mode Switcher -->
+        <button id="themeToggleBtn" class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark/Light Mode" aria-label="Toggle theme">
+          <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
         </button>
       </div>
     </header>
 
-    <!-- Region Navigation Pill Tabs (Pune Region Default Active) -->
-    <nav class="region-tabs-bar">
-      <button class="tab-btn active" data-region="Pune" onclick="selectRegionTab('Pune', this)">
-        <span class="tab-icon">📍</span> Pune Region
-      </button>
-      <button class="tab-btn" data-region="Kokan" onclick="selectRegionTab('Kokan', this)">
-        <span class="tab-icon">🌊</span> Konkan / Mumbai
-      </button>
-      <button class="tab-btn" data-region="Nashik" onclick="selectRegionTab('Nashik', this)">
-        <span class="tab-icon">⛰️</span> Nashik Region
-      </button>
-      <button class="tab-btn" data-region="Chhatrapati Sambhajinagar" onclick="selectRegionTab('Chhatrapati Sambhajinagar', this)">
-        <span class="tab-icon">🏛️</span> Sambhajinagar
-      </button>
-      <button class="tab-btn" data-region="Amravati" onclick="selectRegionTab('Amravati', this)">
-        <span class="tab-icon">🌾</span> Amravati Region
-      </button>
-      <button class="tab-btn" data-region="Nagpur" onclick="selectRegionTab('Nagpur', this)">
-        <span class="tab-icon">🌳</span> Nagpur Region
-      </button>
-      <button class="tab-btn" data-region="ALL" onclick="selectRegionTab('ALL', this)">
-        <span class="tab-icon">🗺️</span> All Maharashtra
-      </button>
-    </nav>
+    <!-- Source attribution banner -->
+    <div class="banner-notice">
+      <span class="notice-title">Using Maharashtra WRD daily bulletin</span>
+      <p>Official dam storage records sourced daily from Maharashtra Water Resources Department 08:00 AM bulletin. Updates regularly.</p>
+    </div>
 
-    <!-- Hero Stat Banner for Selected Region (Pune Forefront Focus) -->
-    <section class="hero-banner">
-      <div class="hero-content">
-        <div class="hero-badge" id="heroBadgeRegion">PUNE & PCMC REGION STORAGE</div>
-        <h2 class="hero-title" id="heroTitle">Combined Live Capacity</h2>
-        <div class="hero-main-stat">
-          <span class="big-pct" id="heroPct">0%</span>
-          <span class="pct-label">FULL</span>
+    <!-- ======================================================================
+         VIEW 1: REGIONAL OVERVIEW DASHBOARD (Default)
+         ====================================================================== -->
+    <main id="overviewView" class="page-view active">
+      
+      <!-- Region Navigation Tab Bar -->
+      <nav class="region-nav" aria-label="Revenue Region Filters">
+        <div class="region-tabs-scroll">
+          <button class="region-tab active" data-region="Pune" onclick="selectRegionTab('Pune', this)">
+            <span class="region-badge">📍</span> Pune Region
+          </button>
+          <button class="region-tab" data-region="Kokan" onclick="selectRegionTab('Kokan', this)">
+            <span class="region-badge">🌊</span> Konkan / Mumbai
+          </button>
+          <button class="region-tab" data-region="Nashik" onclick="selectRegionTab('Nashik', this)">
+            <span class="region-badge">⛰️</span> Nashik Region
+          </button>
+          <button class="region-tab" data-region="Chhatrapati Sambhajinagar" onclick="selectRegionTab('Chhatrapati Sambhajinagar', this)">
+            <span class="region-badge">🏛️</span> Sambhajinagar
+          </button>
+          <button class="region-tab" data-region="Amravati" onclick="selectRegionTab('Amravati', this)">
+            <span class="region-badge">🌾</span> Amravati Region
+          </button>
+          <button class="region-tab" data-region="Nagpur" onclick="selectRegionTab('Nagpur', this)">
+            <span class="region-badge">🌳</span> Nagpur Region
+          </button>
+          <button class="region-tab" data-region="ALL" onclick="selectRegionTab('ALL', this)">
+            <span class="region-badge">🗺️</span> All Maharashtra
+          </button>
         </div>
-        <p class="hero-subtitle" id="heroSubtitle">Loading live storage metrics...</p>
-      </div>
+      </nav>
 
-      <div class="hero-kpi-grid">
-        <div class="hero-kpi-box">
-          <span class="hk-label">Total Water Stored</span>
-          <span class="hk-val" id="kpiTotalLive">0 MCM</span>
-          <span class="hk-sub" id="kpiTotalLiveML">0 Million Litres</span>
-        </div>
-
-        <div class="hero-kpi-box">
-          <span class="hk-label">Designed Live Storage</span>
-          <span class="hk-val" id="kpiTotalDesign">0 MCM</span>
-          <span class="hk-sub">Total Region Live Capacity</span>
-        </div>
-
-        <div class="hero-kpi-box">
-          <span class="hk-label">YoY Comparison</span>
-          <span class="hk-val" id="kpiAvgPct">0%</span>
-          <span class="hk-sub" id="kpiYoYDiff">vs Same Date Last Year</span>
+      <!-- Main Headline Question -->
+      <div class="hero-header-text">
+        <h2 class="hero-headline" id="heroHeadlineQuestion">How full are Pune’s dams today?</h2>
+        <p class="hero-subtext">One clear number for the region, then each reservoir, explained in plain language.</p>
+        <div class="hero-quick-links">
+          <a href="#damCardsGrid" class="quick-link">See each reservoir ↓</a>
+          <a href="javascript:void(0)" onclick="openQuickSearchModal()" class="quick-link">Search all dams 🔍</a>
+          <a href="javascript:void(0)" onclick="selectRegionTab('ALL')" class="quick-link">Explore all Maharashtra →</a>
         </div>
       </div>
-    </section>
 
-    <!-- Main Pune Supply Reservoirs Grid (Forefront Cards) -->
-    <section class="content-section">
-      <div class="section-heading">
-        <h2 id="cardsGridTitle">Pune Primary Reservoirs</h2>
-        <span class="subheading" id="cardsGridSubheading">Live water storage status for major supply dams</span>
-      </div>
-
-      <div class="dam-grid" id="damCardsGrid">
-        <!-- Rendered dynamically by app.js -->
-      </div>
-    </section>
-
-    <!-- Interactive Charts Grid -->
-    <section class="content-section">
-      <div class="charts-layout">
-        <!-- Historical Line Trend Chart -->
-        <div class="card chart-card">
-          <div class="card-header flex-header">
-            <div>
-              <h3>Water Storage Trends</h3>
-              <p class="card-subtext">Historical percentage comparison</p>
+      <!-- ====================================================================
+           HERO SECTION: CIRCULAR GAUGE + YOY BAR COMPARISON (From Image 1)
+           ==================================================================== -->
+      <section class="hero-analytics-grid">
+        
+        <!-- CARD 1: CIRCULAR RING GAUGE (TOTAL STORAGE) -->
+        <div class="hero-card gauge-card">
+          <div class="card-eyebrow">TOTAL RESERVOIR STORAGE</div>
+          
+          <div class="gauge-ring-wrap">
+            <svg class="ring-svg" viewBox="0 0 160 160">
+              <!-- Background Circle Track -->
+              <circle class="ring-bg" cx="80" cy="80" r="62"></circle>
+              <!-- Colored Progress Arc -->
+              <circle class="ring-progress" id="heroRingProgress" cx="80" cy="80" r="62"
+                stroke-dasharray="389.5"
+                stroke-dashoffset="77.9">
+              </circle>
+            </svg>
+            <div class="ring-center-content">
+              <span class="ring-pct-number" id="heroPctNumber">81.2%</span>
+              <span class="ring-status-pill healthy" id="heroStatusPill">Healthy</span>
             </div>
-            
-            <div class="chart-controls-wrapper">
-              <select id="chartDamFilter" class="select-pill" onchange="renderTrendChart(currentChartDays)">
-                <option value="ALL">Top Supply Dams</option>
-              </select>
+          </div>
 
-              <div class="pill-nav">
-                <button class="pill-btn active" onclick="setChartDays(30, this)">30D</button>
-                <button class="pill-btn" onclick="setChartDays(90, this)">90D</button>
-                <button class="pill-btn" onclick="setChartDays(365, this)">1Y</button>
-                <button class="pill-btn" onclick="setChartDays('all', this)">All</button>
+          <!-- Delta change pill -->
+          <div class="gauge-delta-pill" id="heroDeltaPill">
+            <span id="heroDeltaText">↘ -0.15% · -1,520 ML · since yesterday</span>
+          </div>
+
+          <!-- 2 Columns: Stored vs Total Capacity -->
+          <div class="gauge-stats-row">
+            <div class="g-stat-col">
+              <span class="g-stat-label">STORED</span>
+              <span class="g-stat-val" id="heroStoredML">10,08,150 ML</span>
+              <span class="g-stat-sub" id="heroStoredMCM">10,081.5 MCM · 356 TMC</span>
+            </div>
+            <div class="g-stat-col">
+              <span class="g-stat-label">TOTAL CAPACITY</span>
+              <span class="g-stat-val" id="heroCapacityML">12,41,070 ML</span>
+              <span class="g-stat-sub" id="heroCapacityMCM">12,410.7 MCM · 438.3 TMC</span>
+            </div>
+          </div>
+
+          <div class="gauge-footnote">
+            <strong>ML</strong> <span class="help-bubble" title="1 Million Litres = 10 Lakh Litres">?</span> · % full = useful water now compared with the dam’s live capacity
+          </div>
+        </div>
+
+        <!-- CARD 2: YEAR-ON-YEAR VERTICAL COMPARISON GRAPH (From Image 1) -->
+        <div class="hero-card yoy-card">
+          <div class="yoy-card-header">
+            <div class="yoy-icon-box">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <line x1="18" y1="20" x2="18" y2="10"></line>
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="14"></line>
+              </svg>
+            </div>
+            <div>
+              <h3 class="yoy-card-title">How does this year compare?</h3>
+              <p class="yoy-card-sub">Same-date storage vs last year (WRD)</p>
+            </div>
+          </div>
+
+          <!-- Vertical Comparison Bar Chart -->
+          <div class="yoy-chart-area">
+            <!-- Dashed Grid Reference Lines -->
+            <div class="grid-line" style="bottom: 100%;"><span>100%</span></div>
+            <div class="grid-line" style="bottom: 75%;"><span>75%</span></div>
+            <div class="grid-line" style="bottom: 50%;"><span>50%</span></div>
+            <div class="grid-line" style="bottom: 25%;"><span>25%</span></div>
+            <div class="grid-line" style="bottom: 0%;"><span>0%</span></div>
+
+            <!-- The Two Vertical Bars -->
+            <div class="bars-container">
+              <!-- 2025 Bar -->
+              <div class="bar-column">
+                <div class="bar-track">
+                  <div class="bar-fill bar-2025" id="bar2025Fill" style="height: 93.1%;"></div>
+                </div>
+                <span class="bar-x-label">2025</span>
+              </div>
+
+              <!-- 2026 Bar -->
+              <div class="bar-column">
+                <div class="bar-track">
+                  <div class="bar-fill bar-2026" id="bar2026Fill" style="height: 81.2%;"></div>
+                </div>
+                <span class="bar-x-label" id="bar2026YearLabel">2026</span>
               </div>
             </div>
           </div>
 
-          <div class="chart-wrapper">
-            <canvas id="trendChart"></canvas>
+          <!-- Comparison Bottom Numbers -->
+          <div class="yoy-bottom-stats">
+            <div class="yoy-stat-item">
+              <span class="yoy-label">2025</span>
+              <span class="yoy-num" id="yoy2025Num">93.1%</span>
+            </div>
+            <div class="yoy-stat-item">
+              <span class="yoy-label" id="yoyCurrentDateLabel">12 NOV 2026</span>
+              <span class="yoy-num" id="yoy2026Num">81.2%</span>
+            </div>
+          </div>
+
+          <div class="yoy-footnote" id="yoyFootnoteText">
+            YoY from WRD for 35 major reservoirs in Pune region.
           </div>
         </div>
 
-        <!-- Storage Volume Bar Chart -->
-        <div class="card chart-card">
-          <div class="card-header">
-            <h3>Volume Comparison</h3>
-            <p class="card-subtext">Stored MCM vs Remaining MCM</p>
-          </div>
+      </section>
 
-          <div class="chart-wrapper">
-            <canvas id="volumeChart"></canvas>
+      <!-- ====================================================================
+           ADVISORY BOX: "WHAT IT MEANS TODAY" (From Image 1)
+           ==================================================================== -->
+      <section class="advisory-section">
+        <h3 class="advisory-heading">What it means today</h3>
+        <p class="advisory-subheading">How comfortable storage looks today, and how to read the colour bands.</p>
+
+        <div class="advisory-callout-card" id="advisoryCallout">
+          <p class="advisory-main-text" id="advisoryMainText">
+            Pune's reservoirs are <strong>81.20% full</strong>, healthy levels. Last year on this date: <strong>93.10%</strong>.
+          </p>
+          <p class="advisory-sub-text" id="advisorySubText">
+            Storage looks comfortable for now. Keep using water wisely. Every litre helps.
+          </p>
+        </div>
+
+        <!-- Color bands legend definition -->
+        <div class="color-bands-legend">
+          <span class="bands-title">WHAT THE COLOURS MEAN (HOW FULL)</span>
+          <div class="bands-list">
+            <span class="band-item"><span class="dot dot-critical"></span> <strong>Critical</strong> &lt;10%</span>
+            <span class="band-item"><span class="dot dot-low"></span> <strong>Low</strong> 10–25%</span>
+            <span class="band-item"><span class="dot dot-moderate"></span> <strong>Moderate</strong> 25–50%</span>
+            <span class="band-item"><span class="dot dot-healthy"></span> <strong>Healthy</strong> ≥50%</span>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- State & District Filter Bar -->
-    <section class="content-section">
-      <div class="card filter-card">
-        <div class="filter-controls-grid">
-          <div class="filter-group">
-            <label for="basinSelectFilter">Filter River Basin:</label>
-            <select id="basinSelectFilter" class="select-pill" onchange="filterTable()">
-              <option value="ALL">All River Basins</option>
-            </select>
-          </div>
-
-          <div class="filter-group">
-            <label for="districtSelectFilter">Filter District:</label>
-            <select id="districtSelectFilter" class="select-pill" onchange="filterTable()">
-              <option value="ALL">All Districts</option>
-            </select>
-          </div>
-
-          <div class="filter-group">
-            <label for="damSelectFilter">Select Dam:</label>
-            <select id="damSelectFilter" class="select-pill" onchange="filterTable()">
-              <option value="ALL">All Monitored Dams</option>
-            </select>
-          </div>
-
-          <div class="filter-group search-group">
-            <label for="tableSearchInput">Search Dam Name / Location:</label>
-            <input type="search" id="tableSearchInput" class="search-input" placeholder="Type dam name (e.g. Khadakwasla, Panshet, Koyna)..." oninput="filterTable()">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Historical Data Log Table -->
-    <section class="content-section">
-      <div class="card table-card">
-        <div class="card-header flex-header">
+      <!-- ====================================================================
+           RESERVOIRS GRID (Clicking redirects to dedicated dam page!)
+           ==================================================================== -->
+      <section class="dashboard-section" id="reservoirsGridSection">
+        <div class="section-header">
           <div>
-            <h3>Database Storage Logs</h3>
-            <p class="card-subtext"><span id="totalRecordsBadge">0</span> records in 3NF SQLite DBMS</p>
+            <h2 class="section-title" id="cardsGridTitle">Pune Primary Reservoirs</h2>
+            <p class="section-desc" id="cardsGridSubheading">Click any reservoir to view full vital stats, history, specifications, and photo</p>
+          </div>
+        </div>
+
+        <div class="reservoirs-grid" id="damCardsGrid">
+          <!-- Rendered dynamically by app.js -->
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           HISTORICAL CHARTS SECTION (Chart.js)
+           ==================================================================== -->
+      <section class="dashboard-section">
+        <div class="charts-grid">
+          <!-- Time-Series Storage Trend Chart -->
+          <div class="chart-panel">
+            <div class="chart-panel-header">
+              <div>
+                <h3 class="chart-title">Water Storage Trends</h3>
+                <p class="chart-sub">Historical percentage comparison across time</p>
+              </div>
+              
+              <div class="chart-controls">
+                <select id="chartDamFilter" class="filter-select" onchange="renderTrendChart(currentChartDays)">
+                  <option value="ALL">Top Regional Reservoirs</option>
+                </select>
+
+                <div class="range-buttons">
+                  <button class="range-btn active" onclick="setChartDays(30, this)">30D</button>
+                  <button class="range-btn" onclick="setChartDays(90, this)">90D</button>
+                  <button class="range-btn" onclick="setChartDays(365, this)">1Y</button>
+                  <button class="range-btn" onclick="setChartDays('all', this)">All</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="chart-container">
+              <canvas id="trendChart"></canvas>
+            </div>
           </div>
 
-          <div class="table-actions">
-            <button class="btn-action" onclick="exportTableToCSV()">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <!-- Volume Comparison Chart -->
+          <div class="chart-panel">
+            <div class="chart-panel-header">
+              <div>
+                <h3 class="chart-title">Volume Breakdown</h3>
+                <p class="chart-sub">Stored Live MCM vs Remaining Live Capacity</p>
+              </div>
+            </div>
+
+            <div class="chart-container">
+              <canvas id="volumeChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SEARCH & FILTER CONTROLS & DATA TABLE
+           ==================================================================== -->
+      <section class="dashboard-section">
+        <div class="filter-panel">
+          <div class="filter-row">
+            <div class="filter-col">
+              <label for="basinSelectFilter">River Basin</label>
+              <select id="basinSelectFilter" class="filter-select" onchange="filterTable()">
+                <option value="ALL">All River Basins</option>
+              </select>
+            </div>
+
+            <div class="filter-col">
+              <label for="districtSelectFilter">District</label>
+              <select id="districtSelectFilter" class="filter-select" onchange="filterTable()">
+                <option value="ALL">All Districts</option>
+              </select>
+            </div>
+
+            <div class="filter-col">
+              <label for="statusSelectFilter">Storage Status</label>
+              <select id="statusSelectFilter" class="filter-select" onchange="filterTable()">
+                <option value="ALL">All Levels</option>
+                <option value="HEALTHY">Healthy (≥50%)</option>
+                <option value="MODERATE">Moderate (25–50%)</option>
+                <option value="LOW">Low (10–25%)</option>
+                <option value="CRITICAL">Critical (&lt;10%)</option>
+              </select>
+            </div>
+
+            <div class="filter-col search-col">
+              <label for="tableSearchInput">Search Dams</label>
+              <div class="search-input-wrap">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="search" id="tableSearchInput" class="filter-input" placeholder="Search dam name, district, or marathi..." oninput="filterTable()" onkeydown="if(event.key==='Enter') filterTable()">
+                <button type="button" class="btn-table-search" onclick="filterTable()" title="Search dams">Search</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-panel">
+          <div class="table-panel-header">
+            <div>
+              <h3 class="table-title">Maharashtra Dam Registry</h3>
+              <p class="table-sub"><span id="totalRecordsBadge">0</span> reservoirs monitored in Maharashtra</p>
+            </div>
+
+            <button class="btn-export" onclick="exportTableToCSV()" title="Download CSV spreadsheet">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                 <polyline points="7 10 12 15 17 10"/>
                 <line x1="12" y1="15" x2="12" y2="3"/>
@@ -218,52 +400,291 @@
               Export CSV
             </button>
           </div>
-        </div>
 
-        <!-- Table View for Desktop & Mobile Horizontal Scroll -->
-        <div class="table-responsive">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Dam Name</th>
-                <th>Division</th>
-                <th>District</th>
-                <th>Time</th>
-                <th>Live Storage (MCM)</th>
-                <th>Live Storage (ML)</th>
-                <th>Design Live</th>
-                <th>Storage Level</th>
-                <th>Last Year</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody id="tableBody">
-              <!-- Populated dynamically by app.js -->
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Mobile-Optimized Pagination Footer -->
-        <div class="table-pagination">
-          <div class="pagination-info" id="recordsCountText">Showing 0-0 of 0 records</div>
-          <div class="pagination-buttons">
-            <button class="btn-page" id="prevPageBtn" onclick="changePage(-1)">← Previous</button>
-            <span class="page-num" id="pageIndicator">Page 1 of 1</span>
-            <button class="btn-page" id="nextPageBtn" onclick="changePage(1)">Next →</button>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Dam Name</th>
+                  <th>Division</th>
+                  <th>District</th>
+                  <th>River Basin</th>
+                  <th class="text-right">Live Storage (MCM)</th>
+                  <th class="text-right">Live Storage (TMC)</th>
+                  <th class="text-right">Design Live (MCM)</th>
+                  <th class="text-center">Storage Level</th>
+                  <th class="text-right">Last Year %</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody id="tableBody">
+                <!-- Populated dynamically by app.js -->
+              </tbody>
+            </table>
           </div>
+
+          <div class="table-pagination">
+            <div class="pagination-count" id="recordsCountText">Showing 0-0 of 0 records</div>
+            <div class="pagination-nav">
+              <button class="btn-page" id="prevPageBtn" onclick="changePage(-1)">← Previous</button>
+              <span class="page-indicator" id="pageIndicator">Page 1 of 1</span>
+              <button class="btn-page" id="nextPageBtn" onclick="changePage(1)">Next →</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+
+    <!-- ======================================================================
+         VIEW 2: DEDICATED DAM DETAIL PAGE (From Image 3)
+         ====================================================================== -->
+    <main id="damDetailView" class="page-view" style="display: none;">
+      
+      <!-- Top Breadcrumbs -->
+      <nav class="dam-breadcrumbs" aria-label="Breadcrumb">
+        <a href="javascript:void(0)" onclick="navigateToOverview()">Maharashtra dams by district</a>
+        <span class="crumb-separator">/</span>
+        <a href="javascript:void(0)" id="breadDistrictLink" onclick="filterByBreadcrumbDistrict()">District</a>
+        <span class="crumb-separator">/</span>
+        <span class="crumb-active" id="breadDamName">Dam Name</span>
+      </nav>
+
+      <!-- Main Title Header -->
+      <div class="dam-header-banner">
+        <h1 class="dam-page-title" id="dpTitle">Khadakwasla</h1>
+        <div class="dam-page-subtitle" id="dpSubtitle">Haveli · Major · Maharashtra WRD live storage</div>
+      </div>
+
+      <!-- Color bands legend definition -->
+      <div class="color-bands-legend detail-legend">
+        <span class="bands-title">WHAT THE COLOURS MEAN (HOW FULL)</span>
+        <div class="bands-list">
+          <span class="band-item"><span class="dot dot-critical"></span> <strong>Critical</strong> &lt;10%</span>
+          <span class="band-item"><span class="dot dot-low"></span> <strong>Low</strong> 10–25%</span>
+          <span class="band-item"><span class="dot dot-moderate"></span> <strong>Moderate</strong> 25–50%</span>
+          <span class="band-item"><span class="dot dot-healthy"></span> <strong>Healthy</strong> ≥50%</span>
+        </div>
+      </div>
+
+      <!-- PRIMARY RESERVOIR STORAGE CARD (Image 3 exact clone) -->
+      <div class="dam-main-metric-card" id="dpMainCard">
+        <div class="metric-card-top">
+          <div class="metric-title-group">
+            <span class="metric-dam-name" id="dpCardDamName">Khadakwasla</span>
+            <span class="wrd-source-badge">MAHARASHTRA WRD</span>
+          </div>
+          <span class="metric-big-pct" id="dpCardPct">67.43%</span>
+        </div>
+
+        <!-- Clean Green Progress Bar -->
+        <div class="metric-progress-track">
+          <div class="metric-progress-fill" id="dpCardProgressFill" style="width: 67.43%;"></div>
+        </div>
+
+        <!-- 2-Column Storage Statistics Grid -->
+        <div class="metric-stats-grid">
+          <div class="stat-col">
+            <span class="stat-label">STORED</span>
+            <span class="stat-val" id="dpCardStoredML">37,700 ML</span>
+            <span class="stat-sub" id="dpCardStoredMCM">37.7 MCM · 1.33 TMC</span>
+          </div>
+
+          <div class="stat-col">
+            <span class="stat-label">CAPACITY</span>
+            <span class="stat-val" id="dpCardCapacityML">55,902 ML</span>
+            <span class="stat-sub" id="dpCardCapacityMCM">55.902 MCM · 1.97 TMC</span>
+          </div>
+
+          <div class="stat-col">
+            <span class="stat-label">TODAY’S STORAGE</span>
+            <span class="stat-val stat-pct" id="dpCardTodayPct">67.43%</span>
+            <span class="stat-sub" id="dpCardRemainingMCM">18.2 MCM to fill</span>
+          </div>
+
+          <div class="stat-col">
+            <span class="stat-label">SAME DAY LAST YEAR</span>
+            <span class="stat-val" id="dpCardLastYearPct">46.65%</span>
+            <span class="stat-sub stat-yoy" id="dpCardYoYpp">+20.78 pp (Higher YoY)</span>
+          </div>
+        </div>
+
+        <div class="metric-card-footer">
+          <span class="metric-status-tag healthy" id="dpCardStatusTag">HEALTHY</span>
+          <span class="metric-date-stamp" id="dpCardDateStamp">Data as of 12 Nov 2026</span>
+        </div>
+      </div>
+
+      <!-- Footnote explanation -->
+      <div class="dam-card-helper">
+        <p><strong>ML</strong> <span class="help-bubble">?</span> - % full = useful water now compared with the dam's live capacity</p>
+        <p class="helper-sub">Volumes shown in million litres (ML): 1 MCM = 1,000 ML = 0.0353 TMC.</p>
+      </div>
+
+      <!-- Navigation links under card -->
+      <div class="dam-subnav-links">
+        <a href="javascript:void(0)" onclick="filterByBreadcrumbDistrict()" class="subnav-link" id="dpViewDistrictLink">View all Pune district dams &gt;</a>
+        <a href="javascript:void(0)" onclick="navigateToOverview()" class="subnav-link">Overview Dashboard &gt;</a>
+      </div>
+
+      <!-- ====================================================================
+           DAM VITAL SPECS, PHOTO & ENCYCLOPEDIA INFO SECTION
+           ==================================================================== -->
+      <div class="dam-encyclopedia-grid">
+        <!-- Dam Photo Card -->
+        <div class="dam-photo-card">
+          <img id="dpImage" src="" alt="Dam photo" class="dam-hero-photo" onerror="this.src='https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80'">
+          <div class="photo-caption" id="dpPhotoCaption">Khadakwasla Reservoir, Maharashtra</div>
+        </div>
+
+        <!-- Specifications & Overview Table -->
+        <div class="dam-specs-card">
+          <h3 class="specs-title">Dam Specifications & Vital Information</h3>
+          <p class="dam-description-text" id="dpDescription">Description loading...</p>
+
+          <div class="specs-table-grid">
+            <div class="spec-row">
+              <span class="spec-key">District / Taluka</span>
+              <span class="spec-val" id="dpSpecLocation">Pune / Haveli</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">Nearest City</span>
+              <span class="spec-val" id="dpSpecCity">Pune</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">River / Tributary</span>
+              <span class="spec-val" id="dpSpecRiver">Mutha</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">River Basin</span>
+              <span class="spec-val" id="dpSpecBasin">Krishna River Basin</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">Completion Year</span>
+              <span class="spec-val" id="dpSpecYear">1879</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">Dam Height / Length</span>
+              <span class="spec-val" id="dpSpecDimensions">32.9 m / 1,539 m</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">Dead Storage</span>
+              <span class="spec-val" id="dpSpecDead">30.0 MCM</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-key">Gross Storage Capacity</span>
+              <span class="spec-val" id="dpSpecGross">85.91 MCM</span>
+            </div>
+            <div class="spec-row spec-full-row">
+              <span class="spec-key">Primary Purpose</span>
+              <span class="spec-val" id="dpSpecPurpose">Drinking water for Pune, NDA Khadakwasla & irrigation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Specific Dam Storage Trends Chart -->
+      <div class="dam-chart-panel">
+        <div class="dam-chart-header">
+          <div>
+            <h3 class="chart-title">Water Storage Trends for <span id="dpChartDamName">Khadakwasla</span></h3>
+            <p class="chart-sub">Historical daily storage fill level percentage</p>
+          </div>
+          <div class="range-buttons">
+            <button class="range-btn active" onclick="setDamDetailChartDays(30, this)">30D</button>
+            <button class="range-btn" onclick="setDamDetailChartDays(90, this)">90D</button>
+            <button class="range-btn" onclick="setDamDetailChartDays(365, this)">1Y</button>
+            <button class="range-btn" onclick="setDamDetailChartDays('all', this)">All</button>
+          </div>
+        </div>
+        <div class="chart-container" style="height: 280px;">
+          <canvas id="damDetailTrendChart"></canvas>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           "OTHER MAJOR DAMS IN {DISTRICT}" (From Image 3 bottom)
+           ==================================================================== -->
+      <section class="other-dams-section">
+        <h2 class="other-dams-title" id="dpOtherDamsTitle">Other major dams in Pune</h2>
+        <div class="other-dams-grid" id="dpOtherDamsGrid">
+          <!-- Rendered dynamically as clean clickable pill blocks (Image 3) -->
+        </div>
+      </section>
+
+      <!-- Return button -->
+      <div class="bottom-back-action">
+        <button class="btn-return-overview" onclick="navigateToOverview()">
+          ← Return to Regional Overview Dashboard
+        </button>
+      </div>
+
+    </main>
+
+    <!-- Info / Units Conversion Reference -->
+    <section class="info-section">
+      <div class="info-grid">
+        <div class="info-box">
+          <h4>About Dam Storage Metrics</h4>
+          <p>
+            <strong>Live Storage (Useful Content):</strong> The active volume of water above the lowest outlet / silt level available for municipal drinking, agricultural irrigation, and hydroelectric generation.
+          </p>
+          <p>
+            <strong>Dead Storage:</strong> Water stored below the lowest sluice gates that cannot be drained by gravity, reserved for silt accumulation.
+          </p>
+          <p>
+            <strong>Gross Storage:</strong> The entire volume of water stored in the reservoir (Live Storage + Dead Storage).
+          </p>
+        </div>
+
+        <div class="info-box">
+          <h4>Hydrological Units Conversion</h4>
+          <ul class="units-list">
+            <li><strong>1 MCM</strong> (Million Cubic Metres) = <strong>1,000 Million Litres</strong> = 100 Crore Litres</li>
+            <li><strong>1 TMC</strong> (Thousand Million Cubic Feet) = <strong>28.317 MCM</strong> = 2,831.7 Crore Litres</li>
+            <li><strong>1 MCM</strong> = <strong>0.035315 TMC</strong></li>
+          </ul>
+          <p class="source-credit">
+            <strong>Data Source:</strong> Maharashtra Water Resources Department (WRD) Daily Storage Bulletins, published daily at 08:00 AM IST.
+          </p>
         </div>
       </div>
     </section>
 
     <!-- Footer -->
-    <footer class="app-footer">
-      <p>Data Source: Maharashtra Water Resources Department (WRD) • Relational 3NF SQLite DBMS Engine</p>
+    <footer class="site-footer">
+      <div class="footer-content">
+        <p>Maharashtra Dam Water Storage Analytics • Open Civic Data</p>
+        <p class="footer-sub">Data updated daily from Maharashtra WRD official reports • Relational 3NF SQLite Engine</p>
+      </div>
     </footer>
 
   </div>
 
+  <!-- Quick Search Command Palette Modal (Ctrl+K) -->
+  <div id="quickSearchModal" class="quick-search-backdrop" style="display: none;" onclick="closeQuickSearchOnBackdrop(event)">
+    <div class="quick-search-dialog" role="dialog" aria-modal="true" aria-label="Search reservoirs">
+      <div class="quick-search-header">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="quickSearchModalInput" class="quick-search-field" placeholder="Search 139 Maharashtra dams by English, Marathi, district..." autocomplete="off" oninput="onQuickSearchInput(this.value)" onkeydown="onQuickSearchKeydown(event)">
+        <button type="button" class="btn-close-modal" onclick="closeQuickSearchModal()" title="Close search (Esc)">✕</button>
+      </div>
+      <div class="quick-search-results" id="quickSearchResultsList">
+        <!-- Rendered dynamically -->
+      </div>
+      <div class="quick-search-footer">
+        <span class="tip"><kbd>↑</kbd> <kbd>↓</kbd> to navigate</span>
+        <span class="tip"><kbd>↵ Enter</kbd> to select</span>
+        <span class="tip"><kbd>Esc</kbd> to close</span>
+      </div>
+    </div>
+  </div>
+
   <!-- Dashboard JavaScript Logic -->
-  <script src="app.js?v=6.0"></script>
+  <script src="app.js?v=8.0"></script>
 </body>
 </html>
