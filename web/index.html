@@ -17,7 +17,8 @@
   <link rel="apple-touch-icon" href="logo-192.png">
 
   <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Pinned Chart.js CDN with Subresource Integrity (SRI) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js" integrity="sha384-Sse/HDqcypGpyTDpvZOJNnG0TT3feGQUkF9H+mnRvic+LjR+K1NhTt8f51KIQ3v3" crossorigin="anonymous"></script>
 
   <!-- Clean Civic Stylesheet (mumbailakewaterlevel.in Style + Dark Mode) -->
   <link rel="stylesheet" href="index.css?v=8.0">
@@ -33,7 +34,7 @@
         </div>
         <div class="brand-text">
           <h1 class="brand-title">Maharashtra Dam Water Storage</h1>
-          <p class="brand-subtitle" id="navbarSubtitle">Report as of 12 November 2026 • Maharashtra WRD</p>
+          <p class="brand-subtitle" id="navbarSubtitle">Loading report date... • Maharashtra WRD</p>
         </div>
       </div>
 
@@ -159,8 +160,8 @@
               </circle>
             </svg>
             <div class="ring-center-content">
-              <span class="ring-pct-number" id="heroPctNumber">81.2%</span>
-              <span class="ring-status-pill healthy" id="heroStatusPill">Healthy</span>
+              <span class="ring-pct-number" id="heroPctNumber">—%</span>
+              <span class="ring-status-pill" id="heroStatusPill">Loading...</span>
             </div>
           </div>
 
@@ -173,13 +174,13 @@
           <div class="gauge-stats-row">
             <div class="g-stat-col">
               <span class="g-stat-label">STORED</span>
-              <span class="g-stat-val" id="heroStoredML">10,08,150 ML</span>
-              <span class="g-stat-sub" id="heroStoredMCM">10,081.5 MCM · 356 TMC</span>
+              <span class="g-stat-val" id="heroStoredML">— ML</span>
+              <span class="g-stat-sub" id="heroStoredMCM">— MCM</span>
             </div>
             <div class="g-stat-col">
               <span class="g-stat-label">TOTAL CAPACITY</span>
-              <span class="g-stat-val" id="heroCapacityML">12,41,070 ML</span>
-              <span class="g-stat-sub" id="heroCapacityMCM">12,410.7 MCM · 438.3 TMC</span>
+              <span class="g-stat-val" id="heroCapacityML">— ML</span>
+              <span class="g-stat-sub" id="heroCapacityMCM">— MCM</span>
             </div>
           </div>
 
@@ -215,20 +216,20 @@
 
             <!-- The Two Vertical Bars -->
             <div class="bars-container">
-              <!-- 2025 Bar -->
+              <!-- Prior Year Bar -->
               <div class="bar-column">
                 <div class="bar-track">
-                  <div class="bar-fill bar-2025" id="bar2025Fill" style="height: 93.1%;"></div>
+                  <div class="bar-fill bar-2025" id="bar2025Fill" style="height: 0%;"></div>
                 </div>
-                <span class="bar-x-label" id="bar2025YearLabel">2025</span>
+                <span class="bar-x-label" id="bar2025YearLabel">—</span>
               </div>
 
-              <!-- 2026 Bar -->
+              <!-- Current Year Bar -->
               <div class="bar-column">
                 <div class="bar-track">
-                  <div class="bar-fill bar-2026" id="bar2026Fill" style="height: 81.2%;"></div>
+                  <div class="bar-fill bar-2026" id="bar2026Fill" style="height: 0%;"></div>
                 </div>
-                <span class="bar-x-label" id="bar2026YearLabel">2026</span>
+                <span class="bar-x-label" id="bar2026YearLabel">—</span>
               </div>
             </div>
           </div>
@@ -236,17 +237,17 @@
           <!-- Comparison Bottom Numbers -->
           <div class="yoy-bottom-stats">
             <div class="yoy-stat-item">
-              <span class="yoy-label" id="yoy2025Label">2025</span>
-              <span class="yoy-num" id="yoy2025Num">93.1%</span>
+              <span class="yoy-label" id="yoy2025Label">Prior Year</span>
+              <span class="yoy-num" id="yoy2025Num">—%</span>
             </div>
             <div class="yoy-stat-item">
-              <span class="yoy-label" id="yoyCurrentDateLabel">12 NOV 2026</span>
-              <span class="yoy-num" id="yoy2026Num">81.2%</span>
+              <span class="yoy-label" id="yoyCurrentDateLabel">Current Date</span>
+              <span class="yoy-num" id="yoy2026Num">—%</span>
             </div>
           </div>
 
           <div class="yoy-footnote" id="yoyFootnoteText">
-            YoY from WRD for 35 major reservoirs in Pune region.
+            Capacity-weighted YoY from WRD bulletins.
           </div>
         </div>
 
@@ -261,10 +262,10 @@
 
         <div class="advisory-callout-card" id="advisoryCallout">
           <p class="advisory-main-text" id="advisoryMainText">
-            Pune's reservoirs are <strong>81.20% full</strong>, healthy levels. Last year on this date: <strong>93.10%</strong>.
+            Loading regional reservoir telemetry...
           </p>
           <p class="advisory-sub-text" id="advisorySubText">
-            Storage looks comfortable for now. Keep using water wisely. Every litre helps.
+            Fetching water storage advisory and historical baselines...
           </p>
         </div>
 

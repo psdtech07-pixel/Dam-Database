@@ -255,7 +255,7 @@ function populateDropdowns() {
     const basins = [...new Set(dams.map(d => d.basin).filter(Boolean))].sort();
     let basinOpts = '<option value="ALL">All River Basins</option>';
     basins.forEach(b => {
-      basinOpts += `<option value="${b}">${b} Basin</option>`;
+      basinOpts += `<option value="${escapeHtml(b)}">${escapeHtml(b)} Basin</option>`;
     });
     basinSelect.innerHTML = basinOpts;
   }
@@ -265,7 +265,7 @@ function populateDropdowns() {
     const districts = [...new Set(dams.map(d => d.district).filter(Boolean))].sort();
     let distOpts = '<option value="ALL">All Districts</option>';
     districts.forEach(d => {
-      distOpts += `<option value="${d}">${d}</option>`;
+      distOpts += `<option value="${escapeHtml(d)}">${escapeHtml(d)}</option>`;
     });
     districtSelect.innerHTML = distOpts;
   }
@@ -275,7 +275,7 @@ function populateDropdowns() {
     const sortedDams = [...dams].sort((a, b) => a.name_en.localeCompare(b.name_en));
     let chartOpts = '<option value="ALL">Top Regional Reservoirs</option>';
     sortedDams.forEach(d => {
-      chartOpts += `<option value="${d.slug}">${d.name_en} (${d.district})</option>`;
+      chartOpts += `<option value="${escapeHtml(d.slug)}">${escapeHtml(d.name_en)} (${escapeHtml(d.district)})</option>`;
     });
     chartDamSelect.innerHTML = chartOpts;
   }
@@ -500,8 +500,8 @@ function updateHeroAnalytics(regionName) {
     advisoryMain.innerHTML = `${regionNamePretty}’s reservoirs are <strong>${overallPct.toFixed(2)}% full</strong>, ${status.label.toLowerCase()} levels.${yoyPart}`;
   }
   if (advisorySub) {
-    let advice = 'Storage looks comfortable for now. Keep using water wisely. Every litre helps.';
-    if (overallPct < 25) advice = 'Storage levels are low compared with capacity. Follow water conservation guidance from your local municipal and irrigation authorities.';
+    let advice = 'Storage levels are healthy across major reservoirs. Practice responsible water use.';
+    if (overallPct < 25) advice = 'Storage levels are low compared with capacity. Follow water conservation guidance from local municipal and irrigation authorities.';
     else if (overallPct < 50) advice = 'Storage is moderate. Monitor local municipal water updates and seasonal irrigation rotations.';
     advisorySub.innerText = advice;
   }
@@ -593,23 +593,23 @@ function renderDamCards(regionName) {
       }
     }
 
-    const mrTitle = dam.name_mr && dam.name_mr !== dam.name_en ? `<span class="dam-title-mr">${dam.name_mr}</span>` : '';
+    const mrTitle = dam.name_mr && dam.name_mr !== dam.name_en ? `<span class="dam-title-mr">${escapeHtml(dam.name_mr)}</span>` : '';
 
     html += `
-      <div class="reservoir-card" onclick="openDamPage('${dam.slug}')" title="Click to open dedicated reservoir page">
+      <div class="reservoir-card" onclick="openDamPage('${escapeHtml(dam.slug)}')" title="Click to open dedicated reservoir page">
         <div class="card-top">
           <div class="dam-title-group">
-            <h3>${dam.name_en}</h3>
+            <h3>${escapeHtml(dam.name_en)}</h3>
             ${mrTitle}
           </div>
           <div class="card-badges">
-            <span class="badge-tag">${dam.district}</span>
+            <span class="badge-tag">${escapeHtml(dam.district)}</span>
           </div>
         </div>
 
         <div class="card-storage-stat">
           <span class="card-pct ${status.textClass}">${pct.toFixed(1)}%</span>
-          <span class="card-yoy-tag ${yoyClass}">${yoyText}</span>
+          <span class="card-yoy-tag ${yoyClass}">${escapeHtml(yoyText)}</span>
         </div>
 
         <div class="card-progress-bar">
@@ -794,12 +794,12 @@ function renderOtherDamsGrid(activeDam) {
   others.forEach(d => {
     const pct = Number(d.pct) || 0;
     const status = getStatusDetails(pct);
-    const mrSpan = d.name_mr && d.name_mr !== d.name_en ? `<span class="other-dam-mr">${d.name_mr}</span>` : '';
+    const mrSpan = d.name_mr && d.name_mr !== d.name_en ? `<span class="other-dam-mr">${escapeHtml(d.name_mr)}</span>` : '';
 
     html += `
-      <div class="other-dam-pill" onclick="openDamPage('${d.slug}')">
+      <div class="other-dam-pill" onclick="openDamPage('${escapeHtml(d.slug)}')">
         <div>
-          <span class="other-dam-name">${d.name_en}</span>
+          <span class="other-dam-name">${escapeHtml(d.name_en)}</span>
           ${mrSpan}
         </div>
         <span class="other-dam-pct ${status.textClass}">${pct.toFixed(2)}%</span>
@@ -1196,17 +1196,17 @@ function renderTable() {
     const lastYearPct = Number(d.last_year_pct) || 0;
     const status = getStatusDetails(pct);
 
-    const mrSpan = d.name_mr && d.name_mr !== d.name_en ? `<span class="table-dam-mr">${d.name_mr}</span>` : '';
+    const mrSpan = d.name_mr && d.name_mr !== d.name_en ? `<span class="table-dam-mr">${escapeHtml(d.name_mr)}</span>` : '';
 
     html += `
       <tr>
         <td>
-          <span class="table-dam-name" onclick="openDamPage('${d.slug}')">${d.name_en}</span>
+          <span class="table-dam-name" onclick="openDamPage('${escapeHtml(d.slug)}')">${escapeHtml(d.name_en)}</span>
           ${mrSpan}
         </td>
-        <td>${d.division}</td>
-        <td>${d.district}</td>
-        <td>${d.basin || 'Krishna'}</td>
+        <td>${escapeHtml(d.division)}</td>
+        <td>${escapeHtml(d.district)}</td>
+        <td>${escapeHtml(d.basin || 'Krishna')}</td>
         <td class="text-right"><strong>${liveMCM.toFixed(1)}</strong></td>
         <td class="text-right">${liveTMC.toFixed(2)}</td>
         <td class="text-right">${designMCM.toFixed(1)}</td>
@@ -1215,7 +1215,7 @@ function renderTable() {
         </td>
         <td class="text-right">${lastYearPct > 0 ? lastYearPct.toFixed(1) + '%' : '—'}</td>
         <td class="text-center">
-          <button class="btn-ghost" style="padding: 2px 8px; font-size: 0.72rem;" onclick="openDamPage('${d.slug}')">View &gt;</button>
+          <button class="btn-ghost" style="padding: 2px 8px; font-size: 0.72rem;" onclick="openDamPage('${escapeHtml(d.slug)}')">View &gt;</button>
         </td>
       </tr>
     `;
@@ -1421,16 +1421,17 @@ function renderQuickSearchResults() {
     const pct = Number(dam.pct) || 0;
     const status = getStatusDetails(pct);
     const selectedClass = idx === quickSearchSelectedIndex ? 'selected' : '';
-    const mrSpan = dam.name_mr && dam.name_mr !== dam.name_en ? `<span class="qs-name-mr">${dam.name_mr}</span>` : '';
+    const mrSpan = dam.name_mr && dam.name_mr !== dam.name_en ? `<span class="qs-name-mr">${escapeHtml(dam.name_mr)}</span>` : '';
+    const riverOrBasin = dam.river || dam.basin || 'Krishna';
 
     html += `
-      <div class="quick-search-item ${selectedClass}" onclick="selectQuickSearchResult('${dam.slug}')" onmouseenter="setQuickSearchHover(${idx})">
+      <div class="quick-search-item ${selectedClass}" onclick="selectQuickSearchResult('${escapeHtml(dam.slug)}')" onmouseenter="setQuickSearchHover(${idx})">
         <div class="qs-left">
           <div class="qs-title-row">
-            <span class="qs-name-en">${dam.name_en}</span>
+            <span class="qs-name-en">${escapeHtml(dam.name_en)}</span>
             ${mrSpan}
           </div>
-          <div class="qs-meta">${dam.district} · ${dam.division} · ${dam.river || dam.basin || 'Krishna'}</div>
+          <div class="qs-meta">${escapeHtml(dam.district)} · ${escapeHtml(dam.division)} · ${escapeHtml(riverOrBasin)}</div>
         </div>
         <div class="qs-right">
           <span class="qs-pct-tag" style="background-color: var(--accent-green-bg); color: ${status.color};">${pct.toFixed(1)}%</span>
@@ -1496,8 +1497,13 @@ function scrollSelectedQuickSearchIntoView() {
 }
 
 function escapeHtml(str) {
-  if (!str) return '';
-  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  if (str == null) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
 
 /* ----------------------------------------------------------------------------
