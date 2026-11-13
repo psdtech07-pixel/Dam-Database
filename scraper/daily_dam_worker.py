@@ -23,6 +23,8 @@ def run_daily_job(days=3):
         print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] ✅ Daily dam data job finished successfully.")
         return True
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] ❌ Daily job encountered error: {e}", file=sys.stderr)
         return False
 
@@ -33,10 +35,14 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.once:
-        run_daily_job(days=args.days)
+        success = run_daily_job(days=args.days)
+        if not success:
+            sys.exit(1)
     else:
         # Run once immediately on start
-        run_daily_job(days=args.days)
+        success = run_daily_job(days=args.days)
+        if not success:
+            print("[!] Initial daily run encountered issues. Waiting for next scheduled trigger...", file=sys.stderr)
         try:
             import schedule
             # Schedule daily at 08:30 AM and 02:30 PM (WRD publishes at ~08:00 AM)
