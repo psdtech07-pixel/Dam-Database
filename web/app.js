@@ -351,20 +351,25 @@ function updateHeroAnalytics(regionName) {
 
   let totalLive = 0;
   let totalDesign = 0;
-  let yoySum = 0;
+  let lyNum = 0;
+  let lyDen = 0;
   let yoyCount = 0;
 
   regionDams.forEach(d => {
-    totalLive += Number(d.live_mcm) || 0;
-    totalDesign += Number(d.design_live_mcm) || 0;
-    if (d.last_year_pct && Number(d.last_year_pct) > 0) {
-      yoySum += Number(d.last_year_pct);
+    const live = Number(d.live_mcm) || 0;
+    const design = Number(d.design_live_mcm) || 0;
+    totalLive += live;
+    totalDesign += design;
+
+    if (d.last_year_pct != null && d.last_year_pct !== '' && Number(d.last_year_pct) > 0 && design > 0) {
+      lyNum += Number(d.last_year_pct) * design;
+      lyDen += design;
       yoyCount++;
     }
   });
 
   const overallPct = totalDesign > 0 ? (totalLive / totalDesign) * 100 : 0;
-  const avgLastYearPct = yoyCount > 0 ? yoySum / yoyCount : 0;
+  const lastYearPct = lyDen > 0 ? (lyNum / lyDen) : null;
   const status = getStatusDetails(overallPct);
 
   // Format Large Numbers
@@ -436,17 +441,49 @@ function updateHeroAnalytics(regionName) {
   const yoyDateLabel = document.getElementById('yoyCurrentDateLabel');
   const yoyFootnote = document.getElementById('yoyFootnoteText');
 
-  if (bar2025) bar2025.style.height = `${Math.min(100, avgLastYearPct)}%`;
+  // Dynamic years from data
+  const curBatchDate = latestSnapshot.batch_date;
+  const curYear = curBatchDate ? new Date(curBatchDate).getFullYear() : new Date().getFullYear();
+  const prevYear = curYear - 1;
+
+  const bar2025Label = document.getElementById('bar2025YearLabel');
+  const bar2026Label = document.getElementById('bar2026YearLabel');
+  const yoy2025Label = document.getElementById('yoy2025Label');
+  if (bar2025Label) bar2025Label.innerText = prevYear;
+  if (bar2026Label) bar2026Label.innerText = curYear;
+  if (yoy2025Label) yoy2025Label.innerText = prevYear;
+
+  if (lastYearPct != null) {
+    if (bar2025) {
+      bar2025.style.height = `${Math.min(100, lastYearPct)}%`;
+      if (bar2025.parentElement && bar2025.parentElement.parentElement) {
+        bar2025.parentElement.parentElement.style.opacity = '1';
+      }
+    }
+    if (yoy2025Num) yoy2025Num.innerText = `${lastYearPct.toFixed(1)}%`;
+  } else {
+    if (bar2025) {
+      bar2025.style.height = '0%';
+      if (bar2025.parentElement && bar2025.parentElement.parentElement) {
+        bar2025.parentElement.parentElement.style.opacity = '0.35';
+      }
+    }
+    if (yoy2025Num) yoy2025Num.innerText = '—';
+  }
+
   if (bar2026) bar2026.style.height = `${Math.min(100, overallPct)}%`;
-  if (yoy2025Num) yoy2025Num.innerText = `${avgLastYearPct.toFixed(1)}%`;
   if (yoy2026Num) yoy2026Num.innerText = `${overallPct.toFixed(1)}%`;
 
   if (yoyDateLabel) {
-    const dateFormatted = formatDateDisplay(latestSnapshot.batch_date).toUpperCase();
+    const dateFormatted = formatDateDisplay(curBatchDate).toUpperCase();
     yoyDateLabel.innerText = dateFormatted;
   }
   if (yoyFootnote) {
-    yoyFootnote.innerText = `YoY from WRD for ${regionDams.length} major reservoirs in ${regionName} region.`;
+    let note = `Capacity-weighted YoY from WRD for ${regionDams.length} major reservoirs in ${regionName} region.`;
+    if (yoyCount < regionDams.length) {
+      note = `Capacity-weighted YoY from WRD (based on ${yoyCount} of ${regionDams.length} dams reporting prior year data).`;
+    }
+    yoyFootnote.innerText = note;
   }
 
   // 3. UPDATE ADVISORY CALLOUT ("What it means today")
@@ -456,12 +493,16 @@ function updateHeroAnalytics(regionName) {
 
   if (advisoryMain) {
     const regionNamePretty = regionName === 'ALL' ? "Maharashtra" : regionName;
-    advisoryMain.innerHTML = `${regionNamePretty}’s reservoirs are <strong>${overallPct.toFixed(2)}% full</strong>, ${status.label.toLowerCase()} levels. Last year on this date: <strong>${avgLastYearPct.toFixed(2)}%</strong>.`;
+    let yoyPart = '';
+    if (lastYearPct != null) {
+      yoyPart = ` Last year on this date: <strong>${lastYearPct.toFixed(2)}%</strong>.`;
+    }
+    advisoryMain.innerHTML = `${regionNamePretty}’s reservoirs are <strong>${overallPct.toFixed(2)}% full</strong>, ${status.label.toLowerCase()} levels.${yoyPart}`;
   }
   if (advisorySub) {
     let advice = 'Storage looks comfortable for now. Keep using water wisely. Every litre helps.';
-    if (overallPct < 25) advice = 'Storage levels are critically low. Strictly enforce water rationing and conservation measures.';
-    else if (overallPct < 50) advice = 'Storage is moderate. Plan irrigation rotations and monitor municipal distribution.';
+    if (overallPct < 25) advice = 'Storage levels are low compared with capacity. Follow water conservation guidance from your local municipal and irrigation authorities.';
+    else if (overallPct < 50) advice = 'Storage is moderate. Monitor local municipal water updates and seasonal irrigation rotations.';
     advisorySub.innerText = advice;
   }
 }
