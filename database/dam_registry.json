@@ -2778,8 +2778,8 @@
       "तिल्लारी (धामणे)"
     ],
     "aliases_mr": [
-      "तिल्लारी धरण",
-      "तिल्लारी आंतरराज्य"
+      "तिल्लारी (धामणे) धरण",
+      "धामणे धरण"
     ],
     "taluka": null,
     "nearest_city": null,
@@ -3878,37 +3878,6 @@
     "wikipedia_url": null
   },
   {
-    "slug": "tillari-kokan-sindhudurg",
-    "en": "Tillari",
-    "mr": "तिल्लारी",
-    "district": "Sindhudurg",
-    "division": "Kokan",
-    "basin": "West Flowing / Tillari Basin",
-    "type": "MAJOR",
-    "dead": 14.8,
-    "live": 447.37,
-    "gross": 462.17,
-    "keys": [
-      "tillari",
-      "tillari-kokan-sindhudurg",
-      "तिल्लारी"
-    ],
-    "aliases_mr": [
-      "तिल्लारी धरण",
-      "तिल्लारी आंतरराज्य"
-    ],
-    "taluka": null,
-    "nearest_city": null,
-    "river": null,
-    "year": null,
-    "purpose": null,
-    "description": null,
-    "image_url": null,
-    "height_m": null,
-    "length_m": null,
-    "wikipedia_url": null
-  },
-  {
     "slug": "barvi",
     "en": "Barvi",
     "mr": "बारवी",
@@ -4100,7 +4069,6 @@
     "gross": 462.17,
     "keys": [
       "tillari",
-      "tillari-kokan-sindhudurg",
       "तिल्लारी"
     ],
     "aliases_mr": [

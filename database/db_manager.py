@@ -416,6 +416,16 @@ def export_decoupled_json():
             json.dump(history_points, f, indent=2, ensure_ascii=False)
         exported_histories += 1
 
+    # Clean up orphan history files (B07.3)
+    valid_slugs = set(drow['dam_slug'] for drow in all_dams)
+    deleted_orphans = 0
+    for f in history_dir.glob("*.json"):
+        if f.stem not in valid_slugs:
+            f.unlink()
+            deleted_orphans += 1
+    if deleted_orphans > 0:
+        print(f"🧹 Cleaned up {deleted_orphans} orphan history files in 'web/data/history/'.")
+
     conn.close()
     print(f"✨ Exported {exported_histories} decoupled dam time-series files to 'web/data/history/*.json'.")
 

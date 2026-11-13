@@ -70,13 +70,33 @@ function getThemeColors() {
   };
 }
 
+const SLUG_ALIASES = {
+  "tillari-kokan-sindhudurg": "tillari",
+  "ujani": "bhima-ujjani",
+  "siddheshwar": "siddeshwar",
+  "dhalegaon-hlb": "dhalegaon-h-l-b",
+  "dhanegaon-hlb": "dhanegaon-high-level",
+  "dongargaon-hlb": "dongargaon-h-l-b",
+  "ghod-chinchani": "ghod",
+  "jayakwadi-paithan": "jayakwadi",
+  "kawdas-weir": "kawdas-p-u-weir",
+  "mulshi-tata": "mulshi",
+  "pujaritola": "pujaritola-p-u-weir",
+  "walwhan-tata": "walwan-tata"
+};
+
 /* ----------------------------------------------------------------------------
    ROUTING: OVERVIEW <-> DEDICATED DAM DETAIL PAGE <-> ABOUT PAGE
    ---------------------------------------------------------------------------- */
 function handleHashRouting() {
   const hash = window.location.hash || '';
   if (hash.startsWith('#/dam/')) {
-    const slug = hash.replace('#/dam/', '').trim();
+    let slug = hash.replace('#/dam/', '').trim().toLowerCase();
+    if (SLUG_ALIASES[slug]) {
+      slug = SLUG_ALIASES[slug];
+      window.location.replace(`#/dam/${slug}`);
+      return;
+    }
     if (slug) {
       openDamPage(slug, false);
       return;
