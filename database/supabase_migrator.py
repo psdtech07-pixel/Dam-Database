@@ -131,7 +131,7 @@ def migrate():
                l.gross_storage_mcm, l.storage_pct, l.last_year_pct
         FROM dam_daily_logs l
         JOIN dams d ON l.dam_id = d.dam_id
-        WHERE l.reading_date >= '2024-01-01' AND l.reading_date <= '2026-12-31'
+        WHERE l.reading_date >= '2024-01-01'
         ORDER BY l.reading_date ASC;
     """)
     log_rows = cursor.fetchall()

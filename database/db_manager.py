@@ -3,6 +3,7 @@ import pandas as pd
 import json
 import os
 import re
+from datetime import date, timedelta
 from pathlib import Path
 
 # Paths relative to repository root
@@ -11,6 +12,12 @@ DB_FILE = BASE_DIR / "database" / "pune_dams.db"
 SCHEMA_FILE = BASE_DIR / "database" / "schema.sql"
 REGISTRY_FILE = BASE_DIR / "database" / "dam_registry.json"
 WEB_DATA_DIR = BASE_DIR / "web" / "data"
+
+MIN_VALID_DATE = date(2024, 1, 1)
+
+def is_valid_report_date(d: date) -> bool:
+    """Validate report date is within [2024-01-01, tomorrow] (moving window, prevents post-2026 freeze)."""
+    return MIN_VALID_DATE <= d <= date.today() + timedelta(days=1)
 
 def get_db_connection():
     """Returns a connection to the SQLite database with Foreign Keys enabled."""
@@ -186,8 +193,8 @@ def ingest_records_from_dataframe(df):
             if pd.isnull(dt_obj):
                 dt_obj = pd.to_datetime(raw_date, errors='coerce')
 
-            if pd.isnull(dt_obj) or dt_obj.year < 2024:
-                # Reject epoch dates (e.g., 1970-01-16 / 1970-01-17)
+            if pd.isnull(dt_obj) or not is_valid_report_date(dt_obj.date()):
+                # Reject invalid dates outside valid range [2024-01-01, today+1]
                 continue
 
             reading_date = dt_obj.strftime('%Y-%m-%d')
@@ -257,15 +264,15 @@ def ingest_records_from_dataframe(df):
     return inserted_count
 
 def purge_corrupt_logs():
-    """Purges corrupt records with invalid dates outside [2024-01-01, 2026-12-31]."""
+    """Purges corrupt records with invalid dates outside [2024-01-01, tomorrow]."""
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM dam_daily_logs WHERE reading_date < '2024-01-01' OR reading_date > '2026-12-31';")
+    cursor.execute("DELETE FROM dam_daily_logs WHERE reading_date < '2024-01-01' OR reading_date > date('now', '+1 day');")
     purged = cursor.rowcount
     conn.commit()
     conn.close()
     if purged > 0:
-        print(f"🧹 Purged {purged} corrupt log records outside 2024–2026 range.")
+        print(f"🧹 Purged {purged} corrupt log records.")
     return purged
 
 def export_decoupled_json():
@@ -275,7 +282,6 @@ def export_decoupled_json():
     2. web/data/history/{dam_slug}.json (~10-15 KB each): Compact chronological time-series array [{"d": "YYYY-MM-DD", "m": live_mcm, "p": pct}].
     """
     init_db()
-    purge_corrupt_logs()
 
     WEB_DATA_DIR.mkdir(parents=True, exist_ok=True)
     history_dir = WEB_DATA_DIR / "history"
@@ -382,7 +388,7 @@ def export_decoupled_json():
         cursor.execute("""
         SELECT reading_date, live_storage_mcm, gross_storage_mcm, storage_pct, last_year_pct
         FROM dam_daily_logs
-        WHERE dam_id = ? AND reading_date >= '2024-01-01' AND reading_date <= '2026-12-31'
+        WHERE dam_id = ? AND reading_date >= '2024-01-01'
         ORDER BY reading_date ASC;
         """, (did,))
         hrows = cursor.fetchall()
