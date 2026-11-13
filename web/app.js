@@ -393,11 +393,24 @@ function updateHeroAnalytics(regionName) {
     ringProgress.style.stroke = status.color;
   }
 
-  // Delta comparison text
+  // Real Delta comparison calculation
   const deltaText = document.getElementById('heroDeltaText');
   if (deltaText) {
-    const yesterdayDate = getYesterdayDateString();
-    deltaText.innerText = `↘ -0.12% · -1,420 ML · since ${yesterdayDate}`;
+    const delta = computeRegionDelta(regionDams);
+    if (!delta) {
+      deltaText.innerText = '—';
+    } else {
+      const arrow = delta.pp > 0.005 ? '↗' : (delta.pp < -0.005 ? '↘' : '→');
+      const sign = delta.pp > 0.005 ? '+' : '';
+      const ppStr = `${sign}${delta.pp.toFixed(2)}%`;
+      const mlStr = `${sign}${Math.round(delta.ml).toLocaleString('en-IN')} ML`;
+      const dateStr = formatDateDisplay(delta.prevDate);
+      let text = `${arrow} ${ppStr} · ${mlStr} · since ${dateStr}`;
+      if (delta.n < delta.total) {
+        text += ` (${delta.n} of ${delta.total} dams)`;
+      }
+      deltaText.innerText = text;
+    }
   }
 
   // Stored vs Capacity numbers
@@ -453,10 +466,29 @@ function updateHeroAnalytics(regionName) {
   }
 }
 
-function getYesterdayDateString() {
-  const d = new Date();
-  d.setDate(d.getDate() - 1);
-  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+function computeRegionDelta(dams) {
+  let cur = 0, prev = 0, cap = 0, n = 0;
+  const dates = {};
+  for (const d of dams) {
+    if (d.prev_live_mcm == null || d.live_mcm == null || d.design_live_mcm == null) continue;
+    cur += Number(d.live_mcm);
+    prev += Number(d.prev_live_mcm);
+    cap += Number(d.design_live_mcm);
+    n++;
+    if (d.prev_date) {
+      dates[d.prev_date] = (dates[d.prev_date] || 0) + 1;
+    }
+  }
+  if (!n || !cap) return null;
+  const dateEntries = Object.entries(dates);
+  const prevDate = dateEntries.length > 0 ? dateEntries.sort((a, b) => b[1] - a[1])[0][0] : null;
+  return {
+    pp: ((cur - prev) / cap) * 100,
+    ml: (cur - prev) * 1000,
+    prevDate,
+    n,
+    total: dams.length
+  };
 }
 
 /* ----------------------------------------------------------------------------

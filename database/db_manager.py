@@ -304,13 +304,18 @@ def export_decoupled_json():
         d.taluka, d.nearest_city, d.river, d.completion_year, d.purpose, d.description, d.image_url, d.wikipedia_url, d.height_m, d.length_m,
         l.reading_date, l.reading_time, l.live_storage_mcm, l.gross_storage_mcm,
         l.storage_pct, l.last_year_pct,
-        ROUND(d.design_live_mcm - l.live_storage_mcm, 2) AS remaining_capacity_mcm
+        ROUND(d.design_live_mcm - l.live_storage_mcm, 2) AS remaining_capacity_mcm,
+        p.reading_date AS prev_date,
+        p.live_storage_mcm AS prev_live_mcm
     FROM dams d
     JOIN districts dt ON d.district_id = dt.district_id
     JOIN divisions dv ON dt.division_id = dv.division_id
     JOIN basins b ON d.basin_id = b.basin_id
     LEFT JOIN dam_daily_logs l ON d.dam_id = l.dam_id AND l.reading_date = (
         SELECT MAX(reading_date) FROM dam_daily_logs WHERE dam_id = d.dam_id
+    )
+    LEFT JOIN dam_daily_logs p ON d.dam_id = p.dam_id AND p.reading_date = (
+        SELECT MAX(reading_date) FROM dam_daily_logs WHERE dam_id = d.dam_id AND reading_date < l.reading_date
     )
     ORDER BY d.dam_name_en ASC;
     """
@@ -346,8 +351,10 @@ def export_decoupled_json():
             'live_mcm': r['live_storage_mcm'] if r['live_storage_mcm'] is not None else 0.0,
             'gross_mcm': r['gross_storage_mcm'] if r['gross_storage_mcm'] is not None else 0.0,
             'pct': r['storage_pct'] if r['storage_pct'] is not None else 0.0,
-            'last_year_pct': r['last_year_pct'] if r['last_year_pct'] is not None else 0.0,
-            'remaining_mcm': r['remaining_capacity_mcm'] if r['remaining_capacity_mcm'] is not None else r['design_live_mcm']
+            'last_year_pct': r['last_year_pct'] if r['last_year_pct'] is not None else None,
+            'remaining_mcm': r['remaining_capacity_mcm'] if r['remaining_capacity_mcm'] is not None else r['design_live_mcm'],
+            'prev_date': r['prev_date'],
+            'prev_live_mcm': r['prev_live_mcm'] if r['prev_live_mcm'] is not None else None
         }
 
     snapshot_data = {
