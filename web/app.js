@@ -704,20 +704,46 @@ function renderDamDetailPage(dam) {
 
   // Dam Encyclopedia & Specifications
   const photo = document.getElementById('dpImage');
-  photo.src = dam.image_url || 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80';
-  photo.alt = `${dam.name_en} Reservoir in ${dam.district} district, Maharashtra`;
-  document.getElementById('dpPhotoCaption').innerText = `${dam.name_en} Reservoir (${dam.name_mr || dam.name_en}), ${dam.district}, Maharashtra`;
+  const svgPlaceholder = "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22500%22%20viewBox%3D%220%200%20800%20500%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23e2e8f0%22%2F%3E%3Cpath%20d%3D%22M360%20210h80v80h-80z%22%20fill%3D%22%2394a3b8%22%2F%3E%3Cpolygon%20points%3D%22400%2C170%20340%2C210%20460%2C210%22%20fill%3D%22%2364748b%22%2F%3E%3Ctext%20x%3D%22400%22%20y%3D%22320%22%20font-family%3D%22system-ui%2C%20sans-serif%22%20font-size%3D%2218%22%20font-weight%3D%22500%22%20fill%3D%22%23475569%22%20text-anchor%3D%22middle%22%3EPhoto%20not%20available%3C%2Ftext%3E%3Ctext%20x%3D%22400%22%20y%3D%22345%22%20font-family%3D%22system-ui%2C%20sans-serif%22%20font-size%3D%2213%22%20fill%3D%22%2394a3b8%22%20text-anchor%3D%22middle%22%3EAwaiting%20verified%20reservoir%20photography%3C%2Ftext%3E%3C%2Fsvg%3E";
+  
+  if (dam.image_url && dam.image_url.trim().length > 0) {
+    photo.src = dam.image_url.trim();
+    photo.alt = `${dam.name_en} Reservoir in ${dam.district} district, Maharashtra`;
+    document.getElementById('dpPhotoCaption').innerText = `${dam.name_en} Reservoir (${dam.name_mr || dam.name_en}), ${dam.district}, Maharashtra`;
+  } else {
+    photo.src = svgPlaceholder;
+    photo.alt = `Photo not available for ${dam.name_en}`;
+    document.getElementById('dpPhotoCaption').innerText = `Photo not available · ${dam.name_en} (${dam.district})`;
+  }
 
-  document.getElementById('dpDescription').innerText = dam.description || `${dam.name_en} is a major storage reservoir situated in ${dam.district} district, ${dam.division} division.`;
-  document.getElementById('dpSpecLocation').innerText = `${dam.district} / ${dam.taluka || dam.district}`;
-  document.getElementById('dpSpecCity').innerText = dam.nearest_city || dam.district;
-  document.getElementById('dpSpecRiver').innerText = `${dam.river || 'River'} River`;
-  document.getElementById('dpSpecBasin').innerText = dam.basin || 'Krishna River Basin';
-  document.getElementById('dpSpecYear').innerText = dam.year || '1985';
-  document.getElementById('dpSpecDimensions').innerText = `${dam.height_m || 45} m / ${(dam.length_m || 1200).toLocaleString()} m`;
-  document.getElementById('dpSpecDead').innerText = `${dam.dead_mcm || 0} MCM`;
-  document.getElementById('dpSpecGross').innerText = `${dam.design_gross_mcm || (designMCM + (dam.dead_mcm || 0)).toFixed(2)} MCM`;
-  document.getElementById('dpSpecPurpose').innerText = dam.purpose || 'Drinking water supply and agricultural irrigation';
+  const descElem = document.getElementById('dpDescription');
+  if (dam.description && dam.description.trim().length > 0) {
+    descElem.innerText = dam.description.trim();
+    descElem.style.display = 'block';
+  } else {
+    descElem.innerText = '';
+    descElem.style.display = 'none';
+  }
+
+  document.getElementById('dpSpecLocation').innerText = dam.taluka ? `${dam.district} / ${dam.taluka}` : (dam.district || '—');
+  document.getElementById('dpSpecCity').innerText = dam.nearest_city || '—';
+  document.getElementById('dpSpecRiver').innerText = dam.river ? (dam.river.toLowerCase().includes('river') ? dam.river : `${dam.river} River`) : '—';
+  document.getElementById('dpSpecBasin').innerText = dam.basin ? (dam.basin.toLowerCase().includes('basin') ? dam.basin : `${dam.basin} River Basin`) : '—';
+  document.getElementById('dpSpecYear').innerText = dam.year ? String(dam.year) : '—';
+  
+  if (dam.height_m && dam.length_m) {
+    document.getElementById('dpSpecDimensions').innerText = `${dam.height_m} m / ${Number(dam.length_m).toLocaleString('en-IN')} m`;
+  } else if (dam.height_m) {
+    document.getElementById('dpSpecDimensions').innerText = `${dam.height_m} m`;
+  } else if (dam.length_m) {
+    document.getElementById('dpSpecDimensions').innerText = `${Number(dam.length_m).toLocaleString('en-IN')} m`;
+  } else {
+    document.getElementById('dpSpecDimensions').innerText = '—';
+  }
+
+  document.getElementById('dpSpecDead').innerText = dam.dead_mcm != null ? `${dam.dead_mcm} MCM` : '—';
+  document.getElementById('dpSpecGross').innerText = dam.design_gross_mcm != null ? `${dam.design_gross_mcm} MCM` : (designMCM > 0 ? `${designMCM.toFixed(2)} MCM (Live)` : '—');
+  document.getElementById('dpSpecPurpose').innerText = dam.purpose || '—';
 
   // Wikipedia Supplementary Reference Link
   const wikiWrap = document.getElementById('dpWikiLinkWrap');

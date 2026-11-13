@@ -11,18 +11,9 @@ REGISTRY_PATH = BASE_DIR / 'database' / 'dam_registry.json'
 sys.path.insert(0, str(BASE_DIR))
 from database.db_manager import export_decoupled_json
 
-# Curated high-resolution, authentic reservoir and dam landscape fallback photos
-# (strictly natural water bodies, reservoirs, catchments, and river basins in Maharashtra — zero cityscapes)
-FALLBACK_WATER_IMAGES = {
-    'Pune': 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80', # Sahyadri mountain reservoir
-    'Kokan': 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80', # Western Ghats coastal lake reservoir
-    'Nashik': 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80', # Godavari catchment water reservoir
-    'Chhatrapati Sambhajinagar': 'https://images.unsplash.com/photo-1439853949127-fa647821eea0?auto=format&fit=crop&w=1200&q=80', # Expansive blue lake reservoir
-    'Amravati': 'https://images.unsplash.com/photo-1542332213-31f87348057f?auto=format&fit=crop&w=1200&q=80', # River reservoir in lush hills
-    'Nagpur': 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80' # Broad Vidarbha water basin reservoir
-}
-
 # Verified encyclopedia data, authentic images, and Wikipedia URLs for Maharashtra Reservoirs
+# ONLY verified Wikimedia Commons photos of the real dam/reservoir are used.
+# If an authentic photo is unavailable, image_url is None (UI renders clean placeholder).
 DAM_METADATA = {
     # ------------------ PUNE DISTRICT / DIVISION ------------------
     'khadakwasla': {
@@ -46,7 +37,7 @@ DAM_METADATA = {
         'year': 1994, 'height_m': 63.4, 'length_m': 785,
         'purpose': 'Drinking water reservoir for Pune and PCMC, alongside hydroelectric power generation.',
         'description': 'Varasgaon Dam (officially Veer Baaji Pasalkar Dam) is constructed on the Mose River adjacent to Panshet. It is the largest of the four dams in the Khadakwasla complex.',
-        'image_url': 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80',
+        'image_url': None,
         'wikipedia_url': 'https://en.wikipedia.org/wiki/Varasgaon_Dam'
     },
     'temghar': {
@@ -86,7 +77,7 @@ DAM_METADATA = {
         'year': 2000, 'height_m': 67.2, 'length_m': 852,
         'purpose': 'Irrigation for Ambegaon and Shirur talukas, and hydro-power generation.',
         'description': 'Dimbhe Dam is an earthfill and gravity dam on the Ghod River in Ambegaon taluka. It feeds the Kukadi canal irrigation system.',
-        'image_url': 'https://images.unsplash.com/photo-1542332213-31f87348057f?auto=format&fit=crop&w=1200&q=80',
+        'image_url': None,
         'wikipedia_url': 'https://en.wikipedia.org/wiki/Dimbhe_Dam'
     },
     'bhama-askhed': {
@@ -94,7 +85,7 @@ DAM_METADATA = {
         'year': 2000, 'height_m': 51.0, 'length_m': 1425,
         'purpose': 'Drinking water pipeline for East Pune (Nagar Road, Kharadi) and irrigation in Khed.',
         'description': 'Bhama Askhed Dam is built on the Bhama River in Khed taluka. It supplies 200 MLD of drinking water to Pune eastern suburbs.',
-        'image_url': 'https://images.unsplash.com/photo-1439853949127-fa647821eea0?auto=format&fit=crop&w=1200&q=80',
+        'image_url': None,
         'wikipedia_url': 'https://en.wikipedia.org/wiki/Bhama_River'
     },
     'chaskaman': {
@@ -102,7 +93,7 @@ DAM_METADATA = {
         'year': 2002, 'height_m': 46.0, 'length_m': 960,
         'purpose': 'Irrigation and industrial water for the Chakan auto manufacturing cluster.',
         'description': 'Chaskaman Dam is an earthfill gravity dam on the upper Bhima River near Rajgurunagar, supporting agriculture and industrial growth.',
-        'image_url': 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80',
+        'image_url': None,
         'wikipedia_url': 'https://en.wikipedia.org/wiki/Chaskaman_Dam'
     },
     'manikdoh': {
@@ -110,7 +101,7 @@ DAM_METADATA = {
         'year': 1984, 'height_m': 52.0, 'length_m': 930,
         'purpose': 'Irrigation in Junnar and leopard conservation reserve sanctuary buffer.',
         'description': 'Manikdoh Dam is located on the Kukadi River in Junnar. The catchment area is famous for historical hill forts like Shivneri and biodiversity reserves.',
-        'image_url': 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80',
+        'image_url': None,
         'wikipedia_url': 'https://en.wikipedia.org/wiki/Manikdoh_Dam'
     },
     'gunjawani': {
@@ -118,14 +109,14 @@ DAM_METADATA = {
         'year': 2004, 'height_m': 52.8, 'length_m': 640,
         'purpose': 'Pressurized piped drip irrigation network in Purandar and Velhe talukas.',
         'description': 'Gunjawani Dam is built on the Kanandi River in Velhe taluka, featuring Maharashtra’s pioneer underground piped irrigation distribution network.',
-        'image_url': 'https://images.unsplash.com/photo-1426604966848-d7adac402bff?auto=format&fit=crop&w=1200&q=80'
+        'image_url': None
     },
     'nira-deoghar': {
         'taluka': 'Bhor', 'nearest_city': 'Mahad / Bhor', 'river': 'Nira',
         'year': 2000, 'height_m': 58.5, 'length_m': 2430,
         'purpose': 'Irrigation for drought-prone regions in Khandala, Phaltan, and Malshiras.',
         'description': 'Nira Deoghar Dam is a massive composite dam on the Nira River in Bhor taluka, storing monsoon runoff for dry eastern agricultural plains.',
-        'image_url': 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80',
+        'image_url': None,
         'wikipedia_url': 'https://en.wikipedia.org/wiki/Nira_River'
     },
     'bhima-ujjani': {
@@ -173,7 +164,7 @@ DAM_METADATA = {
         'year': 1957, 'height_m': 42.7, 'length_m': 1143,
         'purpose': 'Heritage hydro-electric power and irrigation project initiated by Chhatrapati Shahu Maharaj.',
         'description': 'Radhanagari Dam (Laxmi Lake) is a historic gravity dam on the Bhogawati River in Kolhapur, renowned for its automatic siphon gates.',
-        'image_url': 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80',
+        'image_url': None,
         'wikipedia_url': 'https://en.wikipedia.org/wiki/Radhanagari_Dam'
     },
     'dudhganga': {
@@ -181,7 +172,7 @@ DAM_METADATA = {
         'year': 1989, 'height_m': 73.8, 'length_m': 1280,
         'purpose': 'Interstate multi-purpose irrigation and hydroelectric project between Maharashtra and Karnataka.',
         'description': 'Dudhganga Dam (Kallammawadi Reservoir) is built across the Dudhganga River, irrigating extensive sugarcane tracts in southern Maharashtra.',
-        'image_url': 'https://images.unsplash.com/photo-1542332213-31f87348057f?auto=format&fit=crop&w=1200&q=80',
+        'image_url': None,
         'wikipedia_url': 'https://en.wikipedia.org/wiki/Dudhganga_River'
     },
     'warna': {
@@ -189,7 +180,7 @@ DAM_METADATA = {
         'year': 2000, 'height_m': 88.0, 'length_m': 1580,
         'purpose': 'Irrigation for Sangli and Kolhapur districts and hydro-electric power.',
         'description': 'Warna Dam (Chandoli Dam, Vasant Sagar) is an earthfill dam on the Warna River situated on the fringes of Chandoli National Park.',
-        'image_url': 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80',
+        'image_url': None,
         'wikipedia_url': 'https://en.wikipedia.org/wiki/Chandoli_National_Park'
     },
 
@@ -207,7 +198,7 @@ DAM_METADATA = {
         'year': 1892, 'height_m': 41.0, 'length_m': 2804,
         'purpose': 'Heritage drinking water supply dam for Mumbai surrounded by Tansa Wildlife Sanctuary.',
         'description': 'Tansa Dam is a historic masonry gravity dam on the Tansa River, constructed under British rule in 1892, surrounded by the dense Tansa Wildlife Sanctuary.',
-        'image_url': 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80',
+        'image_url': None,
         'wikipedia_url': 'https://en.wikipedia.org/wiki/Tansa_Dam'
     },
     'middle-vaitarna': {
@@ -215,7 +206,7 @@ DAM_METADATA = {
         'year': 2012, 'height_m': 102.0, 'length_m': 565,
         'purpose': 'Modern roller-compacted concrete dam providing 455 MLD drinking water to Mumbai.',
         'description': 'Middle Vaitarna Dam (Balasaheb Thackeray Reservoir) is the third highest dam in Maharashtra, built using state-of-the-art roller-compacted concrete technology.',
-        'image_url': 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80',
+        'image_url': None,
         'wikipedia_url': 'https://en.wikipedia.org/wiki/Middle_Vaitarna_Dam'
     },
     'modak-sagar': {
@@ -223,7 +214,7 @@ DAM_METADATA = {
         'year': 1957, 'height_m': 49.0, 'length_m': 640,
         'purpose': 'Vital drinking water reservoir for Mumbai, named after engineer N. V. Modak.',
         'description': 'Modak Sagar Dam is built across the lower Vaitarna River, directly impounding monsoon flows to supply suburban and south Mumbai.',
-        'image_url': 'https://images.unsplash.com/photo-1439853949127-fa647821eea0?auto=format&fit=crop&w=1200&q=80',
+        'image_url': None,
         'wikipedia_url': 'https://en.wikipedia.org/wiki/Modak_Sagar'
     },
     'barvi': {
@@ -239,7 +230,7 @@ DAM_METADATA = {
         'year': 1973, 'height_m': 41.0, 'length_m': 2531,
         'purpose': 'Dual-purpose reservoir generating electricity and supplying drinking water to Mumbai.',
         'description': 'Upper Vaitarna Dam impounds the headwaters of the Vaitarna River in the Western Ghats, transferring water downstream for Mumbai’s supply.',
-        'image_url': 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80',
+        'image_url': None,
         'wikipedia_url': 'https://en.wikipedia.org/wiki/Upper_Vaitarna_Dam'
     },
     'tillari': {
@@ -247,23 +238,7 @@ DAM_METADATA = {
         'year': 1990, 'height_m': 38.0, 'length_m': 1120,
         'purpose': 'Interstate water security and irrigation for Sindhudurg (Maharashtra) and North Goa.',
         'description': 'Tillari Dam is an interstate irrigation and water supply reservoir in the Western Ghats between Maharashtra and Goa.',
-        'image_url': 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80',
-        'wikipedia_url': 'https://en.wikipedia.org/wiki/Tillari_Dam'
-    },
-    'tillari-kokan': {
-        'taluka': 'Chandgad', 'nearest_city': 'Kolhapur', 'river': 'Tillari',
-        'year': 1986, 'height_m': 35.0, 'length_m': 980,
-        'purpose': 'Irrigation and water storage in Chandgad taluka.',
-        'description': 'Tillari (Dhamne) Dam is located in the upper reaches of the Tillari basin in Kolhapur district.',
-        'image_url': 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80',
-        'wikipedia_url': 'https://en.wikipedia.org/wiki/Tillari_Dam'
-    },
-    'tillari-kokan-sindhudurg': {
-        'taluka': 'Dodamarg', 'nearest_city': 'Sawantwadi', 'river': 'Tillari',
-        'year': 1990, 'height_m': 38.0, 'length_m': 1120,
-        'purpose': 'Interstate water security and irrigation for Sindhudurg and Goa.',
-        'description': 'Tillari Dam is an interstate irrigation reservoir situated in the Konkan Western Ghats.',
-        'image_url': 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80',
+        'image_url': None,
         'wikipedia_url': 'https://en.wikipedia.org/wiki/Tillari_Dam'
     },
 
@@ -289,7 +264,7 @@ DAM_METADATA = {
         'year': 1916, 'height_m': 28.0, 'length_m': 1634,
         'purpose': 'Monsoon storage regulating Godavari river downstream flows and Nashik supply.',
         'description': 'Darna Dam is a stone masonry gravity dam located near Igatpuri in the high-rainfall Western Ghats belt, built across the Darna River.',
-        'image_url': 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80',
+        'image_url': None,
         'wikipedia_url': 'https://en.wikipedia.org/wiki/Darna_Dam'
     },
     'bhandardara': {
@@ -313,7 +288,7 @@ DAM_METADATA = {
         'year': 1974, 'height_m': 48.0, 'length_m': 2820,
         'purpose': 'Irrigation for Ahmednagar district and drinking water supply for Ahmednagar city.',
         'description': 'Mula Dam is an earthfill and gravity dam on the Mula River near Rahuri, creating the extensive Dnyaneshwar Sagar reservoir.',
-        'image_url': 'https://images.unsplash.com/photo-1542332213-31f87348057f?auto=format&fit=crop&w=1200&q=80',
+        'image_url': None,
         'wikipedia_url': 'https://en.wikipedia.org/wiki/Mula_Dam'
     },
     'girna': {
@@ -321,7 +296,7 @@ DAM_METADATA = {
         'year': 1969, 'height_m': 54.5, 'length_m': 963,
         'purpose': 'Major irrigation for Khandesh and Malegaon drinking water.',
         'description': 'Girna Dam is an earthfill dam situated on the Girna River, impounding water for agricultural canal irrigation across Jalgaon and Nashik borders.',
-        'image_url': 'https://images.unsplash.com/photo-1439853949127-fa647821eea0?auto=format&fit=crop&w=1200&q=80',
+        'image_url': None,
         'wikipedia_url': 'https://en.wikipedia.org/wiki/Girna_Dam'
     },
     'waghur': {
@@ -361,7 +336,7 @@ DAM_METADATA = {
         'year': 1982, 'height_m': 25.0, 'length_m': 4203,
         'purpose': 'Primary drinking water lifeline for Latur city and drought-prone agricultural belts.',
         'description': 'Manjara Dam (Dhanegaon) is an earthen dam built across the Manjara River, providing critical water security to Latur.',
-        'image_url': 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80',
+        'image_url': None,
         'wikipedia_url': 'https://en.wikipedia.org/wiki/Manjara_Dam'
     },
     'isapur': {
@@ -369,7 +344,7 @@ DAM_METADATA = {
         'year': 1982, 'height_m': 57.0, 'length_m': 4120,
         'purpose': 'Upper Penganga Project providing canal irrigation to Nanded and Yavatmal.',
         'description': 'Isapur Dam is an earthfill dam on the Penganga River on the border of Hingoli, Nanded, and Yavatmal districts.',
-        'image_url': 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80',
+        'image_url': None,
         'wikipedia_url': 'https://en.wikipedia.org/wiki/Isapur_Dam'
     },
     'yeldari': {
@@ -377,7 +352,7 @@ DAM_METADATA = {
         'year': 1968, 'height_m': 51.2, 'length_m': 4232,
         'purpose': 'Hydro-electric power generation and Purna canal irrigation.',
         'description': 'Yeldari Dam is an earthen dam constructed across the Purna River in Jintur taluka of Parbhani.',
-        'image_url': 'https://images.unsplash.com/photo-1542332213-31f87348057f?auto=format&fit=crop&w=1200&q=80',
+        'image_url': None,
         'wikipedia_url': 'https://en.wikipedia.org/wiki/Yeldari_Dam'
     },
 
@@ -448,46 +423,6 @@ DAM_METADATA = {
     }
 }
 
-# Regional fallback metadata
-DIV_DEFAULTS = {
-    'Pune': {
-        'nearest_city': 'Pune', 'river': 'Krishna / Bhima Basin Tributary',
-        'purpose': 'Drinking water supply, agricultural irrigation, and hydroelectric power generation.',
-        'description': 'Major reservoir in the Krishna river basin, managed by the Water Resources Department of Maharashtra for regional irrigation and municipal water security.',
-        'image_url': FALLBACK_WATER_IMAGES['Pune']
-    },
-    'Kokan': {
-        'nearest_city': 'Mumbai / Thane', 'river': 'West Flowing Coastal River',
-        'purpose': 'Municipal drinking water supply for urban centers and industrial corridors.',
-        'description': 'Major reservoir situated in the Western Ghats coastal belt, impounding monsoon runoff to supply metropolitan urban centers and agricultural basins.',
-        'image_url': FALLBACK_WATER_IMAGES['Kokan']
-    },
-    'Nashik': {
-        'nearest_city': 'Nashik', 'river': 'Godavari / Tapi Basin Tributary',
-        'purpose': 'Agricultural irrigation, municipal drinking water supply, and seasonal flood moderation.',
-        'description': 'Important irrigation storage project in northern Maharashtra, supporting agro-industries, grape cultivation, and regional municipal drinking networks.',
-        'image_url': FALLBACK_WATER_IMAGES['Nashik']
-    },
-    'Chhatrapati Sambhajinagar': {
-        'nearest_city': 'Chhatrapati Sambhajinagar', 'river': 'Godavari Sub-basin Tributary',
-        'purpose': 'Irrigation for Marathwada agriculture and drinking water for regional towns.',
-        'description': 'Vital water security reservoir in Marathwada, impounding seasonal flows for canal networks, groundwater recharge, and urban water security.',
-        'image_url': FALLBACK_WATER_IMAGES['Chhatrapati Sambhajinagar']
-    },
-    'Amravati': {
-        'nearest_city': 'Amravati', 'river': 'Wardha / Purna Basin Tributary',
-        'purpose': 'Cotton-belt agricultural irrigation, flood moderation, and drinking water storage.',
-        'description': 'Major water storage infrastructure in western Vidarbha, catering to the agricultural requirements and water security of the Vidarbha agrarian region.',
-        'image_url': FALLBACK_WATER_IMAGES['Amravati']
-    },
-    'Nagpur': {
-        'nearest_city': 'Nagpur', 'river': 'Wainganga Basin Tributary',
-        'purpose': 'Multi-purpose irrigation, industrial thermal power plant water supply, and municipal drinking water.',
-        'description': 'Extensive reservoir in eastern Vidarbha, facilitating canal irrigation and drinking water supply across the Nagpur revenue division.',
-        'image_url': FALLBACK_WATER_IMAGES['Nagpur']
-    }
-}
-
 def enrich_all():
     with open(REGISTRY_PATH, 'r', encoding='utf-8') as f:
         registry = json.load(f)
@@ -516,23 +451,19 @@ def enrich_all():
     updated_count = 0
     for item in registry:
         slug = item['slug']
-        div = item.get('division', 'Pune')
-        dist = item.get('district', 'Pune')
-        name = item.get('en', slug)
-
         meta = DAM_METADATA.get(slug, {})
-        def_div = DIV_DEFAULTS.get(div, DIV_DEFAULTS['Pune'])
 
-        taluka = meta.get('taluka', dist)
-        nearest_city = meta.get('nearest_city', def_div['nearest_city'])
-        river = meta.get('river', def_div['river'])
-        year = meta.get('year', 1985)
-        purpose = meta.get('purpose', def_div['purpose'])
-        description = meta.get('description', f"{name} is a major storage reservoir situated in {dist} district, {div} revenue division. It is operated by the Maharashtra Water Resources Department to support regional irrigation and municipal water security.")
-        image_url = meta.get('image_url', def_div['image_url'])
-        wikipedia_url = meta.get('wikipedia_url', '')
-        height_m = meta.get('height_m', 45.0)
-        length_m = meta.get('length_m', 1200.0)
+        # Do NOT invent data. Unverified fields are None (NULL).
+        taluka = meta.get('taluka')
+        nearest_city = meta.get('nearest_city')
+        river = meta.get('river')
+        year = meta.get('year')
+        purpose = meta.get('purpose')
+        description = meta.get('description')
+        image_url = meta.get('image_url')
+        wikipedia_url = meta.get('wikipedia_url')
+        height_m = meta.get('height_m')
+        length_m = meta.get('length_m')
 
         # Update JSON item
         item['taluka'] = taluka
@@ -562,7 +493,7 @@ def enrich_all():
     with open(REGISTRY_PATH, 'w', encoding='utf-8') as f:
         json.dump(registry, f, indent=2, ensure_ascii=False)
 
-    print(f"✨ Successfully enriched metadata, images, and Wikipedia URLs for {updated_count} dams in SQLite and registry!")
+    print(f"✨ Successfully enriched verified metadata for {updated_count} dams in SQLite and registry (placeholders nulled)!")
     
     # Export to web JSON
     export_decoupled_json()
