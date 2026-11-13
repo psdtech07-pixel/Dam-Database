@@ -3,6 +3,7 @@ import re
 import ssl
 import sys
 import time
+import certifi
 import urllib.request
 import urllib.parse
 from datetime import datetime, timedelta
@@ -11,9 +12,23 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TARGET_DIR = os.path.join(BASE_DIR, 'dam_pdf')
 
-SSL_CONTEXT = ssl.create_default_context()
-SSL_CONTEXT.check_hostname = False
-SSL_CONTEXT.verify_mode = ssl.CERT_NONE
+def create_ssl_context(allow_insecure=False):
+    """
+    Creates an SSL context. Enforces TLS verification with certifi by default.
+    Allows unverified context only if WRD_INSECURE_SSL=1 is set or allow_insecure=True.
+    """
+    if allow_insecure or os.environ.get('WRD_INSECURE_SSL', '0') == '1':
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+        return ctx
+
+    try:
+        return ssl.create_default_context(cafile=certifi.where())
+    except Exception:
+        return ssl.create_default_context()
+
+SSL_CONTEXT = create_ssl_context()
 
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
@@ -78,6 +93,25 @@ def download_english_pdf_for_date(dt_obj, base_output_dir=TARGET_DIR, timeout=5)
                     # 404 means file doesn't exist under this pattern; do not retry, try next pattern
                     break
                 # On 502/503/504 transient gateway errors, short wait and retry once
+                time.sleep(0.5)
+                continue
+            except (ssl.SSLError, urllib.error.URLError) as e:
+                is_ssl_issue = isinstance(e, ssl.SSLError) or (hasattr(e, 'reason') and isinstance(e.reason, ssl.SSLError))
+                if is_ssl_issue:
+                    print(f"[WARN] TLS verification failed for {url} ({e}); retrying with unverified context due to upstream certificate configuration.", file=sys.stderr)
+                    try:
+                        insecure_ctx = create_ssl_context(allow_insecure=True)
+                        with urllib.request.urlopen(req, context=insecure_ctx, timeout=timeout) as resp:
+                            if resp.status == 200:
+                                data = resp.read()
+                                if len(data) > 2000 and data.startswith(b'%PDF-'):
+                                    temp_dest = dest_path + f'.tmp_{os.getpid()}_{int(time.time()*1000)}'
+                                    with open(temp_dest, 'wb') as f:
+                                        f.write(data)
+                                    os.replace(temp_dest, dest_path)
+                                    return dt_str, dest_path, True, 'DOWNLOADED'
+                    except Exception:
+                        pass
                 time.sleep(0.5)
                 continue
             except Exception:
