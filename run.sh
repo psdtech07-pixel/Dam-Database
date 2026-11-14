@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Pune Dam Water Storage Analytics Dashboard & DBMS Launcher Script
+# Maharashtra Dam Water Storage Analytics Dashboard & DBMS Launcher Script
 PORT="${1:-8000}"
 
 if [ "$1" == "--inspect" ]; then
@@ -9,7 +9,7 @@ if [ "$1" == "--inspect" ]; then
 fi
 
 echo "=========================================================="
-echo "💧  Pune Dam Water Storage Analytics Dashboard  💧"
+echo "💧  Maharashtra Dam Water Storage Analytics Dashboard  💧"
 echo "=========================================================="
 echo "Starting local HTTP server on port ${PORT}..."
 echo "Serving web assets from 'web/' directory..."
