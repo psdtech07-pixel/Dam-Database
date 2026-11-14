@@ -5,8 +5,9 @@ new_dam_pdf/
 backup/
 __pycache__/
 *.pyc
+.pytest_cache/
 .env
-HydroAnalytics.pptx/
+HydroAnalytics.pptx
 
 # Obsolete legacy 36MB dump
 web/dam_data.json

@@ -6,9 +6,9 @@
 [![Database](https://img.shields.io/badge/Database-SQLite_3NF-003B57?style=for-the-badge&logo=sqlite&logoColor=white)](database/schema.sql)
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](scraper/)
 
-An open, database-driven **civic-tech and hydrological analytics platform** monitoring **139 major dams and reservoirs** across all 6 administrative divisions of Maharashtra.
+An open, database-driven **civic-tech and hydrological analytics platform** monitoring **138 major dams and reservoirs** across all 6 administrative divisions of Maharashtra.
 
-The platform transforms daily unstructured PDF bulletins published by the **Water Resources Department (WRD), Government of Maharashtra** into a normalized relational database, maintaining a continuous historical archive and presenting interactive, accessible water analytics to the public.
+The platform transforms daily unstructured PDF bulletins published by the **Water Resources Department (WRD), Government of Maharashtra** into a normalized relational database, maintaining a comprehensive historical archive and presenting interactive, accessible water analytics to the public.
 
 ---
 
@@ -42,12 +42,12 @@ As verified in the current production database:
 
 | Metric | Verified Value | Description |
 |---|---|---|
-| **Major Dams & Reservoirs** | **139** | State-monitored water storage assets across Maharashtra |
+| **Major Dams & Reservoirs** | **138** | State-monitored water storage assets across Maharashtra |
 | **Administrative Divisions** | **6** | Pune, Konkan, Nashik, Chhatrapati Sambhajinagar, Amravati, Nagpur |
 | **Administrative Districts** | **30+** | Multi-tier district hierarchy linking reservoirs to revenue authorities |
 | **River Basins** | **5** | Krishna, Godavari, Tapi, Narmada, and West Flowing Rivers |
-| **Historical Records** | **130,154** | Normalized daily time-series observation rows in `dam_daily_logs` |
-| **Continuous Days** | **1,046** | Uninterrupted calendar coverage (**1 January 2024 – 12 November 2026**) |
+| **Historical Records** | **105,420** | Verified daily time-series observation rows in `dam_daily_logs` |
+| **Archive Coverage** | **784 dates** | Official daily bulletin archives (**1 January 2024 – 14 November 2026**) |
 
 ---
 
@@ -66,25 +66,26 @@ The system operates an automated, five-stage continuous ingestion and publishing
             │
             ▼
 ┌─────────────────────────────────┐
-│ 2. Parsing & Data Cleansing     │  pypdf / pdfplumber regex extraction
-│    - Matrix layout alignment    │  Validates bounds, checks storage percentages,
-│    - Zero translation overhead  │  resolves dam aliases & slugs
+│ 2. Column-Aware PDF Parser v2   │  scraper/pdf_parser_v2.py
+│    - Right-edge column slotting │  Hydrological validation layer, eliminates column shifts,
+│    - Zero translation overhead  │  resolves dam aliases & sends anomalies to quarantine
 └─────────────────────────────────┘
             │
             ▼
 ┌─────────────────────────────────┐
-│ 3. 3NF Relational DBMS Engine   │  database/pune_dams.db (SQLite)
-│    - Referential Integrity (FK) │  ACID-compliant transactions
-│    - B-Tree Composite Indexing  │  Idempotent UPSERT (ON CONFLICT DO UPDATE)
-│    - vw_dam_daily_analytics     │  Analytical View for pre-computed metrics
+│ 3. Relational DBMS Engine (v2)  │  database/pune_dams.db (SQLite with STRICT mode)
+│    - Referential Integrity (FK) │  ACID-compliant transactions, WITHOUT ROWID fact logs
+│    - Ingest Runs & Quarantine   │  ingest_runs, ingest_quarantine, report_calendar tables
+│    - vw_dam_daily View          │  Analytical View for dynamically calculated metrics
 └─────────────────────────────────┘
             │
             ▼
 ┌─────────────────────────────────┐
 │ 4. Decoupled Static JSON Feeds  │  database/db_manager.py
-│    - web/data/latest.json       │  Snapshot of all 139 dams (~160 KB)
-│    - web/data/dates.json        │  Chronological index of 1,046 dates
-│    - web/data/history/*.json    │  Individual per-dam time-series shards (~12 KB each)
+│    - web/data/latest.json       │  Snapshot of all 138 dams (~132 KB)
+│    - web/data/dates.json        │  Chronological index of unique reporting dates
+│    - web/data/meta.json         │  Dynamic platform metadata and coverage statistics
+│    - web/data/history/*.json    │  Compact per-dam time-series shards (~5-10 KB each)
 └─────────────────────────────────┘
             │
             ▼

@@ -3,7 +3,7 @@ import pandas as pd
 import json
 import os
 import re
-from datetime import date, timedelta
+from datetime import datetime, date, timedelta
 from pathlib import Path
 
 # Paths relative to repository root
@@ -364,15 +364,16 @@ def export_decoupled_json():
     }
 
     latest_path = WEB_DATA_DIR / "latest.json"
-    latest_snapshot_path = WEB_DATA_DIR / "latest_snapshot.json"
-    
     with open(latest_path, 'w', encoding='utf-8') as f:
         json.dump(snapshot_data, f, indent=2, ensure_ascii=False)
-    with open(latest_snapshot_path, 'w', encoding='utf-8') as f:
-        json.dump(snapshot_data, f, indent=2, ensure_ascii=False)
+
+    # Remove obsolete latest_snapshot.json if exists
+    stale_snapshot = WEB_DATA_DIR / "latest_snapshot.json"
+    if stale_snapshot.exists():
+        stale_snapshot.unlink()
 
     size_kb = latest_path.stat().st_size / 1024
-    print(f"✨ Exported 'web/data/latest.json' & 'latest_snapshot.json' ({size_kb:.1f} KB, {len(latest_dams)} dams).")
+    print(f"✨ Exported 'web/data/latest.json' ({size_kb:.1f} KB, {len(latest_dams)} dams).")
 
     # 2. Export list of available distinct dates
     cursor.execute("SELECT DISTINCT reading_date FROM dam_daily_logs WHERE reading_date >= '2024-01-01' ORDER BY reading_date DESC;")
@@ -383,7 +384,36 @@ def export_decoupled_json():
         json.dump(available_dates, f, indent=2, ensure_ascii=False)
     print(f"✨ Exported 'web/data/dates.json' ({len(available_dates)} unique dates).")
 
-    # 3. Generate per-dam compact history JSON files
+    # 3. Export dynamic project metadata (B08.3)
+    cursor.execute("SELECT COUNT(*) FROM dams;")
+    total_dams = cursor.fetchone()[0]
+    cursor.execute("SELECT COUNT(*) FROM divisions;")
+    total_divs = cursor.fetchone()[0]
+    cursor.execute("SELECT COUNT(*) FROM districts;")
+    total_dists = cursor.fetchone()[0]
+    cursor.execute("SELECT COUNT(*), MIN(reading_date), MAX(reading_date) FROM dam_daily_logs WHERE reading_date >= '2024-01-01';")
+    total_logs, min_d, max_d = cursor.fetchone()
+
+    meta_payload = {
+        'dams': total_dams,
+        'dams_count': total_dams,
+        'divisions': total_divs,
+        'divisions_count': total_divs,
+        'districts': total_dists,
+        'rows': total_logs or 0,
+        'records_count': total_logs or 0,
+        'days_covered': len(available_dates),
+        'days_count': len(available_dates),
+        'first_date': min_d,
+        'last_date': max_d,
+        'generated_at': datetime.now().isoformat()
+    }
+    meta_path = WEB_DATA_DIR / "meta.json"
+    with open(meta_path, 'w', encoding='utf-8') as f:
+        json.dump(meta_payload, f, indent=2, ensure_ascii=False)
+    print(f"✨ Exported 'web/data/meta.json' ({total_dams} dams, {total_logs:,} rows, {len(available_dates)} days).")
+
+    # 4. Generate per-dam compact history JSON files
     cursor.execute("SELECT dam_id, dam_slug FROM dams;")
     all_dams = cursor.fetchall()
 
@@ -405,15 +435,12 @@ def export_decoupled_json():
             history_points.append({
                 'd': hr['reading_date'],
                 'm': hr['live_storage_mcm'],
-                'p': hr['storage_pct'],
-                'date': hr['reading_date'],
-                'mcm': hr['live_storage_mcm'],
-                'pct': hr['storage_pct']
+                'p': hr['storage_pct']
             })
 
         h_path = history_dir / f"{slug}.json"
         with open(h_path, 'w', encoding='utf-8') as f:
-            json.dump(history_points, f, indent=2, ensure_ascii=False)
+            json.dump(history_points, f, separators=(',', ':'), ensure_ascii=False)
         exported_histories += 1
 
     # Clean up orphan history files (B07.3)
@@ -482,10 +509,53 @@ def inspect_db():
     print("=" * 60)
     conn.close()
 
+def generate_report():
+    """Prints recent ingest runs and quarantine counts by reason (B09)."""
+    conn = get_db_connection()
+    c = conn.cursor()
+
+    print("=" * 65)
+    print("📋 RECENT INGEST RUNS (LAST 7)")
+    print("=" * 65)
+    c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='ingest_runs';")
+    if not c.fetchone():
+        print("Table 'ingest_runs' does not exist in this database.")
+    else:
+        c.execute("""
+            SELECT run_id, report_date, source_pdf, rows_parsed, rows_ingested,
+                   rows_quarantined, rows_unmatched, status, finished_at
+            FROM ingest_runs ORDER BY run_id DESC LIMIT 7;
+        """)
+        runs = c.fetchall()
+        for r in runs:
+            print(f"Run #{r['run_id']} | Date: {r['report_date']} | Status: {r['status']} | Ingested: {r['rows_ingested']}/{r['rows_parsed']} | Quarantined: {r['rows_quarantined']} | Finished: {r['finished_at']}")
+
+    print("\n" + "=" * 65)
+    print("⚠️ INGEST QUARANTINE COUNTS BY REASON")
+    print("=" * 65)
+    c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='ingest_quarantine';")
+    if not c.fetchone():
+        print("Table 'ingest_quarantine' does not exist in this database.")
+    else:
+        c.execute("""
+            SELECT reason, COUNT(*) as cnt
+            FROM ingest_quarantine
+            GROUP BY reason
+            ORDER BY cnt DESC;
+        """)
+        reasons = c.fetchall()
+        for row in reasons:
+            print(f"  • {row['reason']:<25}: {row['cnt']} records")
+
+    print("=" * 65)
+    conn.close()
+
 if __name__ == '__main__':
     import sys
     if len(sys.argv) > 1 and sys.argv[1] == '--inspect':
         inspect_db()
+    elif len(sys.argv) > 1 and sys.argv[1] == '--report':
+        generate_report()
     else:
         init_db()
         export_decoupled_json()

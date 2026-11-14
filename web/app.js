@@ -198,9 +198,6 @@ function filterByBreadcrumbDistrict() {
 async function initDashboard() {
   try {
     let resp = await fetch('data/latest.json?v=' + Date.now(), { cache: 'no-store' });
-    if (!resp.ok) {
-      resp = await fetch('data/latest_snapshot.json?v=' + Date.now(), { cache: 'no-store' });
-    }
     if (!resp.ok) throw new Error('Failed to load latest dam metrics');
     latestSnapshot = await resp.json();
     originalLatestSnapshot = JSON.parse(JSON.stringify(latestSnapshot));
@@ -215,6 +212,24 @@ async function initDashboard() {
     if (document.getElementById('totalRecordsBadge')) {
       document.getElementById('totalRecordsBadge').innerText = (latestSnapshot.total_dams || Object.keys(latestSnapshot.dams || {}).length).toLocaleString();
     }
+
+    // Load dynamic platform metadata for About page KPIs (B08)
+    fetch('data/meta.json?v=' + Date.now()).then(r => r.json()).then(meta => {
+      if (meta) {
+        if (document.getElementById('aboutStatsDams') && meta.dams_count) {
+          document.getElementById('aboutStatsDams').innerText = meta.dams_count.toLocaleString();
+        }
+        if (document.getElementById('aboutStatsDivisions') && meta.divisions_count) {
+          document.getElementById('aboutStatsDivisions').innerText = meta.divisions_count.toLocaleString();
+        }
+        if (document.getElementById('aboutStatsRecords') && meta.records_count) {
+          document.getElementById('aboutStatsRecords').innerText = meta.records_count.toLocaleString();
+        }
+        if (document.getElementById('aboutStatsDays') && meta.days_count) {
+          document.getElementById('aboutStatsDays').innerText = meta.days_count.toLocaleString();
+        }
+      }
+    }).catch(() => {});
 
     // Set Date Picker bounds from dates.json
     fetch('data/dates.json?v=' + Date.now()).then(r => r.json()).then(dates => {
